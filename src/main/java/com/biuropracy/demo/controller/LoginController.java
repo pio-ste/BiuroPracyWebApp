@@ -21,7 +21,7 @@ public class LoginController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("login");
+        modelAndView.setViewName("login.html");
         return modelAndView;
     }
 
@@ -30,7 +30,7 @@ public class LoginController {
         ModelAndView modelAndView = new ModelAndView();
         User user = new User();
         modelAndView.addObject("user" , user);
-        modelAndView.setViewName("register");
+        modelAndView.setViewName("register.html");
         return modelAndView;
     }
 
@@ -47,7 +47,7 @@ public class LoginController {
             modelAndView.addObject("succesMessage", "Konto zostało utworzone pomyślnie.");
         }
         modelAndView.addObject("user", new User());
-        modelAndView.setViewName("register");
+        modelAndView.setViewName("register.html");
         return modelAndView;
     }
 
