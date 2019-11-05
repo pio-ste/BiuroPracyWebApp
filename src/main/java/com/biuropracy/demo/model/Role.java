@@ -1,14 +1,19 @@
 package com.biuropracy.demo.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-@Table(name = "Role")
+@Table(name = "role")
 public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "idRole")
+    @Column(name = "id_role")
     private Integer id;
 
     @Column(name = "role",nullable = false, unique = true)

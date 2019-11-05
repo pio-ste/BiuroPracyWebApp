@@ -7,12 +7,12 @@ import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
-@Table(name = "User")
+@Table(name = "user")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "idUser")
+    @Column(name = "id_user")
     private Integer id;
 
     @Column(name = "name",nullable = false)
@@ -36,8 +36,8 @@ public class User {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_role",
-            joinColumns={@JoinColumn(name="idUser")},
-            inverseJoinColumns={@JoinColumn(name="idRole")})
+            joinColumns={@JoinColumn(name="id_user")},
+            inverseJoinColumns={@JoinColumn(name="id_role")})
 
     private Set<Role> roles;
 
