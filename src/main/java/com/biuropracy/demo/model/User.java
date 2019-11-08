@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -38,8 +39,10 @@ public class User {
             name = "user_role",
             joinColumns={@JoinColumn(name="id_user")},
             inverseJoinColumns={@JoinColumn(name="id_role")})
-
     private Set<Role> roles;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<JobOffer> jobOffers;
 
     public Integer getId() {
         return id;
@@ -87,5 +90,13 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public List<JobOffer> getJobOffers() {
+        return jobOffers;
+    }
+
+    public void setJobOffers(List<JobOffer> jobOffers) {
+        this.jobOffers = jobOffers;
     }
 }
