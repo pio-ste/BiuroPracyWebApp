@@ -1,0 +1,25 @@
+.menu-bar {
+    background-color: #99CB00;
+}
+.nav-item:hover {
+    background-color: #7BC423;
+}
+.dropdown-menu {
+    background-color: #99CB00;
+    text-align: center;
+}
+
+.dropdown-item:hover {
+    background-color: #7BC423;
+}
+.nav-link {
+    margin: 2px;
+}
+.navbar-nav {
+    text-align: right;
+}
+.menu-bar .navbar-toggler {
+    padding-right: 0;
+    outline: none;
+    border: none;
+}

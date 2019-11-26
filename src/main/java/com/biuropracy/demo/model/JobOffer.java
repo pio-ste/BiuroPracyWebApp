@@ -12,6 +12,10 @@ public class JobOffer {
     @Column(name = "idjob_offer")
     private Integer id;
 
+    @Column(name = "title", nullable = false)
+    @NotEmpty(message = "Wpisz tytuł ogłoszenia")
+    private String title;
+
     @Column(name = "location", nullable = false)
     @NotEmpty(message = "Wpisz lokalizację")
     private String location;
@@ -52,12 +56,25 @@ public class JobOffer {
     @JoinColumn(name = "id_user")
     private User user;
 
+
+
+    public JobOffer() {
+    }
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getLocation() {
