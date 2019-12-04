@@ -10,33 +10,27 @@
 </head>
 <body>
 <div th:replace="fragments/homeHeader.html :: header"></div>
-
-            <div th:switch="${jobOffers}" class="container">
-                <p class="my-5">
-                    <a href="/all/jobOffers/edit" class="btn btn-success">
-                        <i class="fas fa-user-plus ml-2"> Dodaj ofertę pracy </i></a>
-                </p>
-
+            <div th:switch="${jobOffers}" class="container pt-4">
+                <form action="/all/jobOffers" class="form-inline mb-3">
+                    <input type="text" class="form-control mr-2" name="location" placeholder="Lokalizacja"/>
+                    <input type="text" class="form-control mr-2" name="category" placeholder="Kategoria" />
+                    <input type="text" class="form-control mr-2" name="contractType" placeholder="Rodzaj umowy"/>
+                    <input type="submit" value="Szukaj" class="btn btn-primary"/>
+                </form>
                     <h2 th:case="null">No record found !!</h2>
                     <div th:case="*">
                             <div class="row" th:each="jobOffer : ${jobOffers}">
-                                <div class="col-10">
+                                <div class="col-12">
                                 <b>Tytuł: </b>
                                 <th th:text="${jobOffer.title}"></th> </br>
                                 <b>Lokalizacja: </b>
                                 <th th:text="${jobOffer.location}"></th></br>
                                 <b>Kategoria: </b>
                                 <th th:text="${jobOffer.category}"></th></br>
-                                </div>
-                                <div class="col-2">
-                                <a th:href="@{/all/jobOffers/edit/{id}(id=${jobOffer.id})}"
-                                       class="btn btn-primary">
-                                        <i class="fas fa-user-edit"></i>
-                                    </a>
-                                    <a th:href="@{/all/jobOffers/delete/{id}(id=${jobOffer.id})}"
-                                       class="btn btn-danger ml-3 my-1">
-                                        <i class="fas fa-user-times"></i>
-                                    </a>
+                                    <b>Miesięczne wynagrodzenie: </b>
+                                    <th th:text="${jobOffer.monthlyPay}"></th></br>
+                                    <b>Email do osoby: </b>
+                                    <th th:text="${jobOffer.email}"></th></br>
                                 </div>
                             </div>
                     </div>

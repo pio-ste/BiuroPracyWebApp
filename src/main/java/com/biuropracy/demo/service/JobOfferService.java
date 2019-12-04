@@ -1,6 +1,7 @@
 package com.biuropracy.demo.service;
 
 import com.biuropracy.demo.model.JobOffer;
+import com.biuropracy.demo.model.User;
 import com.biuropracy.demo.repository.JobOfferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,12 +29,13 @@ public class JobOfferService {
         }
     }
 
-    public JobOffer createOrUpdateJOffert(JobOffer jobOffer){
-        if (jobOffer.getId() == null) {
+    public JobOffer createOrUpdateJOffert(JobOffer jobOffer, User user){
+        if (jobOffer.getIdJobOffer() == null) {
+            jobOffer.setUser(user);
             jobOffer = jobOfferRepository.save(jobOffer);
             return jobOffer;
         } else {
-            Optional<JobOffer> offer = jobOfferRepository.findById(jobOffer.getId());
+            Optional<JobOffer> offer = jobOfferRepository.findById(jobOffer.getIdJobOffer());
             if (offer.isPresent()) {
                 JobOffer newJobOffer = offer.get();
                 newJobOffer.setCategory(jobOffer.getCategory());

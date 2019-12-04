@@ -3,6 +3,8 @@ package com.biuropracy.demo.controller;
 import com.biuropracy.demo.model.User;
 import com.biuropracy.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -54,6 +56,9 @@ public class LoginController {
     @RequestMapping(value = "/user/userHome", method = RequestMethod.GET)
     public ModelAndView homeUser() {
         ModelAndView modelAndView =new ModelAndView();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(authentication.getName());
+        modelAndView.addObject("userName", "Welcome" + user.getEmail());
         modelAndView.setViewName("/user/userHome.html");
         return modelAndView;
     }

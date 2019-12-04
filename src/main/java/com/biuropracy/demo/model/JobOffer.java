@@ -8,9 +8,9 @@ import javax.validation.constraints.NotEmpty;
 public class JobOffer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idjob_offer")
-    private Integer id;
+    private Integer idJobOffer;
 
     @Column(name = "title", nullable = false)
     @NotEmpty(message = "Wpisz tytuł ogłoszenia")
@@ -61,12 +61,12 @@ public class JobOffer {
     public JobOffer() {
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getIdJobOffer() {
+        return idJobOffer;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIdJobOffer(Integer idJobOffer) {
+        this.idJobOffer = idJobOffer;
     }
 
     public String getTitle() {
