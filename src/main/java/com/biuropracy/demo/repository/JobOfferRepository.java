@@ -12,12 +12,14 @@ import java.util.List;
 @Repository
 public interface JobOfferRepository extends JpaRepository<JobOffer, Integer> {
 
-    @Query("Select new com.biuropracy.demo.DTO.JobOfferDTO(j.title, j.location, j.category,j.monthlyPay, u.email) from JobOffer j, User u where u.idUser = j.user")
-    public List<JobOfferDTO> getJobOfferDTO();
-
     @Query("Select new com.biuropracy.demo.DTO.JobOfferDTO(j.title, j.location, j.category,j.monthlyPay, u.email) from JobOffer j, User u "
-            + "where u.idUser = j.user and (j.category = :category or :category is null or :category = '')"
+            + "where u.idUser = j.user "
+            + "and (j.title like lower(concat('%', :title,'%') ) or :title is null or :title = '')"
+            + "and (j.category = :category or :category is null or :category = '')"
             + "and (j.location = :location or :location is null or :location = '')"
-            + "and (j.contractType = :contractType or :contractType is null or :contractType = '')")
-    List<JobOfferDTO> getJobOfferFiltered(@Param("category") String category, @Param("location") String location, @Param("contractType") String contractType);
+            + "and (j.contractType = :contractType or :contractType is null or :contractType = '')"
+            + "and (j.workingTime = :workingTime or :workingTime is null or :workingTime = '')"
+            + "and (j.positionLevel = :positionLevel or :positionLevel is null or :positionLevel = '')"
+    )
+    List<JobOfferDTO> getJobOfferFiltered(@Param("title") String title, @Param("category") String category, @Param("location") String location, @Param("contractType") String contractType, @Param("workingTime") String workingTime, @Param("positionLevel") String positionLevel);
 }

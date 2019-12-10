@@ -13,7 +13,7 @@
 
 <div th:switch="${jobOffers}" class="container">
     <p class="my-5">
-        <a href="/user/jobOffers/edit" class="btn btn-success">
+        <a href="/user/jobOffers/createNew" class="btn btn-success">
             <i class="fas fa-user-plus ml-2"> Dodaj ofertę pracy </i></a>
     </p>
 
@@ -29,7 +29,7 @@
                 <th th:text="${jobOffer.category}"></th></br>
             </div>
             <div class="col-2">
-                <a th:href="@{/user/jobOffers/edit/{idJobOffer}(idJobOffer=${jobOffer.idJobOffer})}"
+                <a th:href="@{/user/jobOffers/editOffer/{idJobOffer}(idJobOffer=${jobOffer.idJobOffer})}"
                    class="btn btn-primary">
                     <i class="fas fa-user-edit"></i>
                 </a>

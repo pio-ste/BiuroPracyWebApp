@@ -29,12 +29,7 @@ public class JobOfferService {
         }
     }
 
-    public JobOffer createOrUpdateJOffert(JobOffer jobOffer, User user){
-        if (jobOffer.getIdJobOffer() == null) {
-            jobOffer.setUser(user);
-            jobOffer = jobOfferRepository.save(jobOffer);
-            return jobOffer;
-        } else {
+    public JobOffer updateJobffer(JobOffer jobOffer){
             Optional<JobOffer> offer = jobOfferRepository.findById(jobOffer.getIdJobOffer());
             if (offer.isPresent()) {
                 JobOffer newJobOffer = offer.get();
@@ -56,7 +51,12 @@ public class JobOfferService {
                 jobOffer = jobOfferRepository.save(jobOffer);
                 return jobOffer;
             }
-        }
+    }
+
+    public JobOffer createJobOffer(JobOffer jobOffer, User user) {
+        jobOffer.setUser(user);
+        jobOffer = jobOfferRepository.save(jobOffer);
+        return jobOffer;
     }
 
     public void deleteJobOfferById(Integer id) {

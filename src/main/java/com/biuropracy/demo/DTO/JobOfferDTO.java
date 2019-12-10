@@ -66,9 +66,6 @@ public class JobOfferDTO {
                 '}';
     }
 
-    public String getTitle() {
-        return title;
-    }
 
     public Integer getIdUser() {
         return idUser;
@@ -78,16 +75,20 @@ public class JobOfferDTO {
         this.idUser = idUser;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public Integer getIdJobOffer() {
         return idJobOffer;
     }
 
     public void setIdJobOffer(Integer idJobOffer) {
         this.idJobOffer = idJobOffer;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getLocation() {

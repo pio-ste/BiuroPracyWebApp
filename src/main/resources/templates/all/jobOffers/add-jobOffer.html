@@ -1,0 +1,68 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8" name="viewport" content="width = device-width , initial-scale=1.0"/>
+<link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+<link th:href="@{/webjars/font-awesome/5.11.2/css/all.css}" rel="stylesheet"/>
+<link th:href="@{/static/css/jobOfferCSS.css}" rel="stylesheet"/>
+<link th:href="@{/static/css/homeHeaderCSS.css}" rel="stylesheet"/>
+<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js} " type="text/javascript"></script>
+<script th:src="@{/webjars/popper/1.15.0/umd/popper.min.js} " type="text/javascript"></script>
+<script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js} " type="text/javascript"></script>
+</head>
+<body>
+<div th:replace="fragments/loggedInHeader :: headerLoggedIn"></div>
+
+<div class="container my-5">
+    <div class="text-center">
+        <h3> Dodaj ogłoszenie</h3></div>
+    <form action="#" th:action="@{/user/jobOffers/createJobOfferPost}" th:object="${jobOffer}"
+          method="post">
+        <div class="row">
+            <div class="form-group col-md-12">
+                <input type="text" th:field="*{title}" class="form-control"
+                        placeholder="Nazwa ogłoszenia" />
+            </div>
+            <div class="form-group col-md-12">
+                <input type="text" th:field="*{location}" class="form-control"
+                       placeholder="Miejscowość" />
+            </div>
+            <div class="form-group col-md-12">
+                <input type="text" th:field="*{contact}" class="form-control"
+                        placeholder="Sposób kontaktu" />
+            </div>
+            <div class="form-group col-md-12">
+                <textarea type="text" th:field="*{description}" class="form-control"
+                        placeholder="Opis ogłoszenia" />
+            </div>
+            <div class="form-group col-md-12">
+                <input type="text" th:field="*{category}" class="form-control"
+                        placeholder="Kategoria ogłoszenia" />
+            </div>
+            <div class="form-group col-md-12">
+                <input type="text" th:field="*{companyName}" class="form-control"
+                        placeholder="Nazwa firmy" />
+            </div>
+            <div class="form-group col-md-12">
+                <input type="text" th:field="*{contractType}" class="form-control"
+                        placeholder="Rodzaj umowy" />
+            </div>
+            <div class="form-group col-md-12">
+                <input type="text" th:field="*{workingTime}" class="form-control"
+                        placeholder="Rodzaj umowy" />
+            </div>
+            <div class="form-group col-md-12">
+                <input type="text" th:field="*{monthlyPay}" class="form-control"
+                        placeholder="Zarobki miesięczne" />
+            </div>
+            <div class="form-group col-md-12">
+                <input type="text" th:field="*{positionLevel}" class="form-control"
+                        placeholder="Poziom stanowiska" />
+            </div>
+
+            <div class="col-md-6">
+                <input type="submit" class="btn btn-primary" value=" Dodaj ">
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
