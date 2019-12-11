@@ -1,5 +1,7 @@
 package com.biuropracy.demo.model;
 
+import org.hibernate.validator.constraints.UniqueElements;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -31,7 +33,7 @@ public class User {
 
     @Column(name = "password",nullable = false)
     @NotEmpty(message = "Wpisz hasło")
-    @Size(min=4, message = "Minimum 4 znaki")
+    @Size(min=4, message = "Hasło musi mieć minimum 4 znaki")
     private String password;
 
     @ManyToMany(cascade = CascadeType.ALL)

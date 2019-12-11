@@ -1,6 +1,6 @@
 <div th:fragment="select_option_workingTime" xmlns:th="http://www.thymeleaf.org">
-    <select name="workingTime" class="form-control mt-3 mr-2">
-        <option selected="selected" value="">Wymier pracy</option>
+    <select th:field="*{workingTime}" class="form-control"
+            idJobOffer="working_time">
         <option value="Pelny etat">Pełny etat</option>
         <option value="Czesc etatu">Część etatu</option>
         <option value="Dodatkowa/tymczasowa">Dodatkowa / Tymczasowa</option>

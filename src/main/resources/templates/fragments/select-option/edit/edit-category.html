@@ -1,6 +1,5 @@
 <div th:fragment="select_option_category" xmlns:th="http://www.thymeleaf.org">
-    <select name="category" class="form-control mr-2">
-        <option selected="selected" value="">Kategoria</option>
+    <select th:field="*{category}" class="form-control" idJobOffer="category">
         <optgroup label="Administracja biurowa">
             <option value="Sekretariat / Recepcja">Sekretariat / Recepcja</option>
             <option value="Stanowisko asystenckie">Stanowisko asystenckie</option>

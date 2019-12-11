@@ -1,5 +1,5 @@
 <div th:fragment="select_option_contractType" xmlns:th="http://www.thymeleaf.org">
-    <select name="contractType" class="form-control mr-2">
+    <select th:field="*{contractType}" class="form-control ">
         <option selected="selected" value="">Rodzaj umowy</option>
             <option value="Umowa o prace">Umowa o pracę</option>
             <option value="Umowa o dzielo">Umowa o dzieło</option>

@@ -40,13 +40,13 @@ public class LoginController {
     public ModelAndView registerUser(@Valid User user, BindingResult bindingResult, ModelMap modelMap) {
         ModelAndView modelAndView = new ModelAndView();
         if (bindingResult.hasErrors()) {
-            modelAndView.addObject("succesMessage", "Popraw błędy w formularzu");
+            modelAndView.addObject("successMessage", "Popraw błędy w formularzu");
             modelMap.addAttribute("bindingResult", bindingResult);
         } else if (userService.isUserAlreadyPresent(user)) {
             modelAndView.addObject("succesMessage", "Uzytkownik o podanych danych już istnieje.");
         } else {
             userService.saveUser(user);
-            modelAndView.addObject("succesMessage", "Konto zostało utworzone pomyślnie.");
+            modelAndView.addObject("successMessage", "Konto zostało utworzone pomyślnie.");
         }
         modelAndView.addObject("user", new User());
         modelAndView.setViewName("register.html");

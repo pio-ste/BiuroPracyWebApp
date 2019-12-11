@@ -15,9 +15,9 @@
     <div class="text-center">
         <h3> Dodaj ogłoszenie</h3></div>
     <form action="#" th:action="@{/user/jobOffers/createJobOfferPost}" th:object="${jobOffer}"
-          method="post">
+          method="post" class="form-signin" role="form">
         <div class="row">
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-12 mt-4">
                 <input type="text" th:field="*{title}" class="form-control"
                         placeholder="Nazwa ogłoszenia" />
             </div>
@@ -30,37 +30,42 @@
                         placeholder="Sposób kontaktu" />
             </div>
             <div class="form-group col-md-12">
-                <textarea type="text" th:field="*{description}" class="form-control"
+                <textarea type="text" rows="10" th:field="*{description}" class="form-control"
                         placeholder="Opis ogłoszenia" />
             </div>
             <div class="form-group col-md-12">
-                <input type="text" th:field="*{category}" class="form-control"
-                        placeholder="Kategoria ogłoszenia" />
+                <div th:replace="fragments/select-option/add/add-category.html :: select_option_category"></div>
             </div>
             <div class="form-group col-md-12">
                 <input type="text" th:field="*{companyName}" class="form-control"
                         placeholder="Nazwa firmy" />
             </div>
             <div class="form-group col-md-12">
-                <input type="text" th:field="*{contractType}" class="form-control"
-                        placeholder="Rodzaj umowy" />
+                <div th:replace="fragments/select-option/add/add-contractType.html :: select_option_contractType"></div>
             </div>
             <div class="form-group col-md-12">
-                <input type="text" th:field="*{workingTime}" class="form-control"
-                        placeholder="Rodzaj umowy" />
+                <div th:replace="fragments/select-option/add/add-workingTime.html :: select_option_workingTime"></div>
             </div>
             <div class="form-group col-md-12">
-                <input type="text" th:field="*{monthlyPay}" class="form-control"
+                <input type="number" th:field="*{monthlyPay}" class="form-control"
                         placeholder="Zarobki miesięczne" />
             </div>
             <div class="form-group col-md-12">
-                <input type="text" th:field="*{positionLevel}" class="form-control"
-                        placeholder="Poziom stanowiska" />
+                <div th:replace="fragments/select-option/add/add-positionLevel.html :: select_option_positionLevel"></div>
             </div>
 
             <div class="col-md-6">
-                <input type="submit" class="btn btn-primary" value=" Dodaj ">
+                <input type="submit" class="btn btn-primary mb-4" value=" Dodaj ">
             </div>
+        </div>
+        <span th:utext="${successMessage}"></span>
+        <div class="alert alert-success alert-dismissible col-sm-12"
+             th:if="${(bindingResult != null && bindingResult.getAllErrors() != null)}">
+            <button type="button" class="close" data-dismiss="alert"
+                    aria-hidden="true">×</button>
+            <ul th:each="data : ${bindingResult.getAllErrors()}">
+                <li th:text="${ data.getDefaultMessage()}"></li>
+            </ul>
         </div>
     </form>
 </div>

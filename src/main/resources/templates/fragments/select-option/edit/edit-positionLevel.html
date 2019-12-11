@@ -1,6 +1,6 @@
 <div th:fragment="select_option_positionLevel" xmlns:th="http://www.thymeleaf.org">
-    <select name="positionLevel" class="form-control mt-3 mr-2">
-        <option selected="selected" value="">Poziom stanowiska</option>
+    <select th:field="*{positionLevel}" class="form-control"
+            idJobOffer="position_level">
         <option value="Praktykant/Stazysta">Praktykant/Stażysta</option>
         <option value="Asystent">Asystent</option>
         <option value="Specjalista">Specjalista</option>

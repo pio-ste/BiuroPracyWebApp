@@ -1,5 +1,5 @@
 <div th:fragment="select_option_category" xmlns:th="http://www.thymeleaf.org">
-    <select name="category" class="form-control mr-2">
+    <select th:field= "*{category}" class="form-control ">
         <option selected="selected" value="">Kategoria</option>
         <optgroup label="Administracja biurowa">
             <option value="Sekretariat / Recepcja">Sekretariat / Recepcja</option>

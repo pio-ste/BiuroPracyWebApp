@@ -11,8 +11,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,20 +43,21 @@ public class JobOfferController {
     @RequestMapping(path = "/all/jobOffers/delete/{id}")
     public String deleteJobOfferById(Model model, @PathVariable("id") Integer id) throws RuntimeException {
         jobOfferService.deleteJobOfferById(id);
-        return "redirect:/all/jobOffers";
+        return "redirect:/user/jobOffers";
     }
 
 
     //dla użytkownika
 
-    @RequestMapping(path = "/user/jobOffers", method = RequestMethod.GET)
+    @RequestMapping(path = {"/user/jobOffers"}, method = RequestMethod.GET)
     public String getAllJobOffersUser(Model model) {
         List<JobOffer> List = jobOfferService.getAllJobOffers();
         model.addAttribute("jobOffers", List);
         return "/all/jobOffers/viewJobsLoginUser";
     }
 
-    @GetMapping(path = "/user/jobOffers/editOffer/{id}")
+
+    @GetMapping(path = {"/user/jobOffers/editOffer", "/user/jobOffers/editOffer/{id}"})
     public String editJobOffer(Model model, @PathVariable("id") Optional<Integer> id) {
         JobOffer jobOffer = jobOfferService.getJobOfferById(id.get());
         model.addAttribute("jobOffer", jobOffer);
@@ -60,8 +65,14 @@ public class JobOfferController {
     }
 
     @PostMapping(path = "/user/jobOffers/updateJobOfferPost")
-    public String updateJobOffer(JobOffer jobOffer){
-        jobOfferService.updateJobffer(jobOffer);
+    public String updateJobOffer(@Valid JobOffer jobOffer, BindingResult bindingResult, ModelMap modelMap){
+        ModelAndView modelAndView = new ModelAndView();
+        if (bindingResult.hasErrors()) {
+            modelAndView.addObject("successMessage", "Popraw błędy w formularzu");
+            modelMap.addAttribute("bindingResult", bindingResult);
+        } else {
+            jobOfferService.updateJobffer(jobOffer);
+        }
         return "redirect:/user/jobOffers";
     }
 
@@ -72,9 +83,17 @@ public class JobOfferController {
     }
 
     @PostMapping(path = "/user/jobOffers/createJobOfferPost")
-    public String createJobOffer(JobOffer jobOffer){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        jobOfferService.createJobOffer(jobOffer, userService.findUserByEmail(authentication.getName()));
-        return "redirect:/user/jobOffers";
+    public String createJobOffer(@Valid JobOffer jobOffer, BindingResult bindingResult, ModelMap modelMap){
+        ModelAndView modelAndView = new ModelAndView();
+        if (bindingResult.hasErrors()) {
+            modelAndView.addObject("successMessage", "Popraw błędy w formularzu");
+            modelMap.addAttribute("bindingResult", bindingResult);
+        } else {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            jobOfferService.createJobOffer(jobOffer, userService.findUserByEmail(authentication.getName()));
+            modelAndView.addObject("successMessage", "Ogłoszenie zostało pomyślnie dodane.");
+        }
+        modelAndView.addObject("jobOffer", new JobOffer());
+        return "/all/jobOffers/add-jobOffer";
     }
 }
