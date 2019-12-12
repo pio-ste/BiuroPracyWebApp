@@ -20,13 +20,13 @@
                     <div th:replace="fragments/select-option/search/search-contractType.html :: select_option_contractType"></div>
                     <div th:replace="fragments/select-option/search/search-workingTime.html :: select_option_workingTime"></div>
                     <div th:replace="fragments/select-option/search/search-positionLevel.html :: select_option_positionLevel"></div>
-                    <input type="submit" value="Szukaj" class="btn btn-primary mt-3"/>
+                    <input type="submit" value="Szukaj" class="btn btn-primary mt-3">
                 </form>
                     <h2 th:case="null">No record found !!</h2>
                         <div th:case="*">
                             <div class="row" th:each="jobOffer : ${jobOffers}">
-                                <div class="col-10">
-                                    <b>Tytuł: </b>
+                                <div class="col-9 mt-2">
+                                    <b >Tytuł: </b>
                                     <th th:text="${jobOffer.title}"></th> </br>
                                     <b>Lokalizacja: </b>
                                     <th th:text="${jobOffer.location}"></th></br>
@@ -37,9 +37,9 @@
                                     <b>Email do osoby: </b>
                                     <th th:text="${jobOffer.email}"></th></br>
                                 </div>
-                                <div class="col-2">
+                                <div class="col-3">
                                     <a th:href="@{/all/jobOffers/viewSelectedJobOffer/{idJobOffer}(idJobOffer=${jobOffer.idJobOffer})}"
-                                       class="btn btn-primary"> Zobacz więcej </a>
+                                       class="btn btn-outline-success my-5"> Przejdź do ogłoszenia <i class="fas fa-angle-double-right"></i></a>
                                 </div>
                             </div>
                     </div>
