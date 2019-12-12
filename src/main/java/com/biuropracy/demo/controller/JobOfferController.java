@@ -40,7 +40,7 @@ public class JobOfferController {
         return "/all/jobOffers/viewJobs";
     }
 
-    @RequestMapping(path = "/all/jobOffers/delete/{id}")
+    @RequestMapping(path = "/user/jobOffers/delete/{id}")
     public String deleteJobOfferById(Model model, @PathVariable("id") Integer id) throws RuntimeException {
         jobOfferService.deleteJobOfferById(id);
         return "redirect:/user/jobOffers";
@@ -57,11 +57,18 @@ public class JobOfferController {
     }
 
 
-    @GetMapping(path = {"/user/jobOffers/editOffer", "/user/jobOffers/editOffer/{id}"})
+    @GetMapping(path = {"/all/jobOffers/editOffer", "/all/jobOffers/editOffer/{id}"})
     public String editJobOffer(Model model, @PathVariable("id") Optional<Integer> id) {
         JobOffer jobOffer = jobOfferService.getJobOfferById(id.get());
         model.addAttribute("jobOffer", jobOffer);
         return "/all/jobOffers/edit-jobOffer";
+    }
+
+    @GetMapping(path = {"/all/jobOffers/viewSelectedJobOffer", "/all/jobOffers/viewSelectedJobOffer/{id}"})
+    public String viewSelected(Model model,@PathVariable("id") Optional<Integer> id) {
+        List<JobOfferDTO> JobOfferList = jobOfferRepository.getSelectedJobOffer(id.get());
+        model.addAttribute("jobOffers", JobOfferList);
+        return "/all/jobOffers/selectedJobOffer";
     }
 
     @PostMapping(path = "/user/jobOffers/updateJobOfferPost")

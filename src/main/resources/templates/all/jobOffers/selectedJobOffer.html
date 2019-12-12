@@ -1,0 +1,32 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8" name="viewport" content="width = device-width , initial-scale=1.0"/>
+<head>
+    <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+    <link th:href="@{/webjars/font-awesome/5.11.2/css/all.css}" rel="stylesheet"/>
+    <link th:href="@{/static/css/jobOfferCSS.css}" rel="stylesheet"/>
+    <link th:href="@{/static/css/homeHeaderCSS.css}" rel="stylesheet"/>
+    <script th:src="@{/static/js/selectPicker.js} " type="text/javascript"></script>
+    <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js} " type="text/javascript"></script>
+    <script th:src="@{/webjars/popper/1.15.0/umd/popper.min.js} " type="text/javascript"></script>
+    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js} " type="text/javascript"></script>
+</head>
+<body>
+<div th:replace="fragments/homeHeader.html :: header"></div>
+       <div class="container pt-4">
+        <div class="row" th:each="jobOffer : ${jobOffers}">
+            <div class="col-12">
+                <b>Tytuł: </b>
+                <th th:text="${jobOffer.title}" class="col-md-12 mt-4"></th> </br>
+                <b>Lokalizacja: </b>
+                <th th:text="${jobOffer.location}" class="col-md-12 mt-4"></th></br>
+                <b>Kategoria: </b>
+                <th th:text="${jobOffer.category}" class="col-md-12 mt-4"></th></br>
+                <b>Miesięczne wynagrodzenie: </b>
+                <th th:text="${jobOffer.monthlyPay}" class="col-md-12 mt-4"></th></br>
+                <b>Email do osoby: </b>
+                <th th:text="${jobOffer.email}" class="col-md-12 mt-4"></th></br>
+            </div>
+            </div>
+       </div>
+</body>
+</html>

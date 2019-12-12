@@ -25,7 +25,7 @@
                     <h2 th:case="null">No record found !!</h2>
                         <div th:case="*">
                             <div class="row" th:each="jobOffer : ${jobOffers}">
-                                <div class="col-12">
+                                <div class="col-10">
                                     <b>Tytuł: </b>
                                     <th th:text="${jobOffer.title}"></th> </br>
                                     <b>Lokalizacja: </b>
@@ -36,6 +36,10 @@
                                     <th th:text="${jobOffer.monthlyPay}"></th></br>
                                     <b>Email do osoby: </b>
                                     <th th:text="${jobOffer.email}"></th></br>
+                                </div>
+                                <div class="col-2">
+                                    <a th:href="@{/all/jobOffers/viewSelectedJobOffer/{idJobOffer}(idJobOffer=${jobOffer.idJobOffer})}"
+                                       class="btn btn-primary"> Zobacz więcej </a>
                                 </div>
                             </div>
                     </div>

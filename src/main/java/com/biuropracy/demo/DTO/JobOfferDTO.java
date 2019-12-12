@@ -23,7 +23,8 @@ public class JobOfferDTO {
     public JobOfferDTO() {
     }
 
-    public JobOfferDTO(String title, String location, String category, String monthlyPay, String email) {
+    public JobOfferDTO(Integer idJobOffer, String title, String location, String category, String monthlyPay, String email) {
+        this.idJobOffer = idJobOffer;
         this.title = title;
         this.location = location;
         this.category = category;
@@ -31,8 +32,7 @@ public class JobOfferDTO {
         this.email = email;
     }
 
-    public JobOfferDTO(Integer idUser, Integer idJobOffer, String title, String location, String description, String contact, String category, String companyName, String contractType, String workingTime, String monthlyPay, String positionLevel, String email) {
-        this.idUser = idUser;
+    public JobOfferDTO(Integer idJobOffer, String title, String location, String description, String contact, String category, String companyName, String contractType, String workingTime, String monthlyPay, String positionLevel, String email) {
         this.idJobOffer = idJobOffer;
         this.title = title;
         this.location = location;
