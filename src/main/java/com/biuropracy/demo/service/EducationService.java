@@ -6,6 +6,7 @@ import com.biuropracy.demo.repository.EducationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -13,6 +14,10 @@ public class EducationService {
 
     @Autowired
     EducationRepository educationRepository;
+
+    public List<Education> findEducationByUserId(Integer user) {
+        return educationRepository.findByUserId(user);
+    }
 
     public Education getEducationById(Integer id) {
         Optional<Education> educationOpt = educationRepository.findById(id);
