@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface SkillRepository extends JpaRepository<Skill, Integer> {
 
-    List<Skill> findByUserId(Integer user);
+    List<Skill> findByUserIdUser(Integer user);
 }

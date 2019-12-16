@@ -13,9 +13,5 @@
 
 <body>
 <div th:replace="fragments/loggedInHeader :: headerLoggedIn"></div>
-<p>Hello <span sec:authentication="principal.username"> user</span></p>
-<p sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></p>
-
-<span th:utext="${userName}"></span>
 </body>
 </html>

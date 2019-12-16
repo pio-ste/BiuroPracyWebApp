@@ -16,7 +16,7 @@ public class CourseService {
     CourseRepository courseRepository;
 
     public List<Course> findCourseByUserId(Integer user) {
-        return courseRepository.findByUserId(user);
+        return courseRepository.findCourseByUser_IdUser(user);
     }
 
     public Course getCourseById(Integer id) {

@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface WebLinkRepository extends JpaRepository<WebLink, Integer> {
 
-    List<WebLink> findByUserId(Integer user);
+    List<WebLink> findByUserIdUser(Integer user);
 }

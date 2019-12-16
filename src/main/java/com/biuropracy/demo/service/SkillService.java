@@ -16,7 +16,7 @@ public class SkillService {
     SkillRepository skillRepository;
 
     public List<Skill> findSkillByUserId(Integer user) {
-        return skillRepository.findByUserId(user);
+        return skillRepository.findByUserIdUser(user);
     }
 
     public Skill getSkillById(Integer id) {

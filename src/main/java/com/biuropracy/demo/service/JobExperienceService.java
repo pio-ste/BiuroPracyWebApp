@@ -16,7 +16,7 @@ public class JobExperienceService {
     JobExperienceRepository jobExperienceRepository;
 
     public List<JobExperience> findJobExperienceByUserId(Integer user) {
-        return jobExperienceRepository.findByUserId(user);
+        return jobExperienceRepository.findByUserIdUser(user);
     }
 
     public JobExperience getJobExperienceById(Integer id) {

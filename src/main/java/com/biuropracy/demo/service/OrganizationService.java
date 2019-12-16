@@ -16,7 +16,7 @@ public class OrganizationService {
     OrganizationRepository organizationRepository;
 
     public List<Organization> findOrganizationByUserId(Integer user) {
-        return organizationRepository.findByUserId(user);
+        return organizationRepository.findByUserIdUser(user);
     }
 
     public Organization getOrganizationById(Integer id) {

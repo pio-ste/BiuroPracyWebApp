@@ -16,7 +16,7 @@ public class WebLinkService {
     WebLinkRepository webLinkRepository;
 
     public List<WebLink> findWebLinkByUserId(Integer user) {
-        return webLinkRepository.findByUserId(user);
+        return webLinkRepository.findByUserIdUser(user);
     }
 
     public WebLink getWebLinkById(Integer id) {

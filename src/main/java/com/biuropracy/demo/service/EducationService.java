@@ -16,7 +16,7 @@ public class EducationService {
     EducationRepository educationRepository;
 
     public List<Education> findEducationByUserId(Integer user) {
-        return educationRepository.findByUserId(user);
+        return educationRepository.findByUserIdUser(user);
     }
 
     public Education getEducationById(Integer id) {

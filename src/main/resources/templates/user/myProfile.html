@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width = device-width , initial-scale=1.0"/>
+    <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+    <link th:href="@{/webjars/font-awesome/5.11.2/css/all.css}" rel="stylesheet"/>
+    <link th:href="@{/static/css/mainCSS.css}" rel="stylesheet"/>
+    <link th:href="@{/static/css/homeHeaderCSS.css}" rel="stylesheet"/>
+    <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js} " type="text/javascript"></script>
+    <script th:src="@{/webjars/popper/1.15.0/umd/popper.min.js} " type="text/javascript"></script>
+    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js} " type="text/javascript"></script>
+
+</head>
+<body>
+<div th:replace="fragments/loggedInHeader :: headerLoggedIn"></div>
+<div class="container pt-4">
+    <div th:each="user : ${users}">
+        <b >Imię: </b>
+        <th th:text="${user.name}"></th> </br>
+        <b>Nazwisko: </b>
+        <th th:text="${user.lastName}"></th></br>
+        <b>Email: </b>
+        <th th:text="${user.email}"></th></br>
+    </div>
+    <div th:each="course : ${courses}">
+        <b >Nazwa kursu: </b>
+        <th th:text="${course.courseName}"></th> </br>
+        <b>Organizator: </b>
+        <th th:text="${course.organizer}"></th></br>
+        <b>Miesiac: </b>
+        <th th:text="${course.courseMonth}"></th></br>
+        <b>Rok: </b>
+        <th th:text="${course.courseYear}"></th></br>
+    </div>
+    <div th:each="education : ${educations}">
+        <b >Nazwa szkoly: </b>
+        <th th:text="${education.schoolName}"></th> </br>
+        <b>poziom nauki: </b>
+        <th th:text="${education.educationLevel}"></th></br>
+        <b>Specjalizacja: </b>
+        <th th:text="${education.specialization}"></th></br>
+        <b>od miesiaca: </b>
+        <th th:text="${education.fromMonth}"></th></br>
+    </div>
+    <div th:each="jobExperience : ${jobExps}">
+        <b >Pozycja: </b>
+        <th th:text="${jobExperience.position}"></th> </br>
+        <b>Lokalizacja: </b>
+        <th th:text="${jobExperience.location}"></th></br>
+        <b>Nazwa firmy: </b>
+        <th th:text="${jobExperience.companyName}"></th></br>
+        <b>Opis: </b>
+        <th th:text="${jobExperience.description}"></th></br>
+    </div>
+    <div th:each="language : ${languages}">
+        <b >Język: </b>
+        <th th:text="${language.languageNmae}"></th> </br>
+        <b>Poziom: </b>
+        <th th:text="${language.languageLevel}"></th></br>
+    </div>
+    <div th:each="organization : ${organizations}">
+        <b >Nazwa organizacji: </b>
+        <th th:text="${organization.organizationName}"></th> </br>
+        <b>Lokalizacja: </b>
+        <th th:text="${organization.location}"></th></br>
+        <b>Od roku: </b>
+        <th th:text="${organization.fromYear}"></th></br>
+        <b>Opis: </b>
+        <th th:text="${organization.description}"></th></br>
+    </div>
+    <div th:each="skill : ${skills}">
+        <b >Nazwa organizacji: </b>
+        <th th:text="${skill.skillName}"></th> </br>
+    </div>
+    <div th:each="webLink : ${webLinks}">
+        <b >Link: </b>
+        <th th:text="${webLink.urlAddress}"></th> </br>
+        <b>Rodzaj: </b>
+        <th th:text="${webLink.urlType}"></th></br>
+    </div>
+</div>
+</body>
+</html>

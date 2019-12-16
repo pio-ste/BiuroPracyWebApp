@@ -33,7 +33,7 @@
                     <div class="dropdown-menu dropdown-menu-right dropdown-default"
                          aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" sec:authorize="isAuthenticated()" th:href="@{/logout}">Wyloguj</a>
-                        <a class="dropdown-item" href="#">Ustawienia konta</a>
+                        <a class="dropdown-item" href="/user/myProfile">Ustawienia konta</a>
                         <a class="dropdown-item" href="#">Something else here</a>
                     </div>
                 </li>

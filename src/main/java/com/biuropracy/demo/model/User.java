@@ -54,6 +54,31 @@ public class User {
     @Column(name = "to_find")
     private String toFind;
 
+    public User(@NotEmpty(message = "Wpisz swoje imię") String name, @NotEmpty(message = "Wpisz swoje nazwisko") String lastName, @NotEmpty(message = "Wpisz swój adres email") @Email(message = "Zły adres email") String email, @NotEmpty(message = "Wpisz hasło") @Size(min = 4, message = "Hasło musi mieć minimum 4 znaki") String password, String dateBirth, String homeCity, String workCity, String hobby, String currentPosition, String toFind, Set<Role> roles, List<JobOffer> jobOffers, List<Course> courses, List<Education> educations, List<JobExperience> jobExperiences, List<Language> languages, List<Organization> organizations, List<Skill> skills, List<WebLink> webLinks) {
+        this.name = name;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.dateBirth = dateBirth;
+        this.homeCity = homeCity;
+        this.workCity = workCity;
+        this.hobby = hobby;
+        this.currentPosition = currentPosition;
+        this.toFind = toFind;
+        this.roles = roles;
+        this.jobOffers = jobOffers;
+        this.courses = courses;
+        this.educations = educations;
+        this.jobExperiences = jobExperiences;
+        this.languages = languages;
+        this.organizations = organizations;
+        this.skills = skills;
+        this.webLinks = webLinks;
+    }
+
+    public User() {
+    }
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_role",

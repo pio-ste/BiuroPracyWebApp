@@ -8,5 +8,6 @@ import java.util.List;
 
 @Repository
 public interface JobExperienceRepository extends JpaRepository<JobExperience, Integer> {
-    List<JobExperience> findByUserId(Integer user);
+
+    List<JobExperience> findByUserIdUser(Integer user);
 }

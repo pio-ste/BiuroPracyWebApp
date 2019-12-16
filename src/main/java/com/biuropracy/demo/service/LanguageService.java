@@ -16,7 +16,7 @@ public class LanguageService {
     LanguageRepository languageRepository;
 
     public List<Language> findLanguageByUserId(Integer user) {
-        return languageRepository.findByUserId(user);
+        return languageRepository.findByUserIdUser(user);
     }
 
     public Language getLanguageById(Integer id) {
