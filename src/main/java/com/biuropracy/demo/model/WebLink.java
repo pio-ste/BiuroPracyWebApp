@@ -30,6 +30,16 @@ public class WebLink {
     public WebLink() {
     }
 
+    @Override
+    public String toString() {
+        return "WebLink{" +
+                "idWebLink=" + idWebLink +
+                ", urlAddress='" + urlAddress + '\'' +
+                ", urlType='" + urlType + '\'' +
+                ", user=" + user +
+                '}';
+    }
+
     public Integer getIdWebLink() {
         return idWebLink;
     }

@@ -1,0 +1,114 @@
+<div th:fragment="editDeletCourseFragment" xmlns:th="http://www.thymeleaf.org">
+    <button type="button"
+            class="btn btn-warning" data-toggle="modal" data-target="#courseEdit" th:attrappend="data-target=${course.idCourse}">
+        <i class="far fa-edit"></i>
+    </button>
+
+    <div class="modal fade" id="courseEdit" role="dialog" th:attrappend="id=${course.idCourse}">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                </div>
+                <div class="modal-body">
+
+                    <legend>Edytuj</legend>
+
+                    <form class="form-horizontal" action="#" th:action="@{/user/userProfile/editCourse}"
+                          method="post">
+                        <fieldset>
+
+                            <div class="form-group">
+                                <label class="col-md-6 control-label" for="courseName">Nazwa kursu</label>
+                                <div class="col-md-6">
+
+                                    <input id="idCourse" path="idCourse" name="idCourse" type="hidden"
+                                           placeholder="idCourse" class="form-control input-md"
+                                           th:value="${course.idCourse}"/>
+
+                                    <input id="courseName" path="courseName" name="courseName" type="text"
+                                           placeholder="Nazwa kursu" class="form-control input-md"
+                                           th:value="${course.courseName}"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-6 control-label" for="organizer">Organizator</label>
+                                <div class="col-md-6">
+                                    <input id="organizer" path="organizer" name="organizer"
+                                           type="text" placeholder="Organizator"
+                                           class="form-control input-md" th:value="${course.organizer}"
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-6 control-label" for="courseMonth">Miesiąc odbycia kursu</label>
+                                <div class="col-md-6">
+                                    <input id="courseMonth" path="courseMonth" name="courseMonth"
+                                           type="text" placeholder="Miesiąc odbycia kursu"
+                                           class="form-control input-md" th:value="${course.courseMonth}"
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-6 control-label" for="courseYear">Rok odbycia kursu</label>
+                                <div class="col-md-6">
+                                    <input id="courseYear" path="courseYear" name="courseYear"
+                                           type="text" placeholder="Rok odbycia kursu"
+                                           class="form-control input-md" th:value="${course.courseYear}"
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="register"></label>
+                                <div class="col-md-4">
+                                    <button id="register" name="register" class="btn btn-primary">
+                                        Zapisz
+                                    </button>
+                                </div>
+                            </div>
+
+                        </fieldset>
+                    </form>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#courseDelet" th:attrappend="data-target=${course.idCourse}">
+        <i class="far fa-trash-alt"></i>
+    </button>
+    <div class="modal fade" id="courseDelet" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" th:attrappend="id=${course.idCourse}">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Usuń</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body bg-danger">
+                    Czy chcesz usunąć kurs?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Anuluj</button>
+                    <a type="button" class="btn btn-danger" th:href="@{/user/userProfile/deleteCourse(id=${course.idCourse})}">Usuń</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

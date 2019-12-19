@@ -8,7 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -58,4 +58,88 @@ public class UserProfileController {
         return "/user/myProfile";
     }
 
+
+    @GetMapping(path = "/user/userProfile/deleteWebLink")
+    public String deleteWebLink(@RequestParam("id") Integer id){
+        webLinkService.deleteWebLinkById(id);
+        return "redirect:/user/myProfile";
+    }
+
+    @GetMapping(path = "/user/userProfile/deleteCourse")
+    public String deleteCourse(@RequestParam("id") Integer id){
+        courseService.deleteCourseById(id);
+        return "redirect:/user/myProfile";
+    }
+
+    @GetMapping(path = "/user/userProfile/deleteEducation")
+    public String deleteEducation(@RequestParam("id") Integer id){
+        educationService.deleteEducation(id);
+        return "redirect:/user/myProfile";
+    }
+
+    @GetMapping(path = "/user/userProfile/deleteJobExperience")
+    public String deleteJobExperience(@RequestParam("id") Integer id){
+        jobExperienceService.deleteJobExperienceById(id);
+        return "redirect:/user/myProfile";
+    }
+
+    @GetMapping(path = "/user/userProfile/deleteLanguage")
+    public String deleteLanguage(@RequestParam("id") Integer id){
+        languageService.deleteLanguageById(id);
+        return "redirect:/user/myProfile";
+    }
+
+    @GetMapping(path = "/user/userProfile/deleteOrganization")
+    public String deleteOrganization(@RequestParam("id") Integer id){
+        organizationService.deleteOrganizationById(id);
+        return "redirect:/user/myProfile";
+    }
+
+    @GetMapping(path = "/user/userProfile/deleteSkill")
+    public String deleteSkill(@RequestParam("id") Integer id){
+        skillService.deleteSkillById(id);
+        return "redirect:/user/myProfile";
+    }
+
+    @PostMapping(path = "/user/userProfile/editWebLink")
+    public String editProfile(WebLink webLink) {
+        webLinkService.updateWebLink(webLink);
+        return "redirect:/user/myProfile";
+    }
+
+    @PostMapping(path = "/user/userProfile/editCourse")
+    public String editCourse(Course course) {
+        courseService.updateCourse(course);
+        return "redirect:/user/myProfile";
+    }
+
+    @PostMapping(path = "/user/userProfile/editEducation")
+    public String editEducation(Education education) {
+        educationService.updateEducation(education);
+        return "redirect:/user/myProfile";
+    }
+
+    @PostMapping(path = "/user/userProfile/editJobExperience")
+    public String editJobExperience(JobExperience jobExperience) {
+        jobExperienceService.updateJobExperience(jobExperience);
+        return "redirect:/user/myProfile";
+    }
+
+    @PostMapping(path = "/user/userProfile/editLanguage")
+    public String editLanguage(Language language) {
+        languageService.updateLanguage(language);
+        return "redirect:/user/myProfile";
+    }
+
+    @PostMapping(path = "/user/userProfile/editOrganization")
+    public String editOrganization(Organization organization) {
+        organizationService.updateOrganization(organization);
+        return "redirect:/user/myProfile";
+    }
+
+    @PostMapping(path = "/user/userProfile/editSkill")
+    public String editSkill(Skill skill) {
+        skillService.updateSkill(skill);
+        return "redirect:/user/myProfile";
+    }
 }

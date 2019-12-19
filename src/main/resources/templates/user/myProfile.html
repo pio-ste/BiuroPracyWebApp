@@ -6,80 +6,192 @@
     <meta charset="UTF-8" name="viewport" content="width = device-width , initial-scale=1.0"/>
     <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
     <link th:href="@{/webjars/font-awesome/5.11.2/css/all.css}" rel="stylesheet"/>
-    <link th:href="@{/static/css/mainCSS.css}" rel="stylesheet"/>
     <link th:href="@{/static/css/homeHeaderCSS.css}" rel="stylesheet"/>
+    <link th:href="@{/static/css/profileCSS.css}" rel="stylesheet"/>
     <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js} " type="text/javascript"></script>
-    <script th:src="@{/webjars/popper/1.15.0/umd/popper.min.js} " type="text/javascript"></script>
+    <script th:src="@{/webjars/popper/1.16.0/umd/popper.min.js} " type="text/javascript"></script>
     <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js} " type="text/javascript"></script>
+    <script src="../static/js/modalWindow.js" th:src="@{/static/js/modalWindow.js} " type="text/javascript"></script>
 
 </head>
 <body>
 <div th:replace="fragments/loggedInHeader :: headerLoggedIn"></div>
 <div class="container pt-4">
-    <div th:each="user : ${users}">
-        <b >Imię: </b>
-        <th th:text="${user.name}"></th> </br>
-        <b>Nazwisko: </b>
-        <th th:text="${user.lastName}"></th></br>
-        <b>Email: </b>
-        <th th:text="${user.email}"></th></br>
+    <div class="row">
+        <div class="col-md-12 text-white bg-secondary">
+            <div th:each="user : ${users}">
+                <b >Imię: </b>
+                <th th:text="${user.name}"></th> </br>
+                <b>Nazwisko: </b>
+                <th th:text="${user.lastName}"></th></br>
+                <b>Email: </b>
+                <th th:text="${user.email}"></th></br>
+            </div>
+        </div>
+
+        <div class="col-md-12 webLinkLoop" th:switch="${webLinks}">
+            <div class="row">
+                <div class="col-md-12" style="background-color: #99CB00">
+                    <p class="font-weight-bold mt-2"> <i class="fas fa-globe"></i> Linki do stron
+                        <a href="#" class="btn btn-primary float-right">
+                            <i class="fas fa-plus"></i></a></p>
+                </div>
+            </div>
+            <div class="row border border-white " th:each="webLink : ${webLinks}">
+                <div class="col-10 border-bottom border-secondary">
+                    <i class="far fa-check-circle"></i>
+                    <b><th th:text="${webLink.urlAddress}"> : </th></b>
+                    <th th:text="${webLink.urlType}"></th>
+                </div>
+                <div class="col-2 border-bottom border-secondary">
+                    <div th:replace="fragments/modal/EditDeletWebLink :: editDeletWebLinkFragment"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12" th:switch="${courses}">
+            <div class="row ">
+                <div class="col-md-12" style="background-color: #99CB00">
+                    <p class="font-weight-bold mt-2"> <i class="fas fa-certificate"></i> Kursy, szkolenia, certyfikaty
+                    <a href="/edit" class="btn btn-primary float-right">
+                        <i class="fas fa-plus"></i></a></p>
+                </div>
+            </div>
+                    <div class="row border border-white" th:each="course : ${courses}">
+                         <div class="col-10 border-bottom border-secondary">
+                             <i class="far fa-check-circle"></i>
+                             <b><th th:text="${course.courseName}"></th></b>
+                             <b class="font-weight-bold"> Organizator:</b>
+                             <th th:text="${course.organizer}"></th>
+                             <b class="font-weight-bold"> Czas odbycia kursu:</b>
+                             <th th:text="${course.courseMonth}"></th>
+                             <th th:text="${course.courseYear}"></th> </div>
+                        <div class="col-2 border-bottom border-secondary">
+                            <div th:replace="fragments/modal/EditDeletCourse :: editDeletCourseFragment"></div>
+                        </div>
+                        </div>
+        </div>
+        <div class="col-md-12" th:switch="${educations}">
+            <div class="row ">
+                <div class="col-md-12" style="background-color: #99CB00">
+                    <p class="font-weight-bold mt-2"> <i class="fas fa-user-graduate"></i> Wykształcenie
+                        <a href="/edit" class="btn btn-primary float-right">
+                            <i class="fas fa-plus"></i></a></p>
+                </div>
+            </div>
+            <div class="row border border-white" th:each="education : ${educations}">
+                <div class="col-10 border-bottom border-secondary">
+                    <i class="far fa-check-circle"></i>
+                    <b><th th:text="${education.schoolName}"></th></b>
+                    <th th:text="${education.specialization}"></th> </br>
+                    <th th:text="${education.educationLevel}"></th> </br>
+                    <b class="font-weight-bold"> Rozpoczęcie:</b>
+                    <th th:text="${education.fromMonth}"></th>
+                    <th th:text="${education.fromYear}"></th>
+                    <b class="font-weight-bold"> Zakończenie:</b>
+                    <th th:text="${education.toMonth}"></th>
+                    <th th:text="${education.toYear}"></th>
+                    <th th:text="${education.continues}"></th>
+                </div>
+                <div class="col-2 border-bottom border-secondary">
+                    <div th:replace="fragments/modal/EditDeletEducation :: editDeletEducationFragment"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12" th:switch="${jobExps}">
+            <div class="row">
+                <div class="col-md-12" style="background-color: #99CB00">
+                    <p class="font-weight-bold mt-2"> <i class="fas fa-briefcase"></i> Doświadczenie zawodowe
+                        <a href="/edit" class="btn btn-primary float-right">
+                            <i class="fas fa-plus"></i></a></p>
+                </div>
+            </div>
+            <div class="row border border-white" th:each="jobExperience : ${jobExps}">
+                <div class="col-10 border-bottom border-secondary">
+                    <i class="far fa-check-circle"></i>
+                    <b><th th:text="${jobExperience.companyName}"></th></b>
+                    <th th:text="${jobExperience.position}"></th> </br>
+                    <th th:text="${jobExperience.location}"></th> </br>
+                    <b class="font-weight-bold"> Rozpoczęcie:</b>
+                    <th th:text="${jobExperience.fromMonth}"></th>
+                    <th th:text="${jobExperience.fromYear}"></th>
+                    <b class="font-weight-bold"> Zakończenie:</b>
+                    <th th:text="${jobExperience.toMonth}"></th>
+                    <th th:text="${jobExperience.toYear}"></th>
+                    <th th:text="${jobExperience.continues}"></th> </br>
+                    <th th:text="${jobExperience.description}">
+                </div>
+                <div class="col-2 border-bottom border-secondary">
+                    <div th:replace="fragments/modal/EditDeletJobExperience :: editDeletJobExperienceFragment"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12" th:switch="${languages}">
+            <div class="row">
+                <div class="col-md-12" style="background-color: #99CB00">
+                    <p class="font-weight-bold mt-3"> <i class="fas fa-language"></i> Języki
+                        <a href="/edit" class="btn btn-primary float-right">
+                            <i class="fas fa-plus"></i></a></p>
+                </div>
+            </div>
+            <div class="row border border-white" th:each="language : ${languages}">
+                <div class="col-10 border-bottom border-secondary">
+                    <i class="far fa-check-circle"></i>
+                    <b><th th:text="${language.languageNmae}"></th></b></br>
+                    <th th:text="${language.languageLevel}"></th>
+                </div>
+                <div class="col-2 border-bottom border-secondary">
+                    <div th:replace="fragments/modal/EditDeletLanguage :: editDeletLanguageFragment"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12" th:switch="${organizations}">
+            <div class="row">
+                <div class="col-md-12" style="background-color: #99CB00">
+                    <p class="font-weight-bold mt-2"> <i class="fas fa-hand-holding-heart"></i> Organizacje, stowarzyszenia
+                        <a href="/edit" class="btn btn-primary float-right">
+                            <i class="fas fa-plus"></i></a></p>
+                </div>
+            </div>
+            <div class="row border border-white" th:each="organization : ${organizations}">
+                <div class="col-10 border-bottom border-secondary">
+                    <i class="far fa-check-circle"></i>
+                    <b><th th:text="${organization.organizationName}"></th></b>
+                    <th th:text="${organization.location}"></th> </br>
+                    <b class="font-weight-bold"> Rozpoczęcie:</b>
+                    <th th:text="${organization.fromMonth}"></th>
+                    <th th:text="${organization.fromYear}"></th>
+                    <b class="font-weight-bold"> Zakończenie:</b>
+                    <th th:text="${organization.toMonth}"></th>
+                    <th th:text="${organization.toYear}"></th>
+                    <th th:text="${organization.continues}"></th> </br>
+                    <th th:text="${organization.description}">
+                </div>
+                <div class="col-2 border-bottom border-secondary">
+                    <div th:replace="fragments/modal/EditDeletOrganization :: editDeletOrganizationFragment"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12" th:switch="${skills}">
+            <div class="row">
+                <div class="col-md-12" style="background-color: #99CB00">
+                    <p class="font-weight-bold mt-2"> <i class="fas fa-tools"></i> Umiejętności
+                        <a href="/edit" class="btn btn-primary float-right">
+                            <i class="fas fa-plus"></i></a></p>
+                </div>
+            </div>
+            <div class="row border border-white" th:each="skill : ${skills}">
+                <div class="col-10 border-bottom border-secondary">
+                    <i class="far fa-check-circle"></i>
+                    <th th:text="${skill.skillName}"></th>
+                </div>
+                <div class="col-2 border-bottom border-secondary">
+                    <div th:replace="fragments/modal/EditDeletSkill :: editDeletSkillFragment"></div>
+                </div>
+            </div>
+        </div>
+
     </div>
-    <div th:each="course : ${courses}">
-        <b >Nazwa kursu: </b>
-        <th th:text="${course.courseName}"></th> </br>
-        <b>Organizator: </b>
-        <th th:text="${course.organizer}"></th></br>
-        <b>Miesiac: </b>
-        <th th:text="${course.courseMonth}"></th></br>
-        <b>Rok: </b>
-        <th th:text="${course.courseYear}"></th></br>
-    </div>
-    <div th:each="education : ${educations}">
-        <b >Nazwa szkoly: </b>
-        <th th:text="${education.schoolName}"></th> </br>
-        <b>poziom nauki: </b>
-        <th th:text="${education.educationLevel}"></th></br>
-        <b>Specjalizacja: </b>
-        <th th:text="${education.specialization}"></th></br>
-        <b>od miesiaca: </b>
-        <th th:text="${education.fromMonth}"></th></br>
-    </div>
-    <div th:each="jobExperience : ${jobExps}">
-        <b >Pozycja: </b>
-        <th th:text="${jobExperience.position}"></th> </br>
-        <b>Lokalizacja: </b>
-        <th th:text="${jobExperience.location}"></th></br>
-        <b>Nazwa firmy: </b>
-        <th th:text="${jobExperience.companyName}"></th></br>
-        <b>Opis: </b>
-        <th th:text="${jobExperience.description}"></th></br>
-    </div>
-    <div th:each="language : ${languages}">
-        <b >Język: </b>
-        <th th:text="${language.languageNmae}"></th> </br>
-        <b>Poziom: </b>
-        <th th:text="${language.languageLevel}"></th></br>
-    </div>
-    <div th:each="organization : ${organizations}">
-        <b >Nazwa organizacji: </b>
-        <th th:text="${organization.organizationName}"></th> </br>
-        <b>Lokalizacja: </b>
-        <th th:text="${organization.location}"></th></br>
-        <b>Od roku: </b>
-        <th th:text="${organization.fromYear}"></th></br>
-        <b>Opis: </b>
-        <th th:text="${organization.description}"></th></br>
-    </div>
-    <div th:each="skill : ${skills}">
-        <b >Nazwa organizacji: </b>
-        <th th:text="${skill.skillName}"></th> </br>
-    </div>
-    <div th:each="webLink : ${webLinks}">
-        <b >Link: </b>
-        <th th:text="${webLink.urlAddress}"></th> </br>
-        <b>Rodzaj: </b>
-        <th th:text="${webLink.urlType}"></th></br>
-    </div>
+
 </div>
 </body>
 </html>

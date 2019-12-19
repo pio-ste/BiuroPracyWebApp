@@ -112,7 +112,7 @@
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-core:5.1.6.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.webjars:bootstrap:4.3.1" level="project" />
     <orderEntry type="library" name="Maven: org.webjars:jquery:3.4.1" level="project" />
-    <orderEntry type="library" name="Maven: org.webjars:popper.js:1.15.0" level="project" />
+    <orderEntry type="library" name="Maven: org.webjars:popper.js:1.16.0" level="project" />
     <orderEntry type="library" name="Maven: org.webjars:font-awesome:5.11.2" level="project" />
     <orderEntry type="library" name="Maven: org.webjars:webjars-locator:0.37" level="project" />
     <orderEntry type="library" name="Maven: org.webjars:webjars-locator-core:0.35" level="project" />
