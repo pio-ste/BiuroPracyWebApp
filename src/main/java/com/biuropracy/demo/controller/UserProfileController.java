@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -58,6 +59,61 @@ public class UserProfileController {
         return "/user/myProfile";
     }
 
+    @PostMapping(path = "/user/userProfile/addWebLink")
+    public String addWebLink(ModelAndView modelAndView, WebLink webLink){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        webLinkService.createWebLink(webLink, userService.findUserByEmail(authentication.getName()));
+        modelAndView.addObject("webLink", new WebLink());
+        return "redirect:/user/myProfile";
+    }
+
+    @PostMapping(path = "/user/userProfile/addCourse")
+    public String addCourse(ModelAndView modelAndView, Course course){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        courseService.createCourse(course, userService.findUserByEmail(authentication.getName()));
+        modelAndView.addObject("course", new Course());
+        return "redirect:/user/myProfile";
+    }
+
+    @PostMapping(path = "/user/userProfile/addEducation")
+    public String addEducation(ModelAndView modelAndView, Education education){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        educationService.createEducation(education, userService.findUserByEmail(authentication.getName()));
+        modelAndView.addObject("education", new Education());
+        return "redirect:/user/myProfile";
+    }
+
+    @PostMapping(path = "/user/userProfile/addJobExperience")
+    public String addJobExperience(ModelAndView modelAndView, JobExperience jobExperience){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        jobExperienceService.createJobExperience(jobExperience, userService.findUserByEmail(authentication.getName()));
+        modelAndView.addObject("jobExperience", new JobExperience());
+        return "redirect:/user/myProfile";
+    }
+
+    @PostMapping(path = "/user/userProfile/addLanguage")
+    public String addLanguage(ModelAndView modelAndView, Language language){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        languageService.createLanguage(language, userService.findUserByEmail(authentication.getName()));
+        modelAndView.addObject("language", new Language());
+        return "redirect:/user/myProfile";
+    }
+
+    @PostMapping(path = "/user/userProfile/addOrganization")
+    public String addOrganization(ModelAndView modelAndView, Organization organization){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        organizationService.createOrganization(organization, userService.findUserByEmail(authentication.getName()));
+        modelAndView.addObject("organization", new Organization());
+        return "redirect:/user/myProfile";
+    }
+
+    @PostMapping(path = "/user/userProfile/addSkill")
+    public String addSkill(ModelAndView modelAndView, Skill skill){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        skillService.createSkill(skill, userService.findUserByEmail(authentication.getName()));
+        modelAndView.addObject("skill", new Skill());
+        return "redirect:/user/myProfile";
+    }
 
     @GetMapping(path = "/user/userProfile/deleteWebLink")
     public String deleteWebLink(@RequestParam("id") Integer id){
