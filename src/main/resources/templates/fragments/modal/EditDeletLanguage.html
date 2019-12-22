@@ -16,7 +16,8 @@
 
                     <legend>Edytuj</legend>
 
-                    <form class="form-horizontal" action="#" th:action="@{/user/userProfile/editLanguage}"
+                    <form class="form-horizontal" action="#"
+                          th:action="@{/user/userProfile/editLanguage}"
                           method="post">
                         <fieldset>
 
@@ -35,12 +36,16 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="col-md-6 control-label" for="languageLevel">Poziom</label>
+                                <label class="col-md-6 control-label">Poziom</label>
                                 <div class="col-md-6">
-                                    <input id="languageLevel" path="languageLevel" name="languageLevel"
-                                           type="text" placeholder="Kierunek"
-                                           class="form-control input-md" th:value="${language.languageLevel}"
-                                    />
+                                    <select th:field="*{language.languageLevel}" class="form-control">
+                                        <option value="" class="font-weight-bold">Poziom </option>
+                                        <option value="Podstawowy">Podstawowy</option>
+                                        <option value="Średni">Średni</option>
+                                        <option value="Średnio zaawansowany">Średnio zaawansowany</option>
+                                        <option value="Zaawansowany">Zaawansowany</option>
+                                        <option value="Ojczysty">Ojczysty</option>
+                                    </select>
                                 </div>
                             </div>
 

@@ -1,10 +1,6 @@
-<div th:fragment="editDeletCourseFragment" xmlns:th="http://www.thymeleaf.org">
-    <button type="button"
-            class="btn btn-warning" data-toggle="modal" data-target="#courseEdit" th:attrappend="data-target=${course.idCourse}">
-        <i class="far fa-edit"></i>
-    </button>
+<div th:fragment="addCourseFragment" xmlns:th="http://www.thymeleaf.org">
 
-    <div class="modal fade" id="courseEdit" role="dialog" th:attrappend="id=${course.idCourse}">
+    <div class="modal fade" id="courseAdd" role="dialog">
         <div class="modal-dialog">
 
             <div class="modal-content">
@@ -14,24 +10,19 @@
                 </div>
                 <div class="modal-body">
 
-                    <legend>Edytuj</legend>
+                    <legend>Dodaj</legend>
 
-                    <form class="form-horizontal" action="#"
-                          th:action="@{/user/userProfile/editCourse}"
-                          method="post">
+                    <form class="form-horizontal" action="#" th:action="@{/user/userProfile/addCourse}"
+                          th:object="${course}" method="post">
                         <fieldset>
 
                             <div class="form-group">
                                 <label class="col-md-6 control-label" for="courseName">Nazwa kursu</label>
                                 <div class="col-md-6">
 
-                                    <input id="idCourse" path="idCourse" name="idCourse" type="hidden"
-                                           placeholder="idCourse" class="form-control input-md"
-                                           th:value="${course.idCourse}"/>
-
                                     <input id="courseName" path="courseName" name="courseName" type="text"
                                            placeholder="Nazwa kursu" class="form-control input-md"
-                                           th:value="${course.courseName}"/>
+                                           th:value="${courseName}"/>
                                 </div>
                             </div>
 
@@ -40,7 +31,7 @@
                                 <div class="col-md-6">
                                     <input id="organizer" path="organizer" name="organizer"
                                            type="text" placeholder="Organizator"
-                                           class="form-control input-md" th:value="${course.organizer}"
+                                           class="form-control input-md" th:value="${organizer}"
                                     />
                                 </div>
                             </div>
@@ -48,8 +39,8 @@
                             <div class="form-group">
                                 <label class="col-md-6 control-label" >Miesiąc odbycia kursu</label>
                                 <div class="col-md-6">
-                                    <select th:field="*{course.courseMonth}" class="form-control">
-                                        <option value="" class="font-weight-bold">Miesiąc</option>
+                                    <select th:field="*{courseMonth}" class="form-control">
+                                        <option selected="selected" value="" class="font-weight-bold">Miesiąc</option>
                                         <option value="Styczeń">Styczeń</option>
                                         <option value="Luty">Luty</option>
                                         <option value="Marzec">Marzec</option>
@@ -71,7 +62,7 @@
                                 <div class="col-md-6">
                                     <input id="courseYear" path="courseYear" name="courseYear"
                                            type="number" placeholder="Rok odbycia kursu"
-                                           class="form-control input-md" th:value="${course.courseYear}"
+                                           class="form-control input-md" th:value="${courseYear}"
                                     />
                                 </div>
                             </div>
@@ -80,47 +71,18 @@
                                 <label class="col-md-4 control-label" for="register"></label>
                                 <div class="col-md-4">
                                     <button id="register" name="register" class="btn btn-primary">
-                                        Zapisz
+                                        Dodaj
                                     </button>
                                 </div>
                             </div>
-
                         </fieldset>
                     </form>
-
                 </div>
-
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>
                 </div>
-
-
             </div>
 
-        </div>
-    </div>
-
-
-    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#courseDelet" th:attrappend="data-target=${course.idCourse}">
-        <i class="far fa-trash-alt"></i>
-    </button>
-    <div class="modal fade" id="courseDelet" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" th:attrappend="id=${course.idCourse}">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Usuń</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body bg-danger">
-                    Czy chcesz usunąć kurs?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal">Anuluj</button>
-                    <a type="button" class="btn btn-danger" th:href="@{/user/userProfile/deleteCourse(id=${course.idCourse})}">Usuń</a>
-                </div>
-            </div>
         </div>
     </div>
 </div>

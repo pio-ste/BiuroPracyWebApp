@@ -1,10 +1,6 @@
-<div th:fragment="editDeletOrganizationFragment" xmlns:th="http://www.thymeleaf.org">
-    <button type="button"
-            class="btn btn-warning" data-toggle="modal" data-target="#organizationEdit" th:attrappend="data-target=${organization.idOrganization}">
-        <i class="far fa-edit"></i>
-    </button>
+<div th:fragment="addEducationFragment" xmlns:th="http://www.thymeleaf.org">
 
-    <div class="modal fade" id="organizationEdit" role="dialog" th:attrappend="id=${organization.idOrganization}">
+    <div class="modal fade" id="educationAdd" role="dialog">
         <div class="modal-dialog">
 
             <div class="modal-content">
@@ -14,42 +10,60 @@
                 </div>
                 <div class="modal-body">
 
-                    <legend>Edytuj</legend>
+                    <legend>Dodaj</legend>
 
                     <form class="form-horizontal" action="#"
-                          th:action="@{/user/userProfile/editOrganization}"
+                          th:action="@{/user/userProfile/addEducation}"
+                          th:object="${education}"
                           method="post">
                         <fieldset>
 
                             <div class="form-group">
-                                <label class="col-md-6 control-label" for="organizationName">Nazwa organizacji</label>
+                                <label class="col-md-6 control-label" for="schoolName">Nazwa szkoły/uczelni</label>
                                 <div class="col-md-6">
 
-                                    <input id="idOrganization" path="idOrganization" name="idOrganization" type="hidden"
-                                           placeholder="idOrganization" class="form-control input-md"
-                                           th:value="${organization.idOrganization}"/>
-
-                                    <input id="organizationName" path="organizationName" name="organizationName" type="text"
-                                           placeholder="Nazwa organizacji" class="form-control input-md"
-                                           th:value="${organization.organizationName}"/>
+                                    <input id="schoolName" path="schoolName" name="schoolName" type="text"
+                                           placeholder="Nazwa szkoły/uczelni" class="form-control input-md"
+                                           th:value="${schoolName}"/>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-md-6 control-label" for="location">Lokalizacja</label>
+                                <label class="col-md-6 control-label" for="specialization">Kierunek</label>
                                 <div class="col-md-6">
-                                    <input id="location" path="location" name="location"
-                                           type="text" placeholder="Lokalizacja"
-                                           class="form-control input-md" th:value="${organization.location}"
+                                    <input id="specialization" path="specialization" name="specialization"
+                                           type="text" placeholder="Kierunek"
+                                           class="form-control input-md" th:value="${specialization}"
                                     />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-6 control-label" >Poziom wykształcenia</label>
+                                <div class="col-md-6">
+                                    <select th:field="*{educationLevel}" class="form-control">
+                                        <option selected="selected" value="" class="font-weight-bold">Poziom wykształcenia</option>
+                                        <option value="Podstawowe">Podstawowe</option>
+                                        <option value="Zawodowe">Zawodowe</option>
+                                        <option value="Średnie">Średnie</option>
+                                        <option value="Licencjat">Licencjat</option>
+                                        <option value="Inżynier">Inżynier</option>
+                                        <option value="Magister">Magister</option>
+                                        <option value="Magister inżynier">Magister inżynier</option>
+                                        <option value="Lekarz medycyny">Lekarz medycyny</option>
+                                        <option value="Studia podyplomowe">Studia podyplomowe</option>
+                                        <option value="Doktorat">Doktorat</option>
+                                        <option value="Doktor hab.">Doktor hab.</option>
+                                        <option value="Profesor">Profesor</option>
+                                    </select>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-md-6 control-label">Miesiąc rozpoczęcia</label>
                                 <div class="col-md-6">
-                                    <select th:field="*{organization.fromMonth}" class="form-control">
-                                        <option value="" class="font-weight-bold">Miesiąc</option>
+                                    <select th:field="*{fromMonth}" class="form-control">
+                                        <option selected="selected" value="" class="font-weight-bold">Miesiąc</option>
                                         <option value="Styczeń">Styczeń</option>
                                         <option value="Luty">Luty</option>
                                         <option value="Marzec">Marzec</option>
@@ -71,16 +85,16 @@
                                 <div class="col-md-6">
                                     <input id="fromYear" path="fromYear" name="fromYear"
                                            type="number" placeholder="Rok rozpoczęcia"
-                                           class="form-control input-md" th:value="${organization.fromYear}"
+                                           class="form-control input-md" th:value="${fromYear}"
                                     />
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-md-6 control-label" >Miesiąc zakończeniau</label>
+                                <label class="col-md-6 control-label">Miesiąc zakończeniau</label>
                                 <div class="col-md-6">
-                                    <select th:field="*{organization.toMonth}" class="form-control">
-                                        <option value="" class="font-weight-bold">Miesiąc</option>
+                                    <select th:field="*{toMonth}" class="form-control">
+                                        <option selected="selected" value="" class="font-weight-bold">Miesiąc</option>
                                         <option value="Styczeń">Styczeń</option>
                                         <option value="Luty">Luty</option>
                                         <option value="Marzec">Marzec</option>
@@ -102,7 +116,7 @@
                                 <div class="col-md-6">
                                     <input id="toYear" path="toYear" name="toYear"
                                            type="number" placeholder="Rok zakończenia"
-                                           class="form-control input-md" th:value="${organization.toYear}"
+                                           class="form-control input-md" th:value="${toYear}"
                                     />
                                 </div>
                             </div>
@@ -110,20 +124,10 @@
                             <div class="form-group">
                                 <label class="col-md-6 control-label">Czy kontynuje?</label>
                                 <div class="col-md-6">
-                                    <select th:field="*{organization.continues}" class="form-control">
-                                        <option value="">Nie</option>
+                                    <select th:field="*{continues}" class="form-control">
+                                        <option selected="selected" value="">Nie</option>
                                         <option value="Tak">Tak</option>
                                     </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-md-6 control-label" for="description">Opis</label>
-                                <div class="col-md-6">
-                                    <input id="description" path="description" name="description"
-                                           type="text" placeholder="Opis"
-                                           class="form-control input-md" th:value="${organization.description}"
-                                    />
                                 </div>
                             </div>
 
@@ -131,7 +135,7 @@
                                 <label class="col-md-4 control-label" for="register"></label>
                                 <div class="col-md-4">
                                     <button id="register" name="register" class="btn btn-primary">
-                                        Zapisz
+                                        Dodaj
                                     </button>
                                 </div>
                             </div>
@@ -148,30 +152,6 @@
 
             </div>
 
-        </div>
-    </div>
-
-
-    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#organizationDelet" th:attrappend="data-target=${organization.idOrganization}">
-        <i class="far fa-trash-alt"></i>
-    </button>
-    <div class="modal fade" id="organizationDelet" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" th:attrappend="id=${organization.idOrganization}">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Usuń</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body bg-danger">
-                    Czy chcesz usunąć wiersz?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal">Anuluj</button>
-                    <a type="button" class="btn btn-danger" th:href="@{/user/userProfile/deleteOrganization(id=${organization.idOrganization})}">Usuń</a>
-                </div>
-            </div>
         </div>
     </div>
 </div>

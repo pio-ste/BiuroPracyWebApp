@@ -1,5 +1,6 @@
-<div th:fragment="addWebLinkFragment" xmlns:th="http://www.thymeleaf.org">
-    <div class="modal fade" id="webLinkAdd" role="dialog" >
+<div th:fragment="addLanguageFragment" xmlns:th="http://www.thymeleaf.org">
+
+    <div class="modal fade" id="languageAdd" role="dialog">
         <div class="modal-dialog">
 
             <div class="modal-content">
@@ -9,37 +10,37 @@
                 </div>
                 <div class="modal-body">
 
-                    <legend>Edytuj</legend>
+                    <legend>Dodaj</legend>
 
                     <form class="form-horizontal" action="#"
-                          th:action="@{/user/userProfile/addWebLink}"
-                          th:object="${webLink}"
+                          th:action="@{/user/userProfile/addLanguage}"
+                          th:object="${language}"
                           method="post">
                         <fieldset>
+
                             <div class="form-group">
-                                <label class="col-md-6 control-label" for="urlAddress">Adres url</label>
+                                <label class="col-md-6 control-label" for="languageNmae">Język</label>
                                 <div class="col-md-6">
 
-                                    <input id="urlAddress" path="urlAddress" name="urlAddress" type="text"
-                                           placeholder="Adres URL" class="form-control input-md"
-                                           th:value="${urlAddress}"/>
+                                    <input id="languageNmae" path="languageNmae" name="languageNmae" type="text"
+                                           placeholder="Język" class="form-control input-md"
+                                           th:value="${languageNmae}"/>
                                 </div>
                             </div>
+
                             <div class="form-group">
-                                <label class="col-md-6 control-label" >Rodzaj linku</label>
+                                <label class="col-md-6 control-label">Poziom</label>
                                 <div class="col-md-6">
-                                    <select th:field="*{urlType}" class="form-control">
-                                        <option selected="selected" value="" class="font-weight-bold">Rodaj linku</option>
-                                        <option value="Link do profilu społecznościowego">Link do profilu społecznościowego</option>
-                                        <option value="Projekt">Projekt</option>
-                                        <option value="Portfolio">Portfolio</option>
-                                        <option value="Strona osobista">Strona osobista</option>
-                                        <option value="Strona firmowa">Strona firmowa</option>
-                                        <option value="Inne">Inne</option>
+                                    <select th:field="*{languageLevel}" class="form-control">
+                                        <option selected="selected" value="" class="font-weight-bold">Poziom </option>
+                                        <option value="Podstawowy">Podstawowy</option>
+                                        <option value="Średni">Średni</option>
+                                        <option value="Średnio zaawansowany">Średnio zaawansowany</option>
+                                        <option value="Zaawansowany">Zaawansowany</option>
+                                        <option value="Ojczysty">Ojczysty</option>
                                     </select>
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="register"></label>
                                 <div class="col-md-4">

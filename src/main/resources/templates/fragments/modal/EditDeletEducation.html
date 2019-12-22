@@ -45,22 +45,44 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="col-md-6 control-label" for="educationLevel">Poziom wykształcenia</label>
+                                <label class="col-md-6 control-label" >Poziom wykształcenia</label>
                                 <div class="col-md-6">
-                                    <input id="educationLevel" path="educationLevel" name="educationLevel"
-                                           type="text" placeholder="Poziom wykształcenia"
-                                           class="form-control input-md" th:value="${education.educationLevel}"
-                                    />
+                                    <select th:field="*{education.educationLevel}" class="form-control">
+                                        <option value="" class="font-weight-bold">Poziom wykształcenia</option>
+                                        <option value="Podstawowe">Podstawowe</option>
+                                        <option value="Zawodowe">Zawodowe</option>
+                                        <option value="Średnie">Średnie</option>
+                                        <option value="Licencjat">Licencjat</option>
+                                        <option value="Inżynier">Inżynier</option>
+                                        <option value="Magister">Magister</option>
+                                        <option value="Magister inżynier">Magister inżynier</option>
+                                        <option value="Lekarz medycyny">Lekarz medycyny</option>
+                                        <option value="Studia podyplomowe">Studia podyplomowe</option>
+                                        <option value="Doktorat">Doktorat</option>
+                                        <option value="Doktor hab.">Doktor hab.</option>
+                                        <option value="Profesor">Profesor</option>
+                                    </select>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-md-6 control-label" for="fromMonth">Miesiąc rozpoczęcia</label>
+                                <label class="col-md-6 control-label" >Miesiąc rozpoczęcia</label>
                                 <div class="col-md-6">
-                                    <input id="fromMonth" path="fromMonth" name="fromMonth"
-                                           type="text" placeholder="Miesiąc rozpoczęcia"
-                                           class="form-control input-md" th:value="${education.fromMonth}"
-                                    />
+                                    <select th:field="*{education.fromMonth}" class="form-control">
+                                        <option value="" class="font-weight-bold">Miesiąc</option>
+                                        <option value="Styczeń">Styczeń</option>
+                                        <option value="Luty">Luty</option>
+                                        <option value="Marzec">Marzec</option>
+                                        <option value="Kwiecień">Kwiecień</option>
+                                        <option value="Maj">Maj</option>
+                                        <option value="Czerwiec">Czerwiec</option>
+                                        <option value="Lipiec">Lipiec</option>
+                                        <option value="Sierpień">Sierpień</option>
+                                        <option value="Wrzesień">Wrzesień</option>
+                                        <option value="Październik">Październik</option>
+                                        <option value="Listopad">Listopad</option>
+                                        <option value="Grudzień">Grudzień</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -68,19 +90,30 @@
                                 <label class="col-md-6 control-label" for="fromYear">Rok rozpoczęcia</label>
                                 <div class="col-md-6">
                                     <input id="fromYear" path="fromYear" name="fromYear"
-                                           type="text" placeholder="Rok rozpoczęcia"
+                                           type="number" placeholder="Rok rozpoczęcia"
                                            class="form-control input-md" th:value="${education.fromYear}"
                                     />
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-md-6 control-label" for="toMonth">Miesiąc zakończeniau</label>
+                                <label class="col-md-6 control-label">Miesiąc zakończeniau</label>
                                 <div class="col-md-6">
-                                    <input id="toMonth" path="toMonth" name="toMonth"
-                                           type="text" placeholder="Rok odbycia kursu"
-                                           class="form-control input-md" th:value="${education.toMonth}"
-                                    />
+                                    <select th:field="*{education.toMonth}" class="form-control">
+                                        <option value="" class="font-weight-bold">Miesiąc</option>
+                                        <option value="Styczeń">Styczeń</option>
+                                        <option value="Luty">Luty</option>
+                                        <option value="Marzec">Marzec</option>
+                                        <option value="Kwiecień">Kwiecień</option>
+                                        <option value="Maj">Maj</option>
+                                        <option value="Czerwiec">Czerwiec</option>
+                                        <option value="Lipiec">Lipiec</option>
+                                        <option value="Sierpień">Sierpień</option>
+                                        <option value="Wrzesień">Wrzesień</option>
+                                        <option value="Październik">Październik</option>
+                                        <option value="Listopad">Listopad</option>
+                                        <option value="Grudzień">Grudzień</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -88,19 +121,19 @@
                                 <label class="col-md-6 control-label" for="toYear">Rok zakończenia</label>
                                 <div class="col-md-6">
                                     <input id="toYear" path="toYear" name="toYear"
-                                           type="text" placeholder="Rok zakończenia"
+                                           type="number" placeholder="Rok zakończenia"
                                            class="form-control input-md" th:value="${education.toYear}"
                                     />
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-md-6 control-label" for="continues">Czy kontynuje?</label>
+                                <label class="col-md-6 control-label">Czy kontynuje?</label>
                                 <div class="col-md-6">
-                                    <input id="continues" path="continues" name="continues"
-                                           type="text" placeholder="Czy kontynuje?"
-                                           class="form-control input-md" th:value="${education.continues}"
-                                    />
+                                    <select th:field="*{education.continues}" class="form-control">
+                                        <option value="">Nie</option>
+                                        <option value="Tak">Tak</option>
+                                    </select>
                                 </div>
                             </div>
 

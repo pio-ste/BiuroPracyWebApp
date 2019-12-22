@@ -1,0 +1,53 @@
+<div th:fragment="addSkillFragment" xmlns:th="http://www.thymeleaf.org">
+
+    <div class="modal fade" id="skillAdd" role="dialog">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                </div>
+                <div class="modal-body">
+
+                    <legend>Edytuj</legend>
+
+                    <form class="form-horizontal" action="#"
+                          th:action="@{/user/userProfile/addSkill}"
+                          th:object="${skill}"
+                          method="post">
+                        <fieldset>
+
+                            <div class="form-group">
+                                <label class="col-md-6 control-label" for="skillName">Wpisz swoje umiejętności np. Obsługa programów itp.</label>
+                                <div class="col-md-6">
+                                    <input id="skillName" path="skillName" name="skillName" type="text"
+                                           placeholder="Umiejętności" class="form-control input-md"
+                                           th:value="${skillName}"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="register"></label>
+                                <div class="col-md-4">
+                                    <button id="register" name="register" class="btn btn-primary">
+                                        Dodaj
+                                    </button>
+                                </div>
+                            </div>
+
+                        </fieldset>
+                    </form>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -16,7 +16,8 @@
 
                     <legend>Edytuj</legend>
 
-                    <form class="form-horizontal" action="#" th:action="@{/user/userProfile/editJobExperience}"
+                    <form class="form-horizontal" action="#"
+                          th:action="@{/user/userProfile/editJobExperience}"
                           method="post">
                         <fieldset>
 
@@ -55,12 +56,23 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="col-md-6 control-label" for="fromMonth">Miesiąc rozpoczęcia</label>
+                                <label class="col-md-6 control-label">Miesiąc rozpoczęcia</label>
                                 <div class="col-md-6">
-                                    <input id="fromMonth" path="fromMonth" name="fromMonth"
-                                           type="text" placeholder="Miesiąc rozpoczęcia"
-                                           class="form-control input-md" th:value="${jobExperience.fromMonth}"
-                                    />
+                                    <select th:field="*{jobExperience.fromMonth}" class="form-control">
+                                        <option value="" class="font-weight-bold">Miesiąc</option>
+                                        <option value="Styczeń">Styczeń</option>
+                                        <option value="Luty">Luty</option>
+                                        <option value="Marzec">Marzec</option>
+                                        <option value="Kwiecień">Kwiecień</option>
+                                        <option value="Maj">Maj</option>
+                                        <option value="Czerwiec">Czerwiec</option>
+                                        <option value="Lipiec">Lipiec</option>
+                                        <option value="Sierpień">Sierpień</option>
+                                        <option value="Wrzesień">Wrzesień</option>
+                                        <option value="Październik">Październik</option>
+                                        <option value="Listopad">Listopad</option>
+                                        <option value="Grudzień">Grudzień</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -68,19 +80,30 @@
                                 <label class="col-md-6 control-label" for="fromYear">Rok rozpoczęcia</label>
                                 <div class="col-md-6">
                                     <input id="fromYear" path="fromYear" name="fromYear"
-                                           type="text" placeholder="Rok rozpoczęcia"
+                                           type="number" placeholder="Rok rozpoczęcia"
                                            class="form-control input-md" th:value="${jobExperience.fromYear}"
                                     />
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-md-6 control-label" for="toMonth">Miesiąc zakończeniau</label>
+                                <label class="col-md-6 control-label" >Miesiąc zakończeniau</label>
                                 <div class="col-md-6">
-                                    <input id="toMonth" path="toMonth" name="toMonth"
-                                           type="text" placeholder="Rok odbycia kursu"
-                                           class="form-control input-md" th:value="${jobExperience.toMonth}"
-                                    />
+                                    <select th:field="*{jobExperience.toMonth}" class="form-control">
+                                        <option value="" class="font-weight-bold">Miesiąc</option>
+                                        <option value="Styczeń">Styczeń</option>
+                                        <option value="Luty">Luty</option>
+                                        <option value="Marzec">Marzec</option>
+                                        <option value="Kwiecień">Kwiecień</option>
+                                        <option value="Maj">Maj</option>
+                                        <option value="Czerwiec">Czerwiec</option>
+                                        <option value="Lipiec">Lipiec</option>
+                                        <option value="Sierpień">Sierpień</option>
+                                        <option value="Wrzesień">Wrzesień</option>
+                                        <option value="Październik">Październik</option>
+                                        <option value="Listopad">Listopad</option>
+                                        <option value="Grudzień">Grudzień</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -88,19 +111,19 @@
                                 <label class="col-md-6 control-label" for="toYear">Rok zakończenia</label>
                                 <div class="col-md-6">
                                     <input id="toYear" path="toYear" name="toYear"
-                                           type="text" placeholder="Rok zakończenia"
+                                           type="number" placeholder="Rok zakończenia"
                                            class="form-control input-md" th:value="${jobExperience.toYear}"
                                     />
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-md-6 control-label" for="continues">Czy kontynuje?</label>
+                                <label class="col-md-6 control-label" >Czy kontynuje?</label>
                                 <div class="col-md-6">
-                                    <input id="continues" path="continues" name="continues"
-                                           type="text" placeholder="Czy kontynuje?"
-                                           class="form-control input-md" th:value="${jobExperience.continues}"
-                                    />
+                                    <select th:field="*{jobExperience.continues}" class="form-control">
+                                        <option value="">Nie</option>
+                                        <option value="Tak">Tak</option>
+                                    </select>
                                 </div>
                             </div>
 

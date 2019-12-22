@@ -1,6 +1,7 @@
 package com.biuropracy.demo.controller;
 
 import com.biuropracy.demo.model.*;
+import com.biuropracy.demo.repository.WebLinkRepository;
 import com.biuropracy.demo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -33,8 +34,25 @@ public class UserProfileController {
     @Autowired
     WebLinkService webLinkService;
 
+    @Autowired
+    WebLinkRepository webLinkRepository;
+
     @GetMapping(path = "/user/myProfile")
-    public String viewMyProfile(Model model) {
+    public String viewMyProfile(Model model, ModelAndView modelAndView) {
+        model.addAttribute("webLink", new WebLink());
+        model.addAttribute("course", new Course());
+        model.addAttribute("education", new Education());
+        model.addAttribute("jobExperience", new JobExperience());
+        model.addAttribute("language", new Language());
+        model.addAttribute("organization", new Organization());
+        model.addAttribute("skill", new Skill());
+        modelAndView.addObject("webLink", new WebLink());
+        modelAndView.addObject("course", new Course());
+        modelAndView.addObject("education", new Education());
+        modelAndView.addObject("jobExperience", new JobExperience());
+        modelAndView.addObject("language", new Language());
+        modelAndView.addObject("organization", new Organization());
+        modelAndView.addObject("skill", new Skill());
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String name = authentication.getName();
         UserDetails userDetails = (UserDetails)authentication.getPrincipal();

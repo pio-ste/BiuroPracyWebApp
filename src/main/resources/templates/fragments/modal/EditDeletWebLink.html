@@ -1,8 +1,8 @@
 <div th:fragment="editDeletWebLinkFragment" xmlns:th="http://www.thymeleaf.org">
-    <button type="button"
+    <a type="button"
             class="btn btn-warning" data-toggle="modal" data-target="#webLinkEdit" th:attrappend="data-target=${webLink.idWebLink}">
         <i class="far fa-edit"></i>
-    </button>
+    </a>
 
     <div class="modal fade" id="webLinkEdit" role="dialog" th:attrappend="id=${webLink.idWebLink}">
         <div class="modal-dialog">
@@ -16,19 +16,20 @@
 
                     <legend>Edytuj</legend>
 
-                    <form class="form-horizontal" action="#" th:action="@{/user/userProfile/editWebLink}"
+                    <form class="form-horizontal" action="#"
+                          th:action="@{/user/userProfile/editWebLink}"
                           method="post">
                         <fieldset>
 
                             <div class="form-group">
-                                <label class="col-md-6 control-label" for="roll">Adres url</label>
+                                <label class="col-md-6 control-label" for="urlAddress">Adres url</label>
                                 <div class="col-md-6">
 
                                     <input id="idWebLink" path="idWebLink" name="idWebLink" type="hidden"
                                            placeholder="idWebLink" class="form-control input-md"
                                            th:value="${webLink.idWebLink}"/>
 
-                                    <input id="roll" path="urlAddress" name="urlAddress" type="text"
+                                    <input id="urlAddress" path="urlAddress" name="urlAddress" type="text"
                                            placeholder="Adres URL" class="form-control input-md"
                                            th:value="${webLink.urlAddress}"/>
                                 </div>
@@ -38,10 +39,15 @@
                             <div class="form-group">
                                 <label class="col-md-6 control-label" for="urlType">Rodzaj</label>
                                 <div class="col-md-6">
-                                    <input id="urlType" path="urlType" name="urlType"
-                                           type="text" placeholder="urlType"
-                                           class="form-control input-md" th:value="${webLink.urlType}"
-                                    />
+                                    <select th:field="*{webLink.urlType}" class="form-control" id="urlType">
+                                        <option value="" class="font-weight-bold">Rodaj linku</option>
+                                        <option value="Link do profilu społecznościowego">Link do profilu społecznościowego</option>
+                                        <option value="Projekt">Projekt</option>
+                                        <option value="Portfolio">Portfolio</option>
+                                        <option value="Strona osobista">Strona osobista</option>
+                                        <option value="Strona firmowa">Strona firmowa</option>
+                                        <option value="Inne">Inne</option>
+                                    </select>
                                 </div>
                             </div>
 
