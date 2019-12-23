@@ -1,0 +1,79 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8" name="viewport" content="width = device-width , initial-scale=1.0"/>
+<link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+<link th:href="@{/webjars/font-awesome/5.11.2/css/all.css}" rel="stylesheet"/>
+<link th:href="@{/static/css/profileCSS.css}" rel="stylesheet"/>
+<link th:href="@{/static/css/homeHeaderCSS.css}" rel="stylesheet"/>
+<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js} " type="text/javascript"></script>
+<script th:src="@{/webjars/popper/1.15.0/umd/popper.min.js} " type="text/javascript"></script>
+<script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js} " type="text/javascript"></script>
+</head>
+<body>
+<div th:replace="fragments/loggedInHeader :: headerLoggedIn"></div>
+
+<div class="container my-5">
+    <div class="text-center">
+        <h3> Dodaj ogłoszenie</h3></div>
+    <form action="#" th:action="@{/user/userProfile/updateProfile}" th:object="${user}"
+          method="post">
+        <div class="row">
+            <div class="form-group col-md-12 mt-4">
+                <label for="title" class="col-form-label">Imię</label>
+                <input type="text" th:field="*{name}" class="form-control"
+                       id="title" placeholder="Imię" />
+            </div>
+            <div class="form-group col-md-12">
+                <label for="location" class="col-form-label">Nazwisko</label>
+                <input type="text" th:field="*{lastName}" class="form-control"
+                       id="location" placeholder="Nazwisko" />
+            </div>
+            <div class="form-group col-md-12">
+                <label for="contact" class="col-form-label">Email</label>
+                <input type="text" th:field="*{email}" class="form-control"
+                       id="contact" placeholder="Email" />
+            </div>
+            <div class="form-group col-md-12">
+                <label for="contact" class="col-form-label">Hasło</label>
+                <input type="text" th:field="*{password}" class="form-control"
+                       id="contact" placeholder="Hasło" />
+            </div>
+            <div class="form-group col-md-12">
+                <label for="contact" class="col-form-label">Data urodzenia</label>
+                <input type="text" th:field="*{dateBirth}" class="form-control"
+                       id="contact" placeholder="Data urodzenia" />
+            </div>
+            <div class="form-group col-md-12">
+                <label for="contact" class="col-form-label">Miasto zamieszkania</label>
+                <input type="text" th:field="*{homeCity}" class="form-control"
+                       id="contact" placeholder="Miasto zamieszkania" />
+            </div>
+            <div class="form-group col-md-12">
+                <label for="contact" class="col-form-label">Miasto poszukiwanej pracy</label>
+                <input type="text" th:field="*{workCity}" class="form-control"
+                       id="contact" placeholder="Miasto poszukiwanej pracy" />
+            </div>
+            <div class="form-group col-md-12">
+                <label for="contact" class="col-form-label">Hobby</label>
+                <input type="text" th:field="*{hobby}" class="form-control"
+                       id="contact" placeholder="Hobby" />
+            </div>
+            <div class="form-group col-md-12">
+                <label for="contact" class="col-form-label">Obecne miejsce pracy</label>
+                <input type="text" th:field="*{currentPosition}" class="form-control"
+                       id="contact" placeholder="Obecne miejsce pracy" />
+            </div>
+            <div class="form-group col-md-12">
+                <label for="contact" class="col-form-label">Profil widoczny w wyszukiwarce:</label>
+                <input type="text" th:field="*{toFind}" class="form-control"
+                       id="contact" placeholder="email kontaktu" />
+            </div>
+
+            <div class="col-md-6">
+                <input type="submit" class="btn btn-primary mb-4" value=" Dodaj ">
+            </div>
+            <input type="hidden" idJobOffer="idJobOffer" th:field="*{idUser}">
+        </div>
+    </form>
+</div>
+</body>
+</html>

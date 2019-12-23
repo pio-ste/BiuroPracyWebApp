@@ -25,6 +25,14 @@
                 <th th:text="${user.lastName}"></th></br>
                 <b>Email: </b>
                 <th th:text="${user.email}"></th></br>
+                <a th:href="@{/user/userProfile/editProfile/{idUser}(idUser=${user.idUser})}"
+                   class="btn btn-warning">
+                    <i class="fas fa-user-edit"></i>
+                </a>
+                <a class="btn btn-default" href="#"
+                   th:href="@{'/user/' + ${user.idUser} + '/addImage'}" role="button">
+                    Change Image</a>
+                <img th:src="@{'/user/' + ${user.idUser} + '/displayImage'}" width="200" height="200">
             </div>
         </div>
 

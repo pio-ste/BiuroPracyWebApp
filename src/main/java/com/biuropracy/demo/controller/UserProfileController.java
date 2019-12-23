@@ -3,6 +3,7 @@ package com.biuropracy.demo.controller;
 import com.biuropracy.demo.model.*;
 import com.biuropracy.demo.repository.WebLinkRepository;
 import com.biuropracy.demo.service.*;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,9 +11,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.jws.WebParam;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class UserProfileController {
@@ -215,5 +224,49 @@ public class UserProfileController {
     public String editSkill(Skill skill) {
         skillService.updateSkill(skill);
         return "redirect:/user/myProfile";
+    }
+
+    @GetMapping(path = {"/user/userProfile/editProfile", "/user/userProfile/editProfile/{id}"})
+    public String editProfile(Model model, @PathVariable("id") Optional<Integer> id) {
+        User user = userService.findUser(id.get());
+        model.addAttribute("user", user);
+        return "/all/profile/editProfile";
+    }
+
+    @PostMapping(path = "/user/userProfile/updateProfile")
+    public String updateProfile(User user) {
+        userService.updateUser(user);
+        return "/all/profile/editProfile";
+    }
+
+    @GetMapping(path = "/user/{id}/addImage")
+    public String addImage(@PathVariable("id") Integer id, Model model){
+        User user = userService.findUser(id);
+        model.addAttribute("user", user);
+        return "/all/profile/uploadImage";
+    }
+
+    @PostMapping(path = "/user/{id}/uploadImage")
+    public String uploadImage(@PathVariable("id") Integer id, @RequestParam("imagefile") MultipartFile file) {
+        userService.saveProfileImage(id,file);
+        return "redirect:/user/userProfile/editProfile/" + id +"";
+    }
+
+    @GetMapping(path = "/user/{id}/displayImage")
+    public void dispalyImageFromDB(@PathVariable("id") Integer id, HttpServletResponse response) throws IOException {
+        User user = userService.findUser(id);
+
+        if (user.getProfileImage() != null) {
+            byte[] byteArray = new byte[user.getProfileImage().length];
+            int i = 0;
+            for (Byte wrappedByte : user.getProfileImage()){
+                byteArray[i++] = wrappedByte;
+            }
+            response.setContentType("image/jpeg");
+            InputStream inputStream = new ByteArrayInputStream(byteArray);
+            IOUtils.copy(inputStream, response.getOutputStream());
+        } else {
+            System.out.println("Brak zdjęcia");
+        }
     }
 }
