@@ -17,9 +17,9 @@
             <div class="col-md-5">
                 <form  action="#" method="post" enctype="multipart/form-data" th:object="${user}"
                        th:action="@{'/user/' + ${user.idUser} + '/uploadImage'}">
-                    <label class="control-label">Select File</label>
+                    <label class="form-control-file">Wybierz zdjęcie</label>
                     <input id="imagefile" name="imagefile" type="file" class="file">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary my-2">Dodaj</button>
                 </form>
             </div>
         </div>

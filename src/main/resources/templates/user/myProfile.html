@@ -18,7 +18,8 @@
 <div class="container pt-4">
     <div class="row">
         <div class="col-md-12 text-white bg-secondary">
-            <div th:each="user : ${users}">
+            <div class="row border-secondary" th:each="user : ${users}">
+                <div class="col-md-9 bg-secondary">
                 <b >Imię: </b>
                 <th th:text="${user.name}"></th> </br>
                 <b>Nazwisko: </b>
@@ -29,10 +30,13 @@
                    class="btn btn-warning">
                     <i class="fas fa-user-edit"></i>
                 </a>
-                <a class="btn btn-default" href="#"
-                   th:href="@{'/user/' + ${user.idUser} + '/addImage'}" role="button">
-                    Change Image</a>
-                <img th:src="@{'/user/' + ${user.idUser} + '/displayImage'}" width="200" height="200">
+                </div>
+                <div class="col-md-3 bg-secondary">
+                <img src="../../static/img/stockImage.jpg" th:src="@{'/user/' + ${user.idUser} + '/displayImage'}" width="200" height="200" class="mt-3">
+                    <a class="btn btn-primary mt-2" href="#"
+                       th:href="@{'/user/' + ${user.idUser} + '/addImage'}" role="button">
+                        Zmień zdjęcie</a>
+                </div>
             </div>
         </div>
 

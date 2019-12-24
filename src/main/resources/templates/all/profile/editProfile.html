@@ -13,65 +13,70 @@
 
 <div class="container my-5">
     <div class="text-center">
-        <h3> Dodaj ogłoszenie</h3></div>
+        <h3> Edytuj dane</h3></div>
     <form action="#" th:action="@{/user/userProfile/updateProfile}" th:object="${user}"
           method="post">
         <div class="row">
-            <div class="form-group col-md-12 mt-4">
+            <div class="form-group col-md-4 mt-4">
+                <img th:src="@{'/user/' + ${user.idUser} + '/displayImage'}" width="200" height="200" class="mt-3">
+                <a class="btn btn-primary mt-2" href="#"
+                   th:href="@{'/user/' + ${user.idUser} + '/addImage'}" role="button">
+                    Zmień zdjęcie</a>
+            </div>
+
+            <div class="form-group col-md-4 mt-5">
                 <label for="title" class="col-form-label">Imię</label>
                 <input type="text" th:field="*{name}" class="form-control"
                        id="title" placeholder="Imię" />
             </div>
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-4 mt-5">
                 <label for="location" class="col-form-label">Nazwisko</label>
                 <input type="text" th:field="*{lastName}" class="form-control"
                        id="location" placeholder="Nazwisko" />
             </div>
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-4">
                 <label for="contact" class="col-form-label">Email</label>
                 <input type="text" th:field="*{email}" class="form-control"
                        id="contact" placeholder="Email" />
             </div>
-            <div class="form-group col-md-12">
-                <label for="contact" class="col-form-label">Hasło</label>
-                <input type="text" th:field="*{password}" class="form-control"
-                       id="contact" placeholder="Hasło" />
-            </div>
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-4">
                 <label for="contact" class="col-form-label">Data urodzenia</label>
-                <input type="text" th:field="*{dateBirth}" class="form-control"
-                       id="contact" placeholder="Data urodzenia" />
+                <input type="date" th:field="*{dateBirth}" max="3000-12-31"
+                       min="1000-01-01" class="form-control">
             </div>
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-4">
                 <label for="contact" class="col-form-label">Miasto zamieszkania</label>
                 <input type="text" th:field="*{homeCity}" class="form-control"
                        id="contact" placeholder="Miasto zamieszkania" />
             </div>
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-4">
                 <label for="contact" class="col-form-label">Miasto poszukiwanej pracy</label>
                 <input type="text" th:field="*{workCity}" class="form-control"
                        id="contact" placeholder="Miasto poszukiwanej pracy" />
             </div>
-            <div class="form-group col-md-12">
-                <label for="contact" class="col-form-label">Hobby</label>
-                <input type="text" th:field="*{hobby}" class="form-control"
-                       id="contact" placeholder="Hobby" />
-            </div>
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-8">
                 <label for="contact" class="col-form-label">Obecne miejsce pracy</label>
                 <input type="text" th:field="*{currentPosition}" class="form-control"
                        id="contact" placeholder="Obecne miejsce pracy" />
             </div>
             <div class="form-group col-md-12">
+                <label for="contact" class="col-form-label">Hobby</label>
+                <textarea type="text" th:field="*{hobby}" class="form-control" rows="3"
+                       id="contact" placeholder="Hobby" />
+            </div>
+            <div class="form-group col-md-6">
                 <label for="contact" class="col-form-label">Profil widoczny w wyszukiwarce:</label>
-                <input type="text" th:field="*{toFind}" class="form-control"
-                       id="contact" placeholder="email kontaktu" />
+                <select th:field="*{toFind}" class="form-control">
+                    <option value="invisible">Nie</option>
+                    <option value="visible">Tak</option>
+                </select>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <input type="submit" class="btn btn-primary mb-4" value=" Dodaj ">
             </div>
-            <input type="hidden" idJobOffer="idJobOffer" th:field="*{idUser}">
+            <input type="hidden" id="idJobOffer" th:field="*{idUser}">
+            <input type="hidden" id="password" th:field="*{password}">
         </div>
     </form>
 </div>
