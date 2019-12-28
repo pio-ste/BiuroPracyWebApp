@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8" name="viewport" content="width = device-width , initial-scale=1.0"/>
+<link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+<link th:href="@{/webjars/font-awesome/5.11.2/css/all.css}" rel="stylesheet"/>
+<link th:href="@{/static/css/mainCSS.css}" rel="stylesheet"/>
+<link th:href="@{/static/css/homeHeaderCSS.css}" rel="stylesheet"/>
+<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js} " type="text/javascript"></script>
+<script th:src="@{/webjars/popper/1.15.0/umd/popper.min.js} " type="text/javascript"></script>
+<script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js} " type="text/javascript"></script>
+
+<body>
+<div th:replace="fragments/homeHeader.html :: header"></div>
+    <script type="text/javascript">
+        var input, miejscePracy, kUzyskPrzychodu, ubezpieczenieChorobowe;
+        function setValues() {
+            input = Number(document.getElementById("input").value);
+            miejscePracy = Number(document.querySelector('input[name="miejscePracy"]:checked').value);
+            kUzyskPrzychodu = Number(document.querySelector('input[name="kUzyskPrzychodu"]:checked').value);
+            ubezpieczenieChorobowe = Number(document.querySelector('input[name="ubezpieczenieChorobowe"]:checked').value);
+        }
+        function calcFromBruttoUOP() {
+            setValues();
+            var UOP, sEmerytalna, sRentowa, sChorobowa,
+                sumaSkladek, sZdrowotnaCala, sZdrowotnaOdliczona,
+                 podstOpodatkowania, podatekNalezny,
+                podatekPomniejszony, zaliczkaNaPodatek, kwotaPoSkladkach, wynagrodzenie;
+            var ubWypadkowe, ubEmerytalne, ubRentowe, funduszPracy, FGSP, kosztPracodawcy;
+            //Wynagrodzenie pracownika
+            sEmerytalna = input*0.0976;
+            sRentowa = input*0.015;
+            sChorobowa = input*0.0245;
+            sumaSkladek = sEmerytalna + sRentowa + sChorobowa;
+            kwotaPoSkladkach = input - sumaSkladek;
+            sZdrowotnaCala = kwotaPoSkladkach*0.09;
+            sZdrowotnaOdliczona = kwotaPoSkladkach*0.0775;
+            podstOpodatkowania = Math.round(input - sumaSkladek - miejscePracy);
+            podatekNalezny = podstOpodatkowania*0.17;
+            podatekPomniejszony = podatekNalezny - 43.16;
+            zaliczkaNaPodatek = Math.round(podatekPomniejszony-sZdrowotnaOdliczona);
+            UOP = input - sumaSkladek - sZdrowotnaCala - zaliczkaNaPodatek;
+            wynagrodzenie = UOP + sumaSkladek + sZdrowotnaCala + zaliczkaNaPodatek;
+            document.getElementById("UOP").innerText= UOP.toFixed(2);
+            document.getElementById("sEmerytalna").innerText= sEmerytalna.toFixed(2);
+            document.getElementById("sRentowa").innerText= sRentowa.toFixed(2);
+            document.getElementById("sChorobowa").innerText= sChorobowa.toFixed(2);
+            document.getElementById("zaliczkaNaPodatek").innerText= zaliczkaNaPodatek.toFixed(2);
+            document.getElementById("sZdrowotnaOdliczona").innerText= sZdrowotnaOdliczona.toFixed(2);
+            document.getElementById("wynagrodzenie").innerText= wynagrodzenie.toFixed(2);
+            //Koszt pracodawcy
+            ubWypadkowe = input*0.0167;
+            ubEmerytalne = input*0.0976;
+            ubRentowe = input*0.065;
+            funduszPracy = input*0.0245;
+            FGSP = input*0.001;
+            kosztPracodawcy = input + ubWypadkowe + ubEmerytalne + ubRentowe + funduszPracy + FGSP;
+            document.getElementById("ubWypadkowe").innerText= ubWypadkowe.toFixed(2);
+            document.getElementById("ubEmerytalne").innerText= ubEmerytalne.toFixed(2);
+            document.getElementById("ubRentowe").innerText= ubRentowe.toFixed(2);
+            document.getElementById("funduszPracy").innerText= funduszPracy.toFixed(2);
+            document.getElementById("FGSP").innerText= FGSP.toFixed(2);
+            document.getElementById("kosztPracodawcy").innerText= kosztPracodawcy.toFixed(2);
+        }
+
+        function uZlecenieFromBrutto() {
+            setValues();
+            var UZskladkaEmerytalna, UZskladkaRentowa, UZskladkaChorobowa, UZsumaSkladek, uzyskanyPrzychodPrzed, uzyskanyPrzychod,
+                UZskladkaZdrowotna, UZskladkaZrowotnaDoOdliczenia, UZpodstawaOpodatkowania, UZzaliczka, UZzaliczkaNaPodatek,
+                UZwynagrodzenie, UZwynagrodzenieWprowadzone;
+
+            UZskladkaEmerytalna = input * 0.0976;
+            UZskladkaRentowa = input * 0.015;
+            UZskladkaChorobowa = input * ubezpieczenieChorobowe;
+
+            UZsumaSkladek = UZskladkaEmerytalna+UZskladkaRentowa+UZskladkaChorobowa;
+            uzyskanyPrzychodPrzed = input - UZsumaSkladek;
+            uzyskanyPrzychod = uzyskanyPrzychodPrzed * kUzyskPrzychodu;
+            UZskladkaZdrowotna = uzyskanyPrzychodPrzed * 0.09;
+            UZskladkaZrowotnaDoOdliczenia = uzyskanyPrzychodPrzed * 0.0775;
+            UZpodstawaOpodatkowania = Math.round(uzyskanyPrzychodPrzed - uzyskanyPrzychod);
+            UZzaliczka = UZpodstawaOpodatkowania * 0.17;
+            UZzaliczkaNaPodatek = Math.round(UZzaliczka - UZskladkaZrowotnaDoOdliczenia);
+            UZwynagrodzenie = input - UZsumaSkladek - UZzaliczka - UZzaliczkaNaPodatek;
+            UZwynagrodzenieWprowadzone = UZwynagrodzenie + UZsumaSkladek + UZzaliczka + UZzaliczkaNaPodatek;
+            document.getElementById("UZwynagrodzenie").innerText= UZwynagrodzenie.toFixed(2);
+            document.getElementById("UZskladkaEmerytalna").innerText= UZskladkaEmerytalna.toFixed(2);
+            document.getElementById("UZskladkaRentowa").innerText= UZskladkaRentowa.toFixed(2);
+            document.getElementById("UZskladkaChorobowa").innerText= UZskladkaChorobowa.toFixed(2);
+            document.getElementById("UZzaliczkaNaPodatek").innerText= UZzaliczkaNaPodatek.toFixed(2);
+            document.getElementById("UZskladkaZrowotnaDoOdliczenia").innerText= UZskladkaZrowotnaDoOdliczenia.toFixed(2);
+            document.getElementById("UZwynagrodzenieWprowadzone").innerText= UZwynagrodzenieWprowadzone.toFixed(2);
+
+            var UZubWypadkowe, UZubEmerytalne, UZubRentowe, UZfunduszPracy, UZFGSP, UZkosztPracodawcy;
+            UZubWypadkowe = input*0.0167;
+            UZubEmerytalne = input*0.0976;
+            UZubRentowe = input*0.065;
+            UZfunduszPracy = input*0.0245;
+            UZFGSP = input*0.001;
+            UZkosztPracodawcy = input + UZubWypadkowe + UZubEmerytalne + UZubRentowe + UZfunduszPracy + UZFGSP;
+            document.getElementById("UZubWypadkowe").innerText= UZubWypadkowe.toFixed(2);
+            document.getElementById("UZubEmerytalne").innerText= UZubEmerytalne.toFixed(2);
+            document.getElementById("UZubRentowe").innerText= UZubRentowe.toFixed(2);
+            document.getElementById("UZfunduszPracy").innerText= UZfunduszPracy.toFixed(2);
+            document.getElementById("UZFGSP").innerText= UZFGSP.toFixed(2);
+            document.getElementById("UZkosztPracodawcy").innerText= UZkosztPracodawcy.toFixed(2);
+        }
+    </script>
+
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col-md-12 text-center">
+                <h3>Kalkulator wynagrodzeń</h3>
+            </div>
+            <div class="col-md-12">
+                <a>Wpisz miesięczne wynagrodznie:</a>
+                <input id="input" type="number"/>
+                <button type="button" onclick="calcFromBruttoUOP(); uZlecenieFromBrutto()"
+                        class="btn btn-primary ml-2" data-toggle="modal" data-target="#brutto">
+                    <i>Wylicz kwotę netto</i>
+                </button>
+                <button type="button" onclick="netto()" class="btn btn-primary ml-2" value="netto"> <i>Wylicz kwotę brutto</i> </button>
+            </div>
+            <div class="col-md-12 text-center mt-2 border-top border-secondary">
+                <h5>Zaznacz opcje aby wyliczyć odpowiednie wyngrodzenie:</h5>
+            </div>
+            <div class="col-md-12">
+                <a>Czy pracujesz w miejscu zamieszkania?</a>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" checked="checked" type="radio" name="miejscePracy"  value="250">
+                    <label class="form-check-label" >Tak</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="miejscePracy" value="300">
+                    <label class="form-check-label" >Nie</label>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <a>Koszt uzyskania przychodu:</a>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" checked="checked" type="radio" name="kUzyskPrzychodu"  value="0.2">
+                    <label class="form-check-label" >20%</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="kUzyskPrzychodu" value="0.5">
+                    <label class="form-check-label" >50%</label>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <a>Ubezpieczenie chorobowe (dobrowolne dla umowy zlecenie oraz B2B):</a>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="ubezpieczenieChorobowe"  value="0.0245">
+                    <label class="form-check-label" >Tak</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" checked="checked" type="radio" name="ubezpieczenieChorobowe" value="0">
+                    <label class="form-check-label" >Nie</label>
+                </div>
+            </div>
+
+
+        <div>
+        </div>
+        <div>
+        </div>
+    </div>
+<div class="modal fade bd-example-modal-lg" id="brutto" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                       <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12 text-center bg-light border-bottom border-secondary"><h3>Umowa o pracę dla kwoty brutto <a id="wynagrodzenie"></a> zł</h3> </div>
+                            <dt class="col-md-6 border-right border-secondary">Podatki z których składa się wynagrodzenie:</dt>
+                            <dt class="col-md-6">Koszty pracodawcy:</dt>
+                            <dt class="col-md-6 border-right border-secondary">Ubezpieczenie emerytalne: <a id="sEmerytalna"></a> zł</dt>
+                            <dt class="col-md-6">Ubezpieczenie wypadkowe: <a id="ubWypadkowe"></a> zł</dt>
+                            <dt class="col-md-6 border-right border-secondary">Ubezpieczenie rentowe: <a id="sRentowa"></a> zł</dt>
+                            <dt class="col-md-6">Ubezpieczenie emerytalne:: <a id="ubEmerytalne"></a> zł</dt>
+                            <dt class="col-md-6 border-right border-secondary">Ubezpieczenie chorobowe: <a id="sChorobowa"></a> zł</dt>
+                            <dt class="col-md-6">Ubezpieczenie rentowe: <a id="ubRentowe"></a> zł</dt>
+                            <dt class="col-md-6 border-right border-secondary">Ubezpieczenie zdrowotne: <a id="sZdrowotnaOdliczona"></a> zł</dt>
+                            <dt class="col-md-6">Fundusz Pracy: <a id="funduszPracy"></a> zł</dt>
+                            <dt class="col-md-6 border-right border-secondary">Zaliczka na podatek: <a id="zaliczkaNaPodatek"></a> zł</dt>
+                            <dt class="col-md-6">FGŚP: <a id="FGSP"></a> zł</dt>
+                            <dt class="col-md-6 border-right border-secondary">Kwota netto: <a id="UOP"></a> zł</dt>
+                            <dt class="col-md-6">Cała kwota: <a id="kosztPracodawcy"></a> zł</dt>
+                        </div>
+                           <div class="row">
+                               <div class="col-md-12 text-center bg-light border-bottom border-secondary"><h3>Umowa zlecenie dla kwoty brutto <a id="UZwynagrodzenieWprowadzone"></a> zł</h3> </div>
+                               <dt class="col-md-6 border-right border-secondary">Podatki z których składa się wynagrodzenie:</dt>
+                               <dt class="col-md-6">Koszty pracodawcy:</dt>
+                               <dt class="col-md-6 border-right border-secondary">Ubezpieczenie emerytalne: <a id="UZskladkaEmerytalna"></a> zł</dt>
+                               <dt class="col-md-6">Ubezpieczenie wypadkowe: <a id="UZubWypadkowe"></a> zł</dt>
+                               <dt class="col-md-6 border-right border-secondary">Ubezpieczenie rentowe: <a id="UZskladkaRentowa"></a> zł</dt>
+                               <dt class="col-md-6">Ubezpieczenie emerytalne:: <a id="UZubEmerytalne"></a> zł</dt>
+                               <dt class="col-md-6 border-right border-secondary">Ubezpieczenie chorobowe: <a id="UZskladkaChorobowa"></a> zł</dt>
+                               <dt class="col-md-6">Ubezpieczenie rentowe: <a id="UZubRentowe"></a> zł</dt>
+                               <dt class="col-md-6 border-right border-secondary">Ubezpieczenie zdrowotne: <a id="UZskladkaZrowotnaDoOdliczenia"></a> zł</dt>
+                               <dt class="col-md-6">Fundusz Pracy: <a id="UZfunduszPracy"></a> zł</dt>
+                               <dt class="col-md-6 border-right border-secondary">Zaliczka na podatek: <a id="UZzaliczkaNaPodatek"></a> zł</dt>
+                               <dt class="col-md-6">FGŚP: <a id="UZFGSP"></a> zł</dt>
+                               <dt class="col-md-6 border-right border-secondary">Kwota netto: <a id="UZwynagrodzenie"></a> zł</dt>
+                               <dt class="col-md-6">Cała kwota: <a id="UZkosztPracodawcy"></a> zł</dt>
+                           </div>
+                       </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+<div th:replace="fragments/footer.html :: footerFragment"></div>
+</body>
+</html>
