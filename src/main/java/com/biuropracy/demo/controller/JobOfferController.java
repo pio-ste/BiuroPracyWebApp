@@ -49,7 +49,14 @@ public class JobOfferController {
 
     //dla użytkownika
 
-    @RequestMapping(path = {"/user/jobOffers"}, method = RequestMethod.GET)
+    @GetMapping("/user/jobOffersFiltered")
+    public String getAllJobOffersLogged(Model model, String title, String location, String category, String contractType, String workingTime, String positionLevel) {
+        List<JobOfferDTO> JobList = jobOfferRepository.getJobOfferFiltered(title, category, location, contractType, workingTime, positionLevel);
+        model.addAttribute("jobOffers", JobList);
+        return "/all/jobOffers/viewJobsLoginUser";
+    }
+
+    @GetMapping(path = {"/user/jobOffers"})
     public String getAllJobOffersUser(Model model) {
         List<JobOffer> List = jobOfferService.getAllJobOffers();
         model.addAttribute("jobOffers", List);

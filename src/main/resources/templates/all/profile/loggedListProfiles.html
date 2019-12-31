@@ -1,0 +1,63 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<meta charset="UTF-8" name="viewport" content="width = device-width , initial-scale=1.0"/>
+<link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+<link th:href="@{/webjars/font-awesome/5.11.2/css/all.css}" rel="stylesheet"/>
+<link th:href="@{/static/css/mainCSS.css}" rel="stylesheet"/>
+<link th:href="@{/static/css/homeHeaderCSS.css}" rel="stylesheet"/>
+<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js} " type="text/javascript"></script>
+<script th:src="@{/webjars/popper/1.15.0/umd/popper.min.js} " type="text/javascript"></script>
+<script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js} " type="text/javascript"></script>
+</head>
+<body>
+<div th:replace="fragments/loggedInHeader :: headerLoggedIn"></div>
+
+<div th:switch="${users}" class="container">
+
+    <form action="/user/usersProfileFiltered" class="my-3" >
+        <div class="row">
+            <div class="col-5 mt-2">
+                <b>Poszukiwane miejsce pracy przez użytkownika:</b>
+            </div>
+            <div class="col-7 mt-2">
+                <input type="text" class="form-control" name="workCity" placeholder="Miasto"/>
+            </div>
+            <div class="col-5 mt-2">
+                <b>Kategoria poszukiwanej pracy przez użytkownika:</b>
+            </div>
+            <div class="col-7 mt-2">
+                <div th:replace="fragments/select-option/search/search-category.html :: select_option_category"></div>
+            </div>
+            <input type="submit" value="Szukaj" class="btn btn-primary mx-2 my-2">
+        </div>
+    </form>
+    <h2 th:case="null">No record found !!</h2>
+    <div th:case="*">
+        <div class="row" th:each="user : ${users}">
+            <div class="col-8 mt-3">
+                <b>Imie: </b>
+                <th th:text="${user.name}"></th></br>
+                <b>Nazwisko: </b>
+                <th th:text="${user.lastName}"></th></br>
+                <b>Data urodzenia: </b>
+                <th th:text="${user.dateBirth}"></th></br>
+                <b>Miejsce zamieszkania: </b>
+                <th th:text="${user.homeCity}"></th></br>
+                <b>Miejsce pracy: </b>
+                <th th:text="${user.workCity}"></th></br>
+                <b>Obecna praca: </b>
+                <th th:text="${user.currentPosition}"></th></br>
+                <b>Kategoria poszukiwanej pracy: </b>
+                <th th:text="${user.positionSought}"></th></br>
+                <a th:href="@{/user/viewSelectedProfile/{idUser}(idUser=${user.idUser})}"
+                   class="btn btn-outline-success my-2 mx-2">Zobacz profil</a>
+            </div>
+            <div class="col-4 mb-3">
+                <img th:src="@{'/user/' + ${user.idUser} + '/displayImage'}" width="200" height="200" class="mt-3">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

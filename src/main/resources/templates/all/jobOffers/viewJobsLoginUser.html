@@ -1,21 +1,33 @@
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <meta charset="UTF-8" name="viewport" content="width = device-width , initial-scale=1.0"/>
 <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
 <link th:href="@{/webjars/font-awesome/5.11.2/css/all.css}" rel="stylesheet"/>
-<link th:href="@{/static/css/jobOfferCSS.css}" rel="stylesheet"/>
+<link th:href="@{/static/css/mainCSS.css}" rel="stylesheet"/>
 <link th:href="@{/static/css/homeHeaderCSS.css}" rel="stylesheet"/>
 <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js} " type="text/javascript"></script>
 <script th:src="@{/webjars/popper/1.15.0/umd/popper.min.js} " type="text/javascript"></script>
 <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js} " type="text/javascript"></script>
 </head>
 <body>
-<div th:replace="fragments/homeHeader.html :: header"></div>
+<div th:replace="fragments/loggedInHeader :: headerLoggedIn"></div>
 
 <div th:switch="${jobOffers}" class="container">
     <p class="my-5">
         <a href="/user/jobOffers/createNew" class="btn btn-success">
             <i class="fas fa-user-plus ml-2"> Dodaj ofertę pracy </i></a>
     </p>
+
+    <form action="/user/jobOffersFiltered" class="form-inline mb-3" >
+        <input type="text" class="form-control mr-2" name="title" placeholder="Tytuł / Słowa kluczowe"/>
+        <input type="text" class="form-control mr-2" name="location" placeholder="Lokalizacja"/>
+        <div th:replace="fragments/select-option/search/search-category.html :: select_option_category"></div>
+        <div th:replace="fragments/select-option/search/search-contractType.html :: select_option_contractType"></div>
+        <div th:replace="fragments/select-option/search/search-workingTime.html :: select_option_workingTime"></div>
+        <div th:replace="fragments/select-option/search/search-positionLevel.html :: select_option_positionLevel"></div>
+        <input type="submit" value="Szukaj" class="btn btn-primary mt-3">
+    </form>
 
     <h2 th:case="null">No record found !!</h2>
     <div th:case="*">

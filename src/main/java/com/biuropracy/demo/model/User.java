@@ -51,6 +51,9 @@ public class User {
     @Column(name = "current_position")
     private String currentPosition;
 
+    @Column(name = "position_sought")
+    private String positionSought;
+
     @Column(name = "to_find")
     private String toFind;
 
@@ -58,7 +61,7 @@ public class User {
     @Lob
     private Byte[] profileImage;
 
-    public User(@NotEmpty(message = "Wpisz swoje imię") String name, @NotEmpty(message = "Wpisz swoje nazwisko") String lastName, @NotEmpty(message = "Wpisz swój adres email") @Email(message = "Zły adres email") String email, @NotEmpty(message = "Wpisz hasło") @Size(min = 4, message = "Hasło musi mieć minimum 4 znaki") String password, String dateBirth, String homeCity, String workCity, String hobby, String currentPosition, String toFind, Byte[] profileImage, Set<Role> roles, List<JobOffer> jobOffers, List<Course> courses, List<Education> educations, List<JobExperience> jobExperiences, List<Language> languages, List<Organization> organizations, List<Skill> skills, List<WebLink> webLinks) {
+    public User(@NotEmpty(message = "Wpisz swoje imię") String name, @NotEmpty(message = "Wpisz swoje nazwisko") String lastName, @NotEmpty(message = "Wpisz swój adres email") @Email(message = "Zły adres email") String email, @NotEmpty(message = "Wpisz hasło") @Size(min = 4, message = "Hasło musi mieć minimum 4 znaki") String password, String dateBirth, String homeCity, String workCity, String hobby, String currentPosition, String positionSought, String toFind, Byte[] profileImage, Set<Role> roles, List<JobOffer> jobOffers, List<Course> courses, List<Education> educations, List<JobExperience> jobExperiences, List<Language> languages, List<Organization> organizations, List<Skill> skills, List<WebLink> webLinks) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
@@ -68,6 +71,7 @@ public class User {
         this.workCity = workCity;
         this.hobby = hobby;
         this.currentPosition = currentPosition;
+        this.positionSought = positionSought;
         this.toFind = toFind;
         this.profileImage = profileImage;
         this.roles = roles;
@@ -79,6 +83,18 @@ public class User {
         this.organizations = organizations;
         this.skills = skills;
         this.webLinks = webLinks;
+    }
+
+    public User(int idUser,String name, String lastName, String dateBirth, String homeCity, String workCity, String currentPosition, String positionSought, Byte[] profileImage) {
+        this.idUser = idUser;
+        this.name = name;
+        this.lastName = lastName;
+        this.dateBirth = dateBirth;
+        this.homeCity = homeCity;
+        this.workCity = workCity;
+        this.currentPosition = currentPosition;
+        this.positionSought = positionSought;
+        this.profileImage = profileImage;
     }
 
     public User() {
@@ -209,6 +225,14 @@ public class User {
 
     public void setCurrentPosition(String currentPosition) {
         this.currentPosition = currentPosition;
+    }
+
+    public String getPositionSought() {
+        return positionSought;
+    }
+
+    public void setPositionSought(String positionSought) {
+        this.positionSought = positionSought;
     }
 
     public String getToFind() {

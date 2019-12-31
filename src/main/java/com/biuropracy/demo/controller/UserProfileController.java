@@ -1,6 +1,7 @@
 package com.biuropracy.demo.controller;
 
 import com.biuropracy.demo.model.*;
+import com.biuropracy.demo.repository.UserRepository;
 import com.biuropracy.demo.repository.WebLinkRepository;
 import com.biuropracy.demo.service.*;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,7 +44,8 @@ public class UserProfileController {
     SkillService skillService;
     @Autowired
     WebLinkService webLinkService;
-
+    @Autowired
+    private UserRepository userRepository;
     @Autowired
     WebLinkRepository webLinkRepository;
 
@@ -269,4 +272,40 @@ public class UserProfileController {
             System.out.println("Brak zdjęcia");
         }
     }
+
+    @GetMapping(path = "/user/usersProfilesVisible")
+    public String usersProfilesVisible(Model model){
+        List<User> ProfileList = userRepository.getVisibleUsers();
+        model.addAttribute("users", ProfileList);
+        return "/all/profile/loggedListProfiles";
+    }
+
+    @GetMapping(path = "/user/usersProfileFiltered")
+    public String usersProfileFiltered(Model model, String workCity, String category){
+        List<User> FilteredProfile = userRepository.getVisibleUsersFiltered(workCity, category);
+        model.addAttribute("users", FilteredProfile);
+        return "/all/profile/loggedListProfiles";
+    }
+
+    @GetMapping(path = {"/user/viewSelectedProfile", "/user/viewSelectedProfile/{id}"})
+    public String viewSelectedProfile(Model model,@PathVariable("id") Optional<Integer> id){
+        List<User> UserList = userService.findUserById(id.get());
+        List<Course> CourseList = courseService.findCourseByUserId(id.get());
+        List<Education> EducationList = educationService.findEducationByUserId(id.get());
+        List<JobExperience> JobExpList = jobExperienceService.findJobExperienceByUserId(id.get());
+        List<Language> LangList = languageService.findLanguageByUserId(id.get());
+        List<Organization> OrganizationList = organizationService.findOrganizationByUserId(id.get());
+        List<Skill> SkillList = skillService.findSkillByUserId(id.get());
+        List<WebLink> WebLinkList = webLinkService.findWebLinkByUserId(id.get());
+        model.addAttribute("users", UserList);
+        model.addAttribute("courses", CourseList);
+        model.addAttribute("educations", EducationList );
+        model.addAttribute("jobExps", JobExpList);
+        model.addAttribute("languages", LangList);
+        model.addAttribute("organizations", OrganizationList);
+        model.addAttribute("skills", SkillList);
+        model.addAttribute("webLinks", WebLinkList);
+        return "/all/profile/viewSelectedProfile";
+    }
+
 }
