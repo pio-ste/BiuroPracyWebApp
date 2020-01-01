@@ -24,11 +24,24 @@
                     <th th:text="${user.name}"></th> </br>
                     <b>Nazwisko: </b>
                     <th th:text="${user.lastName}"></th></br>
+                    <b>Data urodzenia: </b>
+                    <th th:text="${user.dateBirth}"></th></br>
+                    <b>Miejsce zamieszkania: </b>
+                    <th th:text="${user.homeCity}"></th></br>
+                    <b>Miejsce poszukiwanej pracy: </b>
+                    <th th:text="${user.workCity}"></th></br>
+                    <b>Aktualne stanowiko pracy: </b>
+                    <th th:text="${user.currentPosition}"></th></br>
+                    <b>Poszukiwane stanowisko pracy: </b>
+                    <th th:text="${user.positionSought}"></th></br>
                     <b>Email: </b>
                     <th th:text="${user.email}"></th></br>
+                    <b>Hobby: </b>
+                    <th th:text="${user.hobby}"></th></br>
                 </div>
                 <div class="col-md-3 bg-secondary">
                     <img src="../../static/img/stockImage.jpg" th:src="@{'/user/' + ${user.idUser} + '/displayImage'}" width="200" height="200" class="mt-3">
+                    <div th:replace="fragments/modal/AddJobProposition :: addJobPropositionFragment"></div>
                 </div>
             </div>
         </div>

@@ -11,17 +11,17 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.jws.WebParam;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 
@@ -289,6 +289,7 @@ public class UserProfileController {
 
     @GetMapping(path = {"/user/viewSelectedProfile", "/user/viewSelectedProfile/{id}"})
     public String viewSelectedProfile(Model model,@PathVariable("id") Optional<Integer> id){
+        model.addAttribute("jobProposition", new JobProposition());
         List<User> UserList = userService.findUserById(id.get());
         List<Course> CourseList = courseService.findCourseByUserId(id.get());
         List<Education> EducationList = educationService.findEducationByUserId(id.get());
