@@ -33,6 +33,7 @@ public class JobPropositionService {
             newJobProposition.setPositionDescription(jobProposition.getPositionDescription());
             newJobProposition.setSalary(jobProposition.getSalary());
             newJobProposition.setWebLinkOffer(jobProposition.getWebLinkOffer());
+            newJobProposition.setContactType(jobProposition.getContactType());
             newJobProposition.setDecision(jobProposition.getDecision());
 
             newJobProposition = jobPropositionRepository.save(newJobProposition);
@@ -40,6 +41,15 @@ public class JobPropositionService {
         } else {
             jobProposition = jobPropositionRepository.save(jobProposition);
             return jobProposition;
+        }
+    }
+
+    public void deleteJobProposition(Integer id){
+        Optional<JobProposition> jobPropOpt = jobPropositionRepository.findById(id);
+        if(jobPropOpt.isPresent()){
+            jobPropositionRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Brak jobProposition o tym id");
         }
     }
 }

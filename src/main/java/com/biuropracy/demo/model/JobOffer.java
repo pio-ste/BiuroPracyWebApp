@@ -2,6 +2,7 @@ package com.biuropracy.demo.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 @Entity
 @Table(name = "job_offer")
@@ -56,7 +57,8 @@ public class JobOffer {
     @JoinColumn(name = "id_user")
     private User user;
 
-
+    @OneToMany(mappedBy = "jobOffer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ProfileProposition> jobOffers;
 
     public JobOffer() {
     }

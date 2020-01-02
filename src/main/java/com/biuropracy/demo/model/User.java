@@ -61,7 +61,7 @@ public class User {
     @Lob
     private Byte[] profileImage;
 
-    public User(@NotEmpty(message = "Wpisz swoje imię") String name, @NotEmpty(message = "Wpisz swoje nazwisko") String lastName, @NotEmpty(message = "Wpisz swój adres email") @Email(message = "Zły adres email") String email, @NotEmpty(message = "Wpisz hasło") @Size(min = 4, message = "Hasło musi mieć minimum 4 znaki") String password, String dateBirth, String homeCity, String workCity, String hobby, String currentPosition, String positionSought, String toFind, Byte[] profileImage, Set<Role> roles, List<JobOffer> jobOffers, List<Course> courses, List<Education> educations, List<JobExperience> jobExperiences, List<Language> languages, List<Organization> organizations, List<Skill> skills, List<WebLink> webLinks, List<JobProposition> fromUsers, List<JobProposition> toUsers) {
+    public User(@NotEmpty(message = "Wpisz swoje imię") String name, @NotEmpty(message = "Wpisz swoje nazwisko") String lastName, @NotEmpty(message = "Wpisz swój adres email") @Email(message = "Zły adres email") String email, @NotEmpty(message = "Wpisz hasło") @Size(min = 4, message = "Hasło musi mieć minimum 4 znaki") String password, String dateBirth, String homeCity, String workCity, String hobby, String currentPosition, String positionSought, String toFind, Byte[] profileImage, Set<Role> roles, List<JobOffer> jobOffers, List<Course> courses, List<Education> educations, List<JobExperience> jobExperiences, List<Language> languages, List<Organization> organizations, List<Skill> skills, List<WebLink> webLinks, List<JobProposition> fromUsers, List<JobProposition> toUsers, List<ProfileProposition> users) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
@@ -85,6 +85,7 @@ public class User {
         this.webLinks = webLinks;
         this.fromUsers = fromUsers;
         this.toUsers = toUsers;
+        this.users = users;
     }
 
     public User(int idUser, String name, String lastName, String dateBirth, String homeCity, String workCity, String currentPosition, String positionSought, Byte[] profileImage) {
@@ -138,6 +139,9 @@ public class User {
 
     @OneToMany(mappedBy = "toUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<JobProposition> toUsers;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ProfileProposition> users;
 
     public Integer getIdUser() {
         return idUser;
@@ -329,5 +333,13 @@ public class User {
 
     public void setToUsers(List<JobProposition> toUsers) {
         this.toUsers = toUsers;
+    }
+
+    public List<ProfileProposition> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<ProfileProposition> users) {
+        this.users = users;
     }
 }

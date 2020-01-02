@@ -1,0 +1,24 @@
+<div th:fragment="deleteJobPropFragment" xmlns:th="http://www.thymeleaf.org">
+    <button type="button" class="btn btn-danger mb-2" data-toggle="modal" data-target="#jobPropDelet" th:attrappend="data-target=${jobProposition.idJobProposition}">
+        Usuń propozycję <i class="far fa-trash-alt"></i>
+    </button>
+    <div class="modal fade" id="jobPropDelet" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" th:attrappend="id=${jobProposition.idJobProposition}">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Usuń</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body bg-danger">
+                    Czy chcesz usunąć ofertę pracy?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Anuluj</button>
+                    <a type="button" class="btn btn-danger" th:href="@{/user/jobPropositionDelete(id=${jobProposition.idJobProposition})}">Usuń</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

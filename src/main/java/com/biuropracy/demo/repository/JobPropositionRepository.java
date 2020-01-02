@@ -12,40 +12,40 @@ import java.util.List;
 @Repository
 public interface JobPropositionRepository extends JpaRepository<JobProposition, Integer> {
 
-    @Query("Select new com.biuropracy.demo.DTO.JobPropositionDTO(j.idJobProposition, u.name, u.lastName, j.companyName, j.companyAddress, j.positionName, j.positionDescription, j.salary, j.webLinkOffer, j.contactType, j.decision, j.fromUser, j.toUser)"
+    @Query("Select new com.biuropracy.demo.DTO.JobPropositionDTO(j.idJobProposition, u.idUser, u.name, u.lastName, j.companyName, j.companyAddress, j.positionName, j.positionDescription, j.salary, j.webLinkOffer, j.contactType, j.decision, j.fromUser, j.toUser)"
             + "from JobProposition j, User u "
-            + "where (j.toUser = :id)"
-            + "and u.idUser = j.toUser")
+            + "where (j.toUser.idUser = :id)"
+            + "and u.idUser = j.fromUser.idUser and j.decision is null")
     List<JobPropositionDTO> getAllJPropByToUserId(@Param("id") Integer id);
 
-    @Query("Select new com.biuropracy.demo.DTO.JobPropositionDTO(j.idJobProposition, u.name, u.lastName, j.companyName, j.companyAddress, j.positionName, j.positionDescription, j.salary, j.webLinkOffer, j.contactType, j.decision, j.fromUser, j.toUser)"
+    @Query("Select new com.biuropracy.demo.DTO.JobPropositionDTO(j.idJobProposition, u.idUser, u.name, u.lastName, j.companyName, j.companyAddress, j.positionName, j.positionDescription, j.salary, j.webLinkOffer, j.contactType, j.decision, j.fromUser, j.toUser)"
             + "from JobProposition j, User u "
-            + "where (j.toUser = :id)"
-            + "and  u.idUser = j.toUser and j.decision = 'accept'")
+            + "where (j.toUser.idUser = :id)"
+            + "and  u.idUser = j.fromUser.idUser and j.decision = 'Zaakceptowane'")
     List<JobPropositionDTO> getAcceptJPropByToUserID(@Param("id") Integer id);
 
-    @Query("Select new com.biuropracy.demo.DTO.JobPropositionDTO(j.idJobProposition, u.name, u.lastName, j.companyName, j.companyAddress, j.positionName, j.positionDescription, j.salary, j.webLinkOffer, j.contactType, j.decision, j.fromUser, j.toUser)"
+    @Query("Select new com.biuropracy.demo.DTO.JobPropositionDTO(j.idJobProposition, u.idUser, u.name, u.lastName, j.companyName, j.companyAddress, j.positionName, j.positionDescription, j.salary, j.webLinkOffer, j.contactType, j.decision, j.fromUser, j.toUser)"
             + "from JobProposition j, User u "
-            + "where (j.toUser = :id)"
-            + "and u.idUser = j.toUser and j.decision = 'rejected'")
+            + "where (j.toUser.idUser = :id)"
+            + "and u.idUser = j.fromUser.idUser and j.decision = 'Odrzucone'")
     List<JobPropositionDTO> getRejectedJPropByToUserID(@Param("id") Integer id);
 
-    @Query("Select new com.biuropracy.demo.DTO.JobPropositionDTO(j.idJobProposition, u.name, u.lastName, j.companyName, j.companyAddress, j.positionName, j.positionDescription, j.salary, j.webLinkOffer, j.contactType, j.decision, j.fromUser, j.toUser)"
+    @Query("Select new com.biuropracy.demo.DTO.JobPropositionDTO(j.idJobProposition, u.idUser, u.name, u.lastName, j.companyName, j.companyAddress, j.positionName, j.positionDescription, j.salary, j.webLinkOffer, j.contactType, j.decision, j.fromUser, j.toUser)"
             + "from JobProposition j, User u "
-            + "where (j.fromUser = :id)"
-            + "and u.idUser = j.toUser")
+            + "where (j.fromUser.idUser = :id)"
+            + "and u.idUser = j.toUser.idUser and j.decision is null")
     List<JobPropositionDTO> getAllJPropByFromUserId(@Param("id") Integer id);
 
-    @Query("Select new com.biuropracy.demo.DTO.JobPropositionDTO(j.idJobProposition, u.name, u.lastName, j.companyName, j.companyAddress, j.positionName, j.positionDescription, j.salary, j.webLinkOffer, j.contactType, j.decision, j.fromUser, j.toUser)"
+    @Query("Select new com.biuropracy.demo.DTO.JobPropositionDTO(j.idJobProposition, u.idUser, u.name, u.lastName, j.companyName, j.companyAddress, j.positionName, j.positionDescription, j.salary, j.webLinkOffer, j.contactType, j.decision, j.fromUser, j.toUser)"
             + "from JobProposition j, User u "
-            + "where (j.fromUser = :id)"
-            + "and  u.idUser = j.toUser and j.decision = 'accept'")
+            + "where (j.fromUser.idUser = :id)"
+            + "and  u.idUser = j.toUser.idUser and j.decision = 'Zaakceptowane'")
     List<JobPropositionDTO> getAcceptJPropByFromUserID(@Param("id") Integer id);
 
-    @Query("Select new com.biuropracy.demo.DTO.JobPropositionDTO(j.idJobProposition, u.name, u.lastName, j.companyName, j.companyAddress, j.positionName, j.positionDescription, j.salary, j.webLinkOffer, j.contactType, j.decision, j.fromUser, j.toUser)"
+    @Query("Select new com.biuropracy.demo.DTO.JobPropositionDTO(j.idJobProposition, u.idUser, u.name, u.lastName, j.companyName, j.companyAddress, j.positionName, j.positionDescription, j.salary, j.webLinkOffer, j.contactType, j.decision, j.fromUser, j.toUser)"
             + "from JobProposition j, User u "
-            + "where (j.fromUser = :id)"
-            + "and u.idUser = j.toUser and j.decision = 'rejected'")
+            + "where (j.fromUser.idUser = :id)"
+            + "and u.idUser = j.toUser.idUser and j.decision = 'Odrzucone'")
     List<JobPropositionDTO> getRejectedJPropByFromUserID(@Param("id") Integer id);
 
 }

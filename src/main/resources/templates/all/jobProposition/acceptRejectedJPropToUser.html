@@ -1,0 +1,49 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8" name="viewport" content="width = device-width , initial-scale=1.0"/>
+<head>
+    <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+    <link th:href="@{/webjars/font-awesome/5.11.2/css/all.css}" rel="stylesheet"/>
+    <link th:href="@{/static/css/jobOfferCSS.css}" rel="stylesheet"/>
+    <link th:href="@{/static/css/homeHeaderCSS.css}" rel="stylesheet"/>
+    <script th:src="@{/static/js/selectPicker.js} " type="text/javascript"></script>
+    <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js} " type="text/javascript"></script>
+    <script th:src="@{/webjars/popper/1.15.0/umd/popper.min.js} " type="text/javascript"></script>
+    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js} " type="text/javascript"></script>
+</head>
+<body>
+<div th:replace="fragments/loggedInHeader :: headerLoggedIn"></div>
+<div class="container pt-4">
+    <h3 class="text-center">Otrzymane propozycje oferty pracy</h3>
+    <a th:href="@{/user/getAllJPropByToUserId}"
+       class="btn btn-outline-primary my-2 mx-2">Oferty nierozpatrzone</a>
+    <a th:href="@{/user/getAcceptJPropByToUserID}"
+       class="btn btn-outline-success my-2 mx-2">Oferty zaakceptowanie</a>
+    <a th:href="@{/user/getRejectedJPropByToUserID}"
+       class="btn btn-outline-danger my-2 mx-2">Oferty odrzucone</a>
+    <div class="row" th:each="jobProposition : ${jobPropositions}">
+        <dt class="col-sm-3">Nazwa firmy: </dt>
+        <dt class="col-sm-9 font-weight-normal"><th th:text="${jobProposition.companyName}"/></dt>
+        <dt class="col-sm-3 mt-3">Adres firmy: </dt>
+        <dt class="col-sm-9 mt-3 font-weight-normal"> <th th:text="${jobProposition.companyAddress}" /> </dt>
+        <dt class="col-sm-3 mt-3">Nazwa stanowiska: </dt>
+        <dt class="col-sm-9 mt-3 font-weight-normal"> <th th:text="${jobProposition.positionName}" /> </dt>
+        <dt class="col-sm-3 mt-3">Opis: </dt>
+        <dt class="col-sm-9 mt-3 font-weight-normal"> <th th:text="${jobProposition.positionDescription}" /></dt>
+        <dt class="col-sm-3 mt-3">Zarobki: </dt>
+        <dt class="col-sm-9 mt-3 font-weight-normal"> <th th:text="${jobProposition.salary}" /></dt>
+        <dt class="col-sm-3 mt-3">Link do oferty: </dt>
+        <dt class="col-sm-9 mt-3 font-weight-normal"> <th th:text="${jobProposition.webLinkOffer}" /></dt>
+        <dt class="col-sm-3 mt-3">Sposób kontaktu: </dt>
+        <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobProposition.contactType}" /></dt>
+        <dt class="col-sm-3 mt-3">Decyzja: </dt>
+        <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobProposition.decision}" /></dt>
+        <dt class="col-sm-3 mt-3">Imię i nazwisko proponującego ofertę: </dt>
+        <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobProposition.name}"/> <th th:text="${jobProposition.lastName}"/></dt>
+        <dt class="col-sm-12 mt-3">
+            <a th:href="@{/user/viewSelectedProfile/{fromUser}(fromUser=${jobProposition.fromUser})}"
+               class="btn btn-outline-success  mx-2">Zobacz profil</a>
+        </dt>
+    </div>
+</div>
+</body>
+</html>

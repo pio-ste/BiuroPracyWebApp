@@ -4,7 +4,6 @@ import com.biuropracy.demo.DTO.JobPropositionDTO;
 import com.biuropracy.demo.model.JobProposition;
 import com.biuropracy.demo.model.User;
 import com.biuropracy.demo.repository.JobPropositionRepository;
-import com.biuropracy.demo.repository.UserRepository;
 import com.biuropracy.demo.service.JobPropositionService;
 import com.biuropracy.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -44,13 +44,14 @@ public class JobPropositionController {
 
     @GetMapping(path = "/user/getAllJPropByToUserId")
     public String getAllJPropByToUser(Model model){
+        model.addAttribute("jobProposition", new JobProposition()); //do edycji w modalu
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails)authentication.getPrincipal();
         User user = userService.findUserByEmail(userDetails.getUsername());
         Integer id = user.getIdUser();
         List<JobPropositionDTO> JobPropDto = jobPropositionRepository.getAllJPropByToUserId(id);
         model.addAttribute("jobPropositions", JobPropDto);
-        return "";
+        return "/all/jobProposition/allJPropToUser";
     }
 
     @GetMapping(path = "/user/getAcceptJPropByToUserID")
@@ -61,7 +62,7 @@ public class JobPropositionController {
         Integer id = user.getIdUser();
         List<JobPropositionDTO> JobPropDto = jobPropositionRepository.getAcceptJPropByToUserID(id);
         model.addAttribute("jobPropositions", JobPropDto);
-        return "";
+        return "/all/jobProposition/acceptRejectedJPropToUser";
     }
 
     @GetMapping(path = "/user/getRejectedJPropByToUserID")
@@ -72,7 +73,7 @@ public class JobPropositionController {
         Integer id = user.getIdUser();
         List<JobPropositionDTO> JobPropDto = jobPropositionRepository.getRejectedJPropByToUserID(id);
         model.addAttribute("jobPropositions", JobPropDto);
-        return "";
+        return "/all/jobProposition/acceptRejectedJPropToUser";
     }
 
     @GetMapping(path = "/user/getAllJPropByFromUserId")
@@ -83,7 +84,7 @@ public class JobPropositionController {
         Integer id = user.getIdUser();
         List<JobPropositionDTO> JobPropDto = jobPropositionRepository.getAllJPropByFromUserId(id);
         model.addAttribute("jobPropositions", JobPropDto);
-        return "";
+        return "/all/jobProposition/allJPropFromUser";
     }
 
     @GetMapping(path = "/user/getAcceptJPropByFromUserID")
@@ -94,7 +95,7 @@ public class JobPropositionController {
         Integer id = user.getIdUser();
         List<JobPropositionDTO> JobPropDto = jobPropositionRepository.getAcceptJPropByFromUserID(id);
         model.addAttribute("jobPropositions", JobPropDto);
-        return "";
+        return "/all/jobProposition/acceptRejectedJPropFromUser";
     }
 
     @GetMapping(path = "/user/getRejectedJPropByFromUserID")
@@ -105,7 +106,19 @@ public class JobPropositionController {
         Integer id = user.getIdUser();
         List<JobPropositionDTO> JobPropDto = jobPropositionRepository.getRejectedJPropByFromUserID(id);
         model.addAttribute("jobPropositions", JobPropDto);
-        return "";
+        return "/all/jobProposition/acceptRejectedJPropFromUser";
+    }
+
+    @PostMapping(path = "/user/JobProp/changeDecision")
+    public String changeDecision(JobProposition jobProposition){
+        jobPropositionService.updateJobProposition(jobProposition);
+        return "redirect:/user/getAllJPropByToUserId";
+    }
+
+    @GetMapping(path = "/user/jobPropositionDelete")
+    public String jobPropositionDelete(@RequestParam("id") Integer id){
+        jobPropositionService.deleteJobProposition(id);
+        return "redirect:/user/getAllJPropByFromUserId";
     }
 
 }

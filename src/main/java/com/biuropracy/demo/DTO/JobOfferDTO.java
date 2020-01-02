@@ -8,6 +8,7 @@ public class JobOfferDTO {
 
     private Integer idUser;
     private Integer idJobOffer;
+    private Integer idProfileProposition;
     private String title;
     private String location;
     private String description;
@@ -20,7 +21,24 @@ public class JobOfferDTO {
     private String positionLevel;
     private String email;
 
+    public JobOfferDTO(Integer idUser, Integer idJobOffer, Integer idProfileProposition, String title, String location, String description, String contact, String category, String companyName, String contractType, String workingTime, String monthlyPay, String positionLevel) {
+        this.idUser = idUser;
+        this.idJobOffer = idJobOffer;
+        this.idProfileProposition = idProfileProposition;
+        this.title = title;
+        this.location = location;
+        this.description = description;
+        this.contact = contact;
+        this.category = category;
+        this.companyName = companyName;
+        this.contractType = contractType;
+        this.workingTime = workingTime;
+        this.monthlyPay = monthlyPay;
+        this.positionLevel = positionLevel;
+    }
+
     public JobOfferDTO() {
+
     }
 
     public JobOfferDTO(Integer idJobOffer, String title, String location, String category, String monthlyPay, String email) {
@@ -52,6 +70,7 @@ public class JobOfferDTO {
         return "JobOfferDTO{" +
                 "idUser=" + idUser +
                 ", idJobOffer=" + idJobOffer +
+                ", idProfileProposition=" + idProfileProposition +
                 ", title='" + title + '\'' +
                 ", location='" + location + '\'' +
                 ", description='" + description + '\'' +
@@ -65,7 +84,6 @@ public class JobOfferDTO {
                 ", email='" + email + '\'' +
                 '}';
     }
-
 
     public Integer getIdUser() {
         return idUser;
@@ -89,6 +107,14 @@ public class JobOfferDTO {
 
     public void setIdJobOffer(Integer idJobOffer) {
         this.idJobOffer = idJobOffer;
+    }
+
+    public Integer getIdProfileProposition() {
+        return idProfileProposition;
+    }
+
+    public void setIdProfileProposition(Integer idProfileProposition) {
+        this.idProfileProposition = idProfileProposition;
     }
 
     public String getLocation() {

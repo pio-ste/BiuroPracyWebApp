@@ -5,6 +5,7 @@ import com.biuropracy.demo.model.User;
 public class JobPropositionDTO {
 
     private Integer idJobProposition;
+    private Integer idUser;
     private String name;
     private String lastName;
     private String companyName;
@@ -18,8 +19,9 @@ public class JobPropositionDTO {
     private User fromUser;
     private User toUser;
 
-    public JobPropositionDTO(Integer idJobProposition, String name, String lastName, String companyName, String companyAddress, String positionName, String positionDescription, String salary, String webLinkOffer, String contactType, String decision, User fromUser, User toUser) {
+    public JobPropositionDTO(Integer idJobProposition, Integer idUser, String name, String lastName, String companyName, String companyAddress, String positionName, String positionDescription, String salary, String webLinkOffer, String contactType, String decision, User fromUser, User toUser) {
         this.idJobProposition = idJobProposition;
+        this.idUser = idUser;
         this.name = name;
         this.lastName = lastName;
         this.companyName = companyName;
@@ -37,12 +39,40 @@ public class JobPropositionDTO {
     public JobPropositionDTO() {
     }
 
+    @Override
+    public String toString() {
+        return "JobPropositionDTO{" +
+                "idJobProposition=" + idJobProposition +
+                ", idUser=" + idUser +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", companyName='" + companyName + '\'' +
+                ", companyAddress='" + companyAddress + '\'' +
+                ", positionName='" + positionName + '\'' +
+                ", positionDescription='" + positionDescription + '\'' +
+                ", salary='" + salary + '\'' +
+                ", webLinkOffer='" + webLinkOffer + '\'' +
+                ", contactType='" + contactType + '\'' +
+                ", decision='" + decision + '\'' +
+                ", fromUser=" + fromUser +
+                ", toUser=" + toUser +
+                '}';
+    }
+
     public Integer getIdJobProposition() {
         return idJobProposition;
     }
 
     public void setIdJobProposition(Integer idJobProposition) {
         this.idJobProposition = idJobProposition;
+    }
+
+    public Integer getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(Integer idUser) {
+        this.idUser = idUser;
     }
 
     public String getName() {

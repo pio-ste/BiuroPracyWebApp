@@ -28,7 +28,8 @@
                          aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" sec:authorize="isAuthenticated()" th:href="@{/logout}">Wyloguj</a>
                         <a class="dropdown-item" href="/user/myProfile">Ustawienia konta</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        <a class="dropdown-item" href="/user/getAllJPropByToUserId">Odebrane ofert pracy</a>
+                        <a class="dropdown-item" href="/user/getAllJPropByFromUserId">Wysłane ofert pracy</a>
                     </div>
                 </li>
             </ul>
