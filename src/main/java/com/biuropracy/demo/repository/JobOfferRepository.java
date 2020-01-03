@@ -26,4 +26,8 @@ public interface JobOfferRepository extends JpaRepository<JobOffer, Integer> {
     @Query("Select new com.biuropracy.demo.DTO.JobOfferDTO(j.idJobOffer, j.title, j.location, j.description, j.contact, j.category, j.companyName, j.contractType, j.workingTime, j.monthlyPay, j.positionLevel, u.email) from JobOffer j, User u "
             + "where u.idUser = j.user and j.idJobOffer = :idJobOffer")
     List<JobOfferDTO> getSelectedJobOffer(@Param("idJobOffer") Integer idJobOffer);
+
+    @Query("Select new com.biuropracy.demo.DTO.JobOfferDTO(j.idJobOffer, j.title, j.location, j.description, j.contact, j.category, j.companyName, j.contractType, j.workingTime, j.monthlyPay, j.positionLevel, u.email) from JobOffer j, User u "
+            + "where j.user.idUser = :idUser and u.idUser = j.user")
+    List<JobOfferDTO> getUserJobOfferList(@Param("idUser") Integer idUser);
 }

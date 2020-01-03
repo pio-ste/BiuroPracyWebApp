@@ -9,6 +9,7 @@ import com.biuropracy.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -40,42 +41,52 @@ public class JobOfferController {
         return "/all/jobOffers/viewJobs";
     }
 
-    @RequestMapping(path = "/user/jobOffers/delete/{id}")
-    public String deleteJobOfferById(Model model, @PathVariable("id") Integer id) throws RuntimeException {
-        jobOfferService.deleteJobOfferById(id);
-        return "redirect:/user/jobOffers";
+    @GetMapping(path = {"/all/jobOffers/viewSelectedJobOffer", "/all/jobOffers/viewSelectedJobOffer/{id}"})
+    public String viewSelected(Model model,@PathVariable("id") Optional<Integer> id) {
+        List<JobOfferDTO> JobOfferList = jobOfferRepository.getSelectedJobOffer(id.get());
+        model.addAttribute("jobOffers", JobOfferList);
+        return "/all/jobOffers/selectedJobOffer";
     }
-
 
     //dla użytkownika
 
-    @GetMapping("/user/jobOffersFiltered")
+    @GetMapping(path = "/user/jobOffers/delete/{id}")
+    public String deleteJobOfferById(@PathVariable("id") Integer id) {
+        jobOfferService.deleteJobOfferById(id);
+        return "redirect:/user/getUserJobOffer";
+    }
+
+    @GetMapping(path = "/user/getUserJobOffer")
+    public String getUserJobOffer(Model model){
+        model.addAttribute("jobOffer", new JobOffer());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+        User user = userService.findUserByEmail(userDetails.getUsername());
+        Integer idUser = user.getIdUser();
+        List<JobOfferDTO> JobList = jobOfferRepository.getUserJobOfferList(idUser);
+        model.addAttribute("jobOffers", JobList);
+        return "/all/jobOffers/viewUserJobOffers";
+    }
+
+    @GetMapping(path = "/user/jobOffersFiltered")
     public String getAllJobOffersLogged(Model model, String title, String location, String category, String contractType, String workingTime, String positionLevel) {
         List<JobOfferDTO> JobList = jobOfferRepository.getJobOfferFiltered(title, category, location, contractType, workingTime, positionLevel);
         model.addAttribute("jobOffers", JobList);
         return "/all/jobOffers/viewJobsLoginUser";
     }
 
-    @GetMapping(path = {"/user/jobOffers"})
-    public String getAllJobOffersUser(Model model) {
-        List<JobOffer> List = jobOfferService.getAllJobOffers();
-        model.addAttribute("jobOffers", List);
-        return "/all/jobOffers/viewJobsLoginUser";
-    }
-
-
-    @GetMapping(path = {"/all/jobOffers/editOffer", "/all/jobOffers/editOffer/{id}"})
+    @GetMapping(path = {"/user/jobOffers/editOffer", "/user/jobOffers/editOffer/{id}"})
     public String editJobOffer(Model model, @PathVariable("id") Optional<Integer> id) {
         JobOffer jobOffer = jobOfferService.getJobOfferById(id.get());
         model.addAttribute("jobOffer", jobOffer);
         return "/all/jobOffers/edit-jobOffer";
     }
 
-    @GetMapping(path = {"/all/jobOffers/viewSelectedJobOffer", "/all/jobOffers/viewSelectedJobOffer/{id}"})
-    public String viewSelected(Model model,@PathVariable("id") Optional<Integer> id) {
+    @GetMapping(path = {"/user/jobOffers/viewSelectedJobOffer", "/user/jobOffers/viewSelectedJobOffer/{id}"})
+    public String viewSelectedJobOfferUser(Model model,@PathVariable("id") Optional<Integer> id) {
         List<JobOfferDTO> JobOfferList = jobOfferRepository.getSelectedJobOffer(id.get());
         model.addAttribute("jobOffers", JobOfferList);
-        return "/all/jobOffers/selectedJobOffer";
+        return "/all/jobOffers/selectedJobOfferLogin";
     }
 
     @PostMapping(path = "/user/jobOffers/updateJobOfferPost")

@@ -1,0 +1,44 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<meta charset="UTF-8" name="viewport" content="width = device-width , initial-scale=1.0"/>
+<head>
+    <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+    <link th:href="@{/webjars/font-awesome/5.11.2/css/all.css}" rel="stylesheet"/>
+    <link th:href="@{/static/css/jobOfferCSS.css}" rel="stylesheet"/>
+    <link th:href="@{/static/css/homeHeaderCSS.css}" rel="stylesheet"/>
+    <script th:src="@{/static/js/selectPicker.js} " type="text/javascript"></script>
+    <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js} " type="text/javascript"></script>
+    <script th:src="@{/webjars/popper/1.15.0/umd/popper.min.js} " type="text/javascript"></script>
+    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js} " type="text/javascript"></script>
+</head>
+<body>
+<div th:replace="fragments/loggedInHeader :: headerLoggedIn"></div>
+<div class="container pt-4">
+    <div class="row" th:each="jobOffer : ${jobOffers}">
+        <dt class=" col-sm-12 font-weight-bold text-lg-center h3">
+            <th th:text="${jobOffer.title}"/>
+        </dt>
+        <dt class="col-sm-3">Lokalizacja: </dt>
+        <dt class="col-sm-9 font-weight-normal"><th th:text="${jobOffer.location}"/></dt>
+        <dt class="col-sm-3 mt-3">Opis: </dt>
+        <dt class="col-sm-9 mt-3 font-weight-normal"> <th th:text="${jobOffer.description}" /> </dt>
+        <dt class="col-sm-3 mt-3">Kontakt: </dt>
+        <dt class="col-sm-9 mt-3 font-weight-normal"> <th th:text="${jobOffer.contact}" /> </dt>
+        <dt class="col-sm-3 mt-3">Kategoria: </dt>
+        <dt class="col-sm-9 mt-3 font-weight-normal"> <th th:text="${jobOffer.category}" /></dt>
+        <dt class="col-sm-3 mt-3">Nazwa firmy: </dt>
+        <dt class="col-sm-9 mt-3 font-weight-normal"> <th th:text="${jobOffer.companyName}" /></dt>
+        <dt class="col-sm-3 mt-3">Rodzaj umowy: </dt>
+        <dt class="col-sm-9 mt-3 font-weight-normal"> <th th:text="${jobOffer.contractType}" /></dt>
+        <dt class="col-sm-3 mt-3">Wymiar pracy: </dt>
+        <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobOffer.workingTime}" /></dt>
+        <dt class="col-sm-3 mt-3">Miesięczne wynagrodzenie: </dt>
+        <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobOffer.monthlyPay}" /></dt>
+        <dt class="col-sm-3 mt-3">Poziom stanowiska: </dt>
+        <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobOffer.positionLevel}" /></dt>
+        <dt class="col-sm-3 mt-3">Email ogłoszeniodawcy: </dt>
+        <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobOffer.email}"/></dt>
+    </div>
+</div>
+</body>
+</html>
