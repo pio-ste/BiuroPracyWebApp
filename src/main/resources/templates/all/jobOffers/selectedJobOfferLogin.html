@@ -38,6 +38,9 @@
         <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobOffer.positionLevel}" /></dt>
         <dt class="col-sm-3 mt-3">Email ogłoszeniodawcy: </dt>
         <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobOffer.email}"/></dt>
+        <dt class="col-sm-12 mt-3">
+            <div th:replace="fragments/modal/addProfileProp :: addProfilePropFragment"></div>
+        </dt>
     </div>
 </div>
 </body>

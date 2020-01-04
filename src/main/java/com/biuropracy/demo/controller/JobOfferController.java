@@ -2,6 +2,7 @@ package com.biuropracy.demo.controller;
 
 import com.biuropracy.demo.DTO.JobOfferDTO;
 import com.biuropracy.demo.model.JobOffer;
+import com.biuropracy.demo.model.ProfileProposition;
 import com.biuropracy.demo.model.User;
 import com.biuropracy.demo.repository.JobOfferRepository;
 import com.biuropracy.demo.service.JobOfferService;
@@ -84,6 +85,7 @@ public class JobOfferController {
 
     @GetMapping(path = {"/user/jobOffers/viewSelectedJobOffer", "/user/jobOffers/viewSelectedJobOffer/{id}"})
     public String viewSelectedJobOfferUser(Model model,@PathVariable("id") Optional<Integer> id) {
+        model.addAttribute("profileProposition", new ProfileProposition());
         List<JobOfferDTO> JobOfferList = jobOfferRepository.getSelectedJobOffer(id.get());
         model.addAttribute("jobOffers", JobOfferList);
         return "/all/jobOffers/selectedJobOfferLogin";
