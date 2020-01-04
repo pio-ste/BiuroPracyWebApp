@@ -19,4 +19,9 @@ public class HomeController {
     public String calculator() {
         return "/all/calculator/calculatorForm";
     }
+
+    @GetMapping(path = "/user/calculator")
+    public String userCalculator() {
+        return "/all/calculator/UserCalculator";
+    }
 }

@@ -2,6 +2,7 @@ package com.biuropracy.demo.service;
 
 import com.biuropracy.demo.model.Role;
 import com.biuropracy.demo.model.User;
+import com.biuropracy.demo.repository.ProfilePropositionRepository;
 import com.biuropracy.demo.repository.RoleRepository;
 import com.biuropracy.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    ProfilePropositionRepository profilePropositionRepository;
+
     @Override
     @Transactional
     public void saveProfileImage(Integer id, MultipartFile file) {
@@ -49,6 +53,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void saveUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setStatus("ZWERYFIKOWANY");
         Role userRole = roleRepository.findByRole("USER");
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
         userRepository.save(user);
@@ -107,4 +112,5 @@ public class UserServiceImpl implements UserService {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
+
 }

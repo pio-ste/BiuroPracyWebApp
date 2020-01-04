@@ -46,6 +46,8 @@ public class ProfilePropositionService {
         return profileProposition;
     }
 
+
+
     public void deleteProfileProp(Integer id) {
         Optional<ProfileProposition> profilePropOpt = profilePropositionRepository.findById(id);
         if (profilePropOpt.isPresent()) {

@@ -55,7 +55,7 @@ public class JobPropositionController {
     }
 
     @GetMapping(path = "/user/getAcceptJPropByToUserID")
-    public String ggetAcceptJPropByToUser(Model model){
+    public String getAcceptJPropByToUser(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails)authentication.getPrincipal();
         User user = userService.findUserByEmail(userDetails.getUsername());

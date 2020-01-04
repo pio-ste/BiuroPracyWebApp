@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8" name="viewport" content="width = device-width , initial-scale=1.0"/>
+<link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+<link th:href="@{/webjars/font-awesome/5.11.2/css/all.css}" rel="stylesheet"/>
+<link th:href="@{/static/css/mainCSS.css}" rel="stylesheet"/>
+<link th:href="@{/static/css/homeHeaderCSS.css}" rel="stylesheet"/>
+<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js} " type="text/javascript"></script>
+<script th:src="@{/webjars/popper/1.15.0/umd/popper.min.js} " type="text/javascript"></script>
+<script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js} " type="text/javascript"></script>
+
+<body>
+<div th:replace="fragments/loggedInHeader :: headerLoggedIn"></div>
+
+<div class="container">
+    <div class="row mt-3">
+        <div class="col-md-12 text-center">
+            <h3>Kalkulator wynagrodzeń</h3>
+        </div>
+        <div class="col-md-12">
+            <a>Wpisz miesięczne wynagrodznie:</a>
+            <input id="input" type="number"/>
+            <button type="button" onclick="uPraceFromBrutto(); uZlecenieFromBrutto(); uDzieloFromBrutto()"
+                    class="btn btn-primary ml-2" data-toggle="modal" data-target="#brutto">
+                <i>Wylicz kwotę netto</i>
+        </div>
+        <div class="col-md-12 text-center mt-2 border-top border-secondary">
+            <h5>Zaznacz opcje aby wyliczyć odpowiednie wyngrodzenie:</h5>
+        </div>
+        <div class="col-md-12">
+            <a>Czy pracujesz w miejscu zamieszkania?</a>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" checked="checked" type="radio" name="miejscePracy"  value="250">
+                <label class="form-check-label" >Tak</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="miejscePracy" value="300">
+                <label class="form-check-label" >Nie</label>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <a>Koszt uzyskania przychodu:</a>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" checked="checked" type="radio" name="kUzyskPrzychodu"  value="0.2">
+                <label class="form-check-label" >20%</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="kUzyskPrzychodu" value="0.5">
+                <label class="form-check-label" >50%</label>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <a>Ubezpieczenie chorobowe (dobrowolne dla umowy zlecenie):</a>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="ubezpieczenieChorobowe"  value="0.0245">
+                <label class="form-check-label" >Tak</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" checked="checked" type="radio" name="ubezpieczenieChorobowe" value="0">
+                <label class="form-check-label" >Nie</label>
+            </div>
+        </div>
+        <div>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="modal fade bd-example-modal-lg" id="brutto" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12 text-center bg-light border-bottom border-secondary"><h3>Umowa o pracę dla kwoty brutto <a id="wynagrodzenie"></a> zł</h3> </div>
+                            <dt class="col-md-6 border-right border-secondary">Podatki z których składa się wynagrodzenie:</dt>
+                            <dt class="col-md-6">Koszty pracodawcy:</dt>
+                            <dt class="col-md-6 border-right border-secondary">Ubezpieczenie emerytalne: <a id="sEmerytalna"></a> zł</dt>
+                            <dt class="col-md-6">Ubezpieczenie wypadkowe: <a id="ubWypadkowe"></a> zł</dt>
+                            <dt class="col-md-6 border-right border-secondary">Ubezpieczenie rentowe: <a id="sRentowa"></a> zł</dt>
+                            <dt class="col-md-6">Ubezpieczenie emerytalne: <a id="ubEmerytalne"></a> zł</dt>
+                            <dt class="col-md-6 border-right border-secondary">Ubezpieczenie chorobowe: <a id="sChorobowa"></a> zł</dt>
+                            <dt class="col-md-6">Ubezpieczenie rentowe: <a id="ubRentowe"></a> zł</dt>
+                            <dt class="col-md-6 border-right border-secondary">Ubezpieczenie zdrowotne: <a id="sZdrowotnaOdliczona"></a> zł</dt>
+                            <dt class="col-md-6">Fundusz Pracy: <a id="funduszPracy"></a> zł</dt>
+                            <dt class="col-md-6 border-right border-secondary">Zaliczka na podatek: <a id="zaliczkaNaPodatek"></a> zł</dt>
+                            <dt class="col-md-6">FGŚP: <a id="FGSP"></a> zł</dt>
+                            <dt class="col-md-6 border-right border-secondary">Kwota netto: <a class="text-success" id="UOP"></a> zł</dt>
+                            <dt class="col-md-6">Cała kwota: <a class="text-danger" id="kosztPracodawcy"></a> zł</dt>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-center bg-light border-bottom border-secondary"><h3>Umowa zlecenie dla kwoty brutto <a id="UZwynagrodzenieWprowadzone"></a> zł</h3> </div>
+                            <dt class="col-md-6 border-right border-secondary">Podatki z których składa się wynagrodzenie:</dt>
+                            <dt class="col-md-6">Koszty pracodawcy:</dt>
+                            <dt class="col-md-6 border-right border-secondary">Ubezpieczenie emerytalne: <a id="UZskladkaEmerytalna"></a> zł</dt>
+                            <dt class="col-md-6">Ubezpieczenie wypadkowe: <a id="UZubWypadkowe"></a> zł</dt>
+                            <dt class="col-md-6 border-right border-secondary">Ubezpieczenie rentowe: <a id="UZskladkaRentowa"></a> zł</dt>
+                            <dt class="col-md-6">Ubezpieczenie emerytalne: <a id="UZubEmerytalne"></a> zł</dt>
+                            <dt class="col-md-6 border-right border-secondary">Ubezpieczenie chorobowe: <a id="UZskladkaChorobowa"></a> zł</dt>
+                            <dt class="col-md-6">Ubezpieczenie rentowe: <a id="UZubRentowe"></a> zł</dt>
+                            <dt class="col-md-6 border-right border-secondary">Ubezpieczenie zdrowotne: <a id="UZskladkaZrowotnaDoOdliczenia"></a> zł</dt>
+                            <dt class="col-md-6">Fundusz Pracy: <a id="UZfunduszPracy"></a> zł</dt>
+                            <dt class="col-md-6 border-right border-secondary">Zaliczka na podatek: <a id="UZzaliczkaNaPodatek"></a> zł</dt>
+                            <dt class="col-md-6">FGŚP: <a id="UZFGSP"></a> zł</dt>
+                            <dt class="col-md-6 border-right border-secondary">Kwota netto: <a class="text-success" id="UZwynagrodzenie"></a> zł</dt>
+                            <dt class="col-md-6">Cała kwota: <a class="text-danger" id="UZkosztPracodawcy"></a> zł</dt>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-center bg-light border-bottom border-secondary"><h3>Umowa o dzieło dla kwoty brutto <a id="UDwynagrodzenieWprowadzone"></a> zł</h3> </div>
+                            <dt class="col-md-6 border-right border-secondary">Podatki z których składa się wynagrodzenie:</dt>
+                            <dt class="col-md-6">Koszty pracodawcy:</dt>
+                            <dt class="col-md-6 border-right border-secondary">Ubezpieczenie emerytalne: 0 zł</dt>
+                            <dt class="col-md-6">Ubezpieczenie wypadkowe: 0 zł</dt>
+                            <dt class="col-md-6 border-right border-secondary">Ubezpieczenie rentowe: 0 zł</dt>
+                            <dt class="col-md-6">Ubezpieczenie emerytalne: 0 zł</dt>
+                            <dt class="col-md-6 border-right border-secondary">Ubezpieczenie chorobowe: 0 zł</dt>
+                            <dt class="col-md-6">Ubezpieczenie rentowe: 0 zł</dt>
+                            <dt class="col-md-6 border-right border-secondary">Ubezpieczenie zdrowotne: 0 zł</dt>
+                            <dt class="col-md-6">Fundusz Pracy: 0 zł</dt>
+                            <dt class="col-md-6 border-right border-secondary">Zaliczka na podatek: <a id="UDzaliczkaNaPodatek"></a> zł</dt>
+                            <dt class="col-md-6">FGŚP: 0 zł</dt>
+                            <dt class="col-md-6 border-right border-secondary">Kwota netto: <a class="text-success" id="UDwynagrodzenie"></a> zł</dt>
+                            <dt class="col-md-6">Cała kwota: 0 zł</dt>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer.html :: footerFragment"></div>
+<script th:src="@{/static/js/CalculatorJS.js} " type="text/javascript"></script>
+</body>
+</html>

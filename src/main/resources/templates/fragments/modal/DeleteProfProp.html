@@ -1,0 +1,23 @@
+<div th:fragment="deleteProfPropFragment" xmlns:th="http://www.thymeleaf.org">
+    <button type="button" class="btn btn-danger mb-2" data-toggle="modal" data-target="#jobOfferDelete" th:attrappend="data-target=${profileProposition.idProfileProposition}">
+        Usuń <i class="far fa-trash-alt"></i>
+    </button>
+    <div class="modal fade" id="jobOfferDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" th:attrappend="id=${profileProposition.idProfileProposition}">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body bg-danger">
+                    Czy chcesz usunąć propozycję?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Anuluj</button>
+                    <a type="button" class="btn btn-danger" th:href="@{/user/deleteMyProfileProposition(id=${profileProposition.idProfileProposition})}">Usuń</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

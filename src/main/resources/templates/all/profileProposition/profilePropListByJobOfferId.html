@@ -1,0 +1,32 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8" name="viewport" content="width = device-width , initial-scale=1.0"/>
+<head>
+    <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+    <link th:href="@{/webjars/font-awesome/5.11.2/css/all.css}" rel="stylesheet"/>
+    <link th:href="@{/static/css/jobOfferCSS.css}" rel="stylesheet"/>
+    <link th:href="@{/static/css/homeHeaderCSS.css}" rel="stylesheet"/>
+    <script th:src="@{/static/js/selectPicker.js} " type="text/javascript"></script>
+    <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js} " type="text/javascript"></script>
+    <script th:src="@{/webjars/popper/1.15.0/umd/popper.min.js} " type="text/javascript"></script>
+    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js} " type="text/javascript"></script>
+</head>
+<body>
+<div th:replace="fragments/loggedInHeader :: headerLoggedIn"></div>
+<div class="container pt-4">
+    <h3 class="text-center">Otrzymane propozycje osób</h3>
+    <div class="row" th:each="profileProposition : ${profilePropositions}">
+        <dt class="col-sm-3 mt-1"><img th:src="@{'/user/' + ${profileProposition.idUser} + '/displayImage'}" width="200" height="200" class="mt-3"></dt>
+        <dt class="col-sm-9 mt-2 font-weight-normal">
+            <b>Imię i nazwisko:</b> <th th:text="${profileProposition.name}"/> <th th:text="${profileProposition.lastName}"/> </br>
+            <b>Sposób kontaktu z osobą:</b> <th th:text="${profileProposition.contactType}"/> </br>
+            <b>Decyzja:</b> <th th:text="${profileProposition.decision}" /> </br>
+        </dt>
+        <dt class="col-sm-12 mt-3">
+            <a th:href="@{/user/viewSelectedProfile/{idUser}(idUser=${profileProposition.idUser})}"
+               class="btn btn-outline-success mb-2 mr-2">Zobacz profil</a>
+            <div th:replace="fragments/modal/ChangeDecProfileProp :: changeDecProfilePropFragment"></div>
+        </dt>
+    </div>
+</div>
+</body>
+</html>

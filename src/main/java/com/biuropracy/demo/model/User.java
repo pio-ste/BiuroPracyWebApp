@@ -61,7 +61,10 @@ public class User {
     @Lob
     private Byte[] profileImage;
 
-    public User(@NotEmpty(message = "Wpisz swoje imię") String name, @NotEmpty(message = "Wpisz swoje nazwisko") String lastName, @NotEmpty(message = "Wpisz swój adres email") @Email(message = "Zły adres email") String email, @NotEmpty(message = "Wpisz hasło") @Size(min = 4, message = "Hasło musi mieć minimum 4 znaki") String password, String dateBirth, String homeCity, String workCity, String hobby, String currentPosition, String positionSought, String toFind, Byte[] profileImage, Set<Role> roles, List<JobOffer> jobOffers, List<Course> courses, List<Education> educations, List<JobExperience> jobExperiences, List<Language> languages, List<Organization> organizations, List<Skill> skills, List<WebLink> webLinks, List<JobProposition> fromUsers, List<JobProposition> toUsers, List<ProfileProposition> users) {
+    @Column(name = "status")
+    private String status;
+
+    public User(@NotEmpty(message = "Wpisz swoje imię") String name, @NotEmpty(message = "Wpisz swoje nazwisko") String lastName, @NotEmpty(message = "Wpisz swój adres email") @Email(message = "Zły adres email") String email, @NotEmpty(message = "Wpisz hasło") @Size(min = 4, message = "Hasło musi mieć minimum 4 znaki") String password, String dateBirth, String homeCity, String workCity, String hobby, String currentPosition, String positionSought, String toFind, Byte[] profileImage, String status, Set<Role> roles, List<JobOffer> jobOffers, List<Course> courses, List<Education> educations, List<JobExperience> jobExperiences, List<Language> languages, List<Organization> organizations, List<Skill> skills, List<WebLink> webLinks, List<JobProposition> fromUsers, List<JobProposition> toUsers, List<ProfileProposition> users) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
@@ -74,6 +77,7 @@ public class User {
         this.positionSought = positionSought;
         this.toFind = toFind;
         this.profileImage = profileImage;
+        this.status = status;
         this.roles = roles;
         this.jobOffers = jobOffers;
         this.courses = courses;
@@ -261,6 +265,14 @@ public class User {
 
     public void setProfileImage(Byte[] profileImage) {
         this.profileImage = profileImage;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public List<Course> getCourses() {

@@ -1,0 +1,36 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8" name="viewport" content="width = device-width , initial-scale=1.0"/>
+<head>
+    <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+    <link th:href="@{/webjars/font-awesome/5.11.2/css/all.css}" rel="stylesheet"/>
+    <link th:href="@{/static/css/jobOfferCSS.css}" rel="stylesheet"/>
+    <link th:href="@{/static/css/homeHeaderCSS.css}" rel="stylesheet"/>
+    <script th:src="@{/static/js/selectPicker.js} " type="text/javascript"></script>
+    <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js} " type="text/javascript"></script>
+    <script th:src="@{/webjars/popper/1.15.0/umd/popper.min.js} " type="text/javascript"></script>
+    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js} " type="text/javascript"></script>
+</head>
+<body>
+<div th:replace="fragments/loggedInHeader :: headerLoggedIn"></div>
+<div class="container pt-4">
+    <h3 class="text-center">Wysłane propozycje</h3>
+    <div class="row" th:each="profileProposition : ${profilePropositions}">
+        <dt class="col-sm-3 mt-1">Nazwa ogłoszenia: </dt>
+        <dt class="col-sm-9 mt-2 font-weight-normal"><th th:text="${profileProposition.title}"/></dt>
+        <dt class="col-sm-3 mt-1">Lokalizacja: </dt>
+        <dt class="col-sm-9 mt-2 font-weight-normal"><th th:text="${profileProposition.location}"/></dt>
+        <dt class="col-sm-3 mt-1">Nazwa firmy: </dt>
+        <dt class="col-sm-9 mt-2 font-weight-normal"><th th:text="${profileProposition.companyName}"/></dt>
+        <dt class="col-sm-3 mt-1">Sposób kontaktu: </dt>
+        <dt class="col-sm-9 mt-2 font-weight-normal"><th th:text="${profileProposition.contactType}"/></dt>
+        <dt class="col-sm-3 mt-1">Decyzja: </dt>
+        <dt class="col-sm-9 mt-2 font-weight-normal"><th th:text="${profileProposition.decision}"/></dt>
+        <dt class="col-sm-12">
+            <a th:href="@{/user/jobOffers/viewSelectedJobOffer/{idJobOffer}(idJobOffer=${profileProposition.idJobOffer})}"
+               class="btn btn-outline-success my-2"> Przejdź do ogłoszenia <i class="fas fa-angle-double-right"></i></a>
+            <div th:replace="fragments/modal/DeleteProfProp :: deleteProfPropFragment"></div>
+        </dt>
+    </div>
+</div>
+</body>
+</html>

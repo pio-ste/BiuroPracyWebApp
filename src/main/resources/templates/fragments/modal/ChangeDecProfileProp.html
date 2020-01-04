@@ -1,0 +1,60 @@
+<div th:fragment="changeDecProfilePropFragment" xmlns:th="http://www.thymeleaf.org">
+    <button type="button"
+            class="btn btn-warning mb-2" data-toggle="modal" data-target="#changeDecision" th:attrappend="data-target=${profileProposition.idProfileProposition}">
+        Wyślij odpowiedź<i class="far fa-edit"></i>
+    </button>
+
+    <div class="modal fade" id="changeDecision" role="dialog" th:attrappend="id=${profileProposition.idProfileProposition}">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="#"
+                          th:action="@{/user/ProfileProp/changeDecision}"
+                          method="post">
+                        <fieldset>
+
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <input id="idProfileProposition" path="idProfileProposition" name="idProfileProposition" type="hidden"
+                                           placeholder="idProfileProposition" class="form-control input-md"
+                                           th:value="${profileProposition.idProfileProposition}"/>
+                                    <input id="contactType" path="contactType" name="contactType" type="hidden"
+                                           placeholder="contactType" class="form-control input-md"
+                                           th:value="${profileProposition.contactType}"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-6 control-label" >Decyzja</label>
+                                <div class="col-md-12">
+                                    <select th:field="*{profileProposition.decision}" class="form-control">
+                                        <option value="" class="font-weight-bold">Decyzja</option>
+                                        <option value="Zaakceptowane">Akceptuj</option>
+                                        <option value="Odrzucone">Odrzuć</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="register"></label>
+                                <div class="col-md-4">
+                                    <button id="register" name="register" class="btn btn-primary">
+                                        Wyślij
+                                    </button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
