@@ -9,17 +9,17 @@
 <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js} " type="text/javascript"></script>
 </head>
 <body>
-<div th:replace="fragments/loggedInHeader :: headerLoggedIn"></div>
+<div th:replace="fragments/adminHeader :: headerAdmin"></div>
 
 <div class="container my-5">
     <div class="text-center">
         <h3> Dodaj ogłoszenie</h3></div>
-    <form action="#" th:action="@{/user/jobOffers/createJobOfferPost}" th:object="${jobOffer}"
+    <form action="#" th:action="@{/admin/jobOffers/createJobOfferPost}" th:object="${jobOffer}"
           method="post" class="form-signin" role="form">
         <div class="row">
             <div class="form-group col-md-12 mt-4">
                 <input type="text" th:field="*{title}" class="form-control" maxlength="200"
-                        placeholder="Nazwa ogłoszenia" />
+                       placeholder="Nazwa ogłoszenia" />
             </div>
             <div class="form-group col-md-12">
                 <input type="text" th:field="*{location}" class="form-control" maxlength="200"
@@ -27,18 +27,18 @@
             </div>
             <div class="form-group col-md-12">
                 <input type="text" th:field="*{contact}" class="form-control" maxlength="200"
-                        placeholder="Sposób kontaktu" />
+                       placeholder="Sposób kontaktu" />
             </div>
             <div class="form-group col-md-12">
                 <textarea type="text" rows="10" th:field="*{description}" class="form-control"
-                        maxlength="999" placeholder="Opis ogłoszenia" />
+                          maxlength="999" placeholder="Opis ogłoszenia" />
             </div>
             <div class="form-group col-md-12">
                 <div th:replace="fragments/select-option/add/add-category.html :: select_option_category"></div>
             </div>
             <div class="form-group col-md-12">
                 <input type="text" th:field="*{companyName}" class="form-control" maxlength="200"
-                        placeholder="Nazwa firmy" />
+                       placeholder="Nazwa firmy" />
             </div>
             <div class="form-group col-md-12">
                 <div th:replace="fragments/select-option/add/add-contractType.html :: select_option_contractType"></div>
@@ -48,7 +48,7 @@
             </div>
             <div class="form-group col-md-12">
                 <input type="text" th:field="*{monthlyPay}" class="form-control" maxlength="200"
-                        placeholder="Zarobki miesięczne" />
+                       placeholder="Zarobki miesięczne" />
             </div>
             <div class="form-group col-md-12">
                 <div th:replace="fragments/select-option/add/add-positionLevel.html :: select_option_positionLevel"></div>

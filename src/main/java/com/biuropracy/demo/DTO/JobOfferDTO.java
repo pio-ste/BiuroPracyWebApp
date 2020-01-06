@@ -50,6 +50,22 @@ public class JobOfferDTO {
         this.email = email;
     }
 
+    public JobOfferDTO(Integer idUser, Integer idJobOffer, String title, String location, String description, String contact, String category, String companyName, String contractType, String workingTime, String monthlyPay, String positionLevel, String email) {
+        this.idUser = idUser;
+        this.idJobOffer = idJobOffer;
+        this.title = title;
+        this.location = location;
+        this.description = description;
+        this.contact = contact;
+        this.category = category;
+        this.companyName = companyName;
+        this.contractType = contractType;
+        this.workingTime = workingTime;
+        this.monthlyPay = monthlyPay;
+        this.positionLevel = positionLevel;
+        this.email = email;
+    }
+
     public JobOfferDTO(Integer idJobOffer, String title, String location, String description, String contact, String category, String companyName, String contractType, String workingTime, String monthlyPay, String positionLevel, String email) {
         this.idJobOffer = idJobOffer;
         this.title = title;

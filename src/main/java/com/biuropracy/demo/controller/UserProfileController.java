@@ -28,6 +28,8 @@ import java.util.Optional;
 @Controller
 public class UserProfileController {
 
+    private Integer idTmp;
+
     @Autowired
     UserService userService;
     @Autowired
@@ -255,8 +257,8 @@ public class UserProfileController {
         return "redirect:/user/userProfile/editProfile/" + id +"";
     }
 
-    @GetMapping(path = "/user/{id}/displayImage")
-    public void dispalyImageFromDB(@PathVariable("id") Integer id, HttpServletResponse response) throws IOException {
+    @GetMapping(path = "/all/{id}/displayImage")
+    public void displayImageFromDB(@PathVariable("id") Integer id, HttpServletResponse response) throws IOException {
         User user = userService.findUser(id);
 
         if (user.getProfileImage() != null) {
@@ -274,15 +276,8 @@ public class UserProfileController {
     }
 
     @GetMapping(path = "/user/usersProfilesVisible")
-    public String usersProfilesVisible(Model model){
-        List<User> ProfileList = userRepository.getVisibleUsers();
-        model.addAttribute("users", ProfileList);
-        return "/all/profile/loggedListProfiles";
-    }
-
-    @GetMapping(path = "/user/usersProfileFiltered")
-    public String usersProfileFiltered(Model model, String workCity, String category){
-        List<User> FilteredProfile = userRepository.getVisibleUsersFiltered(workCity, category);
+    public String usersProfileFiltered(Model model, String workCity, String category, String email){
+        List<User> FilteredProfile = userRepository.getVisibleUsersFiltered(workCity, category, email);
         model.addAttribute("users", FilteredProfile);
         return "/all/profile/loggedListProfiles";
     }
@@ -307,6 +302,53 @@ public class UserProfileController {
         model.addAttribute("skills", SkillList);
         model.addAttribute("webLinks", WebLinkList);
         return "/all/profile/viewSelectedProfile";
+    }
+
+    //admin
+
+
+
+    @GetMapping(path = {"/admin/viewUserProfile", "/admin/viewUserProfile/{id}"})
+    public String viewProfileAdmin(Model model, @PathVariable("id") Optional<Integer> id) {
+        idTmp = id.get();
+        model.addAttribute("webLink", new WebLink());
+        model.addAttribute("course", new Course());
+        model.addAttribute("education", new Education());
+        model.addAttribute("jobExperience", new JobExperience());
+        model.addAttribute("language", new Language());
+        model.addAttribute("organization", new Organization());
+        model.addAttribute("skill", new Skill());
+        List<User> UserList = userService.findUserById(id.get());
+        List<Course> CourseList = courseService.findCourseByUserId(id.get());
+        List<Education> EducationList = educationService.findEducationByUserId(id.get());
+        List<JobExperience> JobExpList = jobExperienceService.findJobExperienceByUserId(id.get());
+        List<Language> LangList = languageService.findLanguageByUserId(id.get());
+        List<Organization> OrganizationList = organizationService.findOrganizationByUserId(id.get());
+        List<Skill> SkillList = skillService.findSkillByUserId(id.get());
+        List<WebLink> WebLinkList = webLinkService.findWebLinkByUserId(id.get());
+        model.addAttribute("users", UserList);
+        model.addAttribute("courses", CourseList);
+        model.addAttribute("educations", EducationList );
+        model.addAttribute("jobExps", JobExpList);
+        model.addAttribute("languages", LangList);
+        model.addAttribute("organizations", OrganizationList);
+        model.addAttribute("skills", SkillList);
+        model.addAttribute("webLinks", WebLinkList);
+        return "/all/profile/selectedUserProfile";
+    }
+
+    @GetMapping(path = "/admin/usersProfiles")
+    public String usersProfileAdmin(Model model, String workCity, String category, String email){
+        List<User> FilteredProfile = userRepository.getAllUsersAdmin(workCity, category, email);
+        model.addAttribute("users", FilteredProfile);
+        return "/all/profile/ProfileListAdmin";
+    }
+
+    @PostMapping(path = "/admin/userProfile/addWebLink")
+    public String addWebLinkAdmin(ModelAndView modelAndView, WebLink webLink){
+        webLinkService.createWebLink(webLink, userService.findUser(idTmp));
+        modelAndView.addObject("webLink", new WebLink());
+        return "redirect:/admin/usersProfiles";
     }
 
 }

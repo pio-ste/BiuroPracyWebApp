@@ -39,7 +39,7 @@
                                 <label class="col-md-6 control-label" for="position">Stanowisko</label>
                                 <div class="col-md-6">
                                     <input id="position" path="position" name="position"
-                                           type="text" placeholder="Stanowisko"
+                                           type="text" placeholder="Stanowisko" maxlength="200"
                                            class="form-control input-md" th:value="${jobExperience.position}"
                                     />
                                 </div>
@@ -49,7 +49,7 @@
                                 <label class="col-md-6 control-label" for="location">Lokalizacja</label>
                                 <div class="col-md-6">
                                     <input id="location" path="location" name="location"
-                                           type="text" placeholder="Lokalizacja"
+                                           type="text" placeholder="Lokalizacja" maxlength="200"
                                            class="form-control input-md" th:value="${jobExperience.location}"
                                     />
                                 </div>
@@ -80,7 +80,7 @@
                                 <label class="col-md-6 control-label" for="fromYear">Rok rozpoczęcia</label>
                                 <div class="col-md-6">
                                     <input id="fromYear" path="fromYear" name="fromYear"
-                                           type="number" placeholder="Rok rozpoczęcia"
+                                           type="number" placeholder="Rok rozpoczęcia" maxlength="4"
                                            class="form-control input-md" th:value="${jobExperience.fromYear}"
                                     />
                                 </div>
@@ -111,7 +111,7 @@
                                 <label class="col-md-6 control-label" for="toYear">Rok zakończenia</label>
                                 <div class="col-md-6">
                                     <input id="toYear" path="toYear" name="toYear"
-                                           type="number" placeholder="Rok zakończenia"
+                                           type="number" placeholder="Rok zakończenia" maxlength="4"
                                            class="form-control input-md" th:value="${jobExperience.toYear}"
                                     />
                                 </div>
@@ -131,7 +131,7 @@
                                 <label class="col-md-6 control-label" for="description">Opis</label>
                                 <div class="col-md-6">
                                     <input id="description" path="description" name="description"
-                                           type="text" placeholder="Opis"
+                                           type="text" placeholder="Opis" maxlength="200"
                                            class="form-control input-md" th:value="${jobExperience.description}"
                                     />
                                 </div>

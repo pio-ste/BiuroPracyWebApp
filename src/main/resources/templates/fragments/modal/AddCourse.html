@@ -21,7 +21,7 @@
                                 <div class="col-md-6">
 
                                     <input id="courseName" path="courseName" name="courseName" type="text"
-                                           placeholder="Nazwa kursu" class="form-control input-md"
+                                           placeholder="Nazwa kursu" class="form-control input-md" maxlength="200"
                                            th:value="${courseName}"/>
                                 </div>
                             </div>
@@ -30,7 +30,7 @@
                                 <label class="col-md-6 control-label" for="organizer">Organizator</label>
                                 <div class="col-md-6">
                                     <input id="organizer" path="organizer" name="organizer"
-                                           type="text" placeholder="Organizator"
+                                           type="text" placeholder="Organizator" maxlength="200"
                                            class="form-control input-md" th:value="${organizer}"
                                     />
                                 </div>
@@ -61,7 +61,7 @@
                                 <label class="col-md-6 control-label" for="courseYear">Rok odbycia kursu</label>
                                 <div class="col-md-6">
                                     <input id="courseYear" path="courseYear" name="courseYear"
-                                           type="number" placeholder="Rok odbycia kursu"
+                                           type="number" placeholder="Rok odbycia kursu" maxlength="4"
                                            class="form-control input-md" th:value="${courseYear}"
                                     />
                                 </div>

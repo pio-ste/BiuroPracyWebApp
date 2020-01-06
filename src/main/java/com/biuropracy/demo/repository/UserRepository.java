@@ -13,14 +13,18 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-    @Query("select new com.biuropracy.demo.model.User(u.idUser, u.name, u.lastName, u.dateBirth, u.homeCity, u.workCity, u.currentPosition, u.positionSought, u.profileImage)"
-            +"from User u where u.toFind = 'visible'")
-    List<User> getVisibleUsers();
 
-    @Query("select new com.biuropracy.demo.model.User(u.idUser, u.name, u.lastName, u.dateBirth, u.homeCity, u.workCity, u.currentPosition, u.positionSought, u.profileImage)"
+    @Query("select new com.biuropracy.demo.model.User(u.idUser, u.email, u.name, u.lastName, u.dateBirth, u.homeCity, u.workCity, u.currentPosition, u.positionSought, u.profileImage)"
             +"from User u where toFind = 'visible' and (u.workCity = :workCity or :workCity is null or :workCity = '')"
-            +"and (u.positionSought = :positionSought or :positionSought is null or :positionSought = '')")
-    List<User> getVisibleUsersFiltered(@Param("workCity") String workCity, @Param("positionSought") String positionSought);
+            +"and (u.positionSought = :positionSought or :positionSought is null or :positionSought = '')"
+            +"and (u.email = :email or :email is null or :email = '')")
+    List<User> getVisibleUsersFiltered(@Param("workCity") String workCity, @Param("positionSought") String positionSought, @Param("email") String email);
+
+    @Query("select new com.biuropracy.demo.model.User(u.idUser, u.email, u.name, u.lastName, u.dateBirth, u.homeCity, u.workCity, u.currentPosition, u.positionSought, u.profileImage)"
+            +"from User u where (u.workCity = :workCity or :workCity is null or :workCity = '')"
+            +"and (u.positionSought = :positionSought or :positionSought is null or :positionSought = '')"
+            +"and (u.email = :email or :email is null or :email = '')")
+    List<User> getAllUsersAdmin(@Param("workCity") String workCity, @Param("positionSought") String positionSought, @Param("email") String email);
 
     User findByEmail(String email);
 

@@ -123,4 +123,58 @@ public class JobOfferController {
         modelAndView.addObject("jobOffer", new JobOffer());
         return "/all/jobOffers/add-jobOffer";
     }
+
+    // admin
+
+    @GetMapping("/admin/jobOffers")
+    public String getAllJobOffersAdmin(Model model, String title, String location, String category, String contractType, String workingTime, String positionLevel) {
+        List<JobOfferDTO> JobList = jobOfferRepository.getJobOfferFilteredAdmin(title, category, location, contractType, workingTime, positionLevel);
+        model.addAttribute("jobOffers", JobList);
+        return "/all/jobOffers/allJobOffersAdmin";
+    }
+
+    @GetMapping(path = {"/admin/jobOffers/editOffer", "/admin/jobOffers/editOffer/{id}"})
+    public String editJobOfferAdmin(Model model, @PathVariable("id") Optional<Integer> id) {
+        JobOffer jobOffer = jobOfferService.getJobOfferById(id.get());
+        model.addAttribute("jobOffer", jobOffer);
+        return "/all/jobOffers/editJobOfferAdmin";
+    }
+
+    @PostMapping(path = "/admin/jobOffers/updateJobOfferPost")
+    public String updateJobOfferAdmin(@Valid JobOffer jobOffer, BindingResult bindingResult, ModelMap modelMap){
+        ModelAndView modelAndView = new ModelAndView();
+        if (bindingResult.hasErrors()) {
+            modelAndView.addObject("successMessage", "Popraw błędy w formularzu");
+            modelMap.addAttribute("bindingResult", bindingResult);
+        } else {
+            jobOfferService.updateJobffer(jobOffer);
+        }
+        return "redirect:/admin/jobOffers";
+    }
+
+    @GetMapping(path = "/admin/jobOffers/delete/{id}")
+    public String deleteJobOfferByIdAdmin(@PathVariable("id") Integer id) {
+        jobOfferService.deleteJobOfferById(id);
+        return "redirect:/admin/jobOffers";
+    }
+
+    @GetMapping(path = "/admin/jobOffers/createNew")
+    public String addNewJobOfferAdmin(Model model){
+        model.addAttribute("jobOffer", new JobOffer());
+        return "/all/jobOffers/addJobOfferAdmin";
+    }
+
+    @PostMapping(path = "/admin/jobOffers/createJobOfferPost")
+    public String createJobOfferAdmin(@Valid JobOffer jobOffer, BindingResult bindingResult, ModelMap modelMap){
+        ModelAndView modelAndView = new ModelAndView();
+        if (bindingResult.hasErrors()) {
+            modelAndView.addObject("successMessage", "Popraw błędy w formularzu");
+            modelMap.addAttribute("bindingResult", bindingResult);
+        } else {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            jobOfferService.createJobOffer(jobOffer, userService.findUserByEmail(authentication.getName()));
+        }
+        modelAndView.addObject("jobOffer", new JobOffer());
+        return "/all/jobOffers/addJobOfferAdmin";
+    }
 }

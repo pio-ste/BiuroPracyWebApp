@@ -25,7 +25,7 @@
                                 <label class="col-md-6 control-label text-dark" for="companyName">Nazwa firmy:</label>
                                 <div class="col-md-12">
                                     <input id="companyName" path="companyName" name="companyName"
-                                           class="form-control input-md" required="required"
+                                           class="form-control input-md" required="required" maxlength="200"
                                            th:value="${jobProposition.companyName}"/>
                                 </div>
                             </div>
@@ -33,7 +33,7 @@
                                 <label class="col-md-6 control-label text-dark" for="companyAddress">Adres firmy</label>
                                 <div class="col-md-12">
                                     <input id="companyAddress" path="companyAddress" name="companyAddress"
-                                           class="form-control input-md" required="required"
+                                           class="form-control input-md" required="required" maxlength="200"
                                            th:value="${jobProposition.companyAddress}"/>
                                 </div>
                             </div>
@@ -41,7 +41,7 @@
                                 <label class="col-md-6 control-label text-dark" for="positionName">Nazwa stanowiska</label>
                                 <div class="col-md-12">
                                     <input id="positionName" path="positionName" name="positionName"
-                                           class="form-control input-md"
+                                           class="form-control input-md" maxlength="200"
                                            th:value="${jobProposition.positionName}"/>
                                 </div>
                             </div>
@@ -49,7 +49,7 @@
                                 <label class="col-md-6 control-label text-dark" for="positionDescription">Opis</label>
                                 <div class="col-md-12">
                                     <input id="positionDescription" path="positionDescription" name="positionDescription"
-                                           class="form-control input-md"
+                                           class="form-control input-md" maxlength="200"
                                            th:value="${jobProposition.positionDescription}"/>
                                 </div>
                             </div>
@@ -57,7 +57,7 @@
                                 <label class="col-md-6 control-label text-dark" for="salary">Zarobki</label>
                                 <div class="col-md-12">
                                     <input id="salary" path="salary" name="salary"
-                                            class="form-control input-md"
+                                            class="form-control input-md" maxlength="200"
                                            th:value="${jobProposition.salary}"/>
                                 </div>
                             </div>
@@ -65,7 +65,7 @@
                                 <label class="col-md-6 control-label text-dark" for="webLinkOffer">Adres www do oferty</label>
                                 <div class="col-md-12">
                                     <input id="webLinkOffer" path="webLinkOffer" name="webLinkOffer"
-                                           class="form-control input-md"
+                                           class="form-control input-md" maxlength="240"
                                            th:value="${jobProposition.webLinkOffer}"/>
                                 </div>
                             </div>

@@ -12,10 +12,9 @@
 </head>
 <body>
 <div th:replace="fragments/loggedInHeader :: headerLoggedIn"></div>
-
 <div th:switch="${users}" class="container">
 
-    <form action="/user/usersProfilesVisible" class="my-3" >
+    <form action="/admin/usersProfiles" class="my-3" >
         <div class="row">
             <div class="col-5 mt-2">
                 <b>Poszukiwane miejsce pracy przez użytkownika:</b>
@@ -46,8 +45,6 @@
                 <th th:text="${user.name}"></th></br>
                 <b>Nazwisko: </b>
                 <th th:text="${user.lastName}"></th></br>
-                <b>Adres email: </b>
-                <th th:text="${user.email}"></th></br>
                 <b>Data urodzenia: </b>
                 <th th:text="${user.dateBirth}"></th></br>
                 <b>Miejsce zamieszkania: </b>
@@ -58,8 +55,8 @@
                 <th th:text="${user.currentPosition}"></th></br>
                 <b>Kategoria poszukiwanej pracy: </b>
                 <th th:text="${user.positionSought}"></th></br>
-                <a th:href="@{/user/viewSelectedProfile/{idUser}(idUser=${user.idUser})}"
-                   class="btn btn-outline-success my-2 mx-2">Zobacz profil</a>
+                <a th:href="@{/admin/viewUserProfile/{idUser}(idUser=${user.idUser})}"
+                   class="btn btn-success my-2 mx-2">Zobacz profil osoby</a>
             </div>
             <div class="col-4 mb-3">
                 <img th:src="@{'/all/' + ${user.idUser} + '/displayImage'}" width="200" height="200" class="mt-3">

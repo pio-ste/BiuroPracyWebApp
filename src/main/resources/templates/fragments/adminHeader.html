@@ -1,0 +1,37 @@
+<div th:fragment="headerAdmin" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <div class="menu-bar">
+        <nav class=" navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand" href="/admin/adminHome">E-Pośredniak <i class="fas fa-briefcase"></i></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/calculator">Kalkulator wynagrodzeń</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/jobOffers">Oferty pracy</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/usersProfiles">Profile użytkowników</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto nav-flex-icons">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user"> <span sec:authentication="principal.username"> </span></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-default"
+                             aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item text-danger" sec:authorize="isAuthenticated()" th:href="@{/logout}">Wyloguj</a>
+                            <a class="dropdown-item" href="*">Ustawienia konta</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>

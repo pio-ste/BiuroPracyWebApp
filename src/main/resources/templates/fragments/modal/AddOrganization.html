@@ -23,7 +23,7 @@
                                 <div class="col-md-6">
 
                                     <input id="organizationName" path="organizationName" name="organizationName" type="text"
-                                           placeholder="Nazwa organizacji" class="form-control input-md"
+                                           placeholder="Nazwa organizacji" class="form-control input-md" maxlength="200"
                                            th:value="${organizationName}"/>
                                 </div>
                             </div>
@@ -32,7 +32,7 @@
                                 <label class="col-md-6 control-label" for="location">Lokalizacja</label>
                                 <div class="col-md-6">
                                     <input id="location" path="location" name="location"
-                                           type="text" placeholder="Lokalizacja"
+                                           type="text" placeholder="Lokalizacja" maxlength="200"
                                            class="form-control input-md" th:value="${location}"
                                     />
                                 </div>
@@ -63,7 +63,7 @@
                                 <label class="col-md-6 control-label" for="fromYear">Rok rozpoczęcia</label>
                                 <div class="col-md-6">
                                     <input id="fromYear" path="fromYear" name="fromYear"
-                                           type="number" placeholder="Rok rozpoczęcia"
+                                           type="number" placeholder="Rok rozpoczęcia" maxlength="4"
                                            class="form-control input-md" th:value="${fromYear}"
                                     />
                                 </div>
@@ -92,7 +92,7 @@
                             <div class="form-group">
                                 <label class="col-md-6 control-label" for="toYear">Rok zakończenia</label>
                                 <div class="col-md-6">
-                                    <input id="toYear" path="toYear" name="toYear"
+                                    <input id="toYear" path="toYear" name="toYear" maxlength="4"
                                            type="number" placeholder="Rok zakończenia"
                                            class="form-control input-md" th:value="${toYear}"
                                     />
@@ -113,7 +113,7 @@
                                 <label class="col-md-6 control-label" for="description">Opis</label>
                                 <div class="col-md-6">
                                     <input id="description" path="description" name="description"
-                                           type="text" placeholder="Opis"
+                                           type="text" placeholder="Opis" maxlength="200"
                                            class="form-control input-md" th:value="${description}"
                                     />
                                 </div>

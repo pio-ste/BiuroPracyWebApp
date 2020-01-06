@@ -92,8 +92,9 @@ public class User {
         this.users = users;
     }
 
-    public User(int idUser, String name, String lastName, String dateBirth, String homeCity, String workCity, String currentPosition, String positionSought, Byte[] profileImage) {
+    public User(int idUser, String email, String name, String lastName, String dateBirth, String homeCity, String workCity, String currentPosition, String positionSought, Byte[] profileImage) {
         this.idUser = idUser;
+        this.email = email;
         this.name = name;
         this.lastName = lastName;
         this.dateBirth = dateBirth;

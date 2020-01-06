@@ -38,7 +38,7 @@
                                 <label class="col-md-6 control-label" for="specialization">Kierunek</label>
                                 <div class="col-md-6">
                                     <input id="specialization" path="specialization" name="specialization"
-                                           type="text" placeholder="Kierunek"
+                                           type="text" placeholder="Kierunek" maxlength="200"
                                            class="form-control input-md" th:value="${education.specialization}"
                                     />
                                 </div>
@@ -90,7 +90,7 @@
                                 <label class="col-md-6 control-label" for="fromYear">Rok rozpoczęcia</label>
                                 <div class="col-md-6">
                                     <input id="fromYear" path="fromYear" name="fromYear"
-                                           type="number" placeholder="Rok rozpoczęcia"
+                                           type="number" placeholder="Rok rozpoczęcia" maxlength="4"
                                            class="form-control input-md" th:value="${education.fromYear}"
                                     />
                                 </div>
@@ -121,7 +121,7 @@
                                 <label class="col-md-6 control-label" for="toYear">Rok zakończenia</label>
                                 <div class="col-md-6">
                                     <input id="toYear" path="toYear" name="toYear"
-                                           type="number" placeholder="Rok zakończenia"
+                                           type="number" placeholder="Rok zakończenia" maxlength="4"
                                            class="form-control input-md" th:value="${education.toYear}"
                                     />
                                 </div>

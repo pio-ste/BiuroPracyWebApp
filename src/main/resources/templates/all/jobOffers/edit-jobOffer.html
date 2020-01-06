@@ -13,29 +13,29 @@
 
 <div class="container my-5">
     <div class="text-center">
-    <h3> Dodaj ogłoszenie</h3></div>
+    <h3> Edytuj ogłoszenie</h3></div>
                 <form action="#" th:action="@{/user/jobOffers/updateJobOfferPost}" th:object="${jobOffer}"
                       method="post">
                     <div class="row">
                         <div class="form-group col-md-12 mt-4">
                             <label for="title" class="col-form-label">Nazwa ogłoszenia</label>
-                            <input type="text" th:field="*{title}" class="form-control"
+                            <input type="text" th:field="*{title}" class="form-control" maxlength="200"
                                    id="title" placeholder="Nazwa ogłoszenia" />
                         </div>
                         <div class="form-group col-md-12">
                             <label for="location" class="col-form-label">Miejscowość</label>
-                            <input type="text" th:field="*{location}" class="form-control"
+                            <input type="text" th:field="*{location}" class="form-control" maxlength="200"
                                    id="location" placeholder="Miejscowość" />
                         </div>
                         <div class="form-group col-md-12">
                             <label for="contact" class="col-form-label">Sposób kontaktu</label>
-                            <input type="text" th:field="*{contact}" class="form-control"
+                            <input type="text" th:field="*{contact}" class="form-control" maxlength="200"
                                    id="contact" placeholder="Sposób kontaktu" />
                         </div>
                         <div class="form-group col-md-12">
                             <label for="description" class="col-form-label">Opis ogłoszenia</label>
                             <textarea type="text" th:field="*{description}" class="form-control"
-                                      id="description" placeholder="Opis ogłoszenia" />
+                                      maxlength="990" id="description" placeholder="Opis ogłoszenia" />
                         </div>
                         <div class="form-group col-md-12">
                             <label for="category" class="col-form-label">Kategoria ogłoszenia</label>
@@ -43,7 +43,7 @@
                         </div>
                         <div class="form-group col-md-12">
                             <label for="company_name" class="col-form-label">Nazwa firmy</label>
-                            <input type="text" th:field="*{companyName}" class="form-control"
+                            <input type="text" th:field="*{companyName}" class="form-control" maxlength="200"
                                    id="company_name" placeholder="Nazwa firmy" />
                         </div>
                         <div class="form-group col-md-12">
@@ -56,7 +56,7 @@
                         </div>
                         <div class="form-group col-md-12">
                             <label for="monthly_pay" class="col-form-label">Zarobki miesięczne</label>
-                            <input type="number" th:field="*{monthlyPay}" class="form-control"
+                            <input type="text" th:field="*{monthlyPay}" class="form-control" maxlength="200"
                                    id="monthly_pay" placeholder="Zarobki miesięczne" />
                         </div>
                         <div class="form-group col-md-12">

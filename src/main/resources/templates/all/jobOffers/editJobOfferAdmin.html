@@ -9,54 +9,65 @@
 <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js} " type="text/javascript"></script>
 </head>
 <body>
-<div th:replace="fragments/loggedInHeader :: headerLoggedIn"></div>
+<div th:replace="fragments/adminHeader :: headerAdmin"></div>
 
 <div class="container my-5">
     <div class="text-center">
-        <h3> Dodaj ogłoszenie</h3></div>
-    <form action="#" th:action="@{/user/jobOffers/createJobOfferPost}" th:object="${jobOffer}"
-          method="post" class="form-signin" role="form">
+        <h3> Edytuj ogłoszenie</h3></div>
+    <form action="#" th:action="@{/admin/jobOffers/updateJobOfferPost}" th:object="${jobOffer}"
+          method="post">
         <div class="row">
             <div class="form-group col-md-12 mt-4">
+                <label for="title" class="col-form-label">Nazwa ogłoszenia</label>
                 <input type="text" th:field="*{title}" class="form-control" maxlength="200"
-                        placeholder="Nazwa ogłoszenia" />
+                       id="title" placeholder="Nazwa ogłoszenia" />
             </div>
             <div class="form-group col-md-12">
+                <label for="location" class="col-form-label">Miejscowość</label>
                 <input type="text" th:field="*{location}" class="form-control" maxlength="200"
-                       placeholder="Miejscowość" />
+                       id="location" placeholder="Miejscowość" />
             </div>
             <div class="form-group col-md-12">
+                <label for="contact" class="col-form-label">Sposób kontaktu</label>
                 <input type="text" th:field="*{contact}" class="form-control" maxlength="200"
-                        placeholder="Sposób kontaktu" />
+                       id="contact" placeholder="Sposób kontaktu" />
             </div>
             <div class="form-group col-md-12">
-                <textarea type="text" rows="10" th:field="*{description}" class="form-control"
-                        maxlength="999" placeholder="Opis ogłoszenia" />
+                <label for="description" class="col-form-label">Opis ogłoszenia</label>
+                <textarea type="text" th:field="*{description}" class="form-control"
+                          maxlength="990" id="description" placeholder="Opis ogłoszenia" />
             </div>
             <div class="form-group col-md-12">
-                <div th:replace="fragments/select-option/add/add-category.html :: select_option_category"></div>
+                <label for="category" class="col-form-label">Kategoria ogłoszenia</label>
+                <div th:replace="fragments/select-option/edit/edit-category.html :: select_option_category"></div>
             </div>
             <div class="form-group col-md-12">
+                <label for="company_name" class="col-form-label">Nazwa firmy</label>
                 <input type="text" th:field="*{companyName}" class="form-control" maxlength="200"
-                        placeholder="Nazwa firmy" />
+                       id="company_name" placeholder="Nazwa firmy" />
             </div>
             <div class="form-group col-md-12">
-                <div th:replace="fragments/select-option/add/add-contractType.html :: select_option_contractType"></div>
+                <label for="contract_type" class="col-form-label">Rodzaj umowy</label>
+                <div th:replace="fragments/select-option/edit/edit-contractType.html :: select_option_contractType"></div>
             </div>
             <div class="form-group col-md-12">
-                <div th:replace="fragments/select-option/add/add-workingTime.html :: select_option_workingTime"></div>
+                <label for="working_time" class="col-form-label">Wymiar pracy</label>
+                <div th:replace="fragments/select-option/edit/edit-workingTime.html :: select_option_workingTime"></div>
             </div>
             <div class="form-group col-md-12">
+                <label for="monthly_pay" class="col-form-label">Zarobki miesięczne</label>
                 <input type="text" th:field="*{monthlyPay}" class="form-control" maxlength="200"
-                        placeholder="Zarobki miesięczne" />
+                       id="monthly_pay" placeholder="Zarobki miesięczne" />
             </div>
             <div class="form-group col-md-12">
-                <div th:replace="fragments/select-option/add/add-positionLevel.html :: select_option_positionLevel"></div>
+                <label for="position_level" class="col-form-label">Poziom stanowiska</label>
+                <div th:replace="fragments/select-option/edit/edit-positionLevel.html :: select_option_positionLevel"></div>
             </div>
 
             <div class="col-md-6">
-                <input type="submit" class="btn btn-primary mb-4" value="Dodaj">
+                <input type="submit" class="btn btn-primary mb-4" value="Zapisz">
             </div>
+            <input type="hidden" idJobOffer="idJobOffer" th:field="*{idJobOffer}">
         </div>
         <span th:utext="${successMessage}"></span>
         <div class="alert alert-success alert-dismissible col-sm-12"

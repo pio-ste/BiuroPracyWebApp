@@ -62,13 +62,35 @@ public class ProfilePropositionController {
         return "redirect:/user/getUserJobOffer";
     }
 
-    @GetMapping(path = "/user/myProfileProp")
-    public String myProfileProp(Model model){
+    @GetMapping(path = "/user/myAllProfileProp")
+    public String myAllProfileProp(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails)authentication.getPrincipal();
         User user = userService.findUserByEmail(userDetails.getUsername());
         Integer id = user.getIdUser();
-        List<ProfilePropositionDTO> profilePropList = profilePropositionRepository.getProfilePropByUserId(id);
+        List<ProfilePropositionDTO> profilePropList = profilePropositionRepository.getAllProfilePropByUserId(id);
+        model.addAttribute("profilePropositions", profilePropList);
+        return "/all/profileProposition/profilePropUser";
+    }
+
+    @GetMapping(path = "/user/myAcceptProfileProp")
+    public String myAcceptProfileProp(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+        User user = userService.findUserByEmail(userDetails.getUsername());
+        Integer id = user.getIdUser();
+        List<ProfilePropositionDTO> profilePropList = profilePropositionRepository.getAceptProfilePropByUserId(id);
+        model.addAttribute("profilePropositions", profilePropList);
+        return "/all/profileProposition/profilePropUser";
+    }
+
+    @GetMapping(path = "/user/myRejectedProfileProp")
+    public String myRejectedProfileProp(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+        User user = userService.findUserByEmail(userDetails.getUsername());
+        Integer id = user.getIdUser();
+        List<ProfilePropositionDTO> profilePropList = profilePropositionRepository.getRejectedProfilePropByUserId(id);
         model.addAttribute("profilePropositions", profilePropList);
         return "/all/profileProposition/profilePropUser";
     }

@@ -40,7 +40,7 @@
                     <th th:text="${user.hobby}"></th></br>
                 </div>
                 <div class="col-md-3 bg-secondary">
-                    <img src="../../static/img/stockImage.jpg" th:src="@{'/user/' + ${user.idUser} + '/displayImage'}" width="200" height="200" class="mt-3">
+                    <img src="../../static/img/stockImage.jpg" th:src="@{'/all/' + ${user.idUser} + '/displayImage'}" width="200" height="200" class="mt-3">
                     <div th:replace="fragments/modal/AddJobProposition :: addJobPropositionFragment"></div>
                 </div>
             </div>
