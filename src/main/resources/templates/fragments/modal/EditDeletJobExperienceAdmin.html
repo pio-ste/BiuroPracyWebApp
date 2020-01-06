@@ -1,4 +1,4 @@
-<div th:fragment="editDeletJobExperienceFragment" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="editDeletJobExperienceAdminFragment" xmlns:th="http://www.thymeleaf.org">
     <button type="button"
             class="btn btn-warning" data-toggle="modal" data-target="#jobExperienceEdit" th:attrappend="data-target=${jobExperience.idJobExperience}">
         <i class="far fa-edit"></i>
@@ -17,7 +17,7 @@
                     <legend>Edytuj</legend>
 
                     <form class="form-horizontal" action="#"
-                          th:action="@{/user/userProfile/editJobExperience}"
+                          th:action="@{/admin/userProfile/editJobExperience}"
                           method="post">
                         <fieldset>
 
@@ -179,7 +179,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success" data-dismiss="modal">Anuluj</button>
-                    <a type="button" class="btn btn-danger" th:href="@{/user/userProfile/deleteJobExperience(id=${jobExperience.idJobExperience})}">Usuń</a>
+                    <a type="button" class="btn btn-danger" th:href="@{/admin/userProfile/deleteJobExperience(id=${jobExperience.idJobExperience})}">Usuń</a>
                 </div>
             </div>
         </div>

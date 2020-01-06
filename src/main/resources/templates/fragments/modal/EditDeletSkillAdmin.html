@@ -1,4 +1,4 @@
-<div th:fragment="editDeletSkillFragment" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="editDeletSkillAdminFragment" xmlns:th="http://www.thymeleaf.org">
     <button type="button"
             class="btn btn-warning" data-toggle="modal" data-target="#skillEdit" th:attrappend="data-target=${skill.idSkill}">
         <i class="far fa-edit"></i>
@@ -17,7 +17,7 @@
                     <legend>Edytuj</legend>
 
                     <form class="form-horizontal" action="#"
-                          th:action="@{/user/userProfile/editSkill}"
+                          th:action="@{/admin/userProfile/editSkill}"
                           method="post">
                         <fieldset>
 
@@ -77,7 +77,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success" data-dismiss="modal">Anuluj</button>
-                    <a type="button" class="btn btn-danger" th:href="@{/user/userProfile/deleteSkill(id=${skill.idSkill})}">Usuń</a>
+                    <a type="button" class="btn btn-danger" th:href="@{/admin/userProfile/deleteSkill(id=${skill.idSkill})}">Usuń</a>
                 </div>
             </div>
         </div>

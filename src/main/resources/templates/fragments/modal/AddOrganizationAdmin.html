@@ -1,6 +1,6 @@
-<div th:fragment="addEducationFragment" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="addOrganizationAdminFragment" xmlns:th="http://www.thymeleaf.org">
 
-    <div class="modal fade" id="educationAdd" role="dialog">
+    <div class="modal fade" id="organizationAdd" role="form">
         <div class="modal-dialog">
 
             <div class="modal-content">
@@ -13,49 +13,28 @@
                     <legend>Dodaj</legend>
 
                     <form class="form-horizontal" action="#"
-                          th:action="@{/user/userProfile/addEducation}"
-                          th:object="${education}"
+                          th:action="@{/admin/userProfile/addOrganization}"
+                          th:object="${organization}"
                           method="post">
                         <fieldset>
 
                             <div class="form-group">
-                                <label class="col-md-6 control-label" for="schoolName">Nazwa szkoły/uczelni</label>
+                                <label class="col-md-6 control-label" for="organizationName">Nazwa organizacji</label>
                                 <div class="col-md-12">
 
-                                    <input id="schoolName" path="schoolName" name="schoolName" type="text" maxlength="200"
-                                           placeholder="Nazwa szkoły/uczelni" class="form-control input-md"
-                                           th:value="${schoolName}"/>
+                                    <input id="organizationName" path="organizationName" name="organizationName" type="text"
+                                           placeholder="Nazwa organizacji" class="form-control input-md" maxlength="200"
+                                           th:value="${organizationName}"/>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-md-6 control-label" for="specialization">Kierunek</label>
+                                <label class="col-md-6 control-label" for="location">Lokalizacja</label>
                                 <div class="col-md-12">
-                                    <input id="specialization" path="specialization" name="specialization"
-                                           type="text" placeholder="Kierunek" maxlength="200"
-                                           class="form-control input-md" th:value="${specialization}"
+                                    <input id="location" path="location" name="location"
+                                           type="text" placeholder="Lokalizacja" maxlength="200"
+                                           class="form-control input-md" th:value="${location}"
                                     />
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-md-6 control-label" >Poziom wykształcenia</label>
-                                <div class="col-md-12">
-                                    <select th:field="*{educationLevel}" class="form-control">
-                                        <option selected="selected" value="" class="font-weight-bold">Poziom wykształcenia</option>
-                                        <option value="Podstawowe">Podstawowe</option>
-                                        <option value="Zawodowe">Zawodowe</option>
-                                        <option value="Średnie">Średnie</option>
-                                        <option value="Licencjat">Licencjat</option>
-                                        <option value="Inżynier">Inżynier</option>
-                                        <option value="Magister">Magister</option>
-                                        <option value="Magister inżynier">Magister inżynier</option>
-                                        <option value="Lekarz medycyny">Lekarz medycyny</option>
-                                        <option value="Studia podyplomowe">Studia podyplomowe</option>
-                                        <option value="Doktorat">Doktorat</option>
-                                        <option value="Doktor hab.">Doktor hab.</option>
-                                        <option value="Profesor">Profesor</option>
-                                    </select>
                                 </div>
                             </div>
 
@@ -91,7 +70,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="col-md-6 control-label">Miesiąc zakończeniau</label>
+                                <label class="col-md-6 control-label" >Miesiąc zakończeniau</label>
                                 <div class="col-md-12">
                                     <select th:field="*{toMonth}" class="form-control">
                                         <option selected="selected" value="" class="font-weight-bold">Miesiąc</option>
@@ -109,36 +88,45 @@
                                         <option value="Grudzień">Grudzień</option>
                                     </select>
                                 </div>
-                            </div>
 
-                            <div class="form-group">
-                                <label class="col-md-6 control-label" for="toYear">Rok zakończenia</label>
-                                <div class="col-md-12">
-                                    <input id="toYear" path="toYear" name="toYear"
-                                           type="number" placeholder="Rok zakończenia" maxlength="4"
-                                           class="form-control input-md" th:value="${toYear}"
-                                    />
+                                <div class="form-group">
+                                    <label class="col-md-6 control-label" for="toYear">Rok zakończenia</label>
+                                    <div class="col-md-12">
+                                        <input id="toYear" path="toYear" name="toYear" maxlength="4"
+                                               type="number" placeholder="Rok zakończenia"
+                                               class="form-control input-md" th:value="${toYear}"
+                                        />
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group">
-                                <label class="col-md-6 control-label">Czy kontynuje?</label>
-                                <div class="col-md-12">
-                                    <select th:field="*{continues}" class="form-control">
-                                        <option selected="selected" value="">Nie</option>
-                                        <option value="Tak">Tak</option>
-                                    </select>
+                                <div class="form-group">
+                                    <label class="col-md-6 control-label">Czy kontynuje?</label>
+                                    <div class="col-md-12">
+                                        <select th:field="*{continues}" class="form-control">
+                                            <option selected="selected" value="">Nie</option>
+                                            <option value="Tak">Tak</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="register"></label>
-                                <div class="col-md-4">
-                                    <button id="register" name="register" class="btn btn-primary">
-                                        Dodaj
-                                    </button>
+                                <div class="form-group">
+                                    <label class="col-md-6 control-label" for="description">Opis</label>
+                                    <div class="col-md-12">
+                                        <input id="description" path="description" name="description"
+                                               type="text" placeholder="Opis" maxlength="200"
+                                               class="form-control input-md" th:value="${description}"
+                                        />
+                                    </div>
                                 </div>
-                            </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="register"></label>
+                                    <div class="col-md-4">
+                                        <button id="register" name="register" class="btn btn-primary">
+                                            Dodaj
+                                        </button>
+                                    </div>
+                                </div>
 
                         </fieldset>
                     </form>

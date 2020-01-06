@@ -48,4 +48,16 @@ public interface JobPropositionRepository extends JpaRepository<JobProposition, 
             + "and u.idUser = j.toUser.idUser and j.decision = 'Odrzucone'")
     List<JobPropositionDTO> getRejectedJPropByFromUserID(@Param("id") Integer id);
 
+    @Query("Select new com.biuropracy.demo.DTO.JobPropositionDTO(j.idJobProposition, u.idUser, u.name, u.lastName, j.companyName, j.companyAddress, j.positionName, j.positionDescription, j.salary, j.webLinkOffer, j.contactType, j.decision, j.fromUser, j.toUser)"
+            + "from JobProposition j, User u "
+            + "where (j.toUser.idUser = :id)"
+            + "and u.idUser = j.fromUser.idUser")
+    List<JobPropositionDTO> getAllUserReceivedJProp(@Param("id") Integer id);
+
+    @Query("Select new com.biuropracy.demo.DTO.JobPropositionDTO(j.idJobProposition, u.idUser, u.name, u.lastName, j.companyName, j.companyAddress, j.positionName, j.positionDescription, j.salary, j.webLinkOffer, j.contactType, j.decision, j.fromUser, j.toUser)"
+            + "from JobProposition j, User u "
+            + "where (j.fromUser.idUser = :id)"
+            + "and u.idUser = j.toUser.idUser")
+    List<JobPropositionDTO> getAllUserSendJProp(@Param("id") Integer id);
+
 }

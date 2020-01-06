@@ -25,6 +25,8 @@ import java.util.Optional;
 @Controller
 public class JobOfferController {
 
+    private Integer Userid;
+
     @Autowired
     JobOfferService jobOfferService;
 
@@ -141,15 +143,17 @@ public class JobOfferController {
     }
 
     @PostMapping(path = "/admin/jobOffers/updateJobOfferPost")
-    public String updateJobOfferAdmin(@Valid JobOffer jobOffer, BindingResult bindingResult, ModelMap modelMap){
+    public ModelAndView updateJobOfferAdmin(@Valid JobOffer jobOffer, BindingResult bindingResult, ModelMap modelMap){
         ModelAndView modelAndView = new ModelAndView();
         if (bindingResult.hasErrors()) {
             modelAndView.addObject("successMessage", "Popraw błędy w formularzu");
             modelMap.addAttribute("bindingResult", bindingResult);
         } else {
             jobOfferService.updateJobffer(jobOffer);
+            modelAndView.addObject("successMessage", "Oferta została zaktualizowana.");
         }
-        return "redirect:/admin/jobOffers";
+        modelAndView.setViewName("/all/jobOffers/editJobOfferAdmin");
+        return modelAndView;
     }
 
     @GetMapping(path = "/admin/jobOffers/delete/{id}")
@@ -176,5 +180,19 @@ public class JobOfferController {
         }
         modelAndView.addObject("jobOffer", new JobOffer());
         return "/all/jobOffers/addJobOfferAdmin";
+    }
+
+    @GetMapping("/admin/userJobOffers/{id}")
+    public String getAllUserJobOffersAdmin(Model model, @PathVariable("id") Optional<Integer> id) {
+        Userid = id.get();
+        List<JobOfferDTO> JobList = jobOfferRepository.getUserJobOfferAdmin(id.get());
+        model.addAttribute("jobOffers", JobList);
+        return "/all/jobOffers/userJobOffersAdmin";
+    }
+
+    @GetMapping(path = "/admin/userJobOffers/delete/{id}")
+    public String deleteUserJobOfferByIdAdmin(@PathVariable("id") Integer id) {
+        jobOfferService.deleteJobOfferById(id);
+        return "redirect:/admin/userJobOffers/"+Userid;
     }
 }

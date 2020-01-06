@@ -38,15 +38,27 @@
                     <th th:text="${user.email}"></th></br>
                     <b>Hobby: </b>
                     <th th:text="${user.hobby}"></th></br>
-                    <a th:href="@{/user/userProfile/editProfile/{idUser}(idUser=${user.idUser})}"
+                    <a th:href="@{/admin/userProfile/editProfile/{idUser}(idUser=${user.idUser})}"
                        class="btn btn-warning">
-                        <i class="fas fa-user-edit"></i>
+                        Edytuj <i class="fas fa-user-edit"></i>
+                    </a>
+                    <a th:href="@{/admin/getAllUserReceivedJProp/{idUser}(idUser=${user.idUser})}"
+                       class="btn btn-primary">
+                        Otrzymane oferty pracy
+                    </a>
+                    <a th:href="@{/admin/getAllUserSendJProp/{idUser}(idUser=${user.idUser})}"
+                       class="btn btn-primary">
+                        Wysłane oferty pracy
+                    </a>
+                    <a th:href="@{/admin/userJobOffers/{idUser}(idUser=${user.idUser})}"
+                       class="btn btn-primary">
+                        Oferty pracy użytkownika
                     </a>
                 </div>
                 <div class="col-md-3 bg-secondary">
                     <img src="../../static/img/stockImage.jpg" th:src="@{'/all/' + ${user.idUser} + '/displayImage'}" width="200" height="200" class="mt-3">
                     <a class="btn btn-primary mt-2" href="#"
-                       th:href="@{'/user/' + ${user.idUser} + '/addImage'}" role="button">
+                       th:href="@{'/admin/' + ${user.idUser} + '/addImage'}" role="button">
                         Zmień zdjęcie</a>
                 </div>
             </div>
@@ -70,7 +82,7 @@
                     <th th:text="${webLink.urlType}"></th>
                 </div>
                 <div class="col-2 border-bottom border-secondary">
-                    <div th:replace="fragments/modal/EditDeletWebLink :: editDeletWebLinkFragment"></div>
+                    <div th:replace="fragments/modal/EditDeletWebLinkAdmin :: editDeletWebLinkAdminFragment"></div>
                 </div>
             </div>
         </div>
@@ -83,7 +95,7 @@
                             Dodaj <i class="fas fa-plus"></i>
                         </button>
                     </p>
-                    <div th:replace="fragments/modal/AddCourse :: addCourseFragment"></div>
+                    <div th:replace="fragments/modal/AddCourseAdmin :: addCourseAdminFragment"></div>
                 </div>
             </div>
             <div class="row border border-white" th:each="course : ${courses}">
@@ -96,7 +108,7 @@
                     <th th:text="${course.courseMonth}"></th>
                     <th th:text="${course.courseYear}"></th> </div>
                 <div class="col-2 border-bottom border-secondary">
-                    <div th:replace="fragments/modal/EditDeletCourse :: editDeletCourseFragment"></div>
+                    <div th:replace="fragments/modal/EditDeletCourseAdmin :: editDeletCourseAdminFragment"></div>
                 </div>
             </div>
         </div>
@@ -109,7 +121,7 @@
                             Dodaj <i class="fas fa-plus"></i>
                         </button>
                     </p>
-                    <div th:replace="fragments/modal/AddEducation :: addEducationFragment"></div>
+                    <div th:replace="fragments/modal/AddEducationAdmin :: addEducationAdminFragment"></div>
                 </div>
             </div>
             <div class="row border border-white" th:each="education : ${educations}">
@@ -127,7 +139,7 @@
                     <th th:text="${education.continues}"></th>
                 </div>
                 <div class="col-2 border-bottom border-secondary">
-                    <div th:replace="fragments/modal/EditDeletEducation :: editDeletEducationFragment"></div>
+                    <div th:replace="fragments/modal/EditDeletEducationAdmin :: editDeletEducationAdminFragment"></div>
                 </div>
             </div>
         </div>
@@ -140,7 +152,7 @@
                             Dodaj <i class="fas fa-plus"></i>
                         </button>
                     </p>
-                    <div th:replace="fragments/modal/AddJobExperience :: addJobExperienceFragment"></div>
+                    <div th:replace="fragments/modal/AddJobExperienceAdmin :: addJobExperienceAdminFragment"></div>
                 </div>
             </div>
             <div class="row border border-white" th:each="jobExperience : ${jobExps}">
@@ -159,7 +171,7 @@
                     <th th:text="${jobExperience.description}">
                 </div>
                 <div class="col-2 border-bottom border-secondary">
-                    <div th:replace="fragments/modal/EditDeletJobExperience :: editDeletJobExperienceFragment"></div>
+                    <div th:replace="fragments/modal/EditDeletJobExperienceAdmin :: editDeletJobExperienceAdminFragment"></div>
                 </div>
             </div>
         </div>
@@ -171,7 +183,7 @@
                                 class="btn btn float-right" data-toggle="modal" data-target="#languageAdd">
                             Dodaj <i class="fas fa-plus"></i>
                         </button>
-                    <div th:replace="fragments/modal/AddLanguage :: addLanguageFragment"></div>
+                    <div th:replace="fragments/modal/AddLanguageAdmin :: addLanguageAdminFragment"></div>
                     </p>
                 </div>
             </div>
@@ -182,7 +194,7 @@
                     <th th:text="${language.languageLevel}"></th>
                 </div>
                 <div class="col-2 border-bottom border-secondary">
-                    <div th:replace="fragments/modal/EditDeletLanguage :: editDeletLanguageFragment"></div>
+                    <div th:replace="fragments/modal/EditDeletLanguageAdmin :: editDeletLanguageAdminFragment"></div>
                 </div>
             </div>
         </div>
@@ -194,7 +206,7 @@
                                 class="btn btn float-right" data-toggle="modal" data-target="#organizationAdd">
                             Dodaj <i class="fas fa-plus"></i>
                         </button>
-                    <div th:replace="fragments/modal/AddOrganization :: addOrganizationFragment"></div>
+                    <div th:replace="fragments/modal/AddOrganizationAdmin :: addOrganizationAdminFragment"></div>
                     </p>
                 </div>
             </div>
@@ -213,7 +225,7 @@
                     <th th:text="${organization.description}">
                 </div>
                 <div class="col-2 border-bottom border-secondary">
-                    <div th:replace="fragments/modal/EditDeletOrganization :: editDeletOrganizationFragment"></div>
+                    <div th:replace="fragments/modal/EditDeletOrganizationAdmin :: editDeletOrganizationAdminFragment"></div>
                 </div>
             </div>
         </div>
@@ -225,7 +237,7 @@
                                 class="btn btn float-right" data-toggle="modal" data-target="#skillAdd">
                             Dodaj <i class="fas fa-plus"></i>
                         </button>
-                    <div th:replace="fragments/modal/AddSkill :: addSkillFragment"></div>
+                    <div th:replace="fragments/modal/AddSkillAdmin :: addSkillAdminFragment"></div>
                     </p>
                 </div>
             </div>
@@ -235,7 +247,7 @@
                     <th th:text="${skill.skillName}"></th>
                 </div>
                 <div class="col-2 border-bottom border-secondary">
-                    <div th:replace="fragments/modal/EditDeletSkill :: editDeletSkillFragment"></div>
+                    <div th:replace="fragments/modal/EditDeletSkillAdmin :: editDeletSkillAdminFragment"></div>
                 </div>
             </div>
         </div>

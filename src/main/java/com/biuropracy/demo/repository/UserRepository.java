@@ -15,7 +15,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 
     @Query("select new com.biuropracy.demo.model.User(u.idUser, u.email, u.name, u.lastName, u.dateBirth, u.homeCity, u.workCity, u.currentPosition, u.positionSought, u.profileImage)"
-            +"from User u where toFind = 'visible' and (u.workCity = :workCity or :workCity is null or :workCity = '')"
+            +"from User u where toFind = 'visible' and status = 'ZWERYFIKOWANY' and (u.workCity = :workCity or :workCity is null or :workCity = '')"
             +"and (u.positionSought = :positionSought or :positionSought is null or :positionSought = '')"
             +"and (u.email = :email or :email is null or :email = '')")
     List<User> getVisibleUsersFiltered(@Param("workCity") String workCity, @Param("positionSought") String positionSought, @Param("email") String email);

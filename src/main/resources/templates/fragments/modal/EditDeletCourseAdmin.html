@@ -1,4 +1,4 @@
-<div th:fragment="editDeletCourseFragment" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="editDeletCourseAdminFragment" xmlns:th="http://www.thymeleaf.org">
     <button type="button"
             class="btn btn-warning" data-toggle="modal" data-target="#courseEdit" th:attrappend="data-target=${course.idCourse}">
         <i class="far fa-edit"></i>
@@ -17,7 +17,7 @@
                     <legend>Edytuj</legend>
 
                     <form class="form-horizontal" action="#"
-                          th:action="@{/user/userProfile/editCourse}"
+                          th:action="@{/admin/userProfile/editCourse}"
                           method="post">
                         <fieldset>
 
@@ -118,7 +118,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success" data-dismiss="modal">Anuluj</button>
-                    <a type="button" class="btn btn-danger" th:href="@{/user/userProfile/deleteCourse(id=${course.idCourse})}">Usuń</a>
+                    <a type="button" class="btn btn-danger" th:href="@{/admin/userProfile/deleteCourse(id=${course.idCourse})}">Usuń</a>
                 </div>
             </div>
         </div>

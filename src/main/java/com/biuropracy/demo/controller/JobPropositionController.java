@@ -24,6 +24,8 @@ import java.util.Optional;
 @Controller
 public class JobPropositionController {
 
+    private Integer Userid;
+
     @Autowired
     JobPropositionService jobPropositionService;
 
@@ -121,4 +123,47 @@ public class JobPropositionController {
         return "redirect:/user/getAllJPropByFromUserId";
     }
 
+    //admin
+
+    @GetMapping(path = "/admin/getAllUserReceivedJProp/{id}")
+    public String getAllUserReceivedJProp(Model model, @PathVariable("id") Optional<Integer> id){
+        Userid = id.get();
+        model.addAttribute("jobProposition", new JobProposition());
+        List<JobPropositionDTO> JobPropDto = jobPropositionRepository.getAllUserReceivedJProp(id.get());
+        model.addAttribute("jobPropositions", JobPropDto);
+        return "/all/jobProposition/userReceivedJobPropAdmin";
+    }
+
+    @PostMapping(path = "/admin/getAllUserReceivedJProp/update")
+    public String updateReceivedUserJobProp(JobProposition jobProposition){
+        jobPropositionService.updateJobProposition(jobProposition);
+        return "redirect:/admin/getAllUserReceivedJProp/"+Userid;
+    }
+
+    @GetMapping(path = "/admin/receivedJobPropDelete")
+    public String userReceivedJobPropDelete(@RequestParam("id") Integer id){
+        jobPropositionService.deleteJobProposition(id);
+        return "redirect:/admin/getAllUserReceivedJProp/"+Userid;
+    }
+
+    @GetMapping(path = "/admin/getAllUserSendJProp/{id}")
+    public String getAllUserSendJProp(Model model, @PathVariable("id") Optional<Integer> id){
+        Userid = id.get();
+        model.addAttribute("jobProposition", new JobProposition());
+        List<JobPropositionDTO> JobPropDto = jobPropositionRepository.getAllUserSendJProp(id.get());
+        model.addAttribute("jobPropositions", JobPropDto);
+        return "/all/jobProposition/userSendJobPropAdmin";
+    }
+
+    @PostMapping(path = "/admin/getAllUserSendJProp/update")
+    public String updateSendUserJobProp(JobProposition jobProposition){
+        jobPropositionService.updateJobProposition(jobProposition);
+        return "redirect:/admin/getAllUserReceivedJProp/"+Userid;
+    }
+
+    @GetMapping(path = "/admin/sendJobPropDelete")
+    public String userSendJobPropDelete(@RequestParam("id") Integer id){
+        jobPropositionService.deleteJobProposition(id);
+        return "redirect:/admin/getAllUserSendJProp/"+Userid;
+    }
 }

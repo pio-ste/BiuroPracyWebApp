@@ -73,6 +73,7 @@ public class UserServiceImpl implements UserService {
             newUser.setHobby(user.getHobby());
             newUser.setCurrentPosition(user.getCurrentPosition());
             newUser.setToFind(user.getToFind());
+            newUser.setStatus(user.getStatus());
 
             newUser = userRepository.save(newUser);
             return newUser;

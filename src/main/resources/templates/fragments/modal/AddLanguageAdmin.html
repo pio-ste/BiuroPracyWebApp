@@ -1,4 +1,4 @@
-<div th:fragment="addLanguageFragment" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="addLanguageAdminFragment" xmlns:th="http://www.thymeleaf.org">
 
     <div class="modal fade" id="languageAdd" role="dialog">
         <div class="modal-dialog">
@@ -13,7 +13,7 @@
                     <legend>Dodaj</legend>
 
                     <form class="form-horizontal" action="#"
-                          th:action="@{/user/userProfile/addLanguage}"
+                          th:action="@{/admin/userProfile/addLanguage}"
                           th:object="${language}"
                           method="post">
                         <fieldset>

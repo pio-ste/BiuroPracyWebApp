@@ -1,4 +1,4 @@
-<div th:fragment="editDeletLanguageFragment" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="editDeletLanguageAdminFragment" xmlns:th="http://www.thymeleaf.org">
     <button type="button"
             class="btn btn-warning" data-toggle="modal" data-target="#languageEdit" th:attrappend="data-target=${language.idLanguage}">
         <i class="far fa-edit"></i>
@@ -17,7 +17,7 @@
                     <legend>Edytuj</legend>
 
                     <form class="form-horizontal" action="#"
-                          th:action="@{/user/userProfile/editLanguage}"
+                          th:action="@{/admin/userProfile/editLanguage}"
                           method="post">
                         <fieldset>
 
@@ -91,7 +91,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success" data-dismiss="modal">Anuluj</button>
-                    <a type="button" class="btn btn-danger" th:href="@{/user/userProfile/deleteLanguage(id=${language.idLanguage})}">Usuń</a>
+                    <a type="button" class="btn btn-danger" th:href="@{/admin/userProfile/deleteLanguage(id=${language.idLanguage})}">Usuń</a>
                 </div>
             </div>
         </div>

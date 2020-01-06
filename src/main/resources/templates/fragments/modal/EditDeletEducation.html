@@ -22,7 +22,7 @@
 
                             <div class="form-group">
                                 <label class="col-md-6 control-label" for="schoolName">Nazwa szkoły/uczelni</label>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
 
                                     <input id="idEducation" path="idEducation" name="idEducation" type="hidden"
                                            placeholder="idEducation" class="form-control input-md"
@@ -36,7 +36,7 @@
 
                             <div class="form-group">
                                 <label class="col-md-6 control-label" for="specialization">Kierunek</label>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <input id="specialization" path="specialization" name="specialization"
                                            type="text" placeholder="Kierunek" maxlength="200"
                                            class="form-control input-md" th:value="${education.specialization}"
@@ -46,7 +46,7 @@
 
                             <div class="form-group">
                                 <label class="col-md-6 control-label" >Poziom wykształcenia</label>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <select th:field="*{education.educationLevel}" class="form-control">
                                         <option value="" class="font-weight-bold">Poziom wykształcenia</option>
                                         <option value="Podstawowe">Podstawowe</option>
@@ -67,7 +67,7 @@
 
                             <div class="form-group">
                                 <label class="col-md-6 control-label" >Miesiąc rozpoczęcia</label>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <select th:field="*{education.fromMonth}" class="form-control">
                                         <option value="" class="font-weight-bold">Miesiąc</option>
                                         <option value="Styczeń">Styczeń</option>
@@ -88,7 +88,7 @@
 
                             <div class="form-group">
                                 <label class="col-md-6 control-label" for="fromYear">Rok rozpoczęcia</label>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <input id="fromYear" path="fromYear" name="fromYear"
                                            type="number" placeholder="Rok rozpoczęcia" maxlength="4"
                                            class="form-control input-md" th:value="${education.fromYear}"
@@ -98,7 +98,7 @@
 
                             <div class="form-group">
                                 <label class="col-md-6 control-label">Miesiąc zakończeniau</label>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <select th:field="*{education.toMonth}" class="form-control">
                                         <option value="" class="font-weight-bold">Miesiąc</option>
                                         <option value="Styczeń">Styczeń</option>
@@ -119,7 +119,7 @@
 
                             <div class="form-group">
                                 <label class="col-md-6 control-label" for="toYear">Rok zakończenia</label>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <input id="toYear" path="toYear" name="toYear"
                                            type="number" placeholder="Rok zakończenia" maxlength="4"
                                            class="form-control input-md" th:value="${education.toYear}"
@@ -129,7 +129,7 @@
 
                             <div class="form-group">
                                 <label class="col-md-6 control-label">Czy kontynuje?</label>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <select th:field="*{education.continues}" class="form-control">
                                         <option value="">Nie</option>
                                         <option value="Tak">Tak</option>

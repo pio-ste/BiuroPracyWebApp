@@ -1,10 +1,6 @@
-<div th:fragment="editDeletJobExperienceFragment" xmlns:th="http://www.thymeleaf.org">
-    <button type="button"
-            class="btn btn-warning" data-toggle="modal" data-target="#jobExperienceEdit" th:attrappend="data-target=${jobExperience.idJobExperience}">
-        <i class="far fa-edit"></i>
-    </button>
+<div th:fragment="addJobExperienceAdminFragment" xmlns:th="http://www.thymeleaf.org">
 
-    <div class="modal fade" id="jobExperienceEdit" role="dialog" th:attrappend="id=${jobExperience.idJobExperience}">
+    <div class="modal fade" id="jobExperienceAdd" role="dialog" >
         <div class="modal-dialog">
 
             <div class="modal-content">
@@ -14,10 +10,11 @@
                 </div>
                 <div class="modal-body">
 
-                    <legend>Edytuj</legend>
+                    <legend>Dodaj</legend>
 
                     <form class="form-horizontal" action="#"
-                          th:action="@{/user/userProfile/editJobExperience}"
+                          th:action="@{/admin/userProfile/addJobExperience}"
+                          th:object="${jobExperience}"
                           method="post">
                         <fieldset>
 
@@ -25,13 +22,9 @@
                                 <label class="col-md-6 control-label" for="companyName">Nazwa firmy</label>
                                 <div class="col-md-12">
 
-                                    <input id="idJobExperience" path="idJobExperience" name="idJobExperience" type="hidden"
-                                           placeholder="idJobExperience" class="form-control input-md"
-                                           th:value="${jobExperience.idJobExperience}"/>
-
                                     <input id="companyName" path="companyName" name="companyName" type="text"
-                                           placeholder="Nazwa firmy" class="form-control input-md"
-                                           th:value="${jobExperience.companyName}"/>
+                                           placeholder="Nazwa firmy" class="form-control input-md" maxlength="200"
+                                           th:value="${companyName}"/>
                                 </div>
                             </div>
 
@@ -40,7 +33,7 @@
                                 <div class="col-md-12">
                                     <input id="position" path="position" name="position"
                                            type="text" placeholder="Stanowisko" maxlength="200"
-                                           class="form-control input-md" th:value="${jobExperience.position}"
+                                           class="form-control input-md" th:value="${position}"
                                     />
                                 </div>
                             </div>
@@ -50,7 +43,7 @@
                                 <div class="col-md-12">
                                     <input id="location" path="location" name="location"
                                            type="text" placeholder="Lokalizacja" maxlength="200"
-                                           class="form-control input-md" th:value="${jobExperience.location}"
+                                           class="form-control input-md" th:value="${location}"
                                     />
                                 </div>
                             </div>
@@ -58,8 +51,8 @@
                             <div class="form-group">
                                 <label class="col-md-6 control-label">Miesiąc rozpoczęcia</label>
                                 <div class="col-md-12">
-                                    <select th:field="*{jobExperience.fromMonth}" class="form-control">
-                                        <option value="" class="font-weight-bold">Miesiąc</option>
+                                    <select th:field="*{fromMonth}" class="form-control">
+                                        <option selected="selected" value="" class="font-weight-bold">Miesiąc</option>
                                         <option value="Styczeń">Styczeń</option>
                                         <option value="Luty">Luty</option>
                                         <option value="Marzec">Marzec</option>
@@ -81,16 +74,16 @@
                                 <div class="col-md-12">
                                     <input id="fromYear" path="fromYear" name="fromYear"
                                            type="number" placeholder="Rok rozpoczęcia" maxlength="4"
-                                           class="form-control input-md" th:value="${jobExperience.fromYear}"
+                                           class="form-control input-md" th:value="${fromYear}"
                                     />
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-md-6 control-label" >Miesiąc zakończeniau</label>
+                                <label class="col-md-6 control-label">Miesiąc zakończeniau</label>
                                 <div class="col-md-12">
-                                    <select th:field="*{jobExperience.toMonth}" class="form-control">
-                                        <option value="" class="font-weight-bold">Miesiąc</option>
+                                    <select th:field="*{toMonth}" class="form-control">
+                                        <option selected="selected" value="" class="font-weight-bold">Miesiąc</option>
                                         <option value="Styczeń">Styczeń</option>
                                         <option value="Luty">Luty</option>
                                         <option value="Marzec">Marzec</option>
@@ -110,18 +103,18 @@
                             <div class="form-group">
                                 <label class="col-md-6 control-label" for="toYear">Rok zakończenia</label>
                                 <div class="col-md-12">
-                                    <input id="toYear" path="toYear" name="toYear"
-                                           type="number" placeholder="Rok zakończenia" maxlength="4"
-                                           class="form-control input-md" th:value="${jobExperience.toYear}"
+                                    <input id="toYear" path="toYear" name="toYear" maxlength="4"
+                                           type="number" placeholder="Rok zakończenia"
+                                           class="form-control input-md" th:value="${toYear}"
                                     />
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-md-6 control-label" >Czy kontynuje?</label>
+                                <label class="col-md-6 control-label">Czy kontynuje?</label>
                                 <div class="col-md-12">
-                                    <select th:field="*{jobExperience.continues}" class="form-control">
-                                        <option value="">Nie</option>
+                                    <select th:field="*{continues}" class="form-control">
+                                        <option selected="selected" value="">Nie</option>
                                         <option value="Tak">Tak</option>
                                     </select>
                                 </div>
@@ -132,7 +125,7 @@
                                 <div class="col-md-12">
                                     <input id="description" path="description" name="description"
                                            type="text" placeholder="Opis" maxlength="200"
-                                           class="form-control input-md" th:value="${jobExperience.description}"
+                                           class="form-control input-md" th:value="${description}"
                                     />
                                 </div>
                             </div>
@@ -141,7 +134,7 @@
                                 <label class="col-md-4 control-label" for="register"></label>
                                 <div class="col-md-4">
                                     <button id="register" name="register" class="btn btn-primary">
-                                        Zapisz
+                                        Dodaj
                                     </button>
                                 </div>
                             </div>
@@ -158,30 +151,6 @@
 
             </div>
 
-        </div>
-    </div>
-
-
-    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#jobExperienceDelet" th:attrappend="data-target=${jobExperience.idJobExperience}">
-        <i class="far fa-trash-alt"></i>
-    </button>
-    <div class="modal fade" id="jobExperienceDelet" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" th:attrappend="id=${jobExperience.idJobExperience}">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Usuń</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body bg-danger">
-                    Czy chcesz usunąć wiersz z z pracą?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal">Anuluj</button>
-                    <a type="button" class="btn btn-danger" th:href="@{/user/userProfile/deleteJobExperience(id=${jobExperience.idJobExperience})}">Usuń</a>
-                </div>
-            </div>
         </div>
     </div>
 </div>

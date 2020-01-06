@@ -1,4 +1,4 @@
-<div th:fragment="addSkillFragment" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="addSkillAdminFragment" xmlns:th="http://www.thymeleaf.org">
 
     <div class="modal fade" id="skillAdd" role="dialog">
         <div class="modal-dialog">
@@ -13,7 +13,7 @@
                     <legend>Dodaj</legend>
 
                     <form class="form-horizontal" action="#"
-                          th:action="@{/user/userProfile/addSkill}"
+                          th:action="@{/admin/userProfile/addSkill}"
                           th:object="${skill}"
                           method="post">
                         <fieldset>

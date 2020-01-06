@@ -20,7 +20,7 @@
 
                             <div class="form-group">
                                 <label class="col-md-6 control-label" for="companyName">Nazwa firmy</label>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
 
                                     <input id="companyName" path="companyName" name="companyName" type="text"
                                            placeholder="Nazwa firmy" class="form-control input-md" maxlength="200"
@@ -30,7 +30,7 @@
 
                             <div class="form-group">
                                 <label class="col-md-6 control-label" for="position">Stanowisko</label>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <input id="position" path="position" name="position"
                                            type="text" placeholder="Stanowisko" maxlength="200"
                                            class="form-control input-md" th:value="${position}"
@@ -40,7 +40,7 @@
 
                             <div class="form-group">
                                 <label class="col-md-6 control-label" for="location">Lokalizacja</label>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <input id="location" path="location" name="location"
                                            type="text" placeholder="Lokalizacja" maxlength="200"
                                            class="form-control input-md" th:value="${location}"
@@ -50,7 +50,7 @@
 
                             <div class="form-group">
                                 <label class="col-md-6 control-label">Miesiąc rozpoczęcia</label>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <select th:field="*{fromMonth}" class="form-control">
                                         <option selected="selected" value="" class="font-weight-bold">Miesiąc</option>
                                         <option value="Styczeń">Styczeń</option>
@@ -71,7 +71,7 @@
 
                             <div class="form-group">
                                 <label class="col-md-6 control-label" for="fromYear">Rok rozpoczęcia</label>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <input id="fromYear" path="fromYear" name="fromYear"
                                            type="number" placeholder="Rok rozpoczęcia" maxlength="4"
                                            class="form-control input-md" th:value="${fromYear}"
@@ -81,7 +81,7 @@
 
                             <div class="form-group">
                                 <label class="col-md-6 control-label">Miesiąc zakończeniau</label>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <select th:field="*{toMonth}" class="form-control">
                                         <option selected="selected" value="" class="font-weight-bold">Miesiąc</option>
                                         <option value="Styczeń">Styczeń</option>
@@ -102,7 +102,7 @@
 
                             <div class="form-group">
                                 <label class="col-md-6 control-label" for="toYear">Rok zakończenia</label>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <input id="toYear" path="toYear" name="toYear" maxlength="4"
                                            type="number" placeholder="Rok zakończenia"
                                            class="form-control input-md" th:value="${toYear}"
@@ -112,7 +112,7 @@
 
                             <div class="form-group">
                                 <label class="col-md-6 control-label">Czy kontynuje?</label>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <select th:field="*{continues}" class="form-control">
                                         <option selected="selected" value="">Nie</option>
                                         <option value="Tak">Tak</option>
@@ -122,7 +122,7 @@
 
                             <div class="form-group">
                                 <label class="col-md-6 control-label" for="description">Opis</label>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <input id="description" path="description" name="description"
                                            type="text" placeholder="Opis" maxlength="200"
                                            class="form-control input-md" th:value="${description}"
@@ -132,7 +132,7 @@
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="register"></label>
-                                <div class="col-md-4">
+                                <div class="col-md-12">
                                     <button id="register" name="register" class="btn btn-primary">
                                         Dodaj
                                     </button>
