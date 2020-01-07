@@ -13,7 +13,17 @@
 
 <div class="container my-5">
     <div class="text-center">
-        <h3> Edytuj ogłoszenie</h3></div>
+        <h3> Edytuj ogłoszenie</h3>
+        <h3><span class="text-success font-weight-bold text-center my-2" th:utext="${successMessage}"></span></h3>
+        <div class="alert alert-danger alert-dismissible col-sm-12"
+             th:if="${(bindingResult != null && bindingResult.getAllErrors() != null)}">
+            <button type="button" class="close" data-dismiss="alert"
+                    aria-hidden="true">×</button>
+            <ul th:each="data : ${bindingResult.getAllErrors()}">
+                <li th:text="${ data.getDefaultMessage()}"></li>
+            </ul>
+        </div>
+    </div>
     <form action="#" th:action="@{/admin/jobOffers/updateJobOfferPost}" th:object="${jobOffer}"
           method="post">
         <div class="row">
@@ -69,15 +79,7 @@
             </div>
             <input type="hidden" idJobOffer="idJobOffer" th:field="*{idJobOffer}">
         </div>
-        <span th:utext="${successMessage}"></span>
-        <div class="alert alert-success alert-dismissible col-sm-12"
-             th:if="${(bindingResult != null && bindingResult.getAllErrors() != null)}">
-            <button type="button" class="close" data-dismiss="alert"
-                    aria-hidden="true">×</button>
-            <ul th:each="data : ${bindingResult.getAllErrors()}">
-                <li th:text="${ data.getDefaultMessage()}"></li>
-            </ul>
-        </div>
+
     </form>
 </div>
 </body>

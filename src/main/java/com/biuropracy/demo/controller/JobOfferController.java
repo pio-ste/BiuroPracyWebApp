@@ -94,15 +94,17 @@ public class JobOfferController {
     }
 
     @PostMapping(path = "/user/jobOffers/updateJobOfferPost")
-    public String updateJobOffer(@Valid JobOffer jobOffer, BindingResult bindingResult, ModelMap modelMap){
+    public ModelAndView updateJobOffer(@Valid JobOffer jobOffer, BindingResult bindingResult, ModelMap modelMap){
         ModelAndView modelAndView = new ModelAndView();
         if (bindingResult.hasErrors()) {
             modelAndView.addObject("successMessage", "Popraw błędy w formularzu");
             modelMap.addAttribute("bindingResult", bindingResult);
         } else {
             jobOfferService.updateJobffer(jobOffer);
+            modelAndView.addObject("successMessage", "Ogłoszenie zostało zaktualizowane");
         }
-        return "redirect:/user/jobOffers";
+        modelAndView.setViewName("/all/jobOffers/edit-jobOffer");
+        return modelAndView;
     }
 
     @GetMapping(path = "/user/jobOffers/createNew")
@@ -112,7 +114,7 @@ public class JobOfferController {
     }
 
     @PostMapping(path = "/user/jobOffers/createJobOfferPost")
-    public String createJobOffer(@Valid JobOffer jobOffer, BindingResult bindingResult, ModelMap modelMap){
+    public ModelAndView createJobOffer(@Valid JobOffer jobOffer, BindingResult bindingResult, ModelMap modelMap){
         ModelAndView modelAndView = new ModelAndView();
         if (bindingResult.hasErrors()) {
             modelAndView.addObject("successMessage", "Popraw błędy w formularzu");
@@ -123,7 +125,8 @@ public class JobOfferController {
             modelAndView.addObject("successMessage", "Ogłoszenie zostało pomyślnie dodane.");
         }
         modelAndView.addObject("jobOffer", new JobOffer());
-        return "/all/jobOffers/add-jobOffer";
+        modelAndView.setViewName("/all/jobOffers/add-jobOffer");
+        return modelAndView;
     }
 
     // admin
@@ -177,6 +180,7 @@ public class JobOfferController {
         } else {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             jobOfferService.createJobOffer(jobOffer, userService.findUserByEmail(authentication.getName()));
+            modelAndView.addObject("successMessage", "Ogłoszenie zostało dodane");
         }
         modelAndView.addObject("jobOffer", new JobOffer());
         return "/all/jobOffers/addJobOfferAdmin";
