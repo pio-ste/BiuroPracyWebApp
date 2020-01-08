@@ -8,6 +8,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,14 +22,14 @@ public class LoginController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @GetMapping(value = "/login")
     public ModelAndView login() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("login.html");
         return modelAndView;
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    @GetMapping(value = "/register")
     public ModelAndView register() {
         ModelAndView modelAndView = new ModelAndView();
         User user = new User();
@@ -36,7 +38,16 @@ public class LoginController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/register" , method = RequestMethod.POST)
+    @GetMapping(value = "/registerEmployer")
+    public ModelAndView registerEmployer() {
+        ModelAndView modelAndView = new ModelAndView();
+        User user = new User();
+        modelAndView.addObject("user" , user);
+        modelAndView.setViewName("registerEmployer.html");
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/register")
     public ModelAndView registerUser(@Valid User user, BindingResult bindingResult, ModelMap modelMap) {
         ModelAndView modelAndView = new ModelAndView();
         if (bindingResult.hasErrors()) {
@@ -53,7 +64,24 @@ public class LoginController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/user/userHome", method = RequestMethod.GET)
+    @PostMapping(value = "/registerEmployer")
+    public ModelAndView registerEmployer(@Valid User user, BindingResult bindingResult, ModelMap modelMap) {
+        ModelAndView modelAndView = new ModelAndView();
+        if (bindingResult.hasErrors()) {
+            modelAndView.addObject("successMessage", "Popraw błędy w formularzu");
+            modelMap.addAttribute("bindingResult", bindingResult);
+        } else if (userService.isUserAlreadyPresent(user)) {
+            modelAndView.addObject("succesMessage", "Uzytkownik o podanych danych już istnieje.");
+        } else {
+            userService.saveEmployer(user);
+            modelAndView.addObject("successMessage", "Konto zostało utworzone pomyślnie.");
+        }
+        modelAndView.addObject("user", new User());
+        modelAndView.setViewName("registerEmployer.html");
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/user/userHome")
     public ModelAndView homeUser() {
         ModelAndView modelAndView =new ModelAndView();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -63,14 +91,14 @@ public class LoginController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/employee/employeeHome", method = RequestMethod.GET)
+    @GetMapping(value = "/employer/employerHome")
     public ModelAndView homeEmployee() {
         ModelAndView modelAndView =new ModelAndView();
-        modelAndView.setViewName("/employee/employeeHome.html");
+        modelAndView.setViewName("/employer/employerHome.html");
         return modelAndView;
     }
 
-    @RequestMapping(value = "/admin/adminHome", method = RequestMethod.GET)
+    @GetMapping(value = "/admin/adminHome")
     public ModelAndView homeAdmin() {
         ModelAndView modelAndView =new ModelAndView();
         modelAndView.setViewName("/admin/adminHome.html");

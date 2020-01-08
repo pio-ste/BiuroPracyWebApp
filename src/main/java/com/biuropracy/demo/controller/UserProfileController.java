@@ -27,7 +27,7 @@ import java.util.Optional;
 
 @Controller
 public class UserProfileController {
-
+/*
     private Integer idTmp;
 
     @Autowired
@@ -530,4 +530,7 @@ public class UserProfileController {
         userService.saveProfileImage(id,file);
         return "redirect:/admin/userProfile/editProfile/" + id +"";
     }
+
+    */
+
 }

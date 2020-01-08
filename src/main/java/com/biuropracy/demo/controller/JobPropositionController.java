@@ -24,7 +24,7 @@ import java.util.Optional;
 @Controller
 public class JobPropositionController {
 
-    private Integer Userid;
+    /*private Integer Userid;
 
     @Autowired
     JobPropositionService jobPropositionService;
@@ -165,5 +165,5 @@ public class JobPropositionController {
     public String userSendJobPropDelete(@RequestParam("id") Integer id){
         jobPropositionService.deleteJobProposition(id);
         return "redirect:/admin/getAllUserSendJProp/"+Userid;
-    }
+    }*/
 }

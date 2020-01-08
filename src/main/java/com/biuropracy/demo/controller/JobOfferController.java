@@ -25,7 +25,7 @@ import java.util.Optional;
 @Controller
 public class JobOfferController {
 
-    private Integer Userid;
+    /*private Integer Userid;
 
     @Autowired
     JobOfferService jobOfferService;
@@ -198,5 +198,5 @@ public class JobOfferController {
     public String deleteUserJobOfferByIdAdmin(@PathVariable("id") Integer id) {
         jobOfferService.deleteJobOfferById(id);
         return "redirect:/admin/userJobOffers/"+Userid;
-    }
+    }*/
 }

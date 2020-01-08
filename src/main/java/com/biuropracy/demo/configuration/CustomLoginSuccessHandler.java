@@ -44,6 +44,8 @@ public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
             url = "/admin/adminHome";
         } else if (role.contains("USER")) {
             url = "/user/userHome";
+        } else if (role.contains("EMPLOYER")) {
+            url = "/employer/employerHome/";
         }
         return url;
     }

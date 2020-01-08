@@ -36,27 +36,6 @@ public class User {
     @Size(min=4, message = "Hasło musi mieć minimum 4 znaki")
     private String password;
 
-    @Column(name = "date_birth")
-    private String dateBirth;
-
-    @Column(name = "home_city")
-    private String homeCity;
-
-    @Column(name = "work_city")
-    private String workCity;
-
-    @Column(name = "hobby")
-    private String hobby;
-
-    @Column(name = "current_position")
-    private String currentPosition;
-
-    @Column(name = "position_sought")
-    private String positionSought;
-
-    @Column(name = "to_find")
-    private String toFind;
-
     @Column(name = "profile_image")
     @Lob
     private Byte[] profileImage;
@@ -64,18 +43,11 @@ public class User {
     @Column(name = "status")
     private String status;
 
-    public User(@NotEmpty(message = "Wpisz swoje imię") String name, @NotEmpty(message = "Wpisz swoje nazwisko") String lastName, @NotEmpty(message = "Wpisz swój adres email") @Email(message = "Zły adres email") String email, @NotEmpty(message = "Wpisz hasło") @Size(min = 4, message = "Hasło musi mieć minimum 4 znaki") String password, String dateBirth, String homeCity, String workCity, String hobby, String currentPosition, String positionSought, String toFind, Byte[] profileImage, String status, Set<Role> roles, List<JobOffer> jobOffers, List<Course> courses, List<Education> educations, List<JobExperience> jobExperiences, List<Language> languages, List<Organization> organizations, List<Skill> skills, List<WebLink> webLinks, List<JobProposition> fromUsers, List<JobProposition> toUsers, List<ProfileProposition> users) {
+    public User(@NotEmpty(message = "Wpisz swoje imię") String name, @NotEmpty(message = "Wpisz swoje nazwisko") String lastName, @NotEmpty(message = "Wpisz swój adres email") @Email(message = "Zły adres email") String email, @NotEmpty(message = "Wpisz hasło") @Size(min = 4, message = "Hasło musi mieć minimum 4 znaki") String password, Byte[] profileImage, String status, Set<Role> roles, List<JobOffer> jobOffers, List<Course> courses, List<Education> educations, List<JobExperience> jobExperiences, List<Language> languages, List<Organization> organizations, List<Skill> skills, List<WebLink> webLinks, List<JobProposition> fromUsers, List<JobProposition> toUsers, List<ProfileProposition> users, UserDetails userDetails, Employer employer) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.dateBirth = dateBirth;
-        this.homeCity = homeCity;
-        this.workCity = workCity;
-        this.hobby = hobby;
-        this.currentPosition = currentPosition;
-        this.positionSought = positionSought;
-        this.toFind = toFind;
         this.profileImage = profileImage;
         this.status = status;
         this.roles = roles;
@@ -90,18 +62,15 @@ public class User {
         this.fromUsers = fromUsers;
         this.toUsers = toUsers;
         this.users = users;
+        this.userDetails = userDetails;
+        this.employer = employer;
     }
 
-    public User(int idUser, String email, String name, String lastName, String dateBirth, String homeCity, String workCity, String currentPosition, String positionSought, Byte[] profileImage) {
+    public User(int idUser, String email, String name, String lastName, Byte[] profileImage) {
         this.idUser = idUser;
         this.email = email;
         this.name = name;
         this.lastName = lastName;
-        this.dateBirth = dateBirth;
-        this.homeCity = homeCity;
-        this.workCity = workCity;
-        this.currentPosition = currentPosition;
-        this.positionSought = positionSought;
         this.profileImage = profileImage;
     }
 
@@ -147,6 +116,12 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ProfileProposition> users;
+
+    @OneToOne(mappedBy = "user")
+    private UserDetails userDetails;
+
+    @OneToOne(mappedBy = "user")
+    private Employer employer;
 
     public Integer getIdUser() {
         return idUser;
@@ -202,62 +177,6 @@ public class User {
 
     public void setJobOffers(List<JobOffer> jobOffers) {
         this.jobOffers = jobOffers;
-    }
-
-    public String getDateBirth() {
-        return dateBirth;
-    }
-
-    public void setDateBirth(String dateBirth) {
-        this.dateBirth = dateBirth;
-    }
-
-    public String getHomeCity() {
-        return homeCity;
-    }
-
-    public void setHomeCity(String homeCity) {
-        this.homeCity = homeCity;
-    }
-
-    public String getWorkCity() {
-        return workCity;
-    }
-
-    public void setWorkCity(String workCity) {
-        this.workCity = workCity;
-    }
-
-    public String getHobby() {
-        return hobby;
-    }
-
-    public void setHobby(String hobby) {
-        this.hobby = hobby;
-    }
-
-    public String getCurrentPosition() {
-        return currentPosition;
-    }
-
-    public void setCurrentPosition(String currentPosition) {
-        this.currentPosition = currentPosition;
-    }
-
-    public String getPositionSought() {
-        return positionSought;
-    }
-
-    public void setPositionSought(String positionSought) {
-        this.positionSought = positionSought;
-    }
-
-    public String getToFind() {
-        return toFind;
-    }
-
-    public void setToFind(String toFind) {
-        this.toFind = toFind;
     }
 
     public Byte[] getProfileImage() {
@@ -354,5 +273,21 @@ public class User {
 
     public void setUsers(List<ProfileProposition> users) {
         this.users = users;
+    }
+
+    public UserDetails getUserDetails() {
+        return userDetails;
+    }
+
+    public void setUserDetails(UserDetails userDetails) {
+        this.userDetails = userDetails;
+    }
+
+    public Employer getEmployer() {
+        return employer;
+    }
+
+    public void setEmployer(Employer employer) {
+        this.employer = employer;
     }
 }
