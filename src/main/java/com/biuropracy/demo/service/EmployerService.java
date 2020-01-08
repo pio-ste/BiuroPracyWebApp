@@ -6,7 +6,10 @@ import com.biuropracy.demo.repository.EmployerRepository;
 import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +22,33 @@ public class EmployerService {
     public List<Employer> findEmployerByUserId(Integer user) {
         return employerRepository.findByUserIdUser(user);
     }
+
+    public Employer findEmployer(Integer id) {
+        Optional<Employer> employerOpt = employerRepository.findById(id);
+        if (employerOpt.isPresent()){
+            return employerOpt.get();
+        } else {
+            throw new RuntimeException("Id Employer nie istnieje");
+        }
+    }
+
+    @Transactional
+    public void saveCompanyImgImage(Integer id, MultipartFile file) {
+        try {
+
+            Employer employer = employerRepository.findById(id).get();
+            Byte[] byteObjects = new Byte[file.getBytes().length];
+            int i = 0;
+            for(byte b : file.getBytes()){
+                byteObjects[i++] = b;
+            }
+            employer.setCompanyImage(byteObjects);
+            employerRepository.save(employer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public Employer getEmployerById(Integer id) {
         Optional<Employer> employerOpt = employerRepository.findById(id);

@@ -24,8 +24,8 @@ import java.util.Optional;
 
 @Controller
 public class JobOfferController {
-
-    /*private Integer Userid;
+/*
+    private Integer Userid;
 
     @Autowired
     JobOfferService jobOfferService;
@@ -63,7 +63,7 @@ public class JobOfferController {
     public String getUserJobOffer(Model model){
         model.addAttribute("jobOffer", new JobOffer());
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+        UserInformation userDetails = (UserInformation)authentication.getPrincipal();
         User user = userService.findUserByEmail(userDetails.getUsername());
         Integer idUser = user.getIdUser();
         List<JobOfferDTO> JobList = jobOfferRepository.getUserJobOfferList(idUser);

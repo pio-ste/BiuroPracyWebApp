@@ -1,7 +1,5 @@
 package com.biuropracy.demo.model;
 
-import org.hibernate.validator.constraints.UniqueElements;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -43,7 +41,7 @@ public class User {
     @Column(name = "status")
     private String status;
 
-    public User(@NotEmpty(message = "Wpisz swoje imię") String name, @NotEmpty(message = "Wpisz swoje nazwisko") String lastName, @NotEmpty(message = "Wpisz swój adres email") @Email(message = "Zły adres email") String email, @NotEmpty(message = "Wpisz hasło") @Size(min = 4, message = "Hasło musi mieć minimum 4 znaki") String password, Byte[] profileImage, String status, Set<Role> roles, List<JobOffer> jobOffers, List<Course> courses, List<Education> educations, List<JobExperience> jobExperiences, List<Language> languages, List<Organization> organizations, List<Skill> skills, List<WebLink> webLinks, List<JobProposition> fromUsers, List<JobProposition> toUsers, List<ProfileProposition> users, UserDetails userDetails, Employer employer) {
+    public User(@NotEmpty(message = "Wpisz swoje imię") String name, @NotEmpty(message = "Wpisz swoje nazwisko") String lastName, @NotEmpty(message = "Wpisz swój adres email") @Email(message = "Zły adres email") String email, @NotEmpty(message = "Wpisz hasło") @Size(min = 4, message = "Hasło musi mieć minimum 4 znaki") String password, Byte[] profileImage, String status, Set<Role> roles, List<JobOffer> jobOffers, List<Course> courses, List<Education> educations, List<JobExperience> jobExperiences, List<Language> languages, List<Organization> organizations, List<Skill> skills, List<WebLink> webLinks, List<JobProposition> fromUsers, List<JobProposition> toUsers, List<ProfileProposition> users, UserInformation userInformation, Employer employer) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
@@ -62,7 +60,7 @@ public class User {
         this.fromUsers = fromUsers;
         this.toUsers = toUsers;
         this.users = users;
-        this.userDetails = userDetails;
+        this.userInformation = userInformation;
         this.employer = employer;
     }
 
@@ -118,7 +116,7 @@ public class User {
     private List<ProfileProposition> users;
 
     @OneToOne(mappedBy = "user")
-    private UserDetails userDetails;
+    private UserInformation userInformation;
 
     @OneToOne(mappedBy = "user")
     private Employer employer;
@@ -275,12 +273,12 @@ public class User {
         this.users = users;
     }
 
-    public UserDetails getUserDetails() {
-        return userDetails;
+    public UserInformation getUserInformation() {
+        return userInformation;
     }
 
-    public void setUserDetails(UserDetails userDetails) {
-        this.userDetails = userDetails;
+    public void setUserInformation(UserInformation userInformation) {
+        this.userInformation = userInformation;
     }
 
     public Employer getEmployer() {

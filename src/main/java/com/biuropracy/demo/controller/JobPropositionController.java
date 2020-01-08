@@ -48,7 +48,7 @@ public class JobPropositionController {
     public String getAllJPropByToUser(Model model){
         model.addAttribute("jobProposition", new JobProposition()); //do edycji w modalu
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+        UserInformation userDetails = (UserInformation)authentication.getPrincipal();
         User user = userService.findUserByEmail(userDetails.getUsername());
         Integer id = user.getIdUser();
         List<JobPropositionDTO> JobPropDto = jobPropositionRepository.getAllJPropByToUserId(id);
@@ -59,7 +59,7 @@ public class JobPropositionController {
     @GetMapping(path = "/user/getAcceptJPropByToUserID")
     public String getAcceptJPropByToUser(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+        UserInformation userDetails = (UserInformation)authentication.getPrincipal();
         User user = userService.findUserByEmail(userDetails.getUsername());
         Integer id = user.getIdUser();
         List<JobPropositionDTO> JobPropDto = jobPropositionRepository.getAcceptJPropByToUserID(id);
@@ -70,7 +70,7 @@ public class JobPropositionController {
     @GetMapping(path = "/user/getRejectedJPropByToUserID")
     public String getRejectedJPropByToUser(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+        UserInformation userDetails = (UserInformation)authentication.getPrincipal();
         User user = userService.findUserByEmail(userDetails.getUsername());
         Integer id = user.getIdUser();
         List<JobPropositionDTO> JobPropDto = jobPropositionRepository.getRejectedJPropByToUserID(id);
@@ -81,7 +81,7 @@ public class JobPropositionController {
     @GetMapping(path = "/user/getAllJPropByFromUserId")
     public String getAllJPropByFromUser(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+        UserInformation userDetails = (UserInformation)authentication.getPrincipal();
         User user = userService.findUserByEmail(userDetails.getUsername());
         Integer id = user.getIdUser();
         List<JobPropositionDTO> JobPropDto = jobPropositionRepository.getAllJPropByFromUserId(id);
@@ -92,7 +92,7 @@ public class JobPropositionController {
     @GetMapping(path = "/user/getAcceptJPropByFromUserID")
     public String getAcceptJPropByFromUser(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+        UserInformation userDetails = (UserInformation)authentication.getPrincipal();
         User user = userService.findUserByEmail(userDetails.getUsername());
         Integer id = user.getIdUser();
         List<JobPropositionDTO> JobPropDto = jobPropositionRepository.getAcceptJPropByFromUserID(id);
@@ -103,7 +103,7 @@ public class JobPropositionController {
     @GetMapping(path = "/user/getRejectedJPropByFromUserID")
     public String getRejectedJPropByFromUser(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+        UserInformation userDetails = (UserInformation)authentication.getPrincipal();
         User user = userService.findUserByEmail(userDetails.getUsername());
         Integer id = user.getIdUser();
         List<JobPropositionDTO> JobPropDto = jobPropositionRepository.getRejectedJPropByFromUserID(id);

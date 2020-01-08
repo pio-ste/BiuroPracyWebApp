@@ -3,8 +3,8 @@ package com.biuropracy.demo.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user_details")
-public class UserDetails {
+@Table(name = "user_information")
+public class UserInformation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,7 +36,7 @@ public class UserDetails {
     @JoinColumn(unique = true)
     private User user;
 
-    public UserDetails(String dateBirth, String homeCity, String workCity, String hobby, String currentPosition, String positionSought, String toFind, User user) {
+    public UserInformation(String dateBirth, String homeCity, String workCity, String hobby, String currentPosition, String positionSought, String toFind, User user) {
         this.dateBirth = dateBirth;
         this.homeCity = homeCity;
         this.workCity = workCity;
@@ -47,7 +47,7 @@ public class UserDetails {
         this.user = user;
     }
 
-    public UserDetails() {
+    public UserInformation() {
     }
 
     public Integer getIdUserDetail() {

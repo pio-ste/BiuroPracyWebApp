@@ -27,7 +27,7 @@ import java.util.Optional;
 
 @Controller
 public class UserProfileController {
-/*
+
     private Integer idTmp;
 
     @Autowired
@@ -96,7 +96,6 @@ public class UserProfileController {
         modelAndView.addObject("organization", new Organization());
         modelAndView.addObject("skill", new Skill());
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String name = authentication.getName();
         UserDetails userDetails = (UserDetails)authentication.getPrincipal();
         User user = userService.findUserByEmail(userDetails.getUsername());
         Integer id = user.getIdUser();

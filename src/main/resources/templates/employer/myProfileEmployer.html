@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width = device-width , initial-scale=1.0"/>
+    <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+    <link th:href="@{/webjars/font-awesome/5.11.2/css/all.css}" rel="stylesheet"/>
+    <link th:href="@{/static/css/homeHeaderCSS.css}" rel="stylesheet"/>
+    <link th:href="@{/static/css/profileCSS.css}" rel="stylesheet"/>
+    <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js} " type="text/javascript"></script>
+    <script th:src="@{/webjars/popper/1.15.0/umd/popper.min.js} " type="text/javascript"></script>
+    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js} " type="text/javascript"></script>
+
+</head>
+<body>
+<div th:replace="fragments/employerHeader :: headerEmployer"></div>
+<div class="container pt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <div th:if="${employerList != null}">
+                <h4 class="text-center">Brak informacji o firmie </br>
+                    <a th:href="@{/employer/addEmployerInfo}"
+                       class="btn btn-primary">
+                        Dodaj informacje
+                    </a>
+                </h4>
+            </div>
+            <div class="row border border-white" th:each="employer : ${employers}">
+                    <div class="col-md-9 ">
+                        <b >Nazwa firmy: </b>
+                        <th th:text="${employer.companyName}"></th> </br>
+                        <b>Adres: </b>
+                        <th th:text="${employer.address}"></th></br>
+                        <b>E-mail: </b>
+                        <th th:text="${employer.email}"></th></br>
+                        <b>Numer telefonu: </b>
+                        <th th:text="${employer.phoneNumber}"></th></br>
+                        <b>Strona www: </b>
+                        <th th:text="${employer.webLink}"></th></br>
+                    </div>
+                    <div class="col-md-3">
+                        <h3>zdjęcie</h3>
+                    </div>
+                    <div class="col-md-12">
+                        <b >Opis firmy: </b>
+                        <th th:text="${employer.description}"></th>
+                    </div>
+            </div>
+            <div class="row border border-white" th:each="user : ${users}">
+                <div class="col-md-12 border-top border-secondary"><h5>Przedstawiciel firmy</h5></div>
+                <div class="col-md-9 ">
+                    <b >Imię: </b>
+                    <th th:text="${user.name}"></th> </br>
+                    <b>Nazwisko: </b>
+                    <th th:text="${user.lastName}"></th></br>
+                    <b>Email: </b>
+                    <th th:text="${user.email}"></th></br>
+                </div>
+                <div class="col-md-3">
+                    <h3>zdjęcie</h3>
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+</div>
+</body>
+</html>
