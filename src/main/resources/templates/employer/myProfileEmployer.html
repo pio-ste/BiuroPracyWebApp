@@ -27,7 +27,7 @@
                 </h4>
             </div>
             <div class="row border border-white" th:each="employer : ${employers}">
-                    <div class="col-md-9 ">
+                    <div class="col-md-8 ">
                         <b >Nazwa firmy: </b>
                         <th th:text="${employer.companyName}"></th> </br>
                         <b>Adres: </b>
@@ -38,13 +38,16 @@
                         <th th:text="${employer.phoneNumber}"></th></br>
                         <b>Strona www: </b>
                         <th th:text="${employer.webLink}"></th></br>
-                    </div>
-                    <div class="col-md-3">
-                        <h3>zdjęcie</h3>
-                    </div>
-                    <div class="col-md-12">
                         <b >Opis firmy: </b>
-                        <th th:text="${employer.description}"></th>
+                        <th th:text="${employer.description}"></th></br>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="ml-5 mt-2 rounded-lg">
+                        <img th:src="@{'/all/displayCompanyImg/'+ ${employer.idEmployer} }" onerror="if (this.src != '/static/img/companyImg.jpg') this.src = '/static/img/companyImg.jpg';" width="270" height="220" class="mt-3"> </br>
+                        </div>
+                            <a class="btn btn-primary mt-2 float-right" href="#"
+                           th:href="@{'/employer/addCompanyImage/' + ${employer.idEmployer}}" role="button">
+                            Zmień zdjęcie</a>
                     </div>
             </div>
             <div class="row border border-white" th:each="user : ${users}">

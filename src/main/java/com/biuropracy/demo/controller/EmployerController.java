@@ -42,7 +42,7 @@ public class EmployerController {
     public String addCompanyImage(@PathVariable("id") Integer id, Model model){
         Employer employer = employerService.findEmployer(id);
         model.addAttribute("employer", employer);
-        return "";
+        return "/employer/uploadCompanyImage";
     }
 
     @PostMapping(path = "/employer/uploadCompanyImage/{id}")
