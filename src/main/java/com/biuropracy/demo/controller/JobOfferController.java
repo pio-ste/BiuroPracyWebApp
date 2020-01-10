@@ -75,12 +75,7 @@ public class JobOfferController {
         return "/all/jobOffers/viewUserJobOffers";
     }*/
 /*
-    @GetMapping(path = "/user/jobOffersFiltered")
-    public String getAllJobOffersLogged(Model model, String title, String location, String category, String contractType, String workingTime, String positionLevel) {
-        List<JobOfferDTO> JobList = jobOfferRepository.getJobOfferFiltered(title, category, location, contractType, workingTime, positionLevel);
-        model.addAttribute("jobOffers", JobList);
-        return "/all/jobOffers/viewJobsLoginUser";
-    }
+
 
     @GetMapping(path = {"/user/jobOffers/editOffer", "/user/jobOffers/editOffer/{id}"})
     public String editJobOffer(Model model, @PathVariable("id") Optional<Integer> id) {
@@ -89,13 +84,6 @@ public class JobOfferController {
         return "/all/jobOffers/edit-jobOffer";
     }*/
 /*
-    @GetMapping(path = {"/user/jobOffers/viewSelectedJobOffer", "/user/jobOffers/viewSelectedJobOffer/{id}"})
-    public String viewSelectedJobOfferUser(Model model,@PathVariable("id") Optional<Integer> id) {
-        model.addAttribute("profileProposition", new ProfileProposition());
-        List<JobOfferDTO> JobOfferList = jobOfferRepository.getSelectedJobOffer(id.get());
-        model.addAttribute("jobOffers", JobOfferList);
-        return "/all/jobOffers/selectedJobOfferLogin";
-    }
 
     @PostMapping(path = "/user/jobOffers/updateJobOfferPost")
     public ModelAndView updateJobOffer(@Valid JobOffer jobOffer, BindingResult bindingResult, ModelMap modelMap){
@@ -134,6 +122,21 @@ public class JobOfferController {
         modelAndView.addObject("jobOffer", new JobOffer());
         modelAndView.setViewName("/all/jobOffers/add-jobOffer");
         return modelAndView;
+    }
+
+    @GetMapping(path = "/user/jobOffersFiltered")
+    public String getAllJobOffersLogged(Model model, String title, String location, String category, String contractType, String workingTime, String positionLevel, Integer monthlyPay, String categorySalary) {
+        List<JobOfferDTO> JobList = jobOfferRepository.getJobOfferFiltered(title, category, location, contractType, workingTime, positionLevel,monthlyPay,categorySalary);
+        model.addAttribute("jobOffers", JobList);
+        return "/all/jobOffers/viewJobsLoginUser";
+    }
+
+    @GetMapping(path = {"/user/jobOffers/viewSelectedJobOffer", "/user/jobOffers/viewSelectedJobOffer/{id}"})
+    public String viewSelectedJobOfferUser(Model model,@PathVariable("id") Optional<Integer> id) {
+        model.addAttribute("profileProposition", new ProfileProposition());
+        List<JobOfferDTO> JobOfferList = jobOfferRepository.getSelectedJobOffer(id.get());
+        model.addAttribute("jobOffers", JobOfferList);
+        return "/all/jobOffers/selectedJobOfferLogin";
     }
 /*
     // admin

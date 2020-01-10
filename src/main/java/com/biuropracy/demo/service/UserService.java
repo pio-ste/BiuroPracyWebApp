@@ -91,6 +91,9 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
+    public List<User> findUserByIdUser(User user){
+        return userRepository.findByIdUser(user);
+    }
 
     public User findUser(Integer id) {
         Optional<User> userOpt = userRepository.findById(id);

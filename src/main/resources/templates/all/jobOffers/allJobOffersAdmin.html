@@ -51,7 +51,7 @@
                     <dt class="col-sm-3 mt-3">Poziom stanowiska: </dt>
                     <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobOffer.positionLevel}" /></dt>
                     <dt class="col-sm-3 mt-3">Email ogłoszeniodawcy: </dt>
-                    <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobOffer.email}"/></dt>
+                    <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobOffer.companyEmail}"/></dt>
                     <dt class="col-sm-9 mt-3">
                         <a th:href="@{/admin/jobOffers/editOffer/{idJobOffer}(idJobOffer=${jobOffer.idJobOffer})}"
                            class="btn btn-warning">

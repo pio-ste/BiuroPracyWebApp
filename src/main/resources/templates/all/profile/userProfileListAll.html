@@ -33,7 +33,7 @@
                 <b>Adres e-mail użytkownika:</b>
             </div>
             <div class="col-7 mt-2">
-                <input type="text" class="form-control" name="email" placeholder="E-mail"/>
+                <input type="text" class="form-control" name="companyEmail" placeholder="E-mail"/>
             </div>
             <input type="submit" value="Szukaj" class="btn btn-primary mx-2 my-2">
         </div>
@@ -46,8 +46,8 @@
                 <th th:text="${user.name}"></th></br>
                 <b>Nazwisko: </b>
                 <th th:text="${user.lastName}"></th></br>
-                <b>Adres email: </b>
-                <th th:text="${user.email}"></th></br>
+                <b>Adres companyEmail: </b>
+                <th th:text="${user.companyEmail}"></th></br>
                 <b>Data urodzenia: </b>
                 <th th:text="${user.dateBirth}"></th></br>
                 <b>Miejsce zamieszkania: </b>

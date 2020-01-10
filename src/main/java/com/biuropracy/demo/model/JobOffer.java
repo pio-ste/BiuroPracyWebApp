@@ -48,6 +48,10 @@ public class JobOffer {
     @Range(min = 1, max = 9999999)
     private Integer monthlyPay;
 
+    @Column(name = "category_salary", nullable = false)
+    @NotEmpty(message = "Wybierz rodzaj wynagrodzenia")
+    private String categorySalary;
+
     @Column(name = "position_level", nullable = false)
     @NotEmpty(message = "Wpisz poziom stanowiska")
     private String positionLevel;
@@ -59,7 +63,7 @@ public class JobOffer {
     @OneToMany(mappedBy = "jobOffer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ProfileProposition> jobOffers;
 
-    public JobOffer(@NotEmpty(message = "Wpisz tytuł ogłoszenia") String title, @NotEmpty(message = "Wpisz lokalizację") String location, @NotEmpty(message = "Dodaj opis") String description, @NotEmpty(message = "Podaj dane kontaktowe") String contact, @NotEmpty(message = "Wybierz kategorię") String category, @NotEmpty(message = "Wybierz rodzaj umowy") String contractType, @NotEmpty(message = "Wybierz wymiar pracy") String workingTime, @NotEmpty(message = "Wpisz miesięczne wynagrodzenia") Integer monthlyPay, @NotEmpty(message = "Wpisz poziom stanowiska") String positionLevel, Employer employer, List<ProfileProposition> jobOffers) {
+    public JobOffer(@NotEmpty(message = "Wpisz tytuł ogłoszenia") String title, @NotEmpty(message = "Wpisz lokalizację") String location, @NotEmpty(message = "Dodaj opis") String description, @NotEmpty(message = "Podaj dane kontaktowe") String contact, @NotEmpty(message = "Wybierz kategorię") String category, @NotEmpty(message = "Wybierz rodzaj umowy") String contractType, @NotEmpty(message = "Wybierz wymiar pracy") String workingTime, @Range(min = 1, max = 9999999) Integer monthlyPay, @NotEmpty(message = "Wybierz rodzaj wynagrodzenia") String categorySalary, @NotEmpty(message = "Wpisz poziom stanowiska") String positionLevel, Employer employer, List<ProfileProposition> jobOffers) {
         this.title = title;
         this.location = location;
         this.description = description;
@@ -68,6 +72,7 @@ public class JobOffer {
         this.contractType = contractType;
         this.workingTime = workingTime;
         this.monthlyPay = monthlyPay;
+        this.categorySalary = categorySalary;
         this.positionLevel = positionLevel;
         this.employer = employer;
         this.jobOffers = jobOffers;
@@ -146,6 +151,14 @@ public class JobOffer {
 
     public void setMonthlyPay(Integer monthlyPay) {
         this.monthlyPay = monthlyPay;
+    }
+
+    public String getCategorySalary() {
+        return categorySalary;
+    }
+
+    public void setCategorySalary(String categorySalary) {
+        this.categorySalary = categorySalary;
     }
 
     public String getPositionLevel() {

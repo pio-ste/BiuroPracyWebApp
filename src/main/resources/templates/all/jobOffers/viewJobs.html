@@ -35,7 +35,7 @@
                                     <b>Miesięczne wynagrodzenie: </b>
                                     <th th:text="${jobOffer.monthlyPay}"></th></br>
                                     <b>Email do osoby: </b>
-                                    <th th:text="${jobOffer.email}"></th></br>
+                                    <th th:text="${jobOffer.companyEmail}"></th></br>
                                 </div>
                                 <div class="col-3">
                                     <a th:href="@{/all/jobOffers/viewSelectedJobOffer/{idJobOffer}(idJobOffer=${jobOffer.idJobOffer})}"

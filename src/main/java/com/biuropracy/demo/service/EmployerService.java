@@ -3,7 +3,6 @@ package com.biuropracy.demo.service;
 import com.biuropracy.demo.model.Employer;
 import com.biuropracy.demo.model.User;
 import com.biuropracy.demo.repository.EmployerRepository;
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +24,6 @@ public class EmployerService {
 
     public Employer findEmployerByUser_id(Integer id){
         return employerRepository.findEmployerByUser_IdUser(id);
-
     }
 
     public Employer findEmployer(Integer id) {
@@ -70,7 +68,7 @@ public class EmployerService {
             Employer newEmployer = employerOpt.get();
             newEmployer.setCompanyName(employer.getCompanyName());
             newEmployer.setPhoneNumber(employer.getPhoneNumber());
-            newEmployer.setEmail(employer.getEmail());
+            newEmployer.setCompanyEmail(employer.getCompanyEmail());
             newEmployer.setWebLink(employer.getWebLink());
             newEmployer.setAddress(employer.getAddress());
             newEmployer.setDescription(employer.getDescription());

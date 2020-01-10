@@ -18,8 +18,8 @@ public class Employer {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "email")
-    private String email;
+    @Column(name = "company_email")
+    private String companyEmail;
 
     @Column(name = "web_link")
     private String webLink;
@@ -41,10 +41,10 @@ public class Employer {
     @OneToMany(mappedBy = "employer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<JobOffer> jobOffers;
 
-    public Employer(String companyName, String phoneNumber, String email, String webLink, String address, String description, Byte[] companyImage, User user, List<JobOffer> jobOffers) {
+    public Employer(String companyName, String phoneNumber, String companyEmail, String webLink, String address, String description, Byte[] companyImage, User user, List<JobOffer> jobOffers) {
         this.companyName = companyName;
         this.phoneNumber = phoneNumber;
-        this.email = email;
+        this.companyEmail = companyEmail;
         this.webLink = webLink;
         this.address = address;
         this.description = description;
@@ -80,12 +80,12 @@ public class Employer {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getEmail() {
-        return email;
+    public String getCompanyEmail() {
+        return companyEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCompanyEmail(String companyEmail) {
+        this.companyEmail = companyEmail;
     }
 
     public String getWebLink() {

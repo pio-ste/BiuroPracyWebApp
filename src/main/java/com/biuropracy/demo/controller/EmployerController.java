@@ -1,8 +1,10 @@
 package com.biuropracy.demo.controller;
 
+import com.biuropracy.demo.DTO.EmployerUserDTO;
 import com.biuropracy.demo.model.Employer;
 import com.biuropracy.demo.model.User;
 import com.biuropracy.demo.model.UserInformation;
+import com.biuropracy.demo.repository.EmployerRepository;
 import com.biuropracy.demo.service.EmployerService;
 import com.biuropracy.demo.service.UserService;
 import javafx.geometry.Pos;
@@ -28,6 +30,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class EmployerController {
@@ -37,6 +40,9 @@ public class EmployerController {
 
     @Autowired
     EmployerService employerService;
+
+    @Autowired
+    EmployerRepository employerRepository;
 
     @GetMapping(path = "/employer/addCompanyImage/{id}")
     public String addCompanyImage(@PathVariable("id") Integer id, Model model){
@@ -85,7 +91,19 @@ public class EmployerController {
         return "/employer/myProfileEmployer";
     }
 
+    @GetMapping(path = "/user/selectedEmployerProfile/{id}")
+    public String selectedEmployerProfile(Model model, @PathVariable("id") Integer id) {
+        List<EmployerUserDTO> employerUserDTOList = employerRepository.getEmployerUserByIdEmpl(id);
+        model.addAttribute("employers", employerUserDTOList);
+        return "/employer/selectedEmployer";
+    }
 
+    @GetMapping(path = "/user/employersList")
+    public String employersList(Model model, String companyName){
+        List<EmployerUserDTO> employerUserDTOList = employerRepository.getEmployerFiltered(companyName);
+        model.addAttribute("employers", employerUserDTOList);
+        return "/employer/employerListLoginUser";
+    }
 
     @GetMapping(path = "/employer/addEmployerInfo")
     public String addEmployerInfo(Model model){

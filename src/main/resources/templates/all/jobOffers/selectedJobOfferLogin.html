@@ -33,13 +33,15 @@
         <dt class="col-sm-3 mt-3">Wymiar pracy: </dt>
         <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobOffer.workingTime}" /></dt>
         <dt class="col-sm-3 mt-3">Miesięczne wynagrodzenie: </dt>
-        <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobOffer.monthlyPay}" /></dt>
+        <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobOffer.monthlyPay}" /> <th th:text="${jobOffer.categorySalary}" /></dt>
         <dt class="col-sm-3 mt-3">Poziom stanowiska: </dt>
         <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobOffer.positionLevel}" /></dt>
-        <dt class="col-sm-3 mt-3">Email ogłoszeniodawcy: </dt>
-        <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobOffer.email}"/></dt>
+        <dt class="col-sm-3 mt-3">id: </dt>
+        <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobOffer.idEmployer}" /> <th th:text="${jobOffer.idJobOffer}" /></dt>
         <dt class="col-sm-12 mt-3">
             <div th:replace="fragments/modal/addProfileProp :: addProfilePropFragment"></div>
+            <a th:href="@{/user/selectedEmployerProfile/{idEmployer}(idEmployer=${jobOffer.idEmployer})}"
+               class="btn btn-outline-success my-5"> Zobacz profil firmy <i class="fas fa-angle-double-right"></i></a>
         </dt>
     </div>
 </div>

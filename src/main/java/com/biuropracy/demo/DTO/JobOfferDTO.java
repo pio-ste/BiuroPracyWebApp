@@ -5,8 +5,7 @@ package com.biuropracy.demo.DTO;
 
 
 public class JobOfferDTO {
-
-    private Integer idUser;
+    private Integer idEmployer;
     private Integer idJobOffer;
     private Integer idProfileProposition;
     private String title;
@@ -14,77 +13,44 @@ public class JobOfferDTO {
     private String description;
     private String contact;
     private String category;
+    private String categorySalary;
     private String companyName;
     private String contractType;
     private String workingTime;
-    private String monthlyPay;
+    private Integer monthlyPay;
     private String positionLevel;
     private String email;
 
-    public JobOfferDTO(Integer idUser, Integer idJobOffer, Integer idProfileProposition, String title, String location, String description, String contact, String category, String companyName, String contractType, String workingTime, String monthlyPay, String positionLevel) {
-        this.idUser = idUser;
+    public JobOfferDTO(Integer idJobOffer, String title, String location, String category, String categorySalary, String companyName, Integer monthlyPay) {
         this.idJobOffer = idJobOffer;
-        this.idProfileProposition = idProfileProposition;
         this.title = title;
         this.location = location;
-        this.description = description;
-        this.contact = contact;
         this.category = category;
+        this.categorySalary = categorySalary;
         this.companyName = companyName;
-        this.contractType = contractType;
-        this.workingTime = workingTime;
         this.monthlyPay = monthlyPay;
-        this.positionLevel = positionLevel;
     }
 
-    public JobOfferDTO() {
-
-    }
-
-    public JobOfferDTO(Integer idJobOffer, String title, String location, String category, String monthlyPay, String email) {
-        this.idJobOffer = idJobOffer;
-        this.title = title;
-        this.location = location;
-        this.category = category;
-        this.monthlyPay = monthlyPay;
-        this.email = email;
-    }
-
-    public JobOfferDTO(Integer idUser, Integer idJobOffer, String title, String location, String description, String contact, String category, String companyName, String contractType, String workingTime, String monthlyPay, String positionLevel, String email) {
-        this.idUser = idUser;
+    public JobOfferDTO(Integer idEmployer, Integer idJobOffer, String title, String location, String description, String contact, String category, String categorySalary, String companyName, String contractType, String workingTime, Integer monthlyPay, String positionLevel) {
+        this.idEmployer = idEmployer;
         this.idJobOffer = idJobOffer;
         this.title = title;
         this.location = location;
         this.description = description;
         this.contact = contact;
         this.category = category;
+        this.categorySalary = categorySalary;
         this.companyName = companyName;
         this.contractType = contractType;
         this.workingTime = workingTime;
         this.monthlyPay = monthlyPay;
         this.positionLevel = positionLevel;
-        this.email = email;
-    }
-
-    public JobOfferDTO(Integer idJobOffer, String title, String location, String description, String contact, String category, String companyName, String contractType, String workingTime, String monthlyPay, String positionLevel, String email) {
-        this.idJobOffer = idJobOffer;
-        this.title = title;
-        this.location = location;
-        this.description = description;
-        this.contact = contact;
-        this.category = category;
-        this.companyName = companyName;
-        this.contractType = contractType;
-        this.workingTime = workingTime;
-        this.monthlyPay = monthlyPay;
-        this.positionLevel = positionLevel;
-        this.email = email;
     }
 
     @Override
     public String toString() {
         return "JobOfferDTO{" +
-                "idUser=" + idUser +
+                "idEmployer=" + idEmployer +
                 ", idJobOffer=" + idJobOffer +
                 ", idProfileProposition=" + idProfileProposition +
                 ", title='" + title + '\'' +
@@ -92,29 +58,22 @@ public class JobOfferDTO {
                 ", description='" + description + '\'' +
                 ", contact='" + contact + '\'' +
                 ", category='" + category + '\'' +
+                ", categorySalary='" + categorySalary + '\'' +
                 ", companyName='" + companyName + '\'' +
                 ", contractType='" + contractType + '\'' +
                 ", workingTime='" + workingTime + '\'' +
-                ", monthlyPay='" + monthlyPay + '\'' +
+                ", monthlyPay=" + monthlyPay +
                 ", positionLevel='" + positionLevel + '\'' +
                 ", email='" + email + '\'' +
                 '}';
     }
 
-    public Integer getIdUser() {
-        return idUser;
+    public Integer getIdEmployer() {
+        return idEmployer;
     }
 
-    public void setIdUser(Integer idUser) {
-        this.idUser = idUser;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
+    public void setIdEmployer(Integer idEmployer) {
+        this.idEmployer = idEmployer;
     }
 
     public Integer getIdJobOffer() {
@@ -133,24 +92,20 @@ public class JobOfferDTO {
         this.idProfileProposition = idProfileProposition;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getLocation() {
         return location;
     }
 
     public void setLocation(String location) {
         this.location = location;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getEmail() {
-        return email;
     }
 
     public String getDescription() {
@@ -167,6 +122,22 @@ public class JobOfferDTO {
 
     public void setContact(String contact) {
         this.contact = contact;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getCategorySalary() {
+        return categorySalary;
+    }
+
+    public void setCategorySalary(String categorySalary) {
+        this.categorySalary = categorySalary;
     }
 
     public String getCompanyName() {
@@ -193,11 +164,11 @@ public class JobOfferDTO {
         this.workingTime = workingTime;
     }
 
-    public String getMonthlyPay() {
+    public Integer getMonthlyPay() {
         return monthlyPay;
     }
 
-    public void setMonthlyPay(String monthlyPay) {
+    public void setMonthlyPay(Integer monthlyPay) {
         this.monthlyPay = monthlyPay;
     }
 
@@ -207,6 +178,10 @@ public class JobOfferDTO {
 
     public void setPositionLevel(String positionLevel) {
         this.positionLevel = positionLevel;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public void setEmail(String email) {

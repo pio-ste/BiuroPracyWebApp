@@ -52,9 +52,12 @@
             <div class="form-group col-md-12">
                 <div th:replace="fragments/select-option/add/add-workingTime.html :: select_option_workingTime"></div>
             </div>
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-6">
                 <input type="number" th:field="*{monthlyPay}" class="form-control"
                         placeholder="Zarobki miesięczne" />
+            </div>
+            <div class="form-group col-md-6">
+                <div th:replace="fragments/select-option/add/add-categorySalary.html :: select_option_categorySalary"></div>
             </div>
             <div class="form-group col-md-12">
                 <div th:replace="fragments/select-option/add/add-positionLevel.html :: select_option_positionLevel"></div>

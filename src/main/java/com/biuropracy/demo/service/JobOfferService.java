@@ -39,6 +39,7 @@ public class JobOfferService {
                 newJobOffer.setDescription(jobOffer.getDescription());
                 newJobOffer.setLocation(jobOffer.getLocation());
                 newJobOffer.setMonthlyPay(jobOffer.getMonthlyPay());
+                newJobOffer.setCategorySalary(jobOffer.getCategorySalary());
                 newJobOffer.setPositionLevel(jobOffer.getPositionLevel());
                 newJobOffer.setTitle(jobOffer.getTitle());
                 newJobOffer.setWorkingTime(jobOffer.getWorkingTime());
