@@ -1,11 +1,9 @@
 package com.biuropracy.demo.service;
 
+import com.biuropracy.demo.model.Employer;
 import com.biuropracy.demo.model.JobOffer;
-import com.biuropracy.demo.model.User;
 import com.biuropracy.demo.repository.JobOfferRepository;
-import com.biuropracy.demo.repository.ProfilePropositionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,8 +14,6 @@ public class JobOfferService {
 
     @Autowired
     JobOfferRepository jobOfferRepository;
-    @Autowired
-    ProfilePropositionRepository profilePropositionRepository;
 
     public List<JobOffer> getAllJobOffers(){
         return jobOfferRepository.findAll();
@@ -38,7 +34,6 @@ public class JobOfferService {
             if (offer.isPresent()) {
                 JobOffer newJobOffer = offer.get();
                 newJobOffer.setCategory(jobOffer.getCategory());
-                newJobOffer.setCompanyName(jobOffer.getCompanyName());
                 newJobOffer.setContact(jobOffer.getContact());
                 newJobOffer.setContractType(jobOffer.getContractType());
                 newJobOffer.setDescription(jobOffer.getDescription());
@@ -57,8 +52,8 @@ public class JobOfferService {
             }
     }
 
-    public JobOffer createJobOffer(JobOffer jobOffer, User user) {
-        jobOffer.setUser(user);
+    public JobOffer createJobOffer(JobOffer jobOffer, Employer employer) {
+        jobOffer.setEmployer(employer);
         jobOffer = jobOfferRepository.save(jobOffer);
         return jobOffer;
     }
@@ -66,7 +61,6 @@ public class JobOfferService {
     public void deleteJobOfferById(Integer id) {
         Optional<JobOffer> offer = jobOfferRepository.findById(id);
         if (offer.isPresent()) {
-            profilePropositionRepository.deleteProfPropByJobOffer(id);
             jobOfferRepository.deleteById(id);
         } else {
             throw new RuntimeException("Brak ogłoszenia o tym id");

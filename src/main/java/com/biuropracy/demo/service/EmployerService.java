@@ -23,6 +23,11 @@ public class EmployerService {
         return employerRepository.findByUserIdUser(user);
     }
 
+    public Employer findEmployerByUser_id(Integer id){
+        return employerRepository.findEmployerByUser_IdUser(id);
+
+    }
+
     public Employer findEmployer(Integer id) {
         Optional<Employer> employerOpt = employerRepository.findById(id);
         if (employerOpt.isPresent()){

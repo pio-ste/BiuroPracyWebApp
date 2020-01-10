@@ -26,7 +26,7 @@ import java.util.Optional;
 
 @Controller
 public class ProfilePropositionController {
-
+/*
     @Autowired
     ProfilePropositionService profilePropositionService;
 
@@ -99,5 +99,5 @@ public class ProfilePropositionController {
     public String deleteMyProfileProposition(@RequestParam("id") Integer id){
         profilePropositionService.deleteProfileProp(id);
         return "redirect:/user/myProfileProp";
-    }
+    }*/
 }

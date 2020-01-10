@@ -2,7 +2,6 @@ package com.biuropracy.demo.service;
 
 import com.biuropracy.demo.model.Role;
 import com.biuropracy.demo.model.User;
-import com.biuropracy.demo.repository.ProfilePropositionRepository;
 import com.biuropracy.demo.repository.RoleRepository;
 import com.biuropracy.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +28,6 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    @Autowired
-    ProfilePropositionRepository profilePropositionRepository;
 
 
     @Transactional

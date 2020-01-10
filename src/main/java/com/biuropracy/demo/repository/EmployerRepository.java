@@ -10,4 +10,7 @@ import java.util.List;
 public interface EmployerRepository extends JpaRepository<Employer, Integer> {
 
     List<Employer> findByUserIdUser(Integer user);
+
+    Employer findEmployerByUser_IdUser(Integer id);
 }
+

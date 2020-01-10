@@ -1,6 +1,7 @@
 package com.biuropracy.demo.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "employer")
@@ -37,7 +38,10 @@ public class Employer {
     @JoinColumn(unique = true)
     private User user;
 
-    public Employer(String companyName, String phoneNumber, String email, String webLink, String address, String description, Byte[] companyImage, User user) {
+    @OneToMany(mappedBy = "employer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<JobOffer> jobOffers;
+
+    public Employer(String companyName, String phoneNumber, String email, String webLink, String address, String description, Byte[] companyImage, User user, List<JobOffer> jobOffers) {
         this.companyName = companyName;
         this.phoneNumber = phoneNumber;
         this.email = email;
@@ -46,6 +50,7 @@ public class Employer {
         this.description = description;
         this.companyImage = companyImage;
         this.user = user;
+        this.jobOffers = jobOffers;
     }
 
     public Employer() {
@@ -121,5 +126,13 @@ public class Employer {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<JobOffer> getJobOffers() {
+        return jobOffers;
+    }
+
+    public void setJobOffers(List<JobOffer> jobOffers) {
+        this.jobOffers = jobOffers;
     }
 }

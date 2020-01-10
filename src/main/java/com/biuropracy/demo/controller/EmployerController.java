@@ -108,4 +108,25 @@ public class EmployerController {
         modelAndView.setViewName("/employer/addEmployerInfo.html");
         return modelAndView;
     }
+
+    @GetMapping(path = "/employer/editEmployerInfo/{id}")
+    public String editEmployerInfo(@PathVariable("id") Integer id, Model model){
+        Employer employer = employerService.findEmployer(id);
+        model.addAttribute("employer", employer);
+        return "/employer/editEmployerInfo";
+    }
+
+    @PostMapping(path = "/employer/updateEmployerInfoPost")
+    public ModelAndView updateEmployerInfo(@Valid Employer employer, BindingResult bindingResult, ModelMap modelMap){
+        ModelAndView modelAndView = new ModelAndView();
+        if (bindingResult.hasErrors()) {
+            modelAndView.addObject("successMessage", "Popraw błędy w formularzu");
+            modelMap.addAttribute("bindingResult", bindingResult);
+        } else {
+            employerService.updateEmployer(employer);
+            modelAndView.addObject("successMessage", "Ogłoszenie zostało zaktualizowane");
+        }
+        modelAndView.setViewName("/employer/editEmployerInfo");
+        return modelAndView;
+    }
 }

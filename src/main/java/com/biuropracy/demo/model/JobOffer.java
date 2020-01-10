@@ -1,5 +1,8 @@
 package com.biuropracy.demo.model;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
@@ -33,10 +36,6 @@ public class JobOffer {
     @NotEmpty(message = "Wybierz kategorię")
     private String category;
 
-    @Column(name = "company_name", nullable = false)
-    @NotEmpty(message = "Wpisz nazwę firmy")
-    private String companyName;
-
     @Column(name = "contract_type", nullable = false)
     @NotEmpty(message = "Wybierz rodzaj umowy")
     private String contractType;
@@ -45,20 +44,34 @@ public class JobOffer {
     @NotEmpty(message = "Wybierz wymiar pracy")
     private String workingTime;
 
-    @Column(name = "monthly_pay", nullable = false)
-    @NotEmpty(message = "Wpisz miesięczne wynagrodzenia")
-    private String monthlyPay;
+    @Column(name = "monthly_pay")
+    @Range(min = 1, max = 9999999)
+    private Integer monthlyPay;
 
     @Column(name = "position_level", nullable = false)
     @NotEmpty(message = "Wpisz poziom stanowiska")
     private String positionLevel;
 
     @ManyToOne
-    @JoinColumn(name = "id_user")
-    private User user;
+    @JoinColumn(name = "id_employer")
+    private Employer employer;
 
     @OneToMany(mappedBy = "jobOffer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ProfileProposition> jobOffers;
+
+    public JobOffer(@NotEmpty(message = "Wpisz tytuł ogłoszenia") String title, @NotEmpty(message = "Wpisz lokalizację") String location, @NotEmpty(message = "Dodaj opis") String description, @NotEmpty(message = "Podaj dane kontaktowe") String contact, @NotEmpty(message = "Wybierz kategorię") String category, @NotEmpty(message = "Wybierz rodzaj umowy") String contractType, @NotEmpty(message = "Wybierz wymiar pracy") String workingTime, @NotEmpty(message = "Wpisz miesięczne wynagrodzenia") Integer monthlyPay, @NotEmpty(message = "Wpisz poziom stanowiska") String positionLevel, Employer employer, List<ProfileProposition> jobOffers) {
+        this.title = title;
+        this.location = location;
+        this.description = description;
+        this.contact = contact;
+        this.category = category;
+        this.contractType = contractType;
+        this.workingTime = workingTime;
+        this.monthlyPay = monthlyPay;
+        this.positionLevel = positionLevel;
+        this.employer = employer;
+        this.jobOffers = jobOffers;
+    }
 
     public JobOffer() {
     }
@@ -111,14 +124,6 @@ public class JobOffer {
         this.category = category;
     }
 
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
     public String getContractType() {
         return contractType;
     }
@@ -135,11 +140,11 @@ public class JobOffer {
         this.workingTime = workingTime;
     }
 
-    public String getMonthlyPay() {
+    public Integer getMonthlyPay() {
         return monthlyPay;
     }
 
-    public void setMonthlyPay(String monthlyPay) {
+    public void setMonthlyPay(Integer monthlyPay) {
         this.monthlyPay = monthlyPay;
     }
 
@@ -151,11 +156,19 @@ public class JobOffer {
         this.positionLevel = positionLevel;
     }
 
-    public User getUser() {
-        return user;
+    public Employer getEmployer() {
+        return employer;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setEmployer(Employer employer) {
+        this.employer = employer;
+    }
+
+    public List<ProfileProposition> getJobOffers() {
+        return jobOffers;
+    }
+
+    public void setJobOffers(List<ProfileProposition> jobOffers) {
+        this.jobOffers = jobOffers;
     }
 }

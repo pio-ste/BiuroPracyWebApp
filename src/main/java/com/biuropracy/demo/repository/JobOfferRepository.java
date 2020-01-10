@@ -12,6 +12,7 @@ import java.util.List;
 @Repository
 public interface JobOfferRepository extends JpaRepository<JobOffer, Integer> {
 
+/*
     @Query("Select new com.biuropracy.demo.DTO.JobOfferDTO(j.idJobOffer, j.title, j.location, j.category,j.monthlyPay, u.email) from JobOffer j, User u "
             + "where u.idUser = j.user "
             + "and (j.title like lower(concat('%', :title,'%') ) or :title is null or :title = '')"
@@ -45,5 +46,5 @@ public interface JobOfferRepository extends JpaRepository<JobOffer, Integer> {
     @Query("Select new com.biuropracy.demo.DTO.JobOfferDTO(u.idUser, j.idJobOffer, j.title, j.location, j.description, j.contact, j.category, j.companyName, j.contractType, j.workingTime, j.monthlyPay, j.positionLevel, u.email) from JobOffer j, User u "
             + "where u.idUser = j.user and j.user.idUser = :idUser "
     )
-    List<JobOfferDTO> getUserJobOfferAdmin(@Param("idUser") Integer idUser);
+    List<JobOfferDTO> getUserJobOfferAdmin(@Param("idUser") Integer idUser);*/
 }

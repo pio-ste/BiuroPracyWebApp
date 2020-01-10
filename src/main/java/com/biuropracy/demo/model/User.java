@@ -41,7 +41,7 @@ public class User {
     @Column(name = "status")
     private String status;
 
-    public User(@NotEmpty(message = "Wpisz swoje imię") String name, @NotEmpty(message = "Wpisz swoje nazwisko") String lastName, @NotEmpty(message = "Wpisz swój adres email") @Email(message = "Zły adres email") String email, @NotEmpty(message = "Wpisz hasło") @Size(min = 4, message = "Hasło musi mieć minimum 4 znaki") String password, Byte[] profileImage, String status, Set<Role> roles, List<JobOffer> jobOffers, List<Course> courses, List<Education> educations, List<JobExperience> jobExperiences, List<Language> languages, List<Organization> organizations, List<Skill> skills, List<WebLink> webLinks, List<JobProposition> fromUsers, List<JobProposition> toUsers, List<ProfileProposition> users, UserInformation userInformation, Employer employer) {
+    public User(@NotEmpty(message = "Wpisz swoje imię") String name, @NotEmpty(message = "Wpisz swoje nazwisko") String lastName, @NotEmpty(message = "Wpisz swój adres email") @Email(message = "Zły adres email") String email, @NotEmpty(message = "Wpisz hasło") @Size(min = 4, message = "Hasło musi mieć minimum 4 znaki") String password, Byte[] profileImage, String status, Set<Role> roles, List<Course> courses, List<Education> educations, List<JobExperience> jobExperiences, List<Language> languages, List<Organization> organizations, List<Skill> skills, List<WebLink> webLinks, List<JobProposition> fromUsers, List<JobProposition> toUsers, List<ProfileProposition> users, UserInformation userInformation, Employer employer) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
@@ -49,7 +49,6 @@ public class User {
         this.profileImage = profileImage;
         this.status = status;
         this.roles = roles;
-        this.jobOffers = jobOffers;
         this.courses = courses;
         this.educations = educations;
         this.jobExperiences = jobExperiences;
@@ -81,9 +80,6 @@ public class User {
             joinColumns={@JoinColumn(name="id_user")},
             inverseJoinColumns={@JoinColumn(name="id_role")})
     private Set<Role> roles;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<JobOffer> jobOffers;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Course> courses;
@@ -167,14 +163,6 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
-    }
-
-    public List<JobOffer> getJobOffers() {
-        return jobOffers;
-    }
-
-    public void setJobOffers(List<JobOffer> jobOffers) {
-        this.jobOffers = jobOffers;
     }
 
     public Byte[] getProfileImage() {

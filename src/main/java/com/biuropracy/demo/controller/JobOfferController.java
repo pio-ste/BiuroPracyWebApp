@@ -5,6 +5,7 @@ import com.biuropracy.demo.model.JobOffer;
 import com.biuropracy.demo.model.ProfileProposition;
 import com.biuropracy.demo.model.User;
 import com.biuropracy.demo.repository.JobOfferRepository;
+import com.biuropracy.demo.service.EmployerService;
 import com.biuropracy.demo.service.JobOfferService;
 import com.biuropracy.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ import java.util.Optional;
 
 @Controller
 public class JobOfferController {
-/*
+
     private Integer Userid;
 
     @Autowired
@@ -34,8 +35,11 @@ public class JobOfferController {
     UserService userService;
 
     @Autowired
-    private JobOfferRepository jobOfferRepository;
+    EmployerService employerService;
 
+    @Autowired
+    private JobOfferRepository jobOfferRepository;
+/*
     // dla wszystkich
     @GetMapping("/all/jobOffers")
     public String getAllJobOffers(Model model, String title, String location, String category, String contractType, String workingTime, String positionLevel) {
@@ -50,7 +54,7 @@ public class JobOfferController {
         model.addAttribute("jobOffers", JobOfferList);
         return "/all/jobOffers/selectedJobOffer";
     }
-
+*/
     //dla użytkownika
 
     @GetMapping(path = "/user/jobOffers/delete/{id}")
@@ -58,7 +62,7 @@ public class JobOfferController {
         jobOfferService.deleteJobOfferById(id);
         return "redirect:/user/getUserJobOffer";
     }
-
+/*
     @GetMapping(path = "/user/getUserJobOffer")
     public String getUserJobOffer(Model model){
         model.addAttribute("jobOffer", new JobOffer());
@@ -69,8 +73,8 @@ public class JobOfferController {
         List<JobOfferDTO> JobList = jobOfferRepository.getUserJobOfferList(idUser);
         model.addAttribute("jobOffers", JobList);
         return "/all/jobOffers/viewUserJobOffers";
-    }
-
+    }*/
+/*
     @GetMapping(path = "/user/jobOffersFiltered")
     public String getAllJobOffersLogged(Model model, String title, String location, String category, String contractType, String workingTime, String positionLevel) {
         List<JobOfferDTO> JobList = jobOfferRepository.getJobOfferFiltered(title, category, location, contractType, workingTime, positionLevel);
@@ -83,8 +87,8 @@ public class JobOfferController {
         JobOffer jobOffer = jobOfferService.getJobOfferById(id.get());
         model.addAttribute("jobOffer", jobOffer);
         return "/all/jobOffers/edit-jobOffer";
-    }
-
+    }*/
+/*
     @GetMapping(path = {"/user/jobOffers/viewSelectedJobOffer", "/user/jobOffers/viewSelectedJobOffer/{id}"})
     public String viewSelectedJobOfferUser(Model model,@PathVariable("id") Optional<Integer> id) {
         model.addAttribute("profileProposition", new ProfileProposition());
@@ -105,15 +109,15 @@ public class JobOfferController {
         }
         modelAndView.setViewName("/all/jobOffers/edit-jobOffer");
         return modelAndView;
-    }
+    }*/
 
-    @GetMapping(path = "/user/jobOffers/createNew")
+    @GetMapping(path = "/employer/jobOffers/createNew")
     public String addNewJobOffer(Model model){
         model.addAttribute("jobOffer", new JobOffer());
         return "/all/jobOffers/add-jobOffer";
     }
 
-    @PostMapping(path = "/user/jobOffers/createJobOfferPost")
+    @PostMapping(path = "/employer/jobOffers/createJobOfferPost")
     public ModelAndView createJobOffer(@Valid JobOffer jobOffer, BindingResult bindingResult, ModelMap modelMap){
         ModelAndView modelAndView = new ModelAndView();
         if (bindingResult.hasErrors()) {
@@ -121,14 +125,17 @@ public class JobOfferController {
             modelMap.addAttribute("bindingResult", bindingResult);
         } else {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            jobOfferService.createJobOffer(jobOffer, userService.findUserByEmail(authentication.getName()));
+            UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+            User user = userService.findUserByEmail(userDetails.getUsername());
+            Integer id = user.getIdUser();
+            jobOfferService.createJobOffer(jobOffer, employerService.findEmployerByUser_id(id));
             modelAndView.addObject("successMessage", "Ogłoszenie zostało pomyślnie dodane.");
         }
         modelAndView.addObject("jobOffer", new JobOffer());
         modelAndView.setViewName("/all/jobOffers/add-jobOffer");
         return modelAndView;
     }
-
+/*
     // admin
 
     @GetMapping("/admin/jobOffers")

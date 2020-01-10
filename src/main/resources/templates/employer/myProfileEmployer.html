@@ -27,7 +27,7 @@
                 </h4>
             </div>
             <div class="row border border-white" th:each="employer : ${employers}">
-                    <div class="col-md-8 ">
+                    <div class="col-md-8">
                         <b >Nazwa firmy: </b>
                         <th th:text="${employer.companyName}"></th> </br>
                         <b>Adres: </b>
@@ -40,11 +40,12 @@
                         <th th:text="${employer.webLink}"></th></br>
                         <b >Opis firmy: </b>
                         <th th:text="${employer.description}"></th></br>
+                        <a th:href="@{/employer/editEmployerInfo/{idEmployer}(idEmployer=${employer.idEmployer})}"
+                           class="btn btn-warning mb-2">
+                            Edytuj <i class="fas fa-user-edit"></i></a> </br>
                     </div>
                     <div class="col-md-4">
-                        <div class="ml-5 mt-2 rounded-lg">
-                        <img th:src="@{'/all/displayCompanyImg/'+ ${employer.idEmployer} }" onerror="if (this.src != '/static/img/companyImg.jpg') this.src = '/static/img/companyImg.jpg';" width="270" height="220" class="mt-3"> </br>
-                        </div>
+                        <img th:src="@{'/all/displayCompanyImg/'+ ${employer.idEmployer} }" onerror="if (this.src != '/static/img/companyImg.jpg') this.src = '/static/img/companyImg.jpg';" width="260" height="220" class="img-fluid"> </br>
                             <a class="btn btn-primary mt-2 float-right" href="#"
                            th:href="@{'/employer/addCompanyImage/' + ${employer.idEmployer}}" role="button">
                             Zmień zdjęcie</a>

@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Service
 public class ProfilePropositionService {
-
+/*
     @Autowired
     ProfilePropositionRepository profilePropositionRepository;
 
@@ -56,4 +56,6 @@ public class ProfilePropositionService {
             throw new RuntimeException("Brak ProfileProposition o tym id");
         }
     }
+
+ */
 }
