@@ -32,6 +32,8 @@
                     <th th:text="${employer.webLink}"></th></br>
                     <b >Opis firmy: </b>
                     <th th:text="${employer.description}"></th></br>
+                    <a th:href="@{/user/getEmployerJobOffers/{idEmployer}(idEmployer=${employer.idEmployer})}"
+                       class="btn btn-outline-primary my-3"> Zobacz oferty pracy <i class="fas fa-angle-double-right"></i></a>
                 </div>
                 <div class="col-md-4">
                     <img th:src="@{'/all/displayCompanyImg/'+ ${employer.idEmployer} }" onerror="if (this.src != '/static/img/companyImg.jpg') this.src = '/static/img/companyImg.jpg';" width="260" height="220" class="img-fluid"> </br>

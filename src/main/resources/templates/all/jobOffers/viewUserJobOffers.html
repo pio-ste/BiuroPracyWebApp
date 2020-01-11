@@ -12,11 +12,11 @@
     <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js} " type="text/javascript"></script>
 </head>
 <body>
-<div th:replace="fragments/loggedInHeader :: headerLoggedIn"></div>
+<div th:replace="fragments/employerHeader :: headerEmployer"></div>
 <div class="container pt-4">
     <h3 class="text-center">Własne oferty pracy</h3>
     <p class="my-5">
-        <a href="/user/jobOffers/createNew" class="btn btn-outline-primary">
+        <a href="/employer/jobOffers/createNew" class="btn btn-outline-primary">
             <i class="fas fa-user-plus ml-2"> Dodaj ofertę pracy </i></a>
     </p>
     <div class="row" th:each="jobOffer : ${jobOffers}">
@@ -38,13 +38,11 @@
         <dt class="col-sm-3 mt-3">Wymiar pracy: </dt>
         <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobOffer.workingTime}" /></dt>
         <dt class="col-sm-3 mt-3">Miesięczne wynagrodzenie: </dt>
-        <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobOffer.monthlyPay}" /></dt>
+        <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobOffer.monthlyPay}" /> <th th:text="${jobOffer.categorySalary}" /></dt>
         <dt class="col-sm-3 mt-3">Poziom stanowiska: </dt>
         <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobOffer.positionLevel}" /></dt>
-        <dt class="col-sm-3 mt-3">Email ogłoszeniodawcy: </dt>
-        <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobOffer.companyEmail}"/></dt>
         <dt class="col-sm-12 mt-3">
-            <a th:href="@{/user/jobOffers/editOffer/{idJobOffer}(idJobOffer=${jobOffer.idJobOffer})}"
+            <a th:href="@{/employer/jobOffers/editOffer/{idJobOffer}(idJobOffer=${jobOffer.idJobOffer})}"
                class="btn btn-warning mb-2">
                 Edytuj <i class="fas fa-user-edit"></i></a>
             <div th:replace="fragments/modal/DeleteJobOfferUser :: deleteJobOfferUserFragment"></div>

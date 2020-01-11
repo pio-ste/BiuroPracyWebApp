@@ -1,9 +1,11 @@
 package com.biuropracy.demo.controller;
 
+import com.biuropracy.demo.DTO.EmployerUserDTO;
 import com.biuropracy.demo.DTO.JobOfferDTO;
 import com.biuropracy.demo.model.JobOffer;
 import com.biuropracy.demo.model.ProfileProposition;
 import com.biuropracy.demo.model.User;
+import com.biuropracy.demo.repository.EmployerRepository;
 import com.biuropracy.demo.repository.JobOfferRepository;
 import com.biuropracy.demo.service.EmployerService;
 import com.biuropracy.demo.service.JobOfferService;
@@ -28,6 +30,8 @@ public class JobOfferController {
 
     private Integer Userid;
 
+    private Integer idEmployer;
+
     @Autowired
     JobOfferService jobOfferService;
 
@@ -39,6 +43,9 @@ public class JobOfferController {
 
     @Autowired
     private JobOfferRepository jobOfferRepository;
+
+    @Autowired
+    private EmployerRepository employerRepository;
 /*
     // dla wszystkich
     @GetMapping("/all/jobOffers")
@@ -56,48 +63,6 @@ public class JobOfferController {
     }
 */
     //dla użytkownika
-
-    @GetMapping(path = "/user/jobOffers/delete/{id}")
-    public String deleteJobOfferById(@PathVariable("id") Integer id) {
-        jobOfferService.deleteJobOfferById(id);
-        return "redirect:/user/getUserJobOffer";
-    }
-/*
-    @GetMapping(path = "/user/getUserJobOffer")
-    public String getUserJobOffer(Model model){
-        model.addAttribute("jobOffer", new JobOffer());
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserInformation userDetails = (UserInformation)authentication.getPrincipal();
-        User user = userService.findUserByEmail(userDetails.getUsername());
-        Integer idUser = user.getIdUser();
-        List<JobOfferDTO> JobList = jobOfferRepository.getUserJobOfferList(idUser);
-        model.addAttribute("jobOffers", JobList);
-        return "/all/jobOffers/viewUserJobOffers";
-    }*/
-/*
-
-
-    @GetMapping(path = {"/user/jobOffers/editOffer", "/user/jobOffers/editOffer/{id}"})
-    public String editJobOffer(Model model, @PathVariable("id") Optional<Integer> id) {
-        JobOffer jobOffer = jobOfferService.getJobOfferById(id.get());
-        model.addAttribute("jobOffer", jobOffer);
-        return "/all/jobOffers/edit-jobOffer";
-    }*/
-/*
-
-    @PostMapping(path = "/user/jobOffers/updateJobOfferPost")
-    public ModelAndView updateJobOffer(@Valid JobOffer jobOffer, BindingResult bindingResult, ModelMap modelMap){
-        ModelAndView modelAndView = new ModelAndView();
-        if (bindingResult.hasErrors()) {
-            modelAndView.addObject("successMessage", "Popraw błędy w formularzu");
-            modelMap.addAttribute("bindingResult", bindingResult);
-        } else {
-            jobOfferService.updateJobffer(jobOffer);
-            modelAndView.addObject("successMessage", "Ogłoszenie zostało zaktualizowane");
-        }
-        modelAndView.setViewName("/all/jobOffers/edit-jobOffer");
-        return modelAndView;
-    }*/
 
     @GetMapping(path = "/employer/jobOffers/createNew")
     public String addNewJobOffer(Model model){
@@ -137,6 +102,50 @@ public class JobOfferController {
         List<JobOfferDTO> JobOfferList = jobOfferRepository.getSelectedJobOffer(id.get());
         model.addAttribute("jobOffers", JobOfferList);
         return "/all/jobOffers/selectedJobOfferLogin";
+    }
+
+    @GetMapping(path = "/user/getEmployerJobOffers/{id}")
+    public String getEmployerJobOffers(Model model, @PathVariable("id") Integer id){
+        model.addAttribute("profileProposition", new ProfileProposition());
+        List<JobOfferDTO> jobOfferDTOList = jobOfferRepository.getSelectedJobOfferByEmployerId(id);
+        model.addAttribute("jobOffers", jobOfferDTOList);
+        return "/all/jobOffers/selectedJobOfferLogin";
+    }
+
+    @GetMapping(path = "/employer/getEmployerJobOffer/{id}")
+    public String getUserJobOffer(Model model, @PathVariable("id") Integer id){
+        model.addAttribute("jobOffer", new JobOffer());
+        idEmployer = id;
+        List<JobOfferDTO> jobOfferDTOList = jobOfferRepository.getSelectedJobOfferByEmployerId(id);
+        model.addAttribute("jobOffers", jobOfferDTOList);
+        return "/all/jobOffers/viewUserJobOffers";
+    }
+
+    @GetMapping(path ="/employer/jobOffers/editOffer/{id}")
+    public String editJobOffer(Model model, @PathVariable("id") Optional<Integer> id) {
+        JobOffer jobOffer = jobOfferService.getJobOfferById(id.get());
+        model.addAttribute("jobOffer", jobOffer);
+        return "/all/jobOffers/edit-jobOffer";
+    }
+
+    @GetMapping(path = "/employer/jobOffers/delete/{id}")
+    public String deleteJobOfferById(@PathVariable("id") Integer id) {
+        jobOfferService.deleteJobOfferById(id);
+        return "redirect:/employer/getEmployerJobOffer/"+idEmployer;
+    }
+
+    @PostMapping(path = "/employer/jobOffers/updateJobOfferPost")
+    public ModelAndView updateJobOffer(@Valid JobOffer jobOffer, BindingResult bindingResult, ModelMap modelMap){
+        ModelAndView modelAndView = new ModelAndView();
+        if (bindingResult.hasErrors()) {
+            modelAndView.addObject("successMessage", "Popraw błędy w formularzu");
+            modelMap.addAttribute("bindingResult", bindingResult);
+        } else {
+            jobOfferService.updateJobffer(jobOffer);
+            modelAndView.addObject("successMessage", "Ogłoszenie zostało zaktualizowane");
+        }
+        modelAndView.setViewName("/all/jobOffers/edit-jobOffer");
+        return modelAndView;
     }
 /*
     // admin

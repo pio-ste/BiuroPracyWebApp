@@ -41,8 +41,11 @@
                         <b >Opis firmy: </b>
                         <th th:text="${employer.description}"></th></br>
                         <a th:href="@{/employer/editEmployerInfo/{idEmployer}(idEmployer=${employer.idEmployer})}"
-                           class="btn btn-warning mb-2">
+                           class="btn btn-warning mt-2">
                             Edytuj <i class="fas fa-user-edit"></i></a> </br>
+                        <a th:href="@{/employer/getEmployerJobOffer/{idEmployer}(idEmployer=${employer.idEmployer})}"
+                           class="btn btn-success mt-2">
+                            Zobacz własne oferty pracy </a> </br>
                     </div>
                     <div class="col-md-4">
                         <img th:src="@{'/all/displayCompanyImg/'+ ${employer.idEmployer} }" onerror="if (this.src != '/static/img/companyImg.jpg') this.src = '/static/img/companyImg.jpg';" width="260" height="220" class="img-fluid"> </br>
@@ -59,7 +62,7 @@
                     <b>Nazwisko: </b>
                     <th th:text="${user.lastName}"></th></br>
                     <b>Email: </b>
-                    <th th:text="${user.companyEmail}"></th></br>
+                    <th th:text="${user.email}"></th></br>
                 </div>
                 <div class="col-md-3">
                     <h3>zdjęcie</h3>

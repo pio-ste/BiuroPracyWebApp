@@ -30,6 +30,10 @@ public interface JobOfferRepository extends JpaRepository<JobOffer, Integer> {
     @Query("Select new com.biuropracy.demo.DTO.JobOfferDTO(e.idEmployer, j.idJobOffer, j.title, j.location, j.description, j.contact, j.category, j.categorySalary, e.companyName, j.contractType, j.workingTime, j.monthlyPay,  j.positionLevel) from JobOffer j, Employer e "
             + "where e.idEmployer = j.employer and j.idJobOffer = :idJobOffer")
     List<JobOfferDTO> getSelectedJobOffer(@Param("idJobOffer") Integer idJobOffer);
+
+    @Query("Select new com.biuropracy.demo.DTO.JobOfferDTO(e.idEmployer, j.idJobOffer, j.title, j.location, j.description, j.contact, j.category, j.categorySalary, e.companyName, j.contractType, j.workingTime, j.monthlyPay,  j.positionLevel) from JobOffer j, Employer e "
+            + "where e.idEmployer = j.employer and j.employer.idEmployer = :idEmployer")
+    List<JobOfferDTO> getSelectedJobOfferByEmployerId(@Param("idEmployer") Integer idEmployer);
 /*
     @Query("Select new com.biuropracy.demo.DTO.JobOfferDTO(j.idJobOffer, j.title, j.location, j.description, j.contact, j.category, j.companyName, j.contractType, j.workingTime, j.monthlyPay, j.positionLevel, u.email) from JobOffer j, User u "
             + "where j.user.idUser = :idUser and u.idUser = j.user")
