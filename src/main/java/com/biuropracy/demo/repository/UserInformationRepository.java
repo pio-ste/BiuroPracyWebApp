@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface UserInformationRepository extends JpaRepository<UserInformation, Integer> {
 
-    @Query("select new com.biuropracy.demo.DTO.UserInformationDTO(u.idUser, u.name, u.lastName, u.email, u.userPhone, ui.idUserDetail, ui.dateBirth, ui.homeCity, ui.workCity, ui.hobby, ui.currentPosition, ui.positionSought) from User u, UserInformation ui "
+    @Query("select new com.biuropracy.demo.DTO.UserInformationDTO(u.idUser, u.name, u.lastName, u.email, u.userPhone, ui.idUserInformation, ui.dateBirth, ui.homeCity, ui.workCity, ui.hobby, ui.currentPosition, ui.positionSought) from User u, UserInformation ui "
             + "where u.idUser = ui.user and ui.user.idUser = :idUser" )
     List<UserInformationDTO> getUserAndUserInfoByUserId(@Param("idUser") Integer idUser);
 

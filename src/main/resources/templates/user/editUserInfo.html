@@ -13,7 +13,7 @@
 
 <div class="container my-5">
     <div class="text-center">
-        <h3> Dodaj informacje o sobie</h3>
+        <h3> Edytuj informacje o sobie</h3>
         <h3><span class="text-success font-weight-bold text-center my-2" th:utext="${successMessage}"></span></h3>
         <div class="alert alert-danger alert-dismissible col-sm-12"
              th:if="${(bindingResult != null && bindingResult.getAllErrors() != null)}">
@@ -63,7 +63,7 @@
                     <option value="visible">Tak</option>
                 </select>
             </div>
-            <input type="hidden" id="idUserDetail" th:field="*{idUserDetail}">
+            <input type="hidden" id="idUserInformation" th:field="*{idUserInformation}">
             <div class="col-md-6">
                 <input type="submit" class="btn btn-primary mb-4" value="Zapisz">
             </div>

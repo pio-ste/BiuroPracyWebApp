@@ -312,20 +312,30 @@ public class UserProfileController {
         skillService.updateSkill(skill);
         return "redirect:/user/myProfile";
     }
-/*
-    @GetMapping(path = {"/user/userProfile/editProfile", "/user/userProfile/editProfile/{id}"})
-    public String editProfile(Model model, @PathVariable("id") Optional<Integer> id) {
-        User user = userService.findUser(id.get());
+
+    @GetMapping(path = "/user/userProfile/editProfile")
+    public String editProfile(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+        User user = userService.findUserByEmail(userDetails.getUsername());
         model.addAttribute("user", user);
         return "/all/profile/editProfile";
     }
 
     @PostMapping(path = "/user/userProfile/updateProfile")
-    public String updateProfile(User user) {
-        userService.updateUser(user);
-        return "/all/profile/editProfile";
+    public ModelAndView updateProfile(User user, BindingResult bindingResult, ModelMap modelMap) {
+        ModelAndView modelAndView = new ModelAndView();
+        if (bindingResult.hasErrors()) {
+            modelAndView.addObject("successMessage", "Popraw błędy w formularzu");
+            modelMap.addAttribute("bindingResult", bindingResult);
+        } else {
+            userService.updateUser(user);
+            modelAndView.addObject("successMessage", "Informacje zostały pomyślnie zaktualizowane.");
+        }
+        modelAndView.setViewName("/all/profile/editProfile");
+        return modelAndView;
     }
-*/
+
     @GetMapping(path = "/user/{id}/addImage")
     public String addImage(@PathVariable("id") Integer id, Model model){
         User user = userService.findUser(id);
@@ -356,18 +366,18 @@ public class UserProfileController {
             System.out.println("Brak zdjęcia");
         }
     }
-/*
-    @GetMapping(path = "/user/usersProfilesVisible")
+
+    @GetMapping(path = "/employer/usersProfilesVisible")
     public String usersProfileFiltered(Model model, String workCity, String category, String email){
-        List<User> FilteredProfile = userRepository.getVisibleUsersFiltered(workCity, category, email);
+        List<UserInformationDTO> FilteredProfile = userRepository.getVisibleUsersFiltered(workCity, category, email);
         model.addAttribute("users", FilteredProfile);
-        return "/all/profile/loggedListProfiles";
+        return "/all/profile/ProfileList";
     }
 
-    @GetMapping(path = {"/user/viewSelectedProfile", "/user/viewSelectedProfile/{id}"})
+    @GetMapping(path = {"/employer/viewSelectedProfile", "/employer/viewSelectedProfile/{id}"})
     public String viewSelectedProfile(Model model,@PathVariable("id") Optional<Integer> id){
         model.addAttribute("jobProposition", new JobProposition());
-        List<User> UserList = userService.findUserById(id.get());
+        List<UserInformationDTO> UserInfoDTOList = userInformationRepository.getUserAndUserInfoByUserId(id.get());
         List<Course> CourseList = courseService.findCourseByUserId(id.get());
         List<Education> EducationList = educationService.findEducationByUserId(id.get());
         List<JobExperience> JobExpList = jobExperienceService.findJobExperienceByUserId(id.get());
@@ -375,7 +385,7 @@ public class UserProfileController {
         List<Organization> OrganizationList = organizationService.findOrganizationByUserId(id.get());
         List<Skill> SkillList = skillService.findSkillByUserId(id.get());
         List<WebLink> WebLinkList = webLinkService.findWebLinkByUserId(id.get());
-        model.addAttribute("users", UserList);
+        model.addAttribute("userInfoDTOs", UserInfoDTOList);
         model.addAttribute("courses", CourseList);
         model.addAttribute("educations", EducationList );
         model.addAttribute("jobExps", JobExpList);
@@ -389,7 +399,7 @@ public class UserProfileController {
     //admin
 
 
-
+/*
     @GetMapping(path = {"/admin/viewUserProfile", "/admin/viewUserProfile/{id}"})
     public String viewProfileAdmin(Model model, @PathVariable("id") Optional<Integer> id) {
         idTmp = id.get();

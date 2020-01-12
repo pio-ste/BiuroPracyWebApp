@@ -70,6 +70,7 @@ public class UserService {
             newUser.setName(user.getName());
             newUser.setLastName(user.getLastName());
             newUser.setEmail(user.getEmail());
+            newUser.setUserPhone(user.getUserPhone());
             newUser.setStatus(user.getStatus());
 
             newUser = userRepository.save(newUser);

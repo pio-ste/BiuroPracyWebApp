@@ -16,7 +16,7 @@
                 <div class="modal-body">
 
                     <form class="form-horizontal" action="#"
-                          th:action="@{/user/userProfile/createJobProposition/{idUser}(idUser=${user.idUser})}"
+                          th:action="@{/user/userProfile/createJobProposition/{idUser}(idUser=${userInfoDTO.idUser})}"
                           th:object="${jobProposition}"
                           method="post">
                         <fieldset>

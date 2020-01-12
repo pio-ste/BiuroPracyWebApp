@@ -69,12 +69,11 @@ public class User {
         this.employer = employer;
     }
 
-    public User(int idUser, String email, String name, String lastName, Byte[] profileImage) {
+    public User(Integer idUser, String email, String name, String lastName) {
         this.idUser = idUser;
         this.email = email;
         this.name = name;
         this.lastName = lastName;
-        this.profileImage = profileImage;
     }
 
     public User() {

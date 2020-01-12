@@ -8,8 +8,8 @@ public class UserInformation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_user_details")
-    private Integer idUserDetail;
+    @Column(name = "id_user_information")
+    private Integer idUserInformation;
 
     @Column(name = "date_birth")
     private String dateBirth;
@@ -50,12 +50,12 @@ public class UserInformation {
     public UserInformation() {
     }
 
-    public Integer getIdUserDetail() {
-        return idUserDetail;
+    public Integer getIdUserInformation() {
+        return idUserInformation;
     }
 
-    public void setIdUserDetail(Integer idUserDetail) {
-        this.idUserDetail = idUserDetail;
+    public void setIdUserInformation(Integer idUserInformation) {
+        this.idUserInformation = idUserInformation;
     }
 
     public String getDateBirth() {

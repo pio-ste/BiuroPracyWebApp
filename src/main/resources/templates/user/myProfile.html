@@ -48,9 +48,9 @@
                     <th th:text="${userInfoDTO.positionSought}"></th></br>
                     <b>Hobby: </b>
                     <th th:text="${userInfoDTO.hobby}"></th></br>
-                <a th:href="@{/user/editUserInfo/{idUserDetail}(idUserDetail=${userInfoDTO.idUserDetail})}"
+                <a th:href="@{/user/editUserInfo/{idUserInformation}(idUserInformation=${userInfoDTO.idUserInformation})}"
                    class="btn btn-warning">
-                    <i class="fas fa-user-edit"></i>
+                   Edytuj <i class="fas fa-user-edit"></i>
                 </a>
                 </div>
                 <div class="col-md-3 bg-secondary">

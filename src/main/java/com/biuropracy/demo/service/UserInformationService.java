@@ -29,7 +29,7 @@ public class UserInformationService {
     }
 
     public UserInformation updateUserInfo(UserInformation userInformation){
-        Optional<UserInformation> userDetailsOpt = userInformationRepository.findById(userInformation.getIdUserDetail());
+        Optional<UserInformation> userDetailsOpt = userInformationRepository.findById(userInformation.getIdUserInformation());
         if (userDetailsOpt.isPresent()){
             UserInformation newUserInfo = userDetailsOpt.get();
             newUserInfo.setDateBirth(userInformation.getDateBirth());

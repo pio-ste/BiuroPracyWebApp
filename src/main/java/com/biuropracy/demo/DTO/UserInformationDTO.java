@@ -7,7 +7,7 @@ public class UserInformationDTO {
     private String lastName;
     private String email;
     private String userPhone;
-    private Integer idUserDetail;
+    private Integer idUserInformation;
     private String dateBirth;
     private String homeCity;
     private String workCity;
@@ -15,13 +15,25 @@ public class UserInformationDTO {
     private String currentPosition;
     private String positionSought;
 
-    public UserInformationDTO(Integer idUser, String name, String lastName, String email, String userPhone, Integer idUserDetail, String dateBirth, String homeCity, String workCity, String hobby, String currentPosition, String positionSought) {
+    public UserInformationDTO(Integer idUser, String name, String lastName, String email, String dateBirth, String homeCity, String workCity, String currentPosition, String positionSought) {
+        this.idUser = idUser;
+        this.name = name;
+        this.lastName = lastName;
+        this.email = email;
+        this.dateBirth = dateBirth;
+        this.homeCity = homeCity;
+        this.workCity = workCity;
+        this.currentPosition = currentPosition;
+        this.positionSought = positionSought;
+    }
+
+    public UserInformationDTO(Integer idUser, String name, String lastName, String email, String userPhone, Integer idUserInformation, String dateBirth, String homeCity, String workCity, String hobby, String currentPosition, String positionSought) {
         this.idUser = idUser;
         this.name = name;
         this.lastName = lastName;
         this.email = email;
         this.userPhone = userPhone;
-        this.idUserDetail = idUserDetail;
+        this.idUserInformation = idUserInformation;
         this.dateBirth = dateBirth;
         this.homeCity = homeCity;
         this.workCity = workCity;
@@ -73,12 +85,12 @@ public class UserInformationDTO {
         this.userPhone = userPhone;
     }
 
-    public Integer getIdUserDetail() {
-        return idUserDetail;
+    public Integer getIdUserInformation() {
+        return idUserInformation;
     }
 
-    public void setIdUserDetail(Integer idUserDetail) {
-        this.idUserDetail = idUserDetail;
+    public void setIdUserInformation(Integer idUserInformation) {
+        this.idUserInformation = idUserInformation;
     }
 
     public String getDateBirth() {
