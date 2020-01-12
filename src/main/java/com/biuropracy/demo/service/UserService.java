@@ -39,7 +39,6 @@ public class UserService {
             for(byte b : file.getBytes()){
                 byteObjects[i++] = b;
             }
-
             user.setProfileImage(byteObjects);
             userRepository.save(user);
         } catch (IOException e) {

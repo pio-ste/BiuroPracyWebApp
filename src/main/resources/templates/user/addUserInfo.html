@@ -1,0 +1,73 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8" name="viewport" content="width = device-width , initial-scale=1.0"/>
+<link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+<link th:href="@{/webjars/font-awesome/5.11.2/css/all.css}" rel="stylesheet"/>
+<link th:href="@{/static/css/jobOfferCSS.css}" rel="stylesheet"/>
+<link th:href="@{/static/css/homeHeaderCSS.css}" rel="stylesheet"/>
+<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js} " type="text/javascript"></script>
+<script th:src="@{/webjars/popper/1.15.0/umd/popper.min.js} " type="text/javascript"></script>
+<script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js} " type="text/javascript"></script>
+</head>
+<body>
+<div th:replace="fragments/loggedInHeader :: headerLoggedIn"></div>
+
+<div class="container my-5">
+    <div class="text-center">
+        <h3> Dodaj informacje o sobie</h3>
+        <h3><span class="text-success font-weight-bold text-center my-2" th:utext="${successMessage}"></span></h3>
+        <div class="alert alert-danger alert-dismissible col-sm-12"
+             th:if="${(bindingResult != null && bindingResult.getAllErrors() != null)}">
+            <button type="button" class="close" data-dismiss="alert"
+                    aria-hidden="true">×</button>
+            <ul th:each="data : ${bindingResult.getAllErrors()}">
+                <li th:text="${ data.getDefaultMessage()}"></li>
+            </ul>
+        </div>
+    </div>
+    <form action="#" th:action="@{/user/addUserInfoPost}" th:object="${userInformation}"
+          method="post" class="form-signin" role="form">
+        <div class="row">
+            <div class="form-group col-md-12 mt-4">
+                <label for="dateBirth" class="col-form-label">Data urodzenia</label>
+                <input type="date" th:field="*{dateBirth}" max="3000-12-31"
+                       min="1000-01-01" class="form-control">
+            </div>
+            <div class="form-group col-md-12">
+                <label for="homeCity" class="col-form-label">Miasto zamieszkania</label>
+                <input type="text" th:field="*{homeCity}" class="form-control" maxlength="200"
+                       id="homeCity" placeholder="Miasto zamieszkania" />
+            </div>
+            <div class="form-group col-md-12">
+                <label for="workCity" class="col-form-label">Miasto poszukiwanej pracy</label>
+                <input type="text" th:field="*{workCity}" class="form-control" maxlength="200"
+                       id="workCity" placeholder="Miasto poszukiwanej pracy" />
+            </div>
+            <div class="form-group col-md-12">
+                <label for="hobby" class="col-form-label">Hobby</label>
+                <textarea type="text" th:field="*{hobby}" class="form-control" rows="3" maxlength="240"
+                          id="hobby" placeholder="Hobby" />
+            </div>
+            <div class="form-group col-md-12">
+                <label for="currentPosition" class="col-form-label">Obecne stanowiko pracy</label>
+                <input type="text" th:field="*{currentPosition}" class="form-control" maxlength="200"
+                       id="currentPosition" placeholder="Obecne miejsce pracy" />
+            </div>
+            <div class="form-group col-md-6">
+                <label class="col-form-label">Poszukiwana kategoria pracy</label>
+                <div th:replace="fragments/select-option/add/add-positionSought.html :: select_option_positionSought"></div>
+            </div>
+            <div class="form-group col-md-6">
+                <label  class="col-form-label">Profil widoczny w wyszukiwarce:</label>
+                <select th:field="*{toFind}" class="form-control">
+                    <option value="invisible">Nie</option>
+                    <option value="visible">Tak</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <input type="submit" class="btn btn-primary mb-4" value="Dodaj">
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

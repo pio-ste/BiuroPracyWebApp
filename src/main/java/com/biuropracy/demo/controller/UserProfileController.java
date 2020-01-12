@@ -1,6 +1,8 @@
 package com.biuropracy.demo.controller;
 
+import com.biuropracy.demo.DTO.UserInformationDTO;
 import com.biuropracy.demo.model.*;
+import com.biuropracy.demo.repository.UserInformationRepository;
 import com.biuropracy.demo.repository.UserRepository;
 import com.biuropracy.demo.repository.WebLinkRepository;
 import com.biuropracy.demo.service.*;
@@ -11,6 +13,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +23,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.text.html.Option;
+import javax.validation.Valid;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,7 +33,7 @@ import java.util.Optional;
 
 @Controller
 public class UserProfileController {
-/*
+
     private Integer idTmp;
 
     @Autowired
@@ -50,7 +56,11 @@ public class UserProfileController {
     private UserRepository userRepository;
     @Autowired
     WebLinkRepository webLinkRepository;
-
+    @Autowired
+    UserInformationService userInformationService;
+    @Autowired
+    private UserInformationRepository userInformationRepository;
+/*
     @GetMapping(path = "/all/usersProfilesVisible")
     public String usersProfileAll(Model model, String workCity, String category, String email){
         List<User> FilteredProfile = userRepository.getVisibleUsersFiltered(workCity, category, email);
@@ -77,10 +87,11 @@ public class UserProfileController {
         model.addAttribute("skills", SkillList);
         model.addAttribute("webLinks", WebLinkList);
         return "/all/profile/viewSelectedProfileAll";
-    }
+    }*/
 
     @GetMapping(path = "/user/myProfile")
     public String viewMyProfile(Model model, ModelAndView modelAndView) {
+        model.addAttribute("userInformation", new UserInformation());
         model.addAttribute("webLink", new WebLink());
         model.addAttribute("course", new Course());
         model.addAttribute("education", new Education());
@@ -88,17 +99,12 @@ public class UserProfileController {
         model.addAttribute("language", new Language());
         model.addAttribute("organization", new Organization());
         model.addAttribute("skill", new Skill());
-        modelAndView.addObject("webLink", new WebLink());
-        modelAndView.addObject("course", new Course());
-        modelAndView.addObject("education", new Education());
-        modelAndView.addObject("jobExperience", new JobExperience());
-        modelAndView.addObject("language", new Language());
-        modelAndView.addObject("organization", new Organization());
-        modelAndView.addObject("skill", new Skill());
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails)authentication.getPrincipal();
         User user = userService.findUserByEmail(userDetails.getUsername());
         Integer id = user.getIdUser();
+        List<UserInformationDTO> UserInfoDTOList = userInformationRepository.getUserAndUserInfoByUserId(id);
+        List<UserInformation> UserInfoList = userInformationService.findUserInfoByUserId(id);
         List<User> UserList = userService.findUserById(id);
         List<Course> CourseList = courseService.findCourseByUserId(id);
         List<Education> EducationList = educationService.findEducationByUserId(id);
@@ -107,15 +113,64 @@ public class UserProfileController {
         List<Organization> OrganizationList = organizationService.findOrganizationByUserId(id);
         List<Skill> SkillList = skillService.findSkillByUserId(id);
         List<WebLink> WebLinkList = webLinkService.findWebLinkByUserId(id);
-        model.addAttribute("users", UserList);
-        model.addAttribute("courses", CourseList);
-        model.addAttribute("educations", EducationList );
-        model.addAttribute("jobExps", JobExpList);
-        model.addAttribute("languages", LangList);
-        model.addAttribute("organizations", OrganizationList);
-        model.addAttribute("skills", SkillList);
-        model.addAttribute("webLinks", WebLinkList);
+        if (UserInfoList.isEmpty()){
+            model.addAttribute("userInfoList", UserInfoList);
+        } else {
+            model.addAttribute("userInfoDTOs", UserInfoDTOList);
+            model.addAttribute("userInformations", UserInfoList);
+            model.addAttribute("users", UserList);
+            model.addAttribute("courses", CourseList);
+            model.addAttribute("educations", EducationList );
+            model.addAttribute("jobExps", JobExpList);
+            model.addAttribute("languages", LangList);
+            model.addAttribute("organizations", OrganizationList);
+            model.addAttribute("skills", SkillList);
+            model.addAttribute("webLinks", WebLinkList);
+        }
         return "/user/myProfile";
+    }
+
+    @GetMapping(path = "/user/addUserInfo")
+    public String addUserInfo(Model model){
+        model.addAttribute("userInformation", new UserInformation());
+        return "/user/addUserInfo";
+    }
+
+    @PostMapping(path = "/user/addUserInfoPost")
+    public ModelAndView addUserInfoPost(@Valid UserInformation userInformation, BindingResult bindingResult, ModelMap modelMap) {
+        ModelAndView modelAndView = new ModelAndView();
+        if (bindingResult.hasErrors()) {
+            modelAndView.addObject("successMessage", "Popraw błędy w formularzu");
+            modelMap.addAttribute("bindingResult", bindingResult);
+        } else {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            userInformationService.createUserInfo(userInformation, userService.findUserByEmail(authentication.getName()));
+            modelAndView.addObject("successMessage", "Informacje zostały pomyślnie dodane.");
+        }
+        modelAndView.addObject("userInformation", new UserInformation());
+        modelAndView.setViewName("/user/addUserInfo");
+        return modelAndView;
+    }
+
+    @GetMapping(path = "/user/editUserInfo/{id}")
+    public String editUserInfo(Model model, @PathVariable("id") Optional<Integer> id){
+        UserInformation userInformation = userInformationService.getUserInfoById(id.get());
+        model.addAttribute("userInformation", userInformation);
+        return "/user/editUserInfo";
+    }
+
+    @PostMapping(path = "/user/editUserInfoPost")
+    public ModelAndView editUserPost(@Valid UserInformation userInformation, BindingResult bindingResult, ModelMap modelMap) {
+        ModelAndView modelAndView = new ModelAndView();
+        if (bindingResult.hasErrors()) {
+            modelAndView.addObject("successMessage", "Popraw błędy w formularzu");
+            modelMap.addAttribute("bindingResult", bindingResult);
+        } else {
+            userInformationService.updateUserInfo(userInformation);
+            modelAndView.addObject("successMessage", "Informacje zostały pomyślnie zaktualizowane.");
+        }
+        modelAndView.setViewName("/user/editUserInfo");
+        return modelAndView;
     }
 
     @PostMapping(path = "/user/userProfile/addWebLink")
@@ -217,7 +272,7 @@ public class UserProfileController {
     }
 
     @PostMapping(path = "/user/userProfile/editWebLink")
-    public String editProfile(WebLink webLink) {
+    public String editWebLink(WebLink webLink) {
         webLinkService.updateWebLink(webLink);
         return "redirect:/user/myProfile";
     }
@@ -257,7 +312,7 @@ public class UserProfileController {
         skillService.updateSkill(skill);
         return "redirect:/user/myProfile";
     }
-
+/*
     @GetMapping(path = {"/user/userProfile/editProfile", "/user/userProfile/editProfile/{id}"})
     public String editProfile(Model model, @PathVariable("id") Optional<Integer> id) {
         User user = userService.findUser(id.get());
@@ -270,7 +325,7 @@ public class UserProfileController {
         userService.updateUser(user);
         return "/all/profile/editProfile";
     }
-
+*/
     @GetMapping(path = "/user/{id}/addImage")
     public String addImage(@PathVariable("id") Integer id, Model model){
         User user = userService.findUser(id);
@@ -281,7 +336,7 @@ public class UserProfileController {
     @PostMapping(path = "/user/{id}/uploadImage")
     public String uploadImage(@PathVariable("id") Integer id, @RequestParam("imagefile") MultipartFile file) {
         userService.saveProfileImage(id,file);
-        return "redirect:/user/userProfile/editProfile/" + id +"";
+        return "redirect:/user/myProfile";
     }
 
     @GetMapping(path = "/all/{id}/displayImage")
@@ -301,7 +356,7 @@ public class UserProfileController {
             System.out.println("Brak zdjęcia");
         }
     }
-
+/*
     @GetMapping(path = "/user/usersProfilesVisible")
     public String usersProfileFiltered(Model model, String workCity, String category, String email){
         List<User> FilteredProfile = userRepository.getVisibleUsersFiltered(workCity, category, email);

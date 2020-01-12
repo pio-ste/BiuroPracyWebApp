@@ -13,8 +13,9 @@ public class EmployerUserDTO {
     private String webLink;
     private String address;
     private String description;
+    private String userPhone;
 
-    public EmployerUserDTO(Integer idUser, String name, String lastName, String email, Integer idEmployer, String companyName, String phoneNumber, String companyEmail, String webLink, String address, String description) {
+    public EmployerUserDTO(Integer idUser, String name, String lastName, String email, Integer idEmployer, String companyName, String phoneNumber, String companyEmail, String webLink, String address, String description, String userPhone) {
         this.idUser = idUser;
         this.name = name;
         this.lastName = lastName;
@@ -26,6 +27,7 @@ public class EmployerUserDTO {
         this.webLink = webLink;
         this.address = address;
         this.description = description;
+        this.userPhone = userPhone;
     }
 
     public EmployerUserDTO(Integer idEmployer, String companyName, String webLink, String address) {
@@ -33,23 +35,6 @@ public class EmployerUserDTO {
         this.companyName = companyName;
         this.webLink = webLink;
         this.address = address;
-    }
-
-    @Override
-    public String toString() {
-        return "EmployerUserDTO{" +
-                "idUser=" + idUser +
-                ", name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", idEmployer=" + idEmployer +
-                ", companyName='" + companyName + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", companyEmail='" + companyEmail + '\'' +
-                ", webLink='" + webLink + '\'' +
-                ", address='" + address + '\'' +
-                ", description='" + description + '\'' +
-                '}';
     }
 
     public Integer getIdUser() {
@@ -138,5 +123,13 @@ public class EmployerUserDTO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getUserPhone() {
+        return userPhone;
+    }
+
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
     }
 }

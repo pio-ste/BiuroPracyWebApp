@@ -15,48 +15,48 @@ public class UserInformationService {
     @Autowired
     UserInformationRepository userInformationRepository;
 
-    public List<UserInformation> findUserDetailByUserId(Integer user){
+    public List<UserInformation> findUserInfoByUserId(Integer user){
         return userInformationRepository.findByUserIdUser(user);
     }
 
-    public UserInformation getUserDetailsById(Integer id){
-        Optional<UserInformation> userDetailsOpt = userInformationRepository.findById(id);
-        if (userDetailsOpt.isPresent()){
-            return userDetailsOpt.get();
+    public UserInformation getUserInfoById(Integer id){
+        Optional<UserInformation> userInfoOpt = userInformationRepository.findById(id);
+        if (userInfoOpt.isPresent()){
+            return userInfoOpt.get();
         } else {
-            throw new RuntimeException("ID userDetails nie znalezione.");
+            throw new RuntimeException("ID userInfo nie znalezione.");
         }
     }
 
-    public UserInformation updateUserDetails(UserInformation userInformation){
+    public UserInformation updateUserInfo(UserInformation userInformation){
         Optional<UserInformation> userDetailsOpt = userInformationRepository.findById(userInformation.getIdUserDetail());
         if (userDetailsOpt.isPresent()){
-            UserInformation newUserDetail = userDetailsOpt.get();
-            newUserDetail.setDateBirth(userInformation.getDateBirth());
-            newUserDetail.setHomeCity(userInformation.getHomeCity());
-            newUserDetail.setWorkCity(userInformation.getWorkCity());
-            newUserDetail.setHobby(userInformation.getHobby());
-            newUserDetail.setCurrentPosition(userInformation.getCurrentPosition());
-            newUserDetail.setPositionSought(userInformation.getPositionSought());
-            newUserDetail.setToFind(userInformation.getToFind());
+            UserInformation newUserInfo = userDetailsOpt.get();
+            newUserInfo.setDateBirth(userInformation.getDateBirth());
+            newUserInfo.setHomeCity(userInformation.getHomeCity());
+            newUserInfo.setWorkCity(userInformation.getWorkCity());
+            newUserInfo.setHobby(userInformation.getHobby());
+            newUserInfo.setCurrentPosition(userInformation.getCurrentPosition());
+            newUserInfo.setPositionSought(userInformation.getPositionSought());
+            newUserInfo.setToFind(userInformation.getToFind());
 
-            newUserDetail = userInformationRepository.save(newUserDetail);
-            return newUserDetail;
+            newUserInfo = userInformationRepository.save(newUserInfo);
+            return newUserInfo;
         } else {
             userInformation = userInformationRepository.save(userInformation);
             return userInformation;
         }
     }
 
-    public UserInformation createUserDetails(UserInformation userInformation, User user){
+    public UserInformation createUserInfo(UserInformation userInformation, User user){
         userInformation.setUser(user);
         userInformation = userInformationRepository.save(userInformation);
         return userInformation;
     }
 
-    public void deleteUserDetailsById(Integer id){
-        Optional<UserInformation> userDetailsOpt = userInformationRepository.findById(id);
-        if (userDetailsOpt.isPresent()){
+    public void deleteUserInfoById(Integer id){
+        Optional<UserInformation> userInfoOpt = userInformationRepository.findById(id);
+        if (userInfoOpt.isPresent()){
             userInformationRepository.deleteById(id);
         } else {
             throw new RuntimeException("ID userDetails nie znalezione.");

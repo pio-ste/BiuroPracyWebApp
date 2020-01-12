@@ -29,6 +29,10 @@ public class User {
     @Email(message = "Zły adres email")
     private String email;
 
+    @Column(name = "user_phone",nullable = false)
+    @NotEmpty(message = "Wpisz swój numer telefonu")
+    private String userPhone;
+
     @Column(name = "password",nullable = false)
     @NotEmpty(message = "Wpisz hasło")
     @Size(min=4, message = "Hasło musi mieć minimum 4 znaki")
@@ -41,12 +45,12 @@ public class User {
     @Column(name = "status")
     private String status;
 
-    
 
-    public User(@NotEmpty(message = "Wpisz swoje imię") String name, @NotEmpty(message = "Wpisz swoje nazwisko") String lastName, @NotEmpty(message = "Wpisz swój adres email") @Email(message = "Zły adres email") String email, @NotEmpty(message = "Wpisz hasło") @Size(min = 4, message = "Hasło musi mieć minimum 4 znaki") String password, Byte[] profileImage, String status, Set<Role> roles, List<Course> courses, List<Education> educations, List<JobExperience> jobExperiences, List<Language> languages, List<Organization> organizations, List<Skill> skills, List<WebLink> webLinks, List<JobProposition> fromUsers, List<JobProposition> toUsers, List<ProfileProposition> users, UserInformation userInformation, Employer employer) {
+    public User(@NotEmpty(message = "Wpisz swoje imię") String name, @NotEmpty(message = "Wpisz swoje nazwisko") String lastName, @NotEmpty(message = "Wpisz swój adres email") @Email(message = "Zły adres email") String email, @NotEmpty(message = "Wpisz swój numer telefonu") String userPhone, @NotEmpty(message = "Wpisz hasło") @Size(min = 4, message = "Hasło musi mieć minimum 4 znaki") String password, Byte[] profileImage, String status, Set<Role> roles, List<Course> courses, List<Education> educations, List<JobExperience> jobExperiences, List<Language> languages, List<Organization> organizations, List<Skill> skills, List<WebLink> webLinks, List<JobProposition> fromUsers, List<JobProposition> toUsers, List<ProfileProposition> users, UserInformation userInformation, Employer employer) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
+        this.userPhone = userPhone;
         this.password = password;
         this.profileImage = profileImage;
         this.status = status;
@@ -149,6 +153,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getUserPhone() {
+        return userPhone;
+    }
+
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
     }
 
     public String getPassword() {
