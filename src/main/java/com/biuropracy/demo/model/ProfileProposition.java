@@ -11,6 +11,9 @@ public class ProfileProposition {
     @Column(name = "idprofile_proposition")
     private Integer idProfileProposition;
 
+    @Column(name = "substantiation")
+    private String substantiation;
+
     @Column(name = "contact_type")
     private String contactType;
 
@@ -25,7 +28,8 @@ public class ProfileProposition {
     @JoinColumn(name = "idjob_offer")
     private JobOffer jobOffer;
 
-    public ProfileProposition(String contactType, String decision, User user, JobOffer jobOffer) {
+    public ProfileProposition(String substantiation, String contactType, String decision, User user, JobOffer jobOffer) {
+        this.substantiation = substantiation;
         this.contactType = contactType;
         this.decision = decision;
         this.user = user;
@@ -41,6 +45,14 @@ public class ProfileProposition {
 
     public void setIdProfileProposition(Integer idProfileProposition) {
         this.idProfileProposition = idProfileProposition;
+    }
+
+    public String getSubstantiation() {
+        return substantiation;
+    }
+
+    public void setSubstantiation(String substantiation) {
+        this.substantiation = substantiation;
     }
 
     public String getContactType() {

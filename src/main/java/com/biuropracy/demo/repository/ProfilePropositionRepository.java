@@ -13,11 +13,12 @@ import java.util.List;
 
 @Repository
 public interface ProfilePropositionRepository extends JpaRepository<ProfileProposition, Integer> {
-/*
-    @Query("Select new com.biuropracy.demo.DTO.ProfilePropositionDTO(p.idProfileProposition, u.idUser, j.idJobOffer, j.title, j.location, j.companyName, p.user, p.jobOffer, u.name, u.lastName, u.profileImage, p.contactType, p.decision) from ProfileProposition p, User u, JobOffer j "
-            +"where u.idUser = p.user.idUser and p.jobOffer.idJobOffer = :idJobOffer and j.idJobOffer = p.jobOffer.idJobOffer")
-    List<ProfilePropositionDTO> getprofilePropByJobOfferId(@Param("idJobOffer") Integer idJobOffer);
 
+    @Query("Select new com.biuropracy.demo.DTO.ProfilePropositionDTO(p.idProfileProposition, u.idUser, j.idJobOffer, j.title, j.location, u.name, u.lastName, p.contactType, p.substantiation ,p.decision) from ProfileProposition p, User u, JobOffer j "
+            +"where u.idUser = p.user.idUser and p.jobOffer.idJobOffer = :idJobOffer and j.idJobOffer = p.jobOffer.idJobOffer"
+            + " and (p.decision = :decision or :decision is null or :decision = '')")
+    List<ProfilePropositionDTO> getProfilePropByJobOfferId(@Param("idJobOffer") Integer idJobOffer, @Param("decision") String decision);
+/*
     @Query("Select new com.biuropracy.demo.DTO.ProfilePropositionDTO(p.idProfileProposition, u.idUser, j.idJobOffer, j.title, j.location, j.companyName, p.user, p.jobOffer, u.name, u.lastName, u.profileImage, p.contactType, p.decision) from ProfileProposition p, User u, JobOffer j "
             +"where u.idUser = p.user.idUser and p.user.idUser = :idUser "
             + "and j.idJobOffer = p.jobOffer.idJobOffer and p.decision is null")

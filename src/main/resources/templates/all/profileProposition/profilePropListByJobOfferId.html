@@ -11,13 +11,14 @@
     <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js} " type="text/javascript"></script>
 </head>
 <body>
-<div th:replace="fragments/loggedInHeader :: headerLoggedIn"></div>
+<div th:replace="fragments/employerHeader :: headerEmployer"></div>
 <div class="container pt-4">
     <h3 class="text-center">Otrzymane propozycje osób</h3>
     <div class="row" th:each="profileProposition : ${profilePropositions}">
-        <dt class="col-sm-3 mt-1"><img th:src="@{'/user/' + ${profileProposition.idUser} + '/displayImage'}" width="200" height="200" class="mt-3"></dt>
+        <dt class="col-sm-3 mt-1"><img th:src="@{'/all/' + ${profileProposition.idUser} + '/displayImage'}" onerror="if (this.src != '/static/img/profile.jpg') this.src = '/static/img/profile.jpg';" width="200" height="200" class="img-thumbnail"></dt>
         <dt class="col-sm-9 mt-2 font-weight-normal">
             <b>Imię i nazwisko:</b> <th th:text="${profileProposition.name}"/> <th th:text="${profileProposition.lastName}"/> </br>
+            <b>Uzasadnienie osoby </b> <th th:text="${profileProposition.substantiation}"/> </br>
             <b>Sposób kontaktu z osobą:</b> <th th:text="${profileProposition.contactType}"/> </br>
             <b>Decyzja:</b> <th th:text="${profileProposition.decision}" /> </br>
         </dt>

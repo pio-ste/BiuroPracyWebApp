@@ -46,7 +46,7 @@
                class="btn btn-warning mb-2">
                 Edytuj <i class="fas fa-user-edit"></i></a>
             <div th:replace="fragments/modal/DeleteJobOfferUser :: deleteJobOfferUserFragment"></div>
-            <a th:href="@{/user/viewProfilePropByJobOffer/{idJobOffer}(idJobOffer=${jobOffer.idJobOffer})}"
+            <a th:href="@{/employer/viewProfilePropByJobOffer/{idJobOffer}(idJobOffer=${jobOffer.idJobOffer})}"
                class="btn btn-warning mb-2">
                 Zgłoszenia osób<i class="fas fa-user-edit"></i></a>
         </dt>

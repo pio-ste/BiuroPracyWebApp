@@ -12,29 +12,23 @@ public class ProfilePropositionDTO {
     private Integer idJobOffer;
     private String title;
     private String location;
-    private String companyName;
-    private User user;
-    private JobOffer jobOffer;
     private String name;
     private String lastName;
     private Byte[] profileImage;
     private String contactType;
+    private String substantiation;
     private String decision;
 
-
-    public ProfilePropositionDTO(Integer idProfileProposition, Integer idUser, Integer idJobOffer, String title, String location, String companyName, User user, JobOffer jobOffer, String name, String lastName, Byte[] profileImage, String contactType, String decision) {
+    public ProfilePropositionDTO(Integer idProfileProposition, Integer idUser, Integer idJobOffer, String title, String location, String name, String lastName, String contactType, String substantiation, String decision) {
         this.idProfileProposition = idProfileProposition;
         this.idUser = idUser;
         this.idJobOffer = idJobOffer;
         this.title = title;
         this.location = location;
-        this.companyName = companyName;
-        this.user = user;
-        this.jobOffer = jobOffer;
         this.name = name;
         this.lastName = lastName;
-        this.profileImage = profileImage;
         this.contactType = contactType;
+        this.substantiation = substantiation;
         this.decision = decision;
     }
 
@@ -81,30 +75,6 @@ public class ProfilePropositionDTO {
         this.location = location;
     }
 
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public JobOffer getJobOffer() {
-        return jobOffer;
-    }
-
-    public void setJobOffer(JobOffer jobOffer) {
-        this.jobOffer = jobOffer;
-    }
-
     public String getName() {
         return name;
     }
@@ -135,6 +105,14 @@ public class ProfilePropositionDTO {
 
     public void setContactType(String contactType) {
         this.contactType = contactType;
+    }
+
+    public String getSubstantiation() {
+        return substantiation;
+    }
+
+    public void setSubstantiation(String substantiation) {
+        this.substantiation = substantiation;
     }
 
     public String getDecision() {

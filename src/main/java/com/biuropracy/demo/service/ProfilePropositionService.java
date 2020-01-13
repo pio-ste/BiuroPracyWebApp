@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Service
 public class ProfilePropositionService {
-/*
+
     @Autowired
     ProfilePropositionRepository profilePropositionRepository;
 
@@ -57,5 +57,5 @@ public class ProfilePropositionService {
         }
     }
 
- */
+
 }

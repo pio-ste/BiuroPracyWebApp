@@ -15,8 +15,8 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-md-5">
-                <form  action="#" method="post" enctype="multipart/form-data" th:object="${employer}"
-                       th:action="@{'/employer/uploadCompanyImage/' + ${employer.idEmployer}}">
+                <form  action="#" method="post" enctype="multipart/form-data" th:object="${employerImg}"
+                       th:action="@{'/employer/uploadCompanyImage/' + ${employerImg.idEmployer}}">
                     <label class="form-control-file">Wybierz zdjęcie</label>
                     <input id="imageFile" name="imageFile" type="file" class="file">
                     <button type="submit" class="btn btn-primary my-2">Dodaj</button>

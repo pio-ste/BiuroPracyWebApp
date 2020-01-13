@@ -26,7 +26,7 @@ import java.util.Optional;
 
 @Controller
 public class ProfilePropositionController {
-/*
+
     @Autowired
     ProfilePropositionService profilePropositionService;
 
@@ -48,14 +48,14 @@ public class ProfilePropositionController {
         return "redirect:/user/jobOffers/viewSelectedJobOffer/{id}";
     }
 
-    @GetMapping(path = "/user/viewProfilePropByJobOffer/{id}")
-    public String viewProfilePropByJobOfferId(Model model, @PathVariable("id") Optional<Integer> id){
+    @GetMapping(path = "/employer/viewProfilePropByJobOffer/{id}")
+    public String viewProfilePropByJobOfferId(Model model, @PathVariable("id") Integer id, String decision){
         model.addAttribute("profileProposition", new ProfileProposition());
-        List<ProfilePropositionDTO> profilePropList = profilePropositionRepository.getprofilePropByJobOfferId(id.get());
+        List<ProfilePropositionDTO> profilePropList = profilePropositionRepository.getProfilePropByJobOfferId(id, decision);
         model.addAttribute("profilePropositions", profilePropList);
         return "/all/profileProposition/profilePropListByJobOfferId";
     }
-
+/*
     @PostMapping(path = "/user/ProfileProp/changeDecision")
     public String profilePropChangeDec(ProfileProposition profileProposition){
         profilePropositionService.updateProfileProp(profileProposition);

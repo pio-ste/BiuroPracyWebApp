@@ -60,37 +60,9 @@ public class UserProfileController {
     UserInformationService userInformationService;
     @Autowired
     private UserInformationRepository userInformationRepository;
-/*
-    @GetMapping(path = "/all/usersProfilesVisible")
-    public String usersProfileAll(Model model, String workCity, String category, String email){
-        List<User> FilteredProfile = userRepository.getVisibleUsersFiltered(workCity, category, email);
-        model.addAttribute("users", FilteredProfile);
-        return "/all/profile/userProfileListAll";
-    }
-
-    @GetMapping(path = {"/all/viewSelectedProfile", "/all/viewSelectedProfile/{id}"})
-    public String viewSelectedProfileAll(Model model,@PathVariable("id") Optional<Integer> id){
-        List<User> UserList = userService.findUserById(id.get());
-        List<Course> CourseList = courseService.findCourseByUserId(id.get());
-        List<Education> EducationList = educationService.findEducationByUserId(id.get());
-        List<JobExperience> JobExpList = jobExperienceService.findJobExperienceByUserId(id.get());
-        List<Language> LangList = languageService.findLanguageByUserId(id.get());
-        List<Organization> OrganizationList = organizationService.findOrganizationByUserId(id.get());
-        List<Skill> SkillList = skillService.findSkillByUserId(id.get());
-        List<WebLink> WebLinkList = webLinkService.findWebLinkByUserId(id.get());
-        model.addAttribute("users", UserList);
-        model.addAttribute("courses", CourseList);
-        model.addAttribute("educations", EducationList );
-        model.addAttribute("jobExps", JobExpList);
-        model.addAttribute("languages", LangList);
-        model.addAttribute("organizations", OrganizationList);
-        model.addAttribute("skills", SkillList);
-        model.addAttribute("webLinks", WebLinkList);
-        return "/all/profile/viewSelectedProfileAll";
-    }*/
 
     @GetMapping(path = "/user/myProfile")
-    public String viewMyProfile(Model model, ModelAndView modelAndView) {
+    public String viewMyProfile(Model model) {
         model.addAttribute("userInformation", new UserInformation());
         model.addAttribute("webLink", new WebLink());
         model.addAttribute("course", new Course());

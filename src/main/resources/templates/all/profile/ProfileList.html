@@ -38,7 +38,7 @@
             <input type="submit" value="Szukaj" class="btn btn-primary mx-2 my-2">
         </div>
     </form>
-    <h2 th:case="null">No record found !!</h2>
+    <h2 th:case="null">Brak wyników wyszukiwania</h2>
     <div th:case="*">
         <div class="row" th:each="user : ${users}">
             <div class="col-8 mt-3">

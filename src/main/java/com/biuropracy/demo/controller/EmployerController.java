@@ -30,7 +30,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class EmployerController {
@@ -44,15 +43,8 @@ public class EmployerController {
     @Autowired
     EmployerRepository employerRepository;
 
-    @GetMapping(path = "/employer/addCompanyImage/{id}")
-    public String addCompanyImage(@PathVariable("id") Integer id, Model model){
-        Employer employer = employerService.findEmployer(id);
-        model.addAttribute("employer", employer);
-        return "/employer/uploadCompanyImage";
-    }
-
     @PostMapping(path = "/employer/uploadCompanyImage/{id}")
-    public String uploadCompanyImage(@PathVariable("id") Integer id, @RequestParam("imageFile")MultipartFile file){
+    public String uploadCompanyImage(@PathVariable("id") Integer id, @RequestParam("imageFileEmployer")MultipartFile file){
         employerService.saveCompanyImgImage(id,file);
         return "redirect:/employer/myProfileEmployer";
     }
@@ -75,11 +67,13 @@ public class EmployerController {
     }
 
     @GetMapping(path = "/employer/myProfileEmployer")
-    public String myProfileEmployer(Model model, ModelMap modelMap) {
+    public String myProfileEmployer(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails)authentication.getPrincipal();
         User user = userService.findUserByEmail(userDetails.getUsername());
         Integer id = user.getIdUser();
+        Employer employerImg = employerService.findEmployerByUser_id(id);
+        User userImg = userService.findUser(id);
         List<User> userList = userService.findUserById(id);
         List<Employer> employerList = employerService.findEmployerByUserId(id);
         if (employerList.isEmpty()){
@@ -87,8 +81,16 @@ public class EmployerController {
         } else {
             model.addAttribute("users", userList);
             model.addAttribute("employers", employerList);
+            model.addAttribute("employerImg", employerImg);
+            model.addAttribute("userImg", userImg);
         }
         return "/employer/myProfileEmployer";
+    }
+
+    @PostMapping(path = "/employer/{id}/uploadImage")
+    public String uploadImage(@PathVariable("id") Integer id, @RequestParam("imagefile") MultipartFile file) {
+        userService.saveProfileImage(id,file);
+        return "redirect:/employer/myProfileEmployer";
     }
 
     @GetMapping(path = "/user/selectedEmployerProfile/{id}")
