@@ -27,6 +27,8 @@ import java.util.Optional;
 @Controller
 public class ProfilePropositionController {
 
+    private Integer idJobOffer;
+
     @Autowired
     ProfilePropositionService profilePropositionService;
 
@@ -52,45 +54,25 @@ public class ProfilePropositionController {
     public String viewProfilePropByJobOfferId(Model model, @PathVariable("id") Integer id, String decision){
         model.addAttribute("profileProposition", new ProfileProposition());
         List<ProfilePropositionDTO> profilePropList = profilePropositionRepository.getProfilePropByJobOfferId(id, decision);
+        idJobOffer = id;
+        model.addAttribute("currentId", id);
         model.addAttribute("profilePropositions", profilePropList);
         return "/all/profileProposition/profilePropListByJobOfferId";
     }
-/*
-    @PostMapping(path = "/user/ProfileProp/changeDecision")
+
+    @PostMapping(path = "/employer/ProfileProp/changeDecision")
     public String profilePropChangeDec(ProfileProposition profileProposition){
         profilePropositionService.updateProfileProp(profileProposition);
-        return "redirect:/user/getUserJobOffer";
+        return "redirect:/employer/viewProfilePropByJobOffer/"+idJobOffer;
     }
 
     @GetMapping(path = "/user/myAllProfileProp")
-    public String myAllProfileProp(Model model){
+    public String myAllProfileProp(Model model, String decision){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails)authentication.getPrincipal();
         User user = userService.findUserByEmail(userDetails.getUsername());
         Integer id = user.getIdUser();
-        List<ProfilePropositionDTO> profilePropList = profilePropositionRepository.getAllProfilePropByUserId(id);
-        model.addAttribute("profilePropositions", profilePropList);
-        return "/all/profileProposition/profilePropUser";
-    }
-
-    @GetMapping(path = "/user/myAcceptProfileProp")
-    public String myAcceptProfileProp(Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
-        User user = userService.findUserByEmail(userDetails.getUsername());
-        Integer id = user.getIdUser();
-        List<ProfilePropositionDTO> profilePropList = profilePropositionRepository.getAceptProfilePropByUserId(id);
-        model.addAttribute("profilePropositions", profilePropList);
-        return "/all/profileProposition/profilePropUser";
-    }
-
-    @GetMapping(path = "/user/myRejectedProfileProp")
-    public String myRejectedProfileProp(Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
-        User user = userService.findUserByEmail(userDetails.getUsername());
-        Integer id = user.getIdUser();
-        List<ProfilePropositionDTO> profilePropList = profilePropositionRepository.getRejectedProfilePropByUserId(id);
+        List<ProfilePropositionDTO> profilePropList = profilePropositionRepository.getAllProfilePropByUserId(id, decision);
         model.addAttribute("profilePropositions", profilePropList);
         return "/all/profileProposition/profilePropUser";
     }
@@ -98,6 +80,6 @@ public class ProfilePropositionController {
     @GetMapping(path = "/user/deleteMyProfileProposition")
     public String deleteMyProfileProposition(@RequestParam("id") Integer id){
         profilePropositionService.deleteProfileProp(id);
-        return "redirect:/user/myProfileProp";
-    }*/
+        return "redirect:/user/myAllProfileProp";
+    }
 }

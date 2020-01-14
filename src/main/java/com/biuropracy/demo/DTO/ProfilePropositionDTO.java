@@ -10,6 +10,10 @@ public class ProfilePropositionDTO {
     private Integer idProfileProposition;
     private Integer idUser;
     private Integer idJobOffer;
+    private Integer idEmployer;
+    private String companyName;
+    private Integer monthlyPay;
+    private String categorySalary;
     private String title;
     private String location;
     private String name;
@@ -18,6 +22,20 @@ public class ProfilePropositionDTO {
     private String contactType;
     private String substantiation;
     private String decision;
+
+    public ProfilePropositionDTO(Integer idProfileProposition, Integer idJobOffer, Integer idEmployer, String companyName, Integer monthlyPay, String categorySalary, String title, String location, String contactType, String substantiation, String decision) {
+        this.idProfileProposition = idProfileProposition;
+        this.idJobOffer = idJobOffer;
+        this.idEmployer = idEmployer;
+        this.companyName = companyName;
+        this.monthlyPay = monthlyPay;
+        this.categorySalary = categorySalary;
+        this.title = title;
+        this.location = location;
+        this.contactType = contactType;
+        this.substantiation = substantiation;
+        this.decision = decision;
+    }
 
     public ProfilePropositionDTO(Integer idProfileProposition, Integer idUser, Integer idJobOffer, String title, String location, String name, String lastName, String contactType, String substantiation, String decision) {
         this.idProfileProposition = idProfileProposition;
@@ -57,6 +75,38 @@ public class ProfilePropositionDTO {
 
     public void setIdJobOffer(Integer idJobOffer) {
         this.idJobOffer = idJobOffer;
+    }
+
+    public Integer getIdEmployer() {
+        return idEmployer;
+    }
+
+    public void setIdEmployer(Integer idEmployer) {
+        this.idEmployer = idEmployer;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public Integer getMonthlyPay() {
+        return monthlyPay;
+    }
+
+    public void setMonthlyPay(Integer monthlyPay) {
+        this.monthlyPay = monthlyPay;
+    }
+
+    public String getCategorySalary() {
+        return categorySalary;
+    }
+
+    public void setCategorySalary(String categorySalary) {
+        this.categorySalary = categorySalary;
     }
 
     public String getTitle() {

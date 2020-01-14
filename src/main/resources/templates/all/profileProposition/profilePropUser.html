@@ -14,26 +14,35 @@
 <div th:replace="fragments/loggedInHeader :: headerLoggedIn"></div>
 <div class="container pt-4">
     <h3 class="text-center">Wysłane propozycje</h3>
-    <a th:href="@{/user/myAllProfileProp}"
-       class="btn btn-outline-primary my-2 mx-2">Propozycje nierozpatrzone</a>
-    <a th:href="@{/user/myAcceptProfileProp}"
-       class="btn btn-outline-success my-2 mx-2">Propozycje zaakceptowanie</a>
-    <a th:href="@{/user/myRejectedProfileProp}"
-       class="btn btn-outline-danger my-2 mx-2">Propozycje odrzucone</a>
+    <form action="/user/myAllProfileProp" class="form-inline mb-3" >
+        <select name="decision" class="form-control mr-2">
+            <option selected="selected" value="" class="font-weight-bold">Wybierz propozycje</option>
+            <option value="Nierozpatrzona" >Nierozpatrzone</option>
+            <option value="Zaakceptowane">Zaakceptowane</option>
+            <option value="Odrzucone">Odrzucone</option>
+        </select>
+        <input type="submit" value="Szukaj" class="btn btn-primary">
+    </form>
     <div class="row" th:each="profileProposition : ${profilePropositions}">
         <dt class="col-sm-3 mt-1">Nazwa ogłoszenia: </dt>
         <dt class="col-sm-9 mt-2 font-weight-normal"><th th:text="${profileProposition.title}"/></dt>
-        <dt class="col-sm-3 mt-1">Lokalizacja: </dt>
-        <dt class="col-sm-9 mt-2 font-weight-normal"><th th:text="${profileProposition.location}"/></dt>
         <dt class="col-sm-3 mt-1">Nazwa firmy: </dt>
         <dt class="col-sm-9 mt-2 font-weight-normal"><th th:text="${profileProposition.companyName}"/></dt>
+        <dt class="col-sm-3 mt-1">Wynagrodzenie: </dt>
+        <dt class="col-sm-9 mt-2 font-weight-normal"><th th:text="${profileProposition.monthlyPay}"/><th th:text="${profileProposition.categorySalary}"/></dt>
+        <dt class="col-sm-3 mt-1">Lokalizacja: </dt>
+        <dt class="col-sm-9 mt-2 font-weight-normal"><th th:text="${profileProposition.location}"/></dt>
         <dt class="col-sm-3 mt-1">Sposób kontaktu: </dt>
         <dt class="col-sm-9 mt-2 font-weight-normal"><th th:text="${profileProposition.contactType}"/></dt>
+        <dt class="col-sm-3 mt-1">Uzasadnienie użytkownika: </dt>
+        <dt class="col-sm-9 mt-2 font-weight-normal"><th th:text="${profileProposition.substantiation}"/></dt>
         <dt class="col-sm-3 mt-1">Decyzja: </dt>
         <dt class="col-sm-9 mt-2 font-weight-normal"><th th:text="${profileProposition.decision}"/></dt>
         <dt class="col-sm-12">
             <a th:href="@{/user/jobOffers/viewSelectedJobOffer/{idJobOffer}(idJobOffer=${profileProposition.idJobOffer})}"
                class="btn btn-outline-success my-2"> Przejdź do ogłoszenia <i class="fas fa-angle-double-right"></i></a>
+            <a th:href="@{/user/selectedEmployerProfile/{idEmployer}(idEmployer=${profileProposition.idEmployer})}"
+               class="btn btn-outline-success my-3"> Zobacz profil firmy <i class="fas fa-angle-double-right"></i></a>
             <div th:replace="fragments/modal/DeleteProfProp :: deleteProfPropFragment"></div>
         </dt>
     </div>

@@ -14,6 +14,15 @@
 <div th:replace="fragments/employerHeader :: headerEmployer"></div>
 <div class="container pt-4">
     <h3 class="text-center">Otrzymane propozycje osób</h3>
+    <form th:action="@{/employer/viewProfilePropByJobOffer/{id}(id=${currentId})}" class="form-inline mb-3" >
+        <select name="decision" class="form-control mr-2">
+            <option selected="selected" value="" class="font-weight-bold">Wybierz propozycje</option>
+            <option value="Nierozpatrzona" >Nierozpatrzone</option>
+            <option value="Zaakceptowane">Zaakceptowane</option>
+            <option value="Odrzucone">Odrzucone</option>
+        </select>
+        <input type="submit" value="Szukaj" class="btn btn-primary">
+    </form>
     <div class="row" th:each="profileProposition : ${profilePropositions}">
         <dt class="col-sm-3 mt-1"><img th:src="@{'/all/' + ${profileProposition.idUser} + '/displayImage'}" onerror="if (this.src != '/static/img/profile.jpg') this.src = '/static/img/profile.jpg';" width="200" height="200" class="img-thumbnail"></dt>
         <dt class="col-sm-9 mt-2 font-weight-normal">

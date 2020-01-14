@@ -27,11 +27,9 @@
                     <div class="dropdown-menu dropdown-menu-right dropdown-default"
                          aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item text-danger" sec:authorize="isAuthenticated()" th:href="@{/logout}">Wyloguj</a>
-                        <a class="dropdown-item" href="/user/myProfile">Profil</a>
+                        <a class="dropdown-item" href="/user/myProfile">Profil zawodowy</a>
                         <a class="dropdown-item" href="/user/userProfile/editProfile">Ustawienia konta</a>
                         <a class="dropdown-item" href="/user/getAllJPropByToUserId">Odebrane ofert pracy</a>
-                        <a class="dropdown-item" href="/user/getAllJPropByFromUserId">Wysłane ofert pracy</a>
-                        <a class="dropdown-item" href="/user/getUserJobOffer">Twoje oferty pracy</a>
                         <a class="dropdown-item" href="/user/myAllProfileProp">Wysłane aplikacje o pracę</a>
                     </div>
                 </li>

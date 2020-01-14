@@ -18,22 +18,14 @@ public interface ProfilePropositionRepository extends JpaRepository<ProfilePropo
             +"where u.idUser = p.user.idUser and p.jobOffer.idJobOffer = :idJobOffer and j.idJobOffer = p.jobOffer.idJobOffer"
             + " and (p.decision = :decision or :decision is null or :decision = '')")
     List<ProfilePropositionDTO> getProfilePropByJobOfferId(@Param("idJobOffer") Integer idJobOffer, @Param("decision") String decision);
+
+    @Query("Select new com.biuropracy.demo.DTO.ProfilePropositionDTO(p.idProfileProposition, j.idJobOffer, e.idEmployer, e.companyName, j.monthlyPay, j.categorySalary, j.title, j.location, p.contactType, p.substantiation, p.decision) from ProfileProposition p, User u, JobOffer j, Employer e "
+            +"where u.idUser = p.user.idUser and p.user.idUser = :idUser and e.idEmployer = j.employer.idEmployer "
+            +"and j.idJobOffer = p.jobOffer.idJobOffer "
+            +"and (p.decision = :decision or :decision is null or :decision = '')")
+    List<ProfilePropositionDTO> getAllProfilePropByUserId(@Param("idUser") Integer idUser, @Param("decision") String decision);
+
 /*
-    @Query("Select new com.biuropracy.demo.DTO.ProfilePropositionDTO(p.idProfileProposition, u.idUser, j.idJobOffer, j.title, j.location, j.companyName, p.user, p.jobOffer, u.name, u.lastName, u.profileImage, p.contactType, p.decision) from ProfileProposition p, User u, JobOffer j "
-            +"where u.idUser = p.user.idUser and p.user.idUser = :idUser "
-            + "and j.idJobOffer = p.jobOffer.idJobOffer and p.decision is null")
-    List<ProfilePropositionDTO> getAllProfilePropByUserId(@Param("idUser") Integer idUser);
-
-    @Query("Select new com.biuropracy.demo.DTO.ProfilePropositionDTO(p.idProfileProposition, u.idUser, j.idJobOffer, j.title, j.location, j.companyName, p.user, p.jobOffer, u.name, u.lastName, u.profileImage, p.contactType, p.decision) from ProfileProposition p, User u, JobOffer j "
-            +"where u.idUser = p.user.idUser and p.user.idUser = :idUser "
-            + "and j.idJobOffer = p.jobOffer.idJobOffer and p.decision = 'Zaakceptowane'")
-    List<ProfilePropositionDTO> getAceptProfilePropByUserId(@Param("idUser") Integer idUser);
-
-    @Query("Select new com.biuropracy.demo.DTO.ProfilePropositionDTO(p.idProfileProposition, u.idUser, j.idJobOffer, j.title, j.location, j.companyName, p.user, p.jobOffer, u.name, u.lastName, u.profileImage, p.contactType, p.decision) from ProfileProposition p, User u, JobOffer j "
-            +"where u.idUser = p.user.idUser and p.user.idUser = :idUser "
-            + "and j.idJobOffer = p.jobOffer.idJobOffer and p.decision = 'Odrzucone'")
-    List<ProfilePropositionDTO> getRejectedProfilePropByUserId(@Param("idUser") Integer idUser);
-
     @Modifying
     @Transactional
     @Query("delete from ProfileProposition p where p.jobOffer.idJobOffer = :id")

@@ -28,7 +28,6 @@ public class ProfilePropositionService {
         Optional<ProfileProposition> profilePropOpt = profilePropositionRepository.findById(profileProposition.getIdProfileProposition());
         if (profilePropOpt.isPresent()) {
             ProfileProposition newProfileProp = profilePropOpt.get();
-            newProfileProp.setContactType(profileProposition.getContactType());
             newProfileProp.setDecision(profileProposition.getDecision());
 
             newProfileProp = profilePropositionRepository.save(newProfileProp);
@@ -41,6 +40,7 @@ public class ProfilePropositionService {
 
     public ProfileProposition createProfileProp(ProfileProposition profileProposition, User user, JobOffer jobOffer){
         profileProposition.setUser(user);
+        profileProposition.setDecision("Nierozpatrzona");
         profileProposition.setJobOffer(jobOffer);
         profileProposition=profilePropositionRepository.save(profileProposition);
         return profileProposition;

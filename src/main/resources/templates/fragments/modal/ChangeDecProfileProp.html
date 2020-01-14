@@ -14,7 +14,7 @@
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal" action="#"
-                          th:action="@{/user/ProfileProp/changeDecision}"
+                          th:action="@{/employer/ProfileProp/changeDecision}"
                           method="post">
                         <fieldset>
 
@@ -23,9 +23,6 @@
                                     <input id="idProfileProposition" path="idProfileProposition" name="idProfileProposition" type="hidden"
                                            placeholder="idProfileProposition" class="form-control input-md"
                                            th:value="${profileProposition.idProfileProposition}"/>
-                                    <input id="contactType" path="contactType" name="contactType" type="hidden"
-                                           placeholder="contactType" class="form-control input-md"
-                                           th:value="${profileProposition.contactType}"/>
                                 </div>
                             </div>
 
