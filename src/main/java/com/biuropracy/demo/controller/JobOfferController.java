@@ -46,22 +46,29 @@ public class JobOfferController {
 
     @Autowired
     private EmployerRepository employerRepository;
-/*
+
     // dla wszystkich
     @GetMapping("/all/jobOffers")
-    public String getAllJobOffers(Model model, String title, String location, String category, String contractType, String workingTime, String positionLevel) {
-        List<JobOfferDTO> JobList = jobOfferRepository.getJobOfferFiltered(title, category, location, contractType, workingTime, positionLevel);
+    public String getAllJobOffers(Model model, String title, String location, String category, String contractType, String workingTime, String positionLevel, Integer monthlyPay, String categorySalary) {
+        List<JobOfferDTO> JobList = jobOfferRepository.getJobOfferFiltered(title, category, location, contractType, workingTime, positionLevel, monthlyPay,categorySalary);
         model.addAttribute("jobOffers", JobList);
         return "/all/jobOffers/viewJobs";
     }
 
     @GetMapping(path = {"/all/jobOffers/viewSelectedJobOffer", "/all/jobOffers/viewSelectedJobOffer/{id}"})
-    public String viewSelected(Model model,@PathVariable("id") Optional<Integer> id) {
-        List<JobOfferDTO> JobOfferList = jobOfferRepository.getSelectedJobOffer(id.get());
+    public String viewSelected(Model model,@PathVariable("id") Integer id) {
+        List<JobOfferDTO> JobOfferList = jobOfferRepository.getSelectedJobOffer(id);
         model.addAttribute("jobOffers", JobOfferList);
         return "/all/jobOffers/selectedJobOffer";
     }
-*/
+
+    @GetMapping(path = "/all/getEmployerJobOffers/{id}")
+    public String getEmployerJobOffersAll(Model model, @PathVariable("id") Integer id){
+        List<JobOfferDTO> jobOfferDTOList = jobOfferRepository.getSelectedJobOfferByEmployerId(id);
+        model.addAttribute("jobOffers", jobOfferDTOList);
+        return "/all/jobOffers/selectedJobOffer";
+    }
+
     //dla użytkownika
 
     @GetMapping(path = "/employer/jobOffers/createNew")

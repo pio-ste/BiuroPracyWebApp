@@ -11,12 +11,6 @@ public class JobProposition {
     @Column(name = "idjob_proposition")
     private Integer idJobProposition;
 
-    @Column(name = "company_name")
-    private String companyName;
-
-    @Column(name = "company_address")
-    private String companyAddress;
-
     @Column(name = "position_name")
     private String positionName;
 
@@ -36,24 +30,22 @@ public class JobProposition {
     private String decision;
 
     @ManyToOne
-    @JoinColumn(name = "from_user_id")
-    private User fromUser;
+    @JoinColumn(name = "id_user")
+    private User user;
 
     @ManyToOne
-    @JoinColumn(name = "to_user_id")
-    private User toUser;
+    @JoinColumn(name = "id_employer")
+    private Employer employer;
 
-    public JobProposition(String companyName, String companyAddress, String positionName, String positionDescription, String salary, String webLinkOffer, String contactType, String decision, User fromUser, User toUser) {
-        this.companyName = companyName;
-        this.companyAddress = companyAddress;
+    public JobProposition(String positionName, String positionDescription, String salary, String webLinkOffer, String contactType, String decision, User user, Employer employer) {
         this.positionName = positionName;
         this.positionDescription = positionDescription;
         this.salary = salary;
         this.webLinkOffer = webLinkOffer;
         this.contactType = contactType;
         this.decision = decision;
-        this.fromUser = fromUser;
-        this.toUser = toUser;
+        this.user = user;
+        this.employer = employer;
     }
 
     public JobProposition() {
@@ -65,22 +57,6 @@ public class JobProposition {
 
     public void setIdJobProposition(Integer idJobProposition) {
         this.idJobProposition = idJobProposition;
-    }
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-    public String getCompanyAddress() {
-        return companyAddress;
-    }
-
-    public void setCompanyAddress(String companyAddress) {
-        this.companyAddress = companyAddress;
     }
 
     public String getPositionName() {
@@ -131,19 +107,19 @@ public class JobProposition {
         this.decision = decision;
     }
 
-    public User getFromUser() {
-        return fromUser;
+    public User getUser() {
+        return user;
     }
 
-    public void setFromUser(User fromUser) {
-        this.fromUser = fromUser;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public User getToUser() {
-        return toUser;
+    public Employer getEmployer() {
+        return employer;
     }
 
-    public void setToUser(User toUser) {
-        this.toUser = toUser;
+    public void setEmployer(Employer employer) {
+        this.employer = employer;
     }
 }

@@ -43,6 +43,20 @@ public class EmployerController {
     @Autowired
     EmployerRepository employerRepository;
 
+    @GetMapping(path = "/all/employersList")
+    public String employersListAll(Model model, String companyName){
+        List<EmployerUserDTO> employerUserDTOList = employerRepository.getEmployerFiltered(companyName);
+        model.addAttribute("employers", employerUserDTOList);
+        return "/employer/employersListAll";
+    }
+
+    @GetMapping(path = "/all/selectedEmployerProfile/{id}")
+    public String selectedEmployerProfileAll(Model model, @PathVariable("id") Integer id) {
+        List<EmployerUserDTO> employerUserDTOList = employerRepository.getEmployerUserByIdEmpl(id);
+        model.addAttribute("employers", employerUserDTOList);
+        return "/employer/selectedEmployerAll";
+    }
+
     @PostMapping(path = "/employer/uploadCompanyImage/{id}")
     public String uploadCompanyImage(@PathVariable("id") Integer id, @RequestParam("imageFileEmployer")MultipartFile file){
         employerService.saveCompanyImgImage(id,file);

@@ -20,9 +20,11 @@
                     <div th:replace="fragments/select-option/search/search-contractType.html :: select_option_contractType"></div>
                     <div th:replace="fragments/select-option/search/search-workingTime.html :: select_option_workingTime"></div>
                     <div th:replace="fragments/select-option/search/search-positionLevel.html :: select_option_positionLevel"></div>
-                    <input type="submit" value="Szukaj" class="btn btn-primary mt-3">
+                    <input type="number" class="form-control mt-1 mr-2" name="monthlyPay" placeholder="Wynagrodzenie od"/>
+                    <div th:replace="fragments/select-option/search/search-categorySalary.html :: select_option_categorySalary"></div>
+                    <input type="submit" value="Szukaj" class="btn btn-primary mt-2">
                 </form>
-                    <h2 th:case="null">No record found !!</h2>
+                    <h2 th:case="null">Brak wyników</h2>
                         <div th:case="*">
                             <div class="row" th:each="jobOffer : ${jobOffers}">
                                 <div class="col-9 mt-2">
@@ -33,9 +35,9 @@
                                     <b>Kategoria: </b>
                                     <th th:text="${jobOffer.category}"></th></br>
                                     <b>Miesięczne wynagrodzenie: </b>
-                                    <th th:text="${jobOffer.monthlyPay}"></th></br>
-                                    <b>Email do osoby: </b>
-                                    <th th:text="${jobOffer.companyEmail}"></th></br>
+                                    <th th:text="${jobOffer.monthlyPay}"></th> <th th:text="${jobOffer.categorySalary}"></th></br>
+                                    <b>Nazwa firmy: </b>
+                                    <th th:text="${jobOffer.companyName}"></th></br>
                                 </div>
                                 <div class="col-3">
                                     <a th:href="@{/all/jobOffers/viewSelectedJobOffer/{idJobOffer}(idJobOffer=${jobOffer.idJobOffer})}"

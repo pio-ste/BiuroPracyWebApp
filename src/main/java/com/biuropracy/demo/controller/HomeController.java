@@ -29,4 +29,9 @@ public class HomeController {
     public String adminCalculator() {
         return "/all/calculator/adminCalculator";
     }
+
+    @GetMapping(path = "/employer/calculator")
+    public String employerCalculator() {
+        return "/all/calculator/employerCalculator";
+    }
 }

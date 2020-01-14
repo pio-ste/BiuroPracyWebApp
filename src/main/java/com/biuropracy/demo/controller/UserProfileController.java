@@ -75,6 +75,7 @@ public class UserProfileController {
         UserDetails userDetails = (UserDetails)authentication.getPrincipal();
         User user = userService.findUserByEmail(userDetails.getUsername());
         Integer id = user.getIdUser();
+        User userImg = userService.findUser(id);
         List<UserInformationDTO> UserInfoDTOList = userInformationRepository.getUserAndUserInfoByUserId(id);
         List<UserInformation> UserInfoList = userInformationService.findUserInfoByUserId(id);
         List<User> UserList = userService.findUserById(id);
@@ -98,6 +99,7 @@ public class UserProfileController {
             model.addAttribute("organizations", OrganizationList);
             model.addAttribute("skills", SkillList);
             model.addAttribute("webLinks", WebLinkList);
+            model.addAttribute("userImg", userImg);
         }
         return "/user/myProfile";
     }
@@ -316,7 +318,7 @@ public class UserProfileController {
     }
 
     @PostMapping(path = "/user/{id}/uploadImage")
-    public String uploadImage(@PathVariable("id") Integer id, @RequestParam("imagefile") MultipartFile file) {
+    public String uploadImage(@PathVariable("id") Integer id, @RequestParam("imageFile") MultipartFile file) {
         userService.saveProfileImage(id,file);
         return "redirect:/user/myProfile";
     }

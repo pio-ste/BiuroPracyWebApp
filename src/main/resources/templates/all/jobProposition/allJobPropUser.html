@@ -14,17 +14,18 @@
 <div th:replace="fragments/loggedInHeader :: headerLoggedIn"></div>
 <div class="container pt-4">
     <h3 class="text-center">Otrzymane propozycje oferty pracy</h3>
-    <a th:href="@{/user/getAllJPropByToUserId}"
-       class="btn btn-outline-primary my-2 mx-2">Oferty nierozpatrzone</a>
-    <a th:href="@{/user/getAcceptJPropByToUserID}"
-       class="btn btn-outline-success my-2 mx-2">Oferty zaakceptowanie</a>
-    <a th:href="@{/user/getRejectedJPropByToUserID}"
-       class="btn btn-outline-danger my-2 mx-2">Oferty odrzucone</a>
+    <form action="/user/getAllJobPropUser" class="form-inline mb-3" >
+        <select name="decision" class="form-control mr-2">
+            <option selected="selected" value="" class="font-weight-bold">Wybierz propozycje</option>
+            <option value="Nierozpatrzona" >Nierozpatrzone</option>
+            <option value="Zaakceptowane">Zaakceptowane</option>
+            <option value="Odrzucone">Odrzucone</option>
+        </select>
+        <input type="submit" value="Szukaj" class="btn btn-primary">
+    </form>
     <div class="row" th:each="jobProposition : ${jobPropositions}">
         <dt class="col-sm-3">Nazwa firmy: </dt>
         <dt class="col-sm-9 font-weight-normal"><th th:text="${jobProposition.companyName}"/></dt>
-        <dt class="col-sm-3 mt-3">Adres firmy: </dt>
-        <dt class="col-sm-9 mt-3 font-weight-normal"> <th th:text="${jobProposition.companyAddress}" /> </dt>
         <dt class="col-sm-3 mt-3">Nazwa stanowiska: </dt>
         <dt class="col-sm-9 mt-3 font-weight-normal"> <th th:text="${jobProposition.positionName}" /> </dt>
         <dt class="col-sm-3 mt-3">Opis: </dt>
@@ -37,11 +38,10 @@
         <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobProposition.contactType}" /></dt>
         <dt class="col-sm-3 mt-3">Decyzja: </dt>
         <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobProposition.decision}" /></dt>
-        <dt class="col-sm-3 mt-3">Imię i nazwisko proponującego ofertę: </dt>
-        <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobProposition.name}"/> <th th:text="${jobProposition.lastName}"/></dt>
         <dt class="col-sm-12 mt-3">
-            <a th:href="@{/user/viewSelectedProfile/{fromUser}(fromUser=${jobProposition.fromUser})}"
-               class="btn btn-outline-success  mx-2">Zobacz profil</a>
+            <a th:href="@{/user/selectedEmployerProfile/{idEmployer}(idEmployer=${jobProposition.idEmployer})}"
+               class="btn btn-outline-success my-3"> Zobacz profil firmy <i class="fas fa-angle-double-right"></i></a>
+            <div th:replace="fragments/modal/ChangeDecJProp :: changeDecJPropFragment"></div>
         </dt>
     </div>
 </div>

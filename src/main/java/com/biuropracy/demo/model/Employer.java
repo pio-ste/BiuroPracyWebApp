@@ -41,7 +41,10 @@ public class Employer {
     @OneToMany(mappedBy = "employer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<JobOffer> jobOffers;
 
-    public Employer(String companyName, String phoneNumber, String companyEmail, String webLink, String address, String description, Byte[] companyImage, User user, List<JobOffer> jobOffers) {
+    @OneToMany(mappedBy = "employer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<JobProposition> jobPropositions;
+
+    public Employer(String companyName, String phoneNumber, String companyEmail, String webLink, String address, String description, Byte[] companyImage, User user, List<JobOffer> jobOffers, List<JobProposition> jobPropositions) {
         this.companyName = companyName;
         this.phoneNumber = phoneNumber;
         this.companyEmail = companyEmail;
@@ -51,6 +54,7 @@ public class Employer {
         this.companyImage = companyImage;
         this.user = user;
         this.jobOffers = jobOffers;
+        this.jobPropositions = jobPropositions;
     }
 
     public Employer() {
@@ -134,5 +138,13 @@ public class Employer {
 
     public void setJobOffers(List<JobOffer> jobOffers) {
         this.jobOffers = jobOffers;
+    }
+
+    public List<JobProposition> getJobPropositions() {
+        return jobPropositions;
+    }
+
+    public void setJobPropositions(List<JobProposition> jobPropositions) {
+        this.jobPropositions = jobPropositions;
     }
 }

@@ -17,26 +17,24 @@
                 <dt class=" col-sm-12 font-weight-bold text-lg-center h3">
                 <th th:text="${jobOffer.title}"/>
                 </dt>
-                <dt class="col-sm-3">Lokalizacja: </dt>
-                <dt class="col-sm-9 font-weight-normal"><th th:text="${jobOffer.location}"/></dt>
-                <dt class="col-sm-3 mt-3">Opis: </dt>
-                <dt class="col-sm-9 mt-3 font-weight-normal"> <th th:text="${jobOffer.description}" /> </dt>
-                <dt class="col-sm-3 mt-3">Kontakt: </dt>
-                <dt class="col-sm-9 mt-3 font-weight-normal"> <th th:text="${jobOffer.contact}" /> </dt>
-                <dt class="col-sm-3 mt-3">Kategoria: </dt>
-                <dt class="col-sm-9 mt-3 font-weight-normal"> <th th:text="${jobOffer.category}" /></dt>
-                <dt class="col-sm-3 mt-3">Nazwa firmy: </dt>
-                <dt class="col-sm-9 mt-3 font-weight-normal"> <th th:text="${jobOffer.companyName}" /></dt>
-                <dt class="col-sm-3 mt-3">Rodzaj umowy: </dt>
-                <dt class="col-sm-9 mt-3 font-weight-normal"> <th th:text="${jobOffer.contractType}" /></dt>
-                <dt class="col-sm-3 mt-3">Wymiar pracy: </dt>
-                <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobOffer.workingTime}" /></dt>
-                <dt class="col-sm-3 mt-3">Miesięczne wynagrodzenie: </dt>
-                <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobOffer.monthlyPay}" /></dt>
-                <dt class="col-sm-3 mt-3">Poziom stanowiska: </dt>
-                <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobOffer.positionLevel}" /></dt>
-                <dt class="col-sm-3 mt-3">Email ogłoszeniodawcy: </dt>
-                <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobOffer.companyEmail}"/></dt>
+            <dt class="col-sm-3">Lokalizacja: </dt>
+            <dt class="col-sm-9 font-weight-normal"><th th:text="${jobOffer.location}"/></dt>
+            <dt class="col-sm-3 mt-3">Opis: </dt>
+            <dt class="col-sm-9 mt-3 font-weight-normal"> <th th:text="${jobOffer.description}" /> </dt>
+            <dt class="col-sm-3 mt-3">Kontakt: </dt>
+            <dt class="col-sm-9 mt-3 font-weight-normal"> <th th:text="${jobOffer.contact}" /> </dt>
+            <dt class="col-sm-3 mt-3">Kategoria: </dt>
+            <dt class="col-sm-9 mt-3 font-weight-normal"> <th th:text="${jobOffer.category}" /></dt>
+            <dt class="col-sm-3 mt-3">Nazwa firmy: </dt>
+            <dt class="col-sm-9 mt-3 font-weight-normal"> <th th:text="${jobOffer.companyName}" /></dt>
+            <dt class="col-sm-3 mt-3">Rodzaj umowy: </dt>
+            <dt class="col-sm-9 mt-3 font-weight-normal"> <th th:text="${jobOffer.contractType}" /></dt>
+            <dt class="col-sm-3 mt-3">Wymiar pracy: </dt>
+            <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobOffer.workingTime}" /></dt>
+            <dt class="col-sm-3 mt-3">Miesięczne wynagrodzenie: </dt>
+            <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobOffer.monthlyPay}" /> <th th:text="${jobOffer.categorySalary}" /></dt>
+            <dt class="col-sm-3 mt-3">Poziom stanowiska: </dt>
+            <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobOffer.positionLevel}" /></dt>
             </div>
        </div>
 </body>

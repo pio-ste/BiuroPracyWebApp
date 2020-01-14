@@ -45,8 +45,7 @@ public class User {
     @Column(name = "status")
     private String status;
 
-
-    public User(@NotEmpty(message = "Wpisz swoje imię") String name, @NotEmpty(message = "Wpisz swoje nazwisko") String lastName, @NotEmpty(message = "Wpisz swój adres email") @Email(message = "Zły adres email") String email, @NotEmpty(message = "Wpisz swój numer telefonu") String userPhone, @NotEmpty(message = "Wpisz hasło") @Size(min = 4, message = "Hasło musi mieć minimum 4 znaki") String password, Byte[] profileImage, String status, Set<Role> roles, List<Course> courses, List<Education> educations, List<JobExperience> jobExperiences, List<Language> languages, List<Organization> organizations, List<Skill> skills, List<WebLink> webLinks, List<JobProposition> fromUsers, List<JobProposition> toUsers, List<ProfileProposition> users, UserInformation userInformation, Employer employer) {
+    public User(@NotEmpty(message = "Wpisz swoje imię") String name, @NotEmpty(message = "Wpisz swoje nazwisko") String lastName, @NotEmpty(message = "Wpisz swój adres email") @Email(message = "Zły adres email") String email, @NotEmpty(message = "Wpisz swój numer telefonu") String userPhone, @NotEmpty(message = "Wpisz hasło") @Size(min = 4, message = "Hasło musi mieć minimum 4 znaki") String password, Byte[] profileImage, String status, Set<Role> roles, List<Course> courses, List<Education> educations, List<JobExperience> jobExperiences, List<Language> languages, List<Organization> organizations, List<Skill> skills, List<WebLink> webLinks, List<JobProposition> jobPropositions, List<ProfileProposition> users, UserInformation userInformation, Employer employer) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
@@ -62,8 +61,7 @@ public class User {
         this.organizations = organizations;
         this.skills = skills;
         this.webLinks = webLinks;
-        this.fromUsers = fromUsers;
-        this.toUsers = toUsers;
+        this.jobPropositions = jobPropositions;
         this.users = users;
         this.userInformation = userInformation;
         this.employer = employer;
@@ -107,11 +105,8 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<WebLink> webLinks;
 
-    @OneToMany(mappedBy = "fromUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<JobProposition> fromUsers;
-
-    @OneToMany(mappedBy = "toUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<JobProposition> toUsers;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<JobProposition> jobPropositions;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ProfileProposition> users;
@@ -250,20 +245,12 @@ public class User {
         this.webLinks = webLinks;
     }
 
-    public List<JobProposition> getFromUsers() {
-        return fromUsers;
+    public List<JobProposition> getJobPropositions() {
+        return jobPropositions;
     }
 
-    public void setFromUsers(List<JobProposition> fromUsers) {
-        this.fromUsers = fromUsers;
-    }
-
-    public List<JobProposition> getToUsers() {
-        return toUsers;
-    }
-
-    public void setToUsers(List<JobProposition> toUsers) {
-        this.toUsers = toUsers;
+    public void setJobPropositions(List<JobProposition> jobPropositions) {
+        this.jobPropositions = jobPropositions;
     }
 
     public List<ProfileProposition> getUsers() {

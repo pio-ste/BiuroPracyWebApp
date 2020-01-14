@@ -1,9 +1,11 @@
 package com.biuropracy.demo.controller;
 
 import com.biuropracy.demo.DTO.JobPropositionDTO;
+import com.biuropracy.demo.model.Employer;
 import com.biuropracy.demo.model.JobProposition;
 import com.biuropracy.demo.model.User;
 import com.biuropracy.demo.repository.JobPropositionRepository;
+import com.biuropracy.demo.service.EmployerService;
 import com.biuropracy.demo.service.JobPropositionService;
 import com.biuropracy.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,7 @@ import java.util.Optional;
 @Controller
 public class JobPropositionController {
 
-    /*private Integer Userid;
+    private Integer Userid;
 
     @Autowired
     JobPropositionService jobPropositionService;
@@ -33,96 +35,60 @@ public class JobPropositionController {
     UserService userService;
 
     @Autowired
+    EmployerService employerService;
+
+    @Autowired
     private JobPropositionRepository jobPropositionRepository;
 
-    @PostMapping(path = {"/user/userProfile/createJobProposition", "/user/userProfile/createJobProposition/{id}"})
-    public String createJobProposition(ModelAndView modelAndView, JobProposition jobProposition, @PathVariable("id") Optional<Integer> id){
-        User toUserId = userService.findUser(id.get());
+    @PostMapping(path = {"/employer/userProfile/createJobProposition", "/employer/userProfile/createJobProposition/{id}"})
+    public String createJobProposition(ModelAndView modelAndView, JobProposition jobProposition, @PathVariable("id") Integer id){
+        User toUserId = userService.findUser(id);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        jobPropositionService.createJobProposition(jobProposition, userService.findUserByEmail(authentication.getName()), toUserId);
+        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+        User user = userService.findUserByEmail(userDetails.getUsername());
+        Integer idUser = user.getIdUser();
+        jobPropositionService.createJobProposition(jobProposition, toUserId, employerService.findEmployerByUser_id(idUser));
         modelAndView.addObject("jobProposition", new JobProposition());
-        return "redirect:/user/viewSelectedProfile/{id}";
+        return "redirect:/employer/viewSelectedProfile/"+id;
     }
 
-    @GetMapping(path = "/user/getAllJPropByToUserId")
-    public String getAllJPropByToUser(Model model){
+    @GetMapping(path = "/user/getAllJobPropUser")
+    public String getAllJPropByToUser(Model model, String decision){
         model.addAttribute("jobProposition", new JobProposition()); //do edycji w modalu
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserInformation userDetails = (UserInformation)authentication.getPrincipal();
+        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
         User user = userService.findUserByEmail(userDetails.getUsername());
         Integer id = user.getIdUser();
-        List<JobPropositionDTO> JobPropDto = jobPropositionRepository.getAllJPropByToUserId(id);
+        List<JobPropositionDTO> JobPropDto = jobPropositionRepository.getAllJPropByToUserId(id, decision);
         model.addAttribute("jobPropositions", JobPropDto);
-        return "/all/jobProposition/allJPropToUser";
+        return "/all/jobProposition/allJobPropUser";
     }
 
-    @GetMapping(path = "/user/getAcceptJPropByToUserID")
-    public String getAcceptJPropByToUser(Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserInformation userDetails = (UserInformation)authentication.getPrincipal();
-        User user = userService.findUserByEmail(userDetails.getUsername());
-        Integer id = user.getIdUser();
-        List<JobPropositionDTO> JobPropDto = jobPropositionRepository.getAcceptJPropByToUserID(id);
-        model.addAttribute("jobPropositions", JobPropDto);
-        return "/all/jobProposition/acceptRejectedJPropToUser";
-    }
 
-    @GetMapping(path = "/user/getRejectedJPropByToUserID")
-    public String getRejectedJPropByToUser(Model model){
+    @GetMapping(path = "/employer/getAllJobPropEmployer")
+    public String getAllJPropByFromUser(Model model, String decision){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserInformation userDetails = (UserInformation)authentication.getPrincipal();
+        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
         User user = userService.findUserByEmail(userDetails.getUsername());
         Integer id = user.getIdUser();
-        List<JobPropositionDTO> JobPropDto = jobPropositionRepository.getRejectedJPropByToUserID(id);
+        Employer employer = employerService.findEmployerByUser_id(id);
+        List<JobPropositionDTO> JobPropDto = jobPropositionRepository.getAllJObPropEmployer(employer.getIdEmployer(), decision);
         model.addAttribute("jobPropositions", JobPropDto);
-        return "/all/jobProposition/acceptRejectedJPropToUser";
-    }
-
-    @GetMapping(path = "/user/getAllJPropByFromUserId")
-    public String getAllJPropByFromUser(Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserInformation userDetails = (UserInformation)authentication.getPrincipal();
-        User user = userService.findUserByEmail(userDetails.getUsername());
-        Integer id = user.getIdUser();
-        List<JobPropositionDTO> JobPropDto = jobPropositionRepository.getAllJPropByFromUserId(id);
-        model.addAttribute("jobPropositions", JobPropDto);
-        return "/all/jobProposition/allJPropFromUser";
-    }
-
-    @GetMapping(path = "/user/getAcceptJPropByFromUserID")
-    public String getAcceptJPropByFromUser(Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserInformation userDetails = (UserInformation)authentication.getPrincipal();
-        User user = userService.findUserByEmail(userDetails.getUsername());
-        Integer id = user.getIdUser();
-        List<JobPropositionDTO> JobPropDto = jobPropositionRepository.getAcceptJPropByFromUserID(id);
-        model.addAttribute("jobPropositions", JobPropDto);
-        return "/all/jobProposition/acceptRejectedJPropFromUser";
-    }
-
-    @GetMapping(path = "/user/getRejectedJPropByFromUserID")
-    public String getRejectedJPropByFromUser(Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserInformation userDetails = (UserInformation)authentication.getPrincipal();
-        User user = userService.findUserByEmail(userDetails.getUsername());
-        Integer id = user.getIdUser();
-        List<JobPropositionDTO> JobPropDto = jobPropositionRepository.getRejectedJPropByFromUserID(id);
-        model.addAttribute("jobPropositions", JobPropDto);
-        return "/all/jobProposition/acceptRejectedJPropFromUser";
+        return "/all/jobProposition/allJobPropEmployer";
     }
 
     @PostMapping(path = "/user/JobProp/changeDecision")
     public String changeDecision(JobProposition jobProposition){
         jobPropositionService.updateJobProposition(jobProposition);
-        return "redirect:/user/getAllJPropByToUserId";
+        return "redirect:/user/getAllJobPropUser";
     }
 
-    @GetMapping(path = "/user/jobPropositionDelete")
+    @GetMapping(path = "/employer/jobPropositionDelete")
     public String jobPropositionDelete(@RequestParam("id") Integer id){
         jobPropositionService.deleteJobProposition(id);
-        return "redirect:/user/getAllJPropByFromUserId";
+        return "redirect:/employer/getAllJobPropEmployer";
     }
-
+/*
     //admin
 
     @GetMapping(path = "/admin/getAllUserReceivedJProp/{id}")
