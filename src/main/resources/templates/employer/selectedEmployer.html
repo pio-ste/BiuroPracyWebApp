@@ -51,7 +51,7 @@
                     <th th:text="${employer.userPhone}"></th></br>
                 </div>
                 <div class="col-md-3">
-                    <h3>zdjęcie</h3>
+                    <img th:src="@{'/all/' + ${employer.idUser} + '/displayImage'}" onerror="if (this.src != '/static/img/profile.jpg') this.src = '/static/img/profile.jpg';" width="200" height="200" class="img-thumbnail">
                 </div>
             </div>
         </div>

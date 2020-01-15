@@ -97,7 +97,7 @@ public class JobOfferController {
     }
 
     @GetMapping(path = "/user/jobOffersFiltered")
-    public String getAllJobOffersLogged(Model model, String title, String location, String category, String contractType, String workingTime, String positionLevel, Integer monthlyPay, String categorySalary) {
+    public String getAllJobOffersLogged(Model model, String title,  String location, String category, String contractType, String workingTime, String positionLevel, Integer monthlyPay, String categorySalary) {
         List<JobOfferDTO> JobList = jobOfferRepository.getJobOfferFiltered(title, category, location, contractType, workingTime, positionLevel,monthlyPay,categorySalary);
         model.addAttribute("jobOffers", JobList);
         return "/all/jobOffers/viewJobsLoginUser";
@@ -154,19 +154,19 @@ public class JobOfferController {
         modelAndView.setViewName("/all/jobOffers/edit-jobOffer");
         return modelAndView;
     }
-/*
+
     // admin
 
     @GetMapping("/admin/jobOffers")
-    public String getAllJobOffersAdmin(Model model, String title, String location, String category, String contractType, String workingTime, String positionLevel) {
-        List<JobOfferDTO> JobList = jobOfferRepository.getJobOfferFilteredAdmin(title, category, location, contractType, workingTime, positionLevel);
+    public String getAllJobOffersAdmin(Model model, String title, String location, String category, String contractType, String workingTime, String positionLevel, Integer monthlyPay, String categorySalary) {
+        List<JobOfferDTO> JobList = jobOfferRepository.getJobOfferFilteredAdmin(title, category, location, contractType, workingTime, positionLevel, monthlyPay,categorySalary);
         model.addAttribute("jobOffers", JobList);
         return "/all/jobOffers/allJobOffersAdmin";
     }
 
     @GetMapping(path = {"/admin/jobOffers/editOffer", "/admin/jobOffers/editOffer/{id}"})
-    public String editJobOfferAdmin(Model model, @PathVariable("id") Optional<Integer> id) {
-        JobOffer jobOffer = jobOfferService.getJobOfferById(id.get());
+    public String editJobOfferAdmin(Model model, @PathVariable("id") Integer id) {
+        JobOffer jobOffer = jobOfferService.getJobOfferById(id);
         model.addAttribute("jobOffer", jobOffer);
         return "/all/jobOffers/editJobOfferAdmin";
     }
@@ -191,38 +191,17 @@ public class JobOfferController {
         return "redirect:/admin/jobOffers";
     }
 
-    @GetMapping(path = "/admin/jobOffers/createNew")
-    public String addNewJobOfferAdmin(Model model){
-        model.addAttribute("jobOffer", new JobOffer());
-        return "/all/jobOffers/addJobOfferAdmin";
-    }
-
-    @PostMapping(path = "/admin/jobOffers/createJobOfferPost")
-    public String createJobOfferAdmin(@Valid JobOffer jobOffer, BindingResult bindingResult, ModelMap modelMap){
-        ModelAndView modelAndView = new ModelAndView();
-        if (bindingResult.hasErrors()) {
-            modelAndView.addObject("successMessage", "Popraw błędy w formularzu");
-            modelMap.addAttribute("bindingResult", bindingResult);
-        } else {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            jobOfferService.createJobOffer(jobOffer, userService.findUserByEmail(authentication.getName()));
-            modelAndView.addObject("successMessage", "Ogłoszenie zostało dodane");
-        }
-        modelAndView.addObject("jobOffer", new JobOffer());
-        return "/all/jobOffers/addJobOfferAdmin";
-    }
-
-    @GetMapping("/admin/userJobOffers/{id}")
-    public String getAllUserJobOffersAdmin(Model model, @PathVariable("id") Optional<Integer> id) {
-        Userid = id.get();
-        List<JobOfferDTO> JobList = jobOfferRepository.getUserJobOfferAdmin(id.get());
-        model.addAttribute("jobOffers", JobList);
-        return "/all/jobOffers/userJobOffersAdmin";
+    @GetMapping(path = "/admin/getEmployerJobOffers/{id}")
+    public String getEmployerJobOffersAllAdmin(Model model, @PathVariable("id") Integer id){
+        Userid = id;
+        List<JobOfferDTO> jobOfferDTOList = jobOfferRepository.getSelectedJobOfferByEmployerId(id);
+        model.addAttribute("jobOffers", jobOfferDTOList);
+        return "/all/jobOffers/allJobOffersAdmin";
     }
 
     @GetMapping(path = "/admin/userJobOffers/delete/{id}")
     public String deleteUserJobOfferByIdAdmin(@PathVariable("id") Integer id) {
         jobOfferService.deleteJobOfferById(id);
-        return "redirect:/admin/userJobOffers/"+Userid;
-    }*/
+        return "redirect:/admin/getEmployerJobOffers/"+Userid;
+    }
 }

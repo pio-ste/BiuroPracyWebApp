@@ -14,7 +14,7 @@
 
 </head>
 <body>
-<div th:replace="fragments/homeHeader.html :: header"></div>
+<div th:replace="fragments/adminHeader :: headerAdmin"></div>
 <div class="container pt-4">
     <div class="row">
         <div class="col-md-12">
@@ -32,11 +32,19 @@
                     <th th:text="${employer.webLink}"></th></br>
                     <b >Opis firmy: </b>
                     <th th:text="${employer.description}"></th></br>
-                    <a th:href="@{/all/getEmployerJobOffers/{idEmployer}(idEmployer=${employer.idEmployer})}"
+                    <a th:href="@{/admin/editEmployerInfo/{idEmployer}(idEmployer=${employer.idEmployer})}"
+                       class="btn btn-warning mt-2">
+                        Edytuj <i class="fas fa-user-edit"></i></a> </br>
+                    <a th:href="@{/admin/getEmployerJobOffers/{idEmployer}(idEmployer=${employer.idEmployer})}"
                        class="btn btn-outline-primary my-3"> Zobacz oferty pracy <i class="fas fa-angle-double-right"></i></a>
                 </div>
                 <div class="col-md-4">
                     <img th:src="@{'/all/displayCompanyImg/'+ ${employer.idEmployer} }" onerror="if (this.src != '/static/img/companyImg.jpg') this.src = '/static/img/companyImg.jpg';" width="260" height="220" class="img-fluid"> </br>
+                    <form  action="#" method="post" enctype="multipart/form-data" th:object="${employerImg}"
+                           th:action="@{'/admin/uploadCompanyImage/' + ${employerImg.idEmployer}}">
+                        <input id="imageFileEmployer" name="imageFileEmployer" type="file" class="file">
+                        <button type="submit" class="btn btn-primary my-2">Dodaj</button>
+                    </form>
                 </div>
 
                 <div class="col-md-12 border-top border-secondary"><h5>Przedstawiciel firmy</h5></div>
@@ -49,6 +57,10 @@
                     <th th:text="${employer.companyEmail}"></th></br>
                     <b>Numer telefonu: </b>
                     <th th:text="${employer.userPhone}"></th></br>
+                    <a th:href="@{/admin/employerProfile/editProfile/{idUser}(idUser=${employer.idUser})}"
+                       class="btn btn-warning">
+                        Edytuj dane konta<i class="fas fa-user-edit"></i>
+                    </a>
                 </div>
                 <div class="col-md-3">
                     <img th:src="@{'/all/' + ${employer.idUser} + '/displayImage'}" onerror="if (this.src != '/static/img/profile.jpg') this.src = '/static/img/profile.jpg';" width="200" height="200" class="img-thumbnail">

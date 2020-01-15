@@ -3,6 +3,7 @@ package com.biuropracy.demo.service;
 import com.biuropracy.demo.model.Employer;
 import com.biuropracy.demo.model.JobOffer;
 import com.biuropracy.demo.repository.JobOfferRepository;
+import com.biuropracy.demo.repository.ProfilePropositionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,9 @@ public class JobOfferService {
 
     @Autowired
     JobOfferRepository jobOfferRepository;
+
+    @Autowired
+    ProfilePropositionRepository profilePropositionRepository;
 
     public List<JobOffer> getAllJobOffers(){
         return jobOfferRepository.findAll();
@@ -62,6 +66,7 @@ public class JobOfferService {
     public void deleteJobOfferById(Integer id) {
         Optional<JobOffer> offer = jobOfferRepository.findById(id);
         if (offer.isPresent()) {
+            profilePropositionRepository.deleteProfPropByJobOffer(id);
             jobOfferRepository.deleteById(id);
         } else {
             throw new RuntimeException("Brak ogłoszenia o tym id");

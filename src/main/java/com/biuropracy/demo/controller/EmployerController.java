@@ -3,11 +3,9 @@ package com.biuropracy.demo.controller;
 import com.biuropracy.demo.DTO.EmployerUserDTO;
 import com.biuropracy.demo.model.Employer;
 import com.biuropracy.demo.model.User;
-import com.biuropracy.demo.model.UserInformation;
 import com.biuropracy.demo.repository.EmployerRepository;
 import com.biuropracy.demo.service.EmployerService;
 import com.biuropracy.demo.service.UserService;
-import javafx.geometry.Pos;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -33,6 +31,8 @@ import java.util.List;
 
 @Controller
 public class EmployerController {
+
+    private Integer idCurrentEmp;
 
     @Autowired
     UserService userService;
@@ -158,9 +158,55 @@ public class EmployerController {
             modelMap.addAttribute("bindingResult", bindingResult);
         } else {
             employerService.updateEmployer(employer);
-            modelAndView.addObject("successMessage", "Ogłoszenie zostało zaktualizowane");
+            modelAndView.addObject("successMessage", "Dane zostały zaktualizowane");
         }
         modelAndView.setViewName("/employer/editEmployerInfo");
+        return modelAndView;
+    }
+
+    //admin
+
+    @GetMapping(path = "/admin/employersList")
+    public String employersListAllAdmin(Model model, String companyName){
+        List<EmployerUserDTO> employerUserDTOList = employerRepository.getEmployerFiltered(companyName);
+        model.addAttribute("employers", employerUserDTOList);
+        return "/employer/employerListAdmin";
+    }
+
+    @GetMapping(path = "/admin/selectedEmployerProfile/{id}")
+    public String selectedEmployerProfileAdmin(Model model, @PathVariable("id") Integer id) {
+        idCurrentEmp = id;
+        List<EmployerUserDTO> employerUserDTOList = employerRepository.getEmployerUserByIdEmpl(id);
+        Employer employerImg = employerService.findEmployer(id);
+        model.addAttribute("employerImg", employerImg);
+        model.addAttribute("employers", employerUserDTOList);
+        return "/employer/selectedEmployerAdmin";
+    }
+
+    @PostMapping(path = "/admin/uploadCompanyImage/{id}")
+    public String uploadImageAdmin(@PathVariable("id") Integer id, @RequestParam("imageFileEmployer") MultipartFile file) {
+        employerService.saveCompanyImgImage(id,file);
+        return "redirect:/admin/selectedEmployerProfile/"+idCurrentEmp;
+    }
+
+    @GetMapping(path = "/admin/editEmployerInfo/{id}")
+    public String editEmployerInfoAdmin(@PathVariable("id") Integer id, Model model){
+        Employer employer = employerService.findEmployer(id);
+        model.addAttribute("employer", employer);
+        return "/employer/editEmployerInfo";
+    }
+
+    @PostMapping(path = "/admin/updateEmployerInfoPost")
+    public ModelAndView updateEmployerInfoAdmin(@Valid Employer employer, BindingResult bindingResult, ModelMap modelMap){
+        ModelAndView modelAndView = new ModelAndView();
+        if (bindingResult.hasErrors()) {
+            modelAndView.addObject("successMessage", "Popraw błędy w formularzu");
+            modelMap.addAttribute("bindingResult", bindingResult);
+        } else {
+            employerService.updateEmployer(employer);
+            modelAndView.addObject("successMessage", "Dane zostały zaktualizowane");
+        }
+        modelAndView.setViewName("/employer/editEmployerInfoAdmin");
         return modelAndView;
     }
 }

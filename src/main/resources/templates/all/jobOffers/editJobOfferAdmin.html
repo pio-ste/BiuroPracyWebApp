@@ -52,11 +52,6 @@
                 <div th:replace="fragments/select-option/edit/edit-category.html :: select_option_category"></div>
             </div>
             <div class="form-group col-md-12">
-                <label for="company_name" class="col-form-label">Nazwa firmy</label>
-                <input type="text" th:field="*{companyName}" class="form-control" maxlength="200"
-                       id="company_name" placeholder="Nazwa firmy" />
-            </div>
-            <div class="form-group col-md-12">
                 <label for="contract_type" class="col-form-label">Rodzaj umowy</label>
                 <div th:replace="fragments/select-option/edit/edit-contractType.html :: select_option_contractType"></div>
             </div>
@@ -64,10 +59,14 @@
                 <label for="working_time" class="col-form-label">Wymiar pracy</label>
                 <div th:replace="fragments/select-option/edit/edit-workingTime.html :: select_option_workingTime"></div>
             </div>
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-6">
                 <label for="monthly_pay" class="col-form-label">Zarobki miesięczne</label>
-                <input type="text" th:field="*{monthlyPay}" class="form-control" maxlength="200"
+                <input type="number" th:field="*{monthlyPay}" class="form-control" maxlength="200"
                        id="monthly_pay" placeholder="Zarobki miesięczne" />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="salaryCategory" class="col-form-label">Rodzaj wynagrodzenie</label>
+                <div th:replace="fragments/select-option/edit/edit-categorySalary.html :: select_option_categorySalary"></div>
             </div>
             <div class="form-group col-md-12">
                 <label for="position_level" class="col-form-label">Poziom stanowiska</label>

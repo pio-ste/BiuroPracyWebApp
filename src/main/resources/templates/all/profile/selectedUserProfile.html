@@ -18,48 +18,48 @@
 <div class="container pt-4">
     <div class="row">
         <div class="col-md-12 text-white bg-secondary">
-            <div class="row border-secondary" th:each="user : ${users}">
-                <div class="col-md-9 bg-secondary">
+            <div class="row border-secondary" th:each="userInfoDTO : ${userInfoDTOs}">
+                <div class="col-md-8 bg-secondary">
                     <b >Imię: </b>
-                    <th th:text="${user.name}"></th> </br>
+                    <th th:text="${userInfoDTO.name}"></th> </br>
                     <b>Nazwisko: </b>
-                    <th th:text="${user.lastName}"></th></br>
+                    <th th:text="${userInfoDTO.lastName}"></th></br>
                     <b>Data urodzenia: </b>
-                    <th th:text="${user.dateBirth}"></th></br>
+                    <th th:text="${userInfoDTO.dateBirth}"></th></br>
                     <b>Miejsce zamieszkania: </b>
-                    <th th:text="${user.homeCity}"></th></br>
-                    <b>Miejsce poszukiwanej pracy: </b>
-                    <th th:text="${user.workCity}"></th></br>
-                    <b>Aktualne stanowiko pracy: </b>
-                    <th th:text="${user.currentPosition}"></th></br>
-                    <b>Poszukiwane stanowisko pracy: </b>
-                    <th th:text="${user.positionSought}"></th></br>
+                    <th th:text="${userInfoDTO.homeCity}"></th></br>
+                    <b>Miejsce aktualnej pracy: </b>
+                    <th th:text="${userInfoDTO.workCity}"></th></br>
                     <b>Email: </b>
-                    <th th:text="${user.companyEmail}"></th></br>
+                    <th th:text="${userInfoDTO.email}"></th></br>
+                    <b>Numer telefonu: </b>
+                    <th th:text="${userInfoDTO.userPhone}"></th></br>
+                    <b>Obecne stanowisko pracy: </b>
+                    <th th:text="${userInfoDTO.currentPosition}"></th></br>
+                    <b>Poszukiwana kategoria pracy: </b>
+                    <th th:text="${userInfoDTO.positionSought}"></th></br>
                     <b>Hobby: </b>
-                    <th th:text="${user.hobby}"></th></br>
-                    <a th:href="@{/admin/userProfile/editProfile/{idUser}(idUser=${user.idUser})}"
+                    <th th:text="${userInfoDTO.hobby}"></th></br>
+                    <a th:href="@{/admin/userProfile/editProfile/{idUser}(idUser=${userInfoDTO.idUser})}"
                        class="btn btn-warning">
-                        Edytuj <i class="fas fa-user-edit"></i>
-                    </a>
-                    <a th:href="@{/admin/getAllUserReceivedJProp/{idUser}(idUser=${user.idUser})}"
-                       class="btn btn-primary">
+                        Edytuj dane konta<i class="fas fa-user-edit"></i>
+                    </a></br>
+                    <a th:href="@{/admin/editUserInfo/{idUserInformation}(idUserInformation=${userInfoDTO.idUserInformation})}"
+                       class="btn btn-warning mt-2">
+                        Edytuj dane osobiste<i class="fas fa-user-edit"></i>
+                    </a></br>
+                    <a th:href="@{/admin/getAllUserReceivedJProp/{idUser}(idUser=${userInfoDTO.idUser})}"
+                       class="btn btn-primary mt-2">
                         Otrzymane oferty pracy
                     </a>
-                    <a th:href="@{/admin/getAllUserSendJProp/{idUser}(idUser=${user.idUser})}"
-                       class="btn btn-primary">
-                        Wysłane oferty pracy
-                    </a>
-                    <a th:href="@{/admin/userJobOffers/{idUser}(idUser=${user.idUser})}"
-                       class="btn btn-primary">
-                        Oferty pracy użytkownika
-                    </a>
                 </div>
-                <div class="col-md-3 bg-secondary">
-                    <img src="../../static/img/stockImage.jpg" th:src="@{'/all/' + ${user.idUser} + '/displayImage'}" width="200" height="200" class="mt-3">
-                    <a class="btn btn-primary mt-2" href="#"
-                       th:href="@{'/admin/' + ${user.idUser} + '/addImage'}" role="button">
-                        Zmień zdjęcie</a>
+                <div class="col-md-4 bg-secondary">
+                    <img th:src="@{'/all/' + ${userInfoDTO.idUser} + '/displayImage'}" onerror="if (this.src != '/static/img/profile.jpg') this.src = '/static/img/profile.jpg';" width="200" height="200" class="img-thumbnail">
+                    <form class="mt-2" action="#" method="post" enctype="multipart/form-data" th:object="${userImg}"
+                          th:action="@{'/admin/' + ${userImg.idUser} +'/uploadImage'}">
+                        <input id="imageFile" name="imageFile" type="file" class="file">
+                        <button type="submit" class="btn btn-primary my-2">Dodaj</button>
+                    </form>
                 </div>
             </div>
         </div>

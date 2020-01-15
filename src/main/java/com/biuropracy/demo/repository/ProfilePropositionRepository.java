@@ -25,10 +25,9 @@ public interface ProfilePropositionRepository extends JpaRepository<ProfilePropo
             +"and (p.decision = :decision or :decision is null or :decision = '')")
     List<ProfilePropositionDTO> getAllProfilePropByUserId(@Param("idUser") Integer idUser, @Param("decision") String decision);
 
-/*
     @Modifying
     @Transactional
     @Query("delete from ProfileProposition p where p.jobOffer.idJobOffer = :id")
     void deleteProfPropByJobOffer(@Param("id") Integer id);
-*/
+
 }

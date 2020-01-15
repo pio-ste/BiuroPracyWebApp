@@ -88,21 +88,22 @@ public class JobPropositionController {
         jobPropositionService.deleteJobProposition(id);
         return "redirect:/employer/getAllJobPropEmployer";
     }
-/*
+
     //admin
 
     @GetMapping(path = "/admin/getAllUserReceivedJProp/{id}")
-    public String getAllUserReceivedJProp(Model model, @PathVariable("id") Optional<Integer> id){
-        Userid = id.get();
+    public String getAllUserReceivedJProp(Model model, @PathVariable("id") Integer id, String decision){
+        Userid = id;
+        model.addAttribute("currentId", id);
         model.addAttribute("jobProposition", new JobProposition());
-        List<JobPropositionDTO> JobPropDto = jobPropositionRepository.getAllUserReceivedJProp(id.get());
+        List<JobPropositionDTO> JobPropDto = jobPropositionRepository.getAllJPropByToUserId(id, decision);
         model.addAttribute("jobPropositions", JobPropDto);
         return "/all/jobProposition/userReceivedJobPropAdmin";
     }
 
     @PostMapping(path = "/admin/getAllUserReceivedJProp/update")
     public String updateReceivedUserJobProp(JobProposition jobProposition){
-        jobPropositionService.updateJobProposition(jobProposition);
+        jobPropositionService.updateJobPropositionAdmin(jobProposition);
         return "redirect:/admin/getAllUserReceivedJProp/"+Userid;
     }
 
@@ -111,7 +112,7 @@ public class JobPropositionController {
         jobPropositionService.deleteJobProposition(id);
         return "redirect:/admin/getAllUserReceivedJProp/"+Userid;
     }
-
+/*
     @GetMapping(path = "/admin/getAllUserSendJProp/{id}")
     public String getAllUserSendJProp(Model model, @PathVariable("id") Optional<Integer> id){
         Userid = id.get();

@@ -67,6 +67,9 @@
                     <th th:text="${user.email}"></th></br>
                     <b>Numer telefonu: </b>
                     <th th:text="${user.userPhone}"></th></br>
+                    <a th:href="@{/employer/editEmployer/{idEmployer}(idEmployer=${user.idUser})}"
+                       class="btn btn-warning mt-2">
+                        Edytuj <i class="fas fa-user-edit"></i></a>
                 </div>
                 <div class="col-md-4">
                     <img th:src="@{'/all/' + ${user.idUser} + '/displayImage'}" onerror="if (this.src != '/static/img/profile.jpg') this.src = '/static/img/profile.jpg';" width="200" height="200" class="mt-3 img-thumbnail">

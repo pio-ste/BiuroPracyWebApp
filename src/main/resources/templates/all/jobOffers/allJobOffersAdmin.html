@@ -13,10 +13,6 @@
 <body>
 <div th:replace="fragments/adminHeader :: headerAdmin"></div>
     <div th:switch="${jobOffers}" class="container pt-4">
-        <p class="my-2">
-            <a href="/admin/jobOffers/createNew" class="btn btn-outline-primary">
-                <i class="fas fa-plus ml-2"> Dodaj ofertę pracy </i></a>
-        </p>
         <form action="/admin/jobOffers" class="form-inline mb-3" >
             <input type="text" class="form-control mr-2" name="title" placeholder="Tytuł / Słowa kluczowe"/>
             <input type="text" class="form-control mr-2" name="location" placeholder="Lokalizacja"/>
@@ -47,17 +43,16 @@
                     <dt class="col-sm-3 mt-3">Wymiar pracy: </dt>
                     <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobOffer.workingTime}" /></dt>
                     <dt class="col-sm-3 mt-3">Miesięczne wynagrodzenie: </dt>
-                    <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobOffer.monthlyPay}" /></dt>
+                    <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobOffer.monthlyPay}" /> <th th:text="${jobOffer.categorySalary}" /></dt>
                     <dt class="col-sm-3 mt-3">Poziom stanowiska: </dt>
                     <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobOffer.positionLevel}" /></dt>
-                    <dt class="col-sm-3 mt-3">Email ogłoszeniodawcy: </dt>
-                    <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobOffer.companyEmail}"/></dt>
                     <dt class="col-sm-9 mt-3">
                         <a th:href="@{/admin/jobOffers/editOffer/{idJobOffer}(idJobOffer=${jobOffer.idJobOffer})}"
                            class="btn btn-warning">
                             Edytuj <i class="fas fa-user-edit"></i></a>
-                        <a th:href="@{/admin/viewUserProfile/{idUser}(idUser=${jobOffer.idUser})}"
-                           class="btn btn-success my-2 mx-2">Zobacz profil osoby</a>
+                        <a th:href="@{/admin/viewProfilePropByJobOffer/{idJobOffer}(idJobOffer=${jobOffer.idJobOffer})}"
+                           class="btn btn-primary">
+                            Propozycje osób </a>
                         <div th:replace="fragments/modal/DeleteJobOfferAdmin :: deleteJobOfferAdminFragment"></div>
                     </dt>
                 </div>

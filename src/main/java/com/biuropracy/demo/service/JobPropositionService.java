@@ -19,6 +19,7 @@ public class JobPropositionService {
     public JobProposition createJobProposition(JobProposition jobProposition, User user, Employer employer){
         jobProposition.setUser(user);
         jobProposition.setEmployer(employer);
+        jobProposition.setDecision("Nierozpatrzona");
         jobProposition=jobPropositionRepository.save(jobProposition);
         return jobProposition;
     }
@@ -27,6 +28,25 @@ public class JobPropositionService {
         Optional<JobProposition> jobPropOpt = jobPropositionRepository.findById(jobProposition.getIdJobProposition());
         if(jobPropOpt.isPresent()){
             JobProposition newJobProposition =jobPropOpt.get();
+            newJobProposition.setContactType(jobProposition.getContactType());
+            newJobProposition.setDecision(jobProposition.getDecision());
+
+            newJobProposition = jobPropositionRepository.save(newJobProposition);
+            return newJobProposition;
+        } else {
+            jobProposition = jobPropositionRepository.save(jobProposition);
+            return jobProposition;
+        }
+    }
+
+    public JobProposition updateJobPropositionAdmin(JobProposition jobProposition) {
+        Optional<JobProposition> jobPropOpt = jobPropositionRepository.findById(jobProposition.getIdJobProposition());
+        if(jobPropOpt.isPresent()){
+            JobProposition newJobProposition =jobPropOpt.get();
+            newJobProposition.setWebLinkOffer(jobProposition.getWebLinkOffer());
+            newJobProposition.setSalary(jobProposition.getSalary());
+            newJobProposition.setPositionName(jobProposition.getPositionName());
+            newJobProposition.setPositionDescription(jobProposition.getPositionDescription());
             newJobProposition.setContactType(jobProposition.getContactType());
             newJobProposition.setDecision(jobProposition.getDecision());
 

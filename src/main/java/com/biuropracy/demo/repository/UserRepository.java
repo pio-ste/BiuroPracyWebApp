@@ -21,13 +21,15 @@ public interface UserRepository extends JpaRepository<User, Integer> {
             +"and (ui.positionSought = :positionSought or :positionSought is null or :positionSought = '')"
             +"and (u.email = :email or :email is null or :email = '')")
     List<UserInformationDTO> getVisibleUsersFiltered(@Param("workCity") String workCity, @Param("positionSought") String positionSought, @Param("email") String email);
-/*
-    @Query("select new com.biuropracy.demo.model.User(u.idUser, u.email, u.name, u.lastName)"
-            +"from User u where (u.workCity = :workCity or :workCity is null or :workCity = '')"
-            +"and (u.positionSought = :positionSought or :positionSought is null or :positionSought = '')"
+
+    @Query("select new com.biuropracy.demo.DTO.UserInformationDTO(u.idUser, u.email, u.name, u.lastName, ui.dateBirth, ui.homeCity, ui.workCity, ui.currentPosition, ui.positionSought)"
+            +"from User u, UserInformation ui where u.idUser = ui.user.idUser "
+            +"and (ui.workCity = :workCity or :workCity is null or :workCity = '')"
+            +"and (ui.positionSought = :positionSought or :positionSought is null or :positionSought = '')"
             +"and (u.email = :email or :email is null or :email = '')")
-    List<User> getAllUsersAdmin(@Param("workCity") String workCity, @Param("positionSought") String positionSought, @Param("email") String email);
-*/
+    List<UserInformationDTO> getAllUsersFiltered(@Param("workCity") String workCity, @Param("positionSought") String positionSought, @Param("email") String email);
+
+
     User findByEmail(String email);
 
     List<User> findUserByIdUser(Integer idUser);

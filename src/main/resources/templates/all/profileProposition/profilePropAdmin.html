@@ -13,7 +13,7 @@
 <body>
 <div th:replace="fragments/adminHeader :: headerAdmin"></div>
 <div class="container pt-4">
-    <h3 class="text-center">Otrzymane propozycje oferty pracy</h3>
+    <h3 class="text-center">Otrzymane propozycje osób</h3>
     <form th:action="@{/employer/viewProfilePropByJobOffer/{id}(id=${currentId})}" class="form-inline mb-3" >
         <select name="decision" class="form-control mr-2">
             <option selected="selected" value="" class="font-weight-bold">Wybierz propozycje</option>
@@ -23,23 +23,18 @@
         </select>
         <input type="submit" value="Szukaj" class="btn btn-primary">
     </form>
-    <div class="row" th:each="jobProposition : ${jobPropositions}">
-        <dt class="col-sm-3">Nazwa firmy: </dt>
-        <dt class="col-sm-9 font-weight-normal"><th th:text="${jobProposition.companyName}"/></dt>
-        <dt class="col-sm-3 mt-3">Nazwa stanowiska: </dt>
-        <dt class="col-sm-9 mt-3 font-weight-normal"> <th th:text="${jobProposition.positionName}" /> </dt>
-        <dt class="col-sm-3 mt-3">Opis: </dt>
-        <dt class="col-sm-9 mt-3 font-weight-normal"> <th th:text="${jobProposition.positionDescription}" /></dt>
-        <dt class="col-sm-3 mt-3">Zarobki: </dt>
-        <dt class="col-sm-9 mt-3 font-weight-normal"> <th th:text="${jobProposition.salary}" /></dt>
-        <dt class="col-sm-3 mt-3">Link do oferty: </dt>
-        <dt class="col-sm-9 mt-3 font-weight-normal"> <th th:text="${jobProposition.webLinkOffer}" /></dt>
-        <dt class="col-sm-3 mt-3">Sposób kontaktu: </dt>
-        <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobProposition.contactType}" /></dt>
-        <dt class="col-sm-3 mt-3">Decyzja: </dt>
-        <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobProposition.decision}" /></dt>
+    <div class="row" th:each="profileProposition : ${profilePropositions}">
+        <dt class="col-sm-3 mt-1"><img th:src="@{'/all/' + ${profileProposition.idUser} + '/displayImage'}" onerror="if (this.src != '/static/img/profile.jpg') this.src = '/static/img/profile.jpg';" width="200" height="200" class="img-thumbnail"></dt>
+        <dt class="col-sm-9 mt-2 font-weight-normal">
+            <b>Imię i nazwisko:</b> <th th:text="${profileProposition.name}"/> <th th:text="${profileProposition.lastName}"/> </br>
+            <b>Uzasadnienie osoby </b> <th th:text="${profileProposition.substantiation}"/> </br>
+            <b>Sposób kontaktu z osobą:</b> <th th:text="${profileProposition.contactType}"/> </br>
+            <b>Decyzja:</b> <th th:text="${profileProposition.decision}" /> </br>
+        </dt>
         <dt class="col-sm-12 mt-3">
-            <div th:replace="fragments/modal/EditDeletJobPropAdmin :: editDeletJobPropAdminFragment"></div>
+            <a th:href="@{/admin/viewUserProfile/{idUser}(idUser=${profileProposition.idUser})}"
+               class="btn btn-outline-success my-2 mx-2">Zobacz profil</a>
+            <div th:replace="fragments/modal/DeleteEditJobProp :: editDeletJobPropAdminFragment"></div>
         </dt>
     </div>
 </div>

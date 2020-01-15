@@ -38,6 +38,22 @@ public class ProfilePropositionService {
         }
     }
 
+    public ProfileProposition updateProfilePropAdmin(ProfileProposition profileProposition) {
+        Optional<ProfileProposition> profilePropOpt = profilePropositionRepository.findById(profileProposition.getIdProfileProposition());
+        if (profilePropOpt.isPresent()) {
+            ProfileProposition newProfileProp = profilePropOpt.get();
+            newProfileProp.setSubstantiation(profileProposition.getSubstantiation());
+            newProfileProp.setContactType(profileProposition.getContactType());
+            newProfileProp.setDecision(profileProposition.getDecision());
+
+            newProfileProp = profilePropositionRepository.save(newProfileProp);
+            return newProfileProp;
+        } else {
+            profileProposition = profilePropositionRepository.save(profileProposition);
+            return profileProposition;
+        }
+    }
+
     public ProfileProposition createProfileProp(ProfileProposition profileProposition, User user, JobOffer jobOffer){
         profileProposition.setUser(user);
         profileProposition.setDecision("Nierozpatrzona");

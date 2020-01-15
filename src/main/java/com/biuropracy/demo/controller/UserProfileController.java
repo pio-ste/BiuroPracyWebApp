@@ -23,7 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.text.html.Option;
 import javax.validation.Valid;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -34,7 +33,7 @@ import java.util.Optional;
 @Controller
 public class UserProfileController {
 
-    private Integer idTmp;
+    private Integer idCurrentUser;
 
     @Autowired
     UserService userService;
@@ -341,6 +340,19 @@ public class UserProfileController {
         }
     }
 
+    @GetMapping(path ="/employer/editEmployer/{id}")
+    public String editJobOffer(Model model, @PathVariable("id") Integer id) {
+        User user = userService.findUser(id);
+        model.addAttribute("user", user);
+        return "/all/profile/editEmployerProfile";
+    }
+
+    @PostMapping(path = "/employer/editUserInfoPost")
+    public String editUserPost(User user) {
+        userService.updateUser(user);
+        return "/all/profile/editEmployerProfile";
+    }
+
     @GetMapping(path = "/employer/usersProfilesVisible")
     public String usersProfileFiltered(Model model, String workCity, String category, String email){
         List<UserInformationDTO> FilteredProfile = userRepository.getVisibleUsersFiltered(workCity, category, email);
@@ -373,10 +385,11 @@ public class UserProfileController {
     //admin
 
 
-/*
+
     @GetMapping(path = {"/admin/viewUserProfile", "/admin/viewUserProfile/{id}"})
-    public String viewProfileAdmin(Model model, @PathVariable("id") Optional<Integer> id) {
-        idTmp = id.get();
+    public String viewProfileAdmin(Model model, @PathVariable("id") Integer id) {
+        idCurrentUser = id;
+        model.addAttribute("userInformation", new UserInformation());
         model.addAttribute("webLink", new WebLink());
         model.addAttribute("course", new Course());
         model.addAttribute("education", new Education());
@@ -384,14 +397,19 @@ public class UserProfileController {
         model.addAttribute("language", new Language());
         model.addAttribute("organization", new Organization());
         model.addAttribute("skill", new Skill());
-        List<User> UserList = userService.findUserById(id.get());
-        List<Course> CourseList = courseService.findCourseByUserId(id.get());
-        List<Education> EducationList = educationService.findEducationByUserId(id.get());
-        List<JobExperience> JobExpList = jobExperienceService.findJobExperienceByUserId(id.get());
-        List<Language> LangList = languageService.findLanguageByUserId(id.get());
-        List<Organization> OrganizationList = organizationService.findOrganizationByUserId(id.get());
-        List<Skill> SkillList = skillService.findSkillByUserId(id.get());
-        List<WebLink> WebLinkList = webLinkService.findWebLinkByUserId(id.get());
+        User userImg = userService.findUser(id);
+        List<UserInformationDTO> UserInfoDTOList = userInformationRepository.getUserAndUserInfoByUserId(id);
+        List<UserInformation> UserInfoList = userInformationService.findUserInfoByUserId(id);
+        List<User> UserList = userService.findUserById(id);
+        List<Course> CourseList = courseService.findCourseByUserId(id);
+        List<Education> EducationList = educationService.findEducationByUserId(id);
+        List<JobExperience> JobExpList = jobExperienceService.findJobExperienceByUserId(id);
+        List<Language> LangList = languageService.findLanguageByUserId(id);
+        List<Organization> OrganizationList = organizationService.findOrganizationByUserId(id);
+        List<Skill> SkillList = skillService.findSkillByUserId(id);
+        List<WebLink> WebLinkList = webLinkService.findWebLinkByUserId(id);
+        model.addAttribute("userInfoDTOs", UserInfoDTOList);
+        model.addAttribute("userInformations", UserInfoList);
         model.addAttribute("users", UserList);
         model.addAttribute("courses", CourseList);
         model.addAttribute("educations", EducationList );
@@ -400,152 +418,153 @@ public class UserProfileController {
         model.addAttribute("organizations", OrganizationList);
         model.addAttribute("skills", SkillList);
         model.addAttribute("webLinks", WebLinkList);
+        model.addAttribute("userImg", userImg);
         return "/all/profile/selectedUserProfile";
     }
 
     @GetMapping(path = "/admin/usersProfiles")
     public String usersProfileAdmin(Model model, String workCity, String category, String email){
-        List<User> FilteredProfile = userRepository.getAllUsersAdmin(workCity, category, email);
+        List<UserInformationDTO> FilteredProfile = userRepository.getAllUsersFiltered(workCity, category, email);
         model.addAttribute("users", FilteredProfile);
         return "/all/profile/ProfileListAdmin";
     }
 
     @PostMapping(path = "/admin/userProfile/addWebLink")
     public String addWebLinkAdmin(ModelAndView modelAndView, WebLink webLink){
-        webLinkService.createWebLink(webLink, userService.findUser(idTmp));
+        webLinkService.createWebLink(webLink, userService.findUser(idCurrentUser));
         modelAndView.addObject("webLink", new WebLink());
-        return "redirect:/admin/viewUserProfile/"+idTmp;
+        return "redirect:/admin/viewUserProfile/"+ idCurrentUser;
     }
 
     @PostMapping(path = "/admin/userProfile/addCourse")
     public String addCourseAdmin(ModelAndView modelAndView, Course course){
-        courseService.createCourse(course, userService.findUser(idTmp));
+        courseService.createCourse(course, userService.findUser(idCurrentUser));
         modelAndView.addObject("course", new Course());
-        return "redirect:/admin/viewUserProfile/"+idTmp;
+        return "redirect:/admin/viewUserProfile/"+ idCurrentUser;
     }
 
     @PostMapping(path = "/admin/userProfile/addEducation")
     public String addEducationAdmin(ModelAndView modelAndView, Education education){
-        educationService.createEducation(education, userService.findUser(idTmp));
+        educationService.createEducation(education, userService.findUser(idCurrentUser));
         modelAndView.addObject("education", new Education());
-        return "redirect:/admin/viewUserProfile/"+idTmp;
+        return "redirect:/admin/viewUserProfile/"+ idCurrentUser;
     }
 
     @PostMapping(path = "/admin/userProfile/addJobExperience")
     public String addJobExperienceAdmin(ModelAndView modelAndView, JobExperience jobExperience){
-        jobExperienceService.createJobExperience(jobExperience, userService.findUser(idTmp));
+        jobExperienceService.createJobExperience(jobExperience, userService.findUser(idCurrentUser));
         modelAndView.addObject("jobExperience", new JobExperience());
-        return "redirect:/admin/viewUserProfile/"+idTmp;
+        return "redirect:/admin/viewUserProfile/"+ idCurrentUser;
     }
 
     @PostMapping(path = "/admin/userProfile/addLanguage")
     public String addLanguageAdmin(ModelAndView modelAndView, Language language){
-        languageService.createLanguage(language, userService.findUser(idTmp));
+        languageService.createLanguage(language, userService.findUser(idCurrentUser));
         modelAndView.addObject("language", new Language());
-        return "redirect:/admin/viewUserProfile/"+idTmp;
+        return "redirect:/admin/viewUserProfile/"+ idCurrentUser;
     }
 
     @PostMapping(path = "/admin/userProfile/addOrganization")
     public String addOrganizationAdmin(ModelAndView modelAndView, Organization organization){
-        organizationService.createOrganization(organization, userService.findUser(idTmp));
+        organizationService.createOrganization(organization, userService.findUser(idCurrentUser));
         modelAndView.addObject("organization", new Organization());
-        return "redirect:/admin/viewUserProfile/"+idTmp;
+        return "redirect:/admin/viewUserProfile/"+ idCurrentUser;
     }
 
     @PostMapping(path = "/admin/userProfile/addSkill")
     public String addSkillAdminAdmin(ModelAndView modelAndView, Skill skill){
-        skillService.createSkill(skill, userService.findUser(idTmp));
+        skillService.createSkill(skill, userService.findUser(idCurrentUser));
         modelAndView.addObject("skill", new Skill());
-        return "redirect:/admin/viewUserProfile/"+idTmp;
+        return "redirect:/admin/viewUserProfile/"+ idCurrentUser;
     }
 
     @GetMapping(path = "/admin/userProfile/deleteWebLink")
     public String deleteWebLinkAdmin(@RequestParam("id") Integer id){
         webLinkService.deleteWebLinkById(id);
-        return "redirect:/admin/viewUserProfile/"+idTmp;
+        return "redirect:/admin/viewUserProfile/"+ idCurrentUser;
     }
 
     @GetMapping(path = "/admin/userProfile/deleteCourse")
     public String deleteCourseAdmin(@RequestParam("id") Integer id){
         courseService.deleteCourseById(id);
-        return "redirect:/admin/viewUserProfile/"+idTmp;
+        return "redirect:/admin/viewUserProfile/"+ idCurrentUser;
     }
 
     @GetMapping(path = "/admin/userProfile/deleteEducation")
     public String deleteEducationAdmin(@RequestParam("id") Integer id){
         educationService.deleteEducation(id);
-        return "redirect:/admin/viewUserProfile/"+idTmp;
+        return "redirect:/admin/viewUserProfile/"+ idCurrentUser;
     }
 
     @GetMapping(path = "/admin/userProfile/deleteJobExperience")
     public String deleteJobExperienceAdmin(@RequestParam("id") Integer id){
         jobExperienceService.deleteJobExperienceById(id);
-        return "redirect:/admin/viewUserProfile/"+idTmp;
+        return "redirect:/admin/viewUserProfile/"+ idCurrentUser;
     }
 
     @GetMapping(path = "/admin/userProfile/deleteLanguage")
     public String deleteLanguageAdmin(@RequestParam("id") Integer id){
         languageService.deleteLanguageById(id);
-        return "redirect:/admin/viewUserProfile/"+idTmp;
+        return "redirect:/admin/viewUserProfile/"+ idCurrentUser;
     }
 
     @GetMapping(path = "/admin/userProfile/deleteOrganization")
     public String deleteOrganizationAdmin(@RequestParam("id") Integer id){
         organizationService.deleteOrganizationById(id);
-        return "redirect:/admin/viewUserProfile/"+idTmp;
+        return "redirect:/admin/viewUserProfile/"+ idCurrentUser;
     }
 
     @GetMapping(path = "/admin/userProfile/deleteSkill")
     public String deleteSkillAdmin(@RequestParam("id") Integer id){
         skillService.deleteSkillById(id);
-        return "redirect:/admin/viewUserProfile/"+idTmp;
+        return "redirect:/admin/viewUserProfile/"+ idCurrentUser;
     }
 
     @PostMapping(path = "/admin/userProfile/editWebLink")
     public String editProfileAdmin(WebLink webLink) {
         webLinkService.updateWebLink(webLink);
-        return "redirect:/admin/viewUserProfile/"+idTmp;
+        return "redirect:/admin/viewUserProfile/"+ idCurrentUser;
     }
 
     @PostMapping(path = "/admin/userProfile/editCourse")
     public String editCourseAdmin(Course course) {
         courseService.updateCourse(course);
-        return "redirect:/admin/viewUserProfile/"+idTmp;
+        return "redirect:/admin/viewUserProfile/"+ idCurrentUser;
     }
 
     @PostMapping(path = "/admin/userProfile/editEducation")
     public String editEducationAdmin(Education education) {
         educationService.updateEducation(education);
-        return "redirect:/admin/viewUserProfile/"+idTmp;
+        return "redirect:/admin/viewUserProfile/"+ idCurrentUser;
     }
 
     @PostMapping(path = "/admin/userProfile/editJobExperience")
     public String editJobExperienceAdmin(JobExperience jobExperience) {
         jobExperienceService.updateJobExperience(jobExperience);
-        return "redirect:/admin/viewUserProfile/"+idTmp;
+        return "redirect:/admin/viewUserProfile/"+ idCurrentUser;
     }
 
     @PostMapping(path = "/admin/userProfile/editLanguage")
     public String editLanguageAdmin(Language language) {
         languageService.updateLanguage(language);
-        return "redirect:/admin/viewUserProfile/"+idTmp;
+        return "redirect:/admin/viewUserProfile/"+ idCurrentUser;
     }
 
     @PostMapping(path = "/admin/userProfile/editOrganization")
     public String editOrganizationAdmin(Organization organization) {
         organizationService.updateOrganization(organization);
-        return "redirect:/admin/viewUserProfile/"+idTmp;
+        return "redirect:/admin/viewUserProfile/"+ idCurrentUser;
     }
 
     @PostMapping(path = "/admin/userProfile/editSkill")
     public String editSkillAdmin(Skill skill) {
         skillService.updateSkill(skill);
-        return "redirect:/admin/viewUserProfile/"+idTmp;
+        return "redirect:/admin/viewUserProfile/"+ idCurrentUser;
     }
 
     @GetMapping(path = {"/admin/userProfile/editProfile", "/admin/userProfile/editProfile/{id}"})
-    public String editUserProfileAdmin(Model model, @PathVariable("id") Optional<Integer> id) {
-        User user = userService.findUser(id.get());
+    public String editUserProfileAdmin(Model model, @PathVariable("id") Integer id) {
+        User user = userService.findUser(id);
         model.addAttribute("user", user);
         return "/all/profile/editUserProfileAdmin";
     }
@@ -553,22 +572,38 @@ public class UserProfileController {
     @PostMapping(path = "/admin/userProfile/updateProfile")
     public String updateUserProfileAdmin(User user) {
         userService.updateUser(user);
-        return "/all/profile/editUserProfileAdmin";
+        return "redirect:/admin/viewUserProfile/" + idCurrentUser;
     }
 
-    @GetMapping(path = "/admin/{id}/addImage")
-    public String addImageAdmin(@PathVariable("id") Integer id, Model model){
+    @GetMapping(path = {"/admin/employerProfile/editProfile", "/admin/employerProfile/editProfile/{id}"})
+    public String editEmployerProfileAdmin(Model model, @PathVariable("id") Integer id) {
         User user = userService.findUser(id);
         model.addAttribute("user", user);
-        return "/all/profile/uploadImageAdmin";
+        return "/all/profile/editEmployerProfileAdmin";
+    }
+
+    @PostMapping(path = "/admin/employerProfile/updateProfile")
+    public String updateEmployerProfileAdmin(User user) {
+        userService.updateUser(user);
+        return "/all/profile/editEmployerProfileAdmin";
+    }
+
+    @GetMapping(path = "/admin/editUserInfo/{id}")
+    public String editUserInfoAdmin(Model model, @PathVariable("id") Integer id){
+        UserInformation userInformation = userInformationService.getUserInfoById(id);
+        model.addAttribute("userInformation", userInformation);
+        return "/all/profile/editUserInfoAdmin";
+    }
+
+    @PostMapping(path = "/admin/editUserInfoPost")
+    public String editUserPostAdmin(UserInformation userInformation) {
+        userInformationService.updateUserInfo(userInformation);
+        return "redirect:/admin/viewUserProfile/" + idCurrentUser;
     }
 
     @PostMapping(path = "/admin/{id}/uploadImage")
-    public String uploadImageAdmin(@PathVariable("id") Integer id, @RequestParam("imagefile") MultipartFile file) {
+    public String uploadImageAdmin(@PathVariable("id") Integer id, @RequestParam("imageFile") MultipartFile file) {
         userService.saveProfileImage(id,file);
-        return "redirect:/admin/userProfile/editProfile/" + id +"";
+        return "redirect:/admin/viewUserProfile/" + idCurrentUser;
     }
-
-    */
-
 }

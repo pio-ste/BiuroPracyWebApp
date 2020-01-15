@@ -82,4 +82,27 @@ public class ProfilePropositionController {
         profilePropositionService.deleteProfileProp(id);
         return "redirect:/user/myAllProfileProp";
     }
+
+    @GetMapping(path = "/admin/viewProfilePropByJobOffer/{id}")
+    public String viewProfilePropByJobOfferIdAdmin(Model model, @PathVariable("id") Integer id, String decision){
+        model.addAttribute("profileProposition", new ProfileProposition());
+        List<ProfilePropositionDTO> profilePropList = profilePropositionRepository.getProfilePropByJobOfferId(id, decision);
+        idJobOffer = id;
+        model.addAttribute("currentId", id);
+        model.addAttribute("profilePropositions", profilePropList);
+        return "/all/profileProposition/profilePropAdmin";
+    }
+
+    @PostMapping(path = "/admin/ProfileProp/editJobProp")
+    public String editJobProp(ProfileProposition profileProposition){
+        profilePropositionService.updateProfilePropAdmin(profileProposition);
+        return "redirect:/admin/viewProfilePropByJobOffer/"+idJobOffer;
+    }
+
+    @GetMapping(path = "/admin/deleteProfileProposition")
+    public String deleteProfileProposition(@RequestParam("id") Integer id){
+        profilePropositionService.deleteProfileProp(id);
+        return "redirect:/admin/viewProfilePropByJobOffer/"+idJobOffer;
+    }
+
 }

@@ -3,6 +3,8 @@ package com.biuropracy.demo.service;
 import com.biuropracy.demo.model.Employer;
 import com.biuropracy.demo.model.User;
 import com.biuropracy.demo.repository.EmployerRepository;
+import com.biuropracy.demo.repository.JobOfferRepository;
+import com.biuropracy.demo.repository.JobPropositionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +19,12 @@ public class EmployerService {
 
     @Autowired
     EmployerRepository employerRepository;
+
+    @Autowired
+    JobPropositionRepository jobPropositionRepository;
+
+    @Autowired
+    JobOfferRepository jobOfferRepository;
 
     public List<Employer> findEmployerByUserId(Integer user) {
         return employerRepository.findByUserIdUser(user);
@@ -87,12 +95,4 @@ public class EmployerService {
         return employer;
     }
 
-    public void deleteEmployerById(Integer id) {
-        Optional<Employer> employerOpt = employerRepository.findById(id);
-        if (employerOpt.isPresent()){
-            employerRepository.deleteById(id);
-        } else {
-            throw new RuntimeException("ID employer nie znalezione.");
-        }
-    }
 }
