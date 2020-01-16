@@ -90,14 +90,10 @@ public class EmployerController {
         User userImg = userService.findUser(id);
         List<User> userList = userService.findUserById(id);
         List<Employer> employerList = employerService.findEmployerByUserId(id);
-        if (employerList.isEmpty()){
-            model.addAttribute("employerList", employerList);
-        } else {
-            model.addAttribute("users", userList);
-            model.addAttribute("employers", employerList);
-            model.addAttribute("employerImg", employerImg);
-            model.addAttribute("userImg", userImg);
-        }
+        model.addAttribute("users", userList);
+        model.addAttribute("employers", employerList);
+        model.addAttribute("employerImg", employerImg);
+        model.addAttribute("userImg", userImg);
         return "/employer/myProfileEmployer";
     }
 
@@ -119,28 +115,6 @@ public class EmployerController {
         List<EmployerUserDTO> employerUserDTOList = employerRepository.getEmployerFiltered(companyName);
         model.addAttribute("employers", employerUserDTOList);
         return "/employer/employerListLoginUser";
-    }
-
-    @GetMapping(path = "/employer/addEmployerInfo")
-    public String addEmployerInfo(Model model){
-        model.addAttribute("employer", new Employer());
-        return "/employer/addEmployerInfo";
-    }
-
-    @PostMapping(path = "/employer/addEmployerInfoPost")
-    public ModelAndView addEmployerInfoPost(@Valid Employer employer, BindingResult bindingResult, ModelMap modelMap){
-        ModelAndView modelAndView = new ModelAndView();
-        if (bindingResult.hasErrors()) {
-            modelAndView.addObject("successMessage", "Popraw błędy w formularzu");
-            modelMap.addAttribute("bindingResult", bindingResult);
-        } else {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            employerService.createEmployer(employer, userService.findUserByEmail(authentication.getName()));
-            modelAndView.addObject("successMessage", "Informacje zostały pomyślnie dodane.");
-        }
-        modelAndView.addObject("jobOffer", new Employer());
-        modelAndView.setViewName("/employer/addEmployerInfo.html");
-        return modelAndView;
     }
 
     @GetMapping(path = "/employer/editEmployerInfo/{id}")
@@ -207,6 +181,36 @@ public class EmployerController {
             modelAndView.addObject("successMessage", "Dane zostały zaktualizowane");
         }
         modelAndView.setViewName("/employer/editEmployerInfoAdmin");
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/admin/registerEmployer")
+    public ModelAndView registerEmployer() {
+        ModelAndView modelAndView = new ModelAndView();
+        User user = new User();
+        Employer employer = new Employer();
+        modelAndView.addObject("user" , user);
+        modelAndView.addObject("employer", employer);
+        modelAndView.setViewName("/employer/registerEmployer.html");
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/employer/registerEmployer")
+    public ModelAndView registerEmployer(@Valid User user, @Valid Employer employer, BindingResult bindingResult, ModelMap modelMap) {
+        ModelAndView modelAndView = new ModelAndView();
+        if (bindingResult.hasErrors()) {
+            modelAndView.addObject("successMessage", "Popraw błędy w formularzu");
+            modelMap.addAttribute("bindingResult", bindingResult);
+        } else if (userService.isUserAlreadyPresent(user)) {
+            modelAndView.addObject("successMessage", "Uzytkownik o podanych danych już istnieje.");
+        } else {
+            userService.saveEmployer(user);
+            employerService.createEmployer(employer, user);
+            modelAndView.addObject("successMessage", "Konto zostało utworzone pomyślnie.");
+        }
+        modelAndView.addObject("user", new User());
+        modelAndView.addObject("employer", new Employer());
+        modelAndView.setViewName("/employer/registerEmployer.html");
         return modelAndView;
     }
 }

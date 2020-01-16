@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Rejestracja</title>
+    <link th:href="@{/webjars/font-awesome/5.11.2/css/all.css}" rel="stylesheet"/>
+    <link th:href="@{/static/css/homeHeaderCSS.css}" rel="stylesheet"/>
+    <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+    <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js} " type="text/javascript"></script>
+    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js} " type="text/javascript"></script>
+</head>
+<body style="background-color: #ededed;">
+<div th:replace="fragments/adminHeader :: headerAdmin"></div>
+<div class="container" style="margin-top: 30px;">
+
+    <form autocomplete="off" action="#" th:action="@{/admin/registerEmployer}" method="post" class="form-signin" role="form">
+        <div class="row">
+            <div class="col-md-4"></div>
+        <div class="col-md-4 " style="margin-top: 40px; background-color: #fff; padding: 20px; border: solid 1px #ddd;">
+            <h4 class="text-center">Tworzenie konta dla pracodawcy
+                <div class="form-group mt-2">
+                    <div class="">
+                        <input type="text" th:value="${user.name}" name="name" placeholder="Imie pracodawcy" required="required" class="form-control text-center" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="">
+                        <input type="text" th:value="${user.lastName}" name="lastName" placeholder="Nazwisko pracodawcy" required="required" class="form-control text-center" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="">
+                        <input type="text" th:value="${user.email}" name="email" placeholder="Email do logowania" required="required" class="form-control text-center" />
+                    </div>
+                </div>
+                    <div class="form-group">
+                        <div class="">
+                            <input type="text" th:value="${user.userPhone}" name="userPhone" placeholder="Numer telefonu" required="required" class="form-control text-center" />
+                        </div>
+                    </div>
+                <div class="form-group">
+                    <div class="">
+                        <input type="password" th:value="${user.password}" name="password" placeholder="Hasło" required="required" class="form-control text-center" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="">
+                        <input type="text" th:value="${employer.companyName}" name="companyName" placeholder="Nazwa firmy" required="required" class="form-control text-center" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="">
+                        <input type="text" th:value="${employer.phoneNumber}" name="phoneNumber" placeholder="Numer telefonu firmy" required="required" class="form-control text-center" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="">
+                        <input type="text" th:value="${employer.companyEmail}" name="companyEmail" placeholder="E-mail firmy" required="required" class="form-control text-center" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="">
+                        <input type="text" th:value="${employer.webLink}" name="webLink" placeholder="Strona www firmy" required="required" class="form-control text-center" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="">
+                        <input type="text" th:value="${employer.address}" name="address" placeholder="Adres firmy" required="required" class="form-control text-center" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="">
+                        <textarea type="text" th:value="${employer.description}" name="description" placeholder="Opis firmy" class="form-control text-center" ></textarea>
+                    </div>
+                </div>
+            <div class="form-group">
+                <div class="">
+                    <button type="submit" class="btn btn-primary btn-block">Załóż konto</button>
+                </div>
+            </div>
+            <span th:utext="${successMessage}"></span>
+            <div class="alert alert-success alert-dismissible col-sm-12"
+                 th:if="${(bindingResult != null && bindingResult.getAllErrors() != null)}">
+                <button type="button" class="close" data-dismiss="alert"
+                        aria-hidden="true">×</button>
+                <ul th:each="data : ${bindingResult.getAllErrors()}">
+                    <li th:text="${ data.getDefaultMessage()}"></li>
+                </ul>
+            </div>
+            </h4>
+        </div>
+            <div class="col-md-4"></div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

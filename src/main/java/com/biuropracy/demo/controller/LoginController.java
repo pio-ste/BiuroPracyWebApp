@@ -1,6 +1,8 @@
 package com.biuropracy.demo.controller;
 
+import com.biuropracy.demo.model.Employer;
 import com.biuropracy.demo.model.User;
+import com.biuropracy.demo.service.EmployerService;
 import com.biuropracy.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -22,6 +24,9 @@ public class LoginController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    EmployerService employerService;
+
     @GetMapping(value = "/login")
     public ModelAndView login() {
         ModelAndView modelAndView = new ModelAndView();
@@ -35,15 +40,6 @@ public class LoginController {
         User user = new User();
         modelAndView.addObject("user" , user);
         modelAndView.setViewName("register.html");
-        return modelAndView;
-    }
-
-    @GetMapping(value = "/registerEmployer")
-    public ModelAndView registerEmployer() {
-        ModelAndView modelAndView = new ModelAndView();
-        User user = new User();
-        modelAndView.addObject("user" , user);
-        modelAndView.setViewName("registerEmployer.html");
         return modelAndView;
     }
 
@@ -61,23 +57,6 @@ public class LoginController {
         }
         modelAndView.addObject("user", new User());
         modelAndView.setViewName("register.html");
-        return modelAndView;
-    }
-
-    @PostMapping(value = "/registerEmployer")
-    public ModelAndView registerEmployer(@Valid User user, BindingResult bindingResult, ModelMap modelMap) {
-        ModelAndView modelAndView = new ModelAndView();
-        if (bindingResult.hasErrors()) {
-            modelAndView.addObject("successMessage", "Popraw błędy w formularzu");
-            modelMap.addAttribute("bindingResult", bindingResult);
-        } else if (userService.isUserAlreadyPresent(user)) {
-            modelAndView.addObject("succesMessage", "Uzytkownik o podanych danych już istnieje.");
-        } else {
-            userService.saveEmployer(user);
-            modelAndView.addObject("successMessage", "Konto zostało utworzone pomyślnie.");
-        }
-        modelAndView.addObject("user", new User());
-        modelAndView.setViewName("registerEmployer.html");
         return modelAndView;
     }
 
