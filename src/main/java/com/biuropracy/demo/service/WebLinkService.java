@@ -19,6 +19,10 @@ public class WebLinkService {
         return webLinkRepository.findByUserIdUser(user);
     }
 
+    public WebLink findByUserId(Integer id) {
+        return webLinkRepository.findWebLinkByUserIdUser(id);
+    }
+
     public WebLink getWebLinkById(Integer id) {
         Optional<WebLink> webLinkOpt = webLinkRepository.findById(id);
 

@@ -19,6 +19,10 @@ public class JobExperienceService {
         return jobExperienceRepository.findByUserIdUser(user);
     }
 
+    public JobExperience findByUserId(Integer id){
+        return jobExperienceRepository.findJobExperienceByUserIdUser(id);
+    }
+
     public JobExperience getJobExperienceById(Integer id) {
         Optional<JobExperience> jobExperienceOpt = jobExperienceRepository.findById(id);
         if (jobExperienceOpt.isPresent()) {

@@ -58,6 +58,10 @@ public class UserProfileController {
     @Autowired
     UserInformationService userInformationService;
     @Autowired
+    ProfilePropositionService profilePropositionService;
+    @Autowired
+    JobPropositionService jobPropositionService;
+    @Autowired
     private UserInformationRepository userInformationRepository;
 
     @GetMapping(path = "/user/myProfile")
@@ -605,5 +609,40 @@ public class UserProfileController {
     public String uploadImageAdmin(@PathVariable("id") Integer id, @RequestParam("imageFile") MultipartFile file) {
         userService.saveProfileImage(id,file);
         return "redirect:/admin/viewUserProfile/" + idCurrentUser;
+    }
+
+    @GetMapping(path = "/admin/deleteUser/{id}")
+    public String deleteUser(@PathVariable("id") Integer id){
+        /*
+        Course course = courseService.findByUserId(id);
+
+        Skill skill = skillService.findByUserId(id);*/
+        /*WebLink webLink = webLinkService.findByUserId(id);
+        Language language = languageService.findByUserId(id);
+        Education education = educationService.findByUserId(id);
+        JobExperience jobExperience = jobExperienceService.findByUserId(id);
+        Organization organization = organizationService.findByUserId(id);
+        JobProposition jobProposition = jobPropositionService.findByUseId(id);
+        ProfileProposition profileProposition = profilePropositionService.findByUserId(id);
+
+
+        languageService.deleteLanguageById(language.getIdLanguage());
+
+        courseService.deleteCourseById(course.getIdCourse());
+
+        skillService.deleteSkillById(skill.getIdSkill());*/
+        //webLinkService.deleteWebLinkById(webLink.getIdWebLink());
+
+        /*educationService.deleteEducation(education.getIdEducation());
+
+
+        jobExperienceService.deleteJobExperienceById(jobExperience.getIdJobExperience());
+        organizationService.deleteOrganizationById(organization.getIdOrganization());
+        jobPropositionService.deleteJobProposition(jobProposition.getIdJobProposition());
+        profilePropositionService.deleteProfileProp(profileProposition.getIdProfileProposition());*/
+        UserInformation userInf = userInformationService.findUserInformationByUserId(id);
+        userInformationService.deleteUserInfoById(userInf.getIdUserInformation());
+        userService.deleteUserById(id);
+        return "redirect:/admin/usersProfiles";
     }
 }

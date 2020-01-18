@@ -19,6 +19,10 @@ public class SkillService {
         return skillRepository.findByUserIdUser(user);
     }
 
+    public Skill findByUserId(Integer id){
+        return skillRepository.findSkillByUserIdUser(id);
+    }
+
     public Skill getSkillById(Integer id) {
         Optional<Skill> skillOpt = skillRepository.findById(id);
         if (skillOpt.isPresent()) {

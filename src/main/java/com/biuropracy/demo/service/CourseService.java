@@ -19,6 +19,10 @@ public class CourseService {
         return courseRepository.findCourseByUser_IdUser(user);
     }
 
+    public Course findByUserId(Integer id){
+        return courseRepository.findByUserIdUser(id);
+    }
+
     public Course getCourseById(Integer id) {
         Optional<Course> courseOpt = courseRepository.findById(id);
         if (courseOpt.isPresent()) {

@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface OrganizationRepository extends JpaRepository<Organization, Integer> {
     List<Organization> findByUserIdUser(Integer user);
+
+    Organization findOrganizationByUserIdUser(Integer id);
 }

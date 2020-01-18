@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface EducationRepository extends JpaRepository<Education, Integer> {
 
-
-
     List<Education> findByUserIdUser(Integer user);
+
+    Education findEducationByUserIdUser(Integer id);
 }

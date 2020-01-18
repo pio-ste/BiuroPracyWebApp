@@ -1,11 +1,6 @@
 package com.biuropracy.demo.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "role")
@@ -18,7 +13,6 @@ public class Role {
 
     @Column(name = "role",nullable = false, unique = true)
     private String role;
-
 
     public Integer getId() {
         return id;
@@ -35,4 +29,5 @@ public class Role {
     public void setRole(String role) {
         this.role = role;
     }
+
 }

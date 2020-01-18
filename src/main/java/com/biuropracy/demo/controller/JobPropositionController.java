@@ -112,25 +112,4 @@ public class JobPropositionController {
         jobPropositionService.deleteJobProposition(id);
         return "redirect:/admin/getAllUserReceivedJProp/"+Userid;
     }
-/*
-    @GetMapping(path = "/admin/getAllUserSendJProp/{id}")
-    public String getAllUserSendJProp(Model model, @PathVariable("id") Optional<Integer> id){
-        Userid = id.get();
-        model.addAttribute("jobProposition", new JobProposition());
-        List<JobPropositionDTO> JobPropDto = jobPropositionRepository.getAllUserSendJProp(id.get());
-        model.addAttribute("jobPropositions", JobPropDto);
-        return "/all/jobProposition/userSendJobPropAdmin";
-    }
-
-    @PostMapping(path = "/admin/getAllUserSendJProp/update")
-    public String updateSendUserJobProp(JobProposition jobProposition){
-        jobPropositionService.updateJobProposition(jobProposition);
-        return "redirect:/admin/getAllUserReceivedJProp/"+Userid;
-    }
-
-    @GetMapping(path = "/admin/sendJobPropDelete")
-    public String userSendJobPropDelete(@RequestParam("id") Integer id){
-        jobPropositionService.deleteJobProposition(id);
-        return "redirect:/admin/getAllUserSendJProp/"+Userid;
-    }*/
 }

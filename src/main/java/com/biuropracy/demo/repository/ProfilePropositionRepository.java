@@ -30,4 +30,5 @@ public interface ProfilePropositionRepository extends JpaRepository<ProfilePropo
     @Query("delete from ProfileProposition p where p.jobOffer.idJobOffer = :id")
     void deleteProfPropByJobOffer(@Param("id") Integer id);
 
+    ProfileProposition findByUserIdUser(Integer id);
 }

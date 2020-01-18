@@ -15,6 +15,10 @@ public class ProfilePropositionService {
     @Autowired
     ProfilePropositionRepository profilePropositionRepository;
 
+    public ProfileProposition findByUserId(Integer id){
+        return profilePropositionRepository.findByUserIdUser(id);
+    }
+
     public ProfileProposition getProfilePropById(Integer id) {
         Optional<ProfileProposition> profilePropOpt = profilePropositionRepository.findById(id);
         if (profilePropOpt.isPresent()){

@@ -19,6 +19,10 @@ public class EducationService {
         return educationRepository.findByUserIdUser(user);
     }
 
+    public Education findByUserId(Integer id){
+        return educationRepository.findEducationByUserIdUser(id);
+    }
+
     public Education getEducationById(Integer id) {
         Optional<Education> educationOpt = educationRepository.findById(id);
         if (educationOpt.isPresent()) {

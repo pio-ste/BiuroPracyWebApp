@@ -10,4 +10,6 @@ import java.util.List;
 public interface SkillRepository extends JpaRepository<Skill, Integer> {
 
     List<Skill> findByUserIdUser(Integer user);
+
+    Skill findSkillByUserIdUser(Integer id);
 }

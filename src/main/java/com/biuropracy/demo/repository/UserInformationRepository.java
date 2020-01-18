@@ -17,4 +17,6 @@ public interface UserInformationRepository extends JpaRepository<UserInformation
     List<UserInformationDTO> getUserAndUserInfoByUserId(@Param("idUser") Integer idUser);
 
     List<UserInformation> findByUserIdUser(Integer user);
+
+    UserInformation findUserInformationByUserIdUser(Integer id);
 }

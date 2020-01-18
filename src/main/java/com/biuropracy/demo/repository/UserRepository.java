@@ -29,6 +29,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
             +"and (u.email = :email or :email is null or :email = '')")
     List<UserInformationDTO> getAllUsersFiltered(@Param("workCity") String workCity, @Param("positionSought") String positionSought, @Param("email") String email);
 
+    @Modifying
+    @Transactional
+    @Query(value = "delete from user_role u where u.id_user.idUser = :id", nativeQuery = true)
+    void deleteUserRoleByUserId(@Param("id") Integer id);
 
     User findByEmail(String email);
 

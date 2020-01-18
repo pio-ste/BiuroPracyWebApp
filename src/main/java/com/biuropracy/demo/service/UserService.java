@@ -4,6 +4,8 @@ import com.biuropracy.demo.model.Role;
 import com.biuropracy.demo.model.User;
 import com.biuropracy.demo.repository.RoleRepository;
 import com.biuropracy.demo.repository.UserRepository;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,9 @@ public class UserService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    private EntityManagerService entityManagerService;
 
 
 
@@ -104,15 +109,21 @@ public class UserService {
         }
     }
 
-
+    public void deleteUserById(Integer id){
+        Optional<User> userInfoOpt = userRepository.findById(id);
+        if (userInfoOpt.isPresent()){
+            SessionFactory sessionFactory = entityManagerService.getSessionFactory();
+            Session session = sessionFactory.openSession();
+            String query = "Delete from user_role where id_user ="+id;
+            session.doWork(connection -> connection.prepareStatement(query).execute());
+            userRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("ID userDetails nie znalezione.");
+        }
+    }
 
     public List<User> findUserById(Integer idUser) {
         return userRepository.findUserByIdUser(idUser);
-    }
-
-
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
     }
 
 }

@@ -10,4 +10,6 @@ import java.util.List;
 public interface WebLinkRepository extends JpaRepository<WebLink, Integer> {
 
     List<WebLink> findByUserIdUser(Integer user);
+
+    WebLink findWebLinkByUserIdUser(Integer id);
 }

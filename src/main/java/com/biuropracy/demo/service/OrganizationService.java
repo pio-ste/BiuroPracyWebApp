@@ -19,6 +19,10 @@ public class OrganizationService {
         return organizationRepository.findByUserIdUser(user);
     }
 
+    public Organization findByUserId(Integer id){
+        return organizationRepository.findOrganizationByUserIdUser(id);
+    }
+
     public Organization getOrganizationById(Integer id) {
         Optional<Organization> organizationOpt = organizationRepository.findById(id);
 

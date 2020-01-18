@@ -10,4 +10,6 @@ import java.util.List;
 public interface JobExperienceRepository extends JpaRepository<JobExperience, Integer> {
 
     List<JobExperience> findByUserIdUser(Integer user);
+
+    JobExperience findJobExperienceByUserIdUser(Integer id);
 }

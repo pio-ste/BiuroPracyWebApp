@@ -16,6 +16,10 @@ public class JobPropositionService {
     @Autowired
     JobPropositionRepository jobPropositionRepository;
 
+    public JobProposition findByUseId(Integer id){
+        return jobPropositionRepository.findByUserIdUser(id);
+    }
+
     public JobProposition createJobProposition(JobProposition jobProposition, User user, Employer employer){
         jobProposition.setUser(user);
         jobProposition.setEmployer(employer);

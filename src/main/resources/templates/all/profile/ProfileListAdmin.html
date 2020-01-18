@@ -11,7 +11,7 @@
 <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js} " type="text/javascript"></script>
 </head>
 <body>
-<div th:replace="fragments/loggedInHeader :: headerLoggedIn"></div>
+<div th:replace="fragments/adminHeader :: headerAdmin"></div>
 <div th:switch="${users}" class="container">
 
     <form action="/admin/usersProfiles" class="my-3" >
@@ -58,7 +58,9 @@
                 <b>Kategoria poszukiwanej pracy: </b>
                 <th th:text="${user.positionSought}"></th></br>
                 <a th:href="@{/admin/viewUserProfile/{idUser}(idUser=${user.idUser})}"
-                   class="btn btn-outline-success my-2 mx-2">Zobacz profil</a>
+                   class="btn btn-outline-success my-2 mx-2">Zobacz profil</a> </br>
+                <a th:href="@{/admin/deleteUser/{idUser}(idUser=${user.idUser})}"
+                   class="btn btn-outline-danger my-2 mx-2">Usuń</a>
             </div>
             <div class="col-4 mb-3">
                 <img th:src="@{'/all/' + ${user.idUser} + '/displayImage'}" onerror="if (this.src != '/static/img/profile.jpg') this.src = '/static/img/profile.jpg';" width="200" height="200" class="mt-3">

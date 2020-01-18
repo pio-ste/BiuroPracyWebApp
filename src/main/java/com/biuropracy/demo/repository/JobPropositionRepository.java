@@ -27,4 +27,5 @@ public interface JobPropositionRepository extends JpaRepository<JobProposition, 
             + "and (j.decision = :decision or :decision is null or :decision = '')")
     List<JobPropositionDTO> getAllJObPropEmployer(@Param("idEmployer") Integer idEmployer, @Param("decision") String decision);
 
+    JobProposition findByUserIdUser(Integer id);
 }

@@ -19,6 +19,10 @@ public class LanguageService {
         return languageRepository.findByUserIdUser(user);
     }
 
+    public Language findByUserId(Integer id){
+        return languageRepository.findLanguageByUserIdUser(id);
+    }
+
     public Language getLanguageById(Integer id) {
         Optional<Language> languageOpt = languageRepository.findById(id);
 

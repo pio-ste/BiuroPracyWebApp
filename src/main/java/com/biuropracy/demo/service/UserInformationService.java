@@ -3,6 +3,8 @@ package com.biuropracy.demo.service;
 import com.biuropracy.demo.model.User;
 import com.biuropracy.demo.model.UserInformation;
 import com.biuropracy.demo.repository.UserInformationRepository;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +16,15 @@ public class UserInformationService {
 
     @Autowired
     UserInformationRepository userInformationRepository;
+    @Autowired
+    private EntityManagerService entityManagerService;
 
     public List<UserInformation> findUserInfoByUserId(Integer user){
         return userInformationRepository.findByUserIdUser(user);
+    }
+
+    public UserInformation findUserInformationByUserId(Integer id) {
+        return userInformationRepository.findUserInformationByUserIdUser(id);
     }
 
     public UserInformation getUserInfoById(Integer id){
@@ -57,7 +65,11 @@ public class UserInformationService {
     public void deleteUserInfoById(Integer id){
         Optional<UserInformation> userInfoOpt = userInformationRepository.findById(id);
         if (userInfoOpt.isPresent()){
-            userInformationRepository.deleteById(id);
+            SessionFactory sessionFactory = entityManagerService.getSessionFactory();
+            Session session = sessionFactory.openSession();
+            String query = "Delete from user_information where id_user_information ="+id;
+            session.doWork(connection -> connection.prepareStatement(query).execute());
+            //userInformationRepository.deleteById(id);
         } else {
             throw new RuntimeException("ID userDetails nie znalezione.");
         }
