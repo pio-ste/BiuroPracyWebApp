@@ -5,6 +5,8 @@ import com.biuropracy.demo.model.User;
 import com.biuropracy.demo.repository.EmployerRepository;
 import com.biuropracy.demo.repository.JobOfferRepository;
 import com.biuropracy.demo.repository.JobPropositionRepository;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +27,8 @@ public class EmployerService {
 
     @Autowired
     JobOfferRepository jobOfferRepository;
+    @Autowired
+    private EntityManagerService entityManagerService;
 
     public List<Employer> findEmployerByUserId(Integer user) {
         return employerRepository.findByUserIdUser(user);
@@ -93,6 +97,19 @@ public class EmployerService {
         employer.setUser(user);
         employer = employerRepository.save(employer);
         return employer;
+    }
+
+    public void deleteEmployerById(Integer id) throws RuntimeException{
+        Optional<Employer> employerOpt = employerRepository.findById(id);
+        if (employerOpt.isPresent()){
+            SessionFactory sessionFactory = entityManagerService.getSessionFactory();
+            Session session = sessionFactory.openSession();
+            String query = "Delete from employer where id_employer ="+id;
+            session.doWork(connection -> connection.prepareStatement(query).execute());
+            session.close();
+        } else {
+            throw new RuntimeException("ID userDetails nie znalezione.");
+        }
     }
 
 }

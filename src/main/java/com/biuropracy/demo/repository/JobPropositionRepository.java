@@ -28,4 +28,6 @@ public interface JobPropositionRepository extends JpaRepository<JobProposition, 
     List<JobPropositionDTO> getAllJObPropEmployer(@Param("idEmployer") Integer idEmployer, @Param("decision") String decision);
 
     JobProposition findByUserIdUser(Integer id);
+
+    JobProposition findByEmployerIdEmployer(Integer id);
 }

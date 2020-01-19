@@ -4,6 +4,8 @@ import com.biuropracy.demo.model.Employer;
 import com.biuropracy.demo.model.JobOffer;
 import com.biuropracy.demo.repository.JobOfferRepository;
 import com.biuropracy.demo.repository.ProfilePropositionRepository;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +21,15 @@ public class JobOfferService {
     @Autowired
     ProfilePropositionRepository profilePropositionRepository;
 
+    @Autowired
+    private EntityManagerService entityManagerService;
+
     public List<JobOffer> getAllJobOffers(){
         return jobOfferRepository.findAll();
+    }
+
+    public JobOffer findByEmployerId(Integer id){
+        return jobOfferRepository.findByEmployerIdEmployer(id);
     }
 
     public JobOffer getJobOfferById(Integer id) {
@@ -63,11 +72,15 @@ public class JobOfferService {
         return jobOffer;
     }
 
-    public void deleteJobOfferById(Integer id) {
+    public void deleteJobOfferById(Integer id) throws RuntimeException{
         Optional<JobOffer> offer = jobOfferRepository.findById(id);
         if (offer.isPresent()) {
             profilePropositionRepository.deleteProfPropByJobOffer(id);
-            jobOfferRepository.deleteById(id);
+            SessionFactory sessionFactory = entityManagerService.getSessionFactory();
+            Session session = sessionFactory.openSession();
+            String query = "Delete from job_offer where idjob_offer ="+id;
+            session.doWork(connection -> connection.prepareStatement(query).execute());
+            session.close();
         } else {
             throw new RuntimeException("Brak ogłoszenia o tym id");
         }

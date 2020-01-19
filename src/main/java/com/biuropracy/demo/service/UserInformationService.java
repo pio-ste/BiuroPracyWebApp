@@ -62,14 +62,14 @@ public class UserInformationService {
         return userInformation;
     }
 
-    public void deleteUserInfoById(Integer id){
+    public void deleteUserInfoById(Integer id) throws RuntimeException{
         Optional<UserInformation> userInfoOpt = userInformationRepository.findById(id);
         if (userInfoOpt.isPresent()){
             SessionFactory sessionFactory = entityManagerService.getSessionFactory();
             Session session = sessionFactory.openSession();
             String query = "Delete from user_information where id_user_information ="+id;
             session.doWork(connection -> connection.prepareStatement(query).execute());
-            //userInformationRepository.deleteById(id);
+            session.close();
         } else {
             throw new RuntimeException("ID userDetails nie znalezione.");
         }

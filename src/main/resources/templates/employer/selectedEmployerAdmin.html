@@ -60,7 +60,9 @@
                     <a th:href="@{/admin/employerProfile/editProfile/{idUser}(idUser=${employer.idUser})}"
                        class="btn btn-warning">
                         Edytuj dane konta<i class="fas fa-user-edit"></i>
-                    </a>
+                    </a> </br>
+                    <a th:href="@{/admin/deleteEmployer/{idUser}(idUser=${employer.idUser})}"
+                       class="btn btn-outline-danger my-2"> Usuń </a>
                 </div>
                 <div class="col-md-3">
                     <img th:src="@{'/all/' + ${employer.idUser} + '/displayImage'}" onerror="if (this.src != '/static/img/profile.jpg') this.src = '/static/img/profile.jpg';" width="200" height="200" class="img-thumbnail">

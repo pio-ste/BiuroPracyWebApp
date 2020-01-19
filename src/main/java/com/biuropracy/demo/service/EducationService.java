@@ -3,6 +3,8 @@ package com.biuropracy.demo.service;
 import com.biuropracy.demo.model.Education;
 import com.biuropracy.demo.model.User;
 import com.biuropracy.demo.repository.EducationRepository;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,8 @@ public class EducationService {
 
     @Autowired
     EducationRepository educationRepository;
+    @Autowired
+    private EntityManagerService entityManagerService;
 
     public List<Education> findEducationByUserId(Integer user) {
         return educationRepository.findByUserIdUser(user);
@@ -60,10 +64,14 @@ public class EducationService {
         return education;
     }
 
-    public void deleteEducation(Integer id) {
+    public void deleteEducation(Integer id) throws RuntimeException{
         Optional<Education> educationOpt = educationRepository.findById(id);
         if (educationOpt.isPresent()) {
-            educationRepository.deleteById(id);
+            SessionFactory sessionFactory = entityManagerService.getSessionFactory();
+            Session session = sessionFactory.openSession();
+            String query = "Delete from education where id_education ="+id;
+            session.doWork(connection -> connection.prepareStatement(query).execute());
+            session.close();
         } else {
             throw new RuntimeException("Id education nie znalezione");
         }

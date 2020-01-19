@@ -2,10 +2,11 @@ package com.biuropracy.demo.controller;
 
 import com.biuropracy.demo.DTO.EmployerUserDTO;
 import com.biuropracy.demo.model.Employer;
+import com.biuropracy.demo.model.JobOffer;
+import com.biuropracy.demo.model.JobProposition;
 import com.biuropracy.demo.model.User;
 import com.biuropracy.demo.repository.EmployerRepository;
-import com.biuropracy.demo.service.EmployerService;
-import com.biuropracy.demo.service.UserService;
+import com.biuropracy.demo.service.*;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -41,7 +42,16 @@ public class EmployerController {
     EmployerService employerService;
 
     @Autowired
+    JobOfferService jobOfferService;
+
+    @Autowired
+    JobPropositionService jobPropositionService;
+
+    @Autowired
     EmployerRepository employerRepository;
+
+    @Autowired
+    private EntityManagerService entityManagerService;
 
     @GetMapping(path = "/all/employersList")
     public String employersListAll(Model model, String companyName){
@@ -195,7 +205,7 @@ public class EmployerController {
         return modelAndView;
     }
 
-    @PostMapping(value = "/employer/registerEmployer")
+    @PostMapping(value = "/admin/registerEmployer")
     public ModelAndView registerEmployer(@Valid User user, @Valid Employer employer, BindingResult bindingResult, ModelMap modelMap) {
         ModelAndView modelAndView = new ModelAndView();
         if (bindingResult.hasErrors()) {
@@ -212,5 +222,20 @@ public class EmployerController {
         modelAndView.addObject("employer", new Employer());
         modelAndView.setViewName("/employer/registerEmployer.html");
         return modelAndView;
+    }
+
+    @GetMapping(path = "/admin/deleteEmployer/{id}")
+    public String deleteEmployer(@PathVariable("id") Integer id){
+        Employer employer = employerService.findEmployerByUser_id(id);
+        JobOffer jobOffer = jobOfferService.findByEmployerId(employer.getIdEmployer());
+        JobProposition jobProp = jobPropositionService.findByEmployerId(employer.getIdEmployer());
+        if (jobOffer != null)
+            jobOfferService.deleteJobOfferById(jobOffer.getIdJobOffer());
+        if (jobProp != null)
+            jobPropositionService.deleteJobProposition(jobProp.getIdJobProposition());
+
+        employerService.deleteEmployerById(employer.getIdEmployer());
+        userService.deleteUserById(id);
+        return "redirect:/admin/employersList";
     }
 }

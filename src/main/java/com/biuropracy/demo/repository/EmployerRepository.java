@@ -2,6 +2,7 @@ package com.biuropracy.demo.repository;
 
 import com.biuropracy.demo.DTO.EmployerUserDTO;
 import com.biuropracy.demo.model.Employer;
+import com.biuropracy.demo.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,6 +17,7 @@ public interface EmployerRepository extends JpaRepository<Employer, Integer> {
     List<Employer> findByUserIdUser(Integer user);
 
     Employer findEmployerByUser_IdUser(Integer id);
+
 
     @Query("select new com.biuropracy.demo.DTO.EmployerUserDTO(u.idUser, u.name, u.lastName, u.email, e.idEmployer, e.companyName, e.phoneNumber, e.companyEmail, e.webLink, e.address, e.description, u.userPhone) from User u, Employer e "
             + "where u.idUser = e.user and e.idEmployer = :idEmployer")

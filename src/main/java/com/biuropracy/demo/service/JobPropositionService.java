@@ -4,6 +4,8 @@ import com.biuropracy.demo.model.Employer;
 import com.biuropracy.demo.model.JobProposition;
 import com.biuropracy.demo.model.User;
 import com.biuropracy.demo.repository.JobPropositionRepository;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +17,15 @@ public class JobPropositionService {
 
     @Autowired
     JobPropositionRepository jobPropositionRepository;
+    @Autowired
+    private EntityManagerService entityManagerService;
 
     public JobProposition findByUseId(Integer id){
         return jobPropositionRepository.findByUserIdUser(id);
+    }
+
+    public JobProposition findByEmployerId(Integer id){
+        return jobPropositionRepository.findByEmployerIdEmployer(id);
     }
 
     public JobProposition createJobProposition(JobProposition jobProposition, User user, Employer employer){
@@ -62,10 +70,14 @@ public class JobPropositionService {
         }
     }
 
-    public void deleteJobProposition(Integer id){
+    public void deleteJobProposition(Integer id) throws RuntimeException{
         Optional<JobProposition> jobPropOpt = jobPropositionRepository.findById(id);
         if(jobPropOpt.isPresent()){
-            jobPropositionRepository.deleteById(id);
+            SessionFactory sessionFactory = entityManagerService.getSessionFactory();
+            Session session = sessionFactory.openSession();
+            String query = "Delete from job_proposition where idjob_proposition ="+id;
+            session.doWork(connection -> connection.prepareStatement(query).execute());
+            session.close();
         } else {
             throw new RuntimeException("Brak jobProposition o tym id");
         }

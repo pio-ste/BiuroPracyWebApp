@@ -613,35 +613,36 @@ public class UserProfileController {
 
     @GetMapping(path = "/admin/deleteUser/{id}")
     public String deleteUser(@PathVariable("id") Integer id){
-        /*
+        UserInformation userInf = userInformationService.findUserInformationByUserId(id);
         Course course = courseService.findByUserId(id);
-
-        Skill skill = skillService.findByUserId(id);*/
-        /*WebLink webLink = webLinkService.findByUserId(id);
+        Skill skill = skillService.findByUserId(id);
+        WebLink webLink = webLinkService.findByUserId(id);
         Language language = languageService.findByUserId(id);
         Education education = educationService.findByUserId(id);
         JobExperience jobExperience = jobExperienceService.findByUserId(id);
         Organization organization = organizationService.findByUserId(id);
         JobProposition jobProposition = jobPropositionService.findByUseId(id);
         ProfileProposition profileProposition = profilePropositionService.findByUserId(id);
-
-
-        languageService.deleteLanguageById(language.getIdLanguage());
-
-        courseService.deleteCourseById(course.getIdCourse());
-
-        skillService.deleteSkillById(skill.getIdSkill());*/
-        //webLinkService.deleteWebLinkById(webLink.getIdWebLink());
-
-        /*educationService.deleteEducation(education.getIdEducation());
-
-
-        jobExperienceService.deleteJobExperienceById(jobExperience.getIdJobExperience());
-        organizationService.deleteOrganizationById(organization.getIdOrganization());
-        jobPropositionService.deleteJobProposition(jobProposition.getIdJobProposition());
-        profilePropositionService.deleteProfileProp(profileProposition.getIdProfileProposition());*/
-        UserInformation userInf = userInformationService.findUserInformationByUserId(id);
-        userInformationService.deleteUserInfoById(userInf.getIdUserInformation());
+        if (userInf != null)
+            userInformationService.deleteUserInfoById(userInf.getIdUserInformation());
+        if (course != null)
+            courseService.deleteCourseById(course.getIdCourse());
+        if(skill != null)
+            skillService.deleteSkillById(skill.getIdSkill());
+        if (webLink != null)
+            webLinkService.deleteWebLinkById(webLink.getIdWebLink());
+        if (language != null)
+            languageService.deleteLanguageById(language.getIdLanguage());
+        if (education != null)
+            educationService.deleteEducation(education.getIdEducation());
+        if (jobExperience != null)
+            jobExperienceService.deleteJobExperienceById(jobExperience.getIdJobExperience());
+        if (organization != null)
+            organizationService.deleteOrganizationById(organization.getIdOrganization());
+        if (jobProposition != null)
+            jobPropositionService.deleteJobProposition(jobProposition.getIdJobProposition());
+        if (profileProposition != null)
+            profilePropositionService.deleteProfileProp(profileProposition.getIdProfileProposition());
         userService.deleteUserById(id);
         return "redirect:/admin/usersProfiles";
     }

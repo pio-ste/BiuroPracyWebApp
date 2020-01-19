@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityManager;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -28,7 +29,7 @@ public class UserService {
     RoleRepository roleRepository;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private EntityManagerService entityManagerService;
@@ -96,10 +97,6 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
-    public List<User> findUserByIdUser(User user){
-        return userRepository.findByIdUser(user);
-    }
-
     public User findUser(Integer id) {
         Optional<User> userOpt = userRepository.findById(id);
         if (userOpt.isPresent()){
@@ -109,14 +106,16 @@ public class UserService {
         }
     }
 
-    public void deleteUserById(Integer id){
+    public void deleteUserById(Integer id) throws RuntimeException{
         Optional<User> userInfoOpt = userRepository.findById(id);
         if (userInfoOpt.isPresent()){
             SessionFactory sessionFactory = entityManagerService.getSessionFactory();
             Session session = sessionFactory.openSession();
             String query = "Delete from user_role where id_user ="+id;
             session.doWork(connection -> connection.prepareStatement(query).execute());
-            userRepository.deleteById(id);
+            String queryUser = "Delete from user where id_user ="+id;
+            session.doWork(connection -> connection.prepareStatement(queryUser).execute());
+            session.close();
         } else {
             throw new RuntimeException("ID userDetails nie znalezione.");
         }

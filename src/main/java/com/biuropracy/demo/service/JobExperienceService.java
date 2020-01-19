@@ -3,6 +3,8 @@ package com.biuropracy.demo.service;
 import com.biuropracy.demo.model.JobExperience;
 import com.biuropracy.demo.model.User;
 import com.biuropracy.demo.repository.JobExperienceRepository;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,8 @@ public class JobExperienceService {
 
     @Autowired
     JobExperienceRepository jobExperienceRepository;
+    @Autowired
+    private EntityManagerService entityManagerService;
 
     public List<JobExperience> findJobExperienceByUserId(Integer user) {
         return jobExperienceRepository.findByUserIdUser(user);
@@ -60,10 +64,14 @@ public class JobExperienceService {
         return jobExperience;
     }
 
-    public void deleteJobExperienceById(Integer id) {
+    public void deleteJobExperienceById(Integer id) throws RuntimeException{
         Optional<JobExperience> jobExperienceOpt = jobExperienceRepository.findById(id);
         if (jobExperienceOpt.isPresent()) {
-            jobExperienceRepository.deleteById(id);
+            SessionFactory sessionFactory = entityManagerService.getSessionFactory();
+            Session session = sessionFactory.openSession();
+            String query = "Delete from job_experience where id_job_experience ="+id;
+            session.doWork(connection -> connection.prepareStatement(query).execute());
+            session.close();
         } else {
             throw new RuntimeException("Brak jobExperience o tym id");
         }

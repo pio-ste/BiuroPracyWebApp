@@ -3,6 +3,8 @@ package com.biuropracy.demo.service;
 import com.biuropracy.demo.model.Skill;
 import com.biuropracy.demo.model.User;
 import com.biuropracy.demo.repository.SkillRepository;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,8 @@ public class SkillService {
 
     @Autowired
     SkillRepository skillRepository;
+    @Autowired
+    private EntityManagerService entityManagerService;
 
     public List<Skill> findSkillByUserId(Integer user) {
         return skillRepository.findByUserIdUser(user);
@@ -51,10 +55,14 @@ public class SkillService {
         return skill;
     }
 
-    public void deleteSkillById(Integer id) {
+    public void deleteSkillById(Integer id) throws RuntimeException{
         Optional<Skill> skillOpt = skillRepository.findById(id);
         if (skillOpt.isPresent()) {
-            skillRepository.deleteById(id);
+            SessionFactory sessionFactory = entityManagerService.getSessionFactory();
+            Session session = sessionFactory.openSession();
+            String query = "Delete from skill where id_skill ="+id;
+            session.doWork(connection -> connection.prepareStatement(query).execute());
+            session.close();
         } else {
             throw new RuntimeException("Brak skill o tym id");
         }

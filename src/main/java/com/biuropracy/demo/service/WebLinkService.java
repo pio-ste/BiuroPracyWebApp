@@ -3,6 +3,8 @@ package com.biuropracy.demo.service;
 import com.biuropracy.demo.model.User;
 import com.biuropracy.demo.model.WebLink;
 import com.biuropracy.demo.repository.WebLinkRepository;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,8 @@ public class WebLinkService {
 
     @Autowired
     WebLinkRepository webLinkRepository;
+    @Autowired
+    private EntityManagerService entityManagerService;
 
     public List<WebLink> findWebLinkByUserId(Integer user) {
         return webLinkRepository.findByUserIdUser(user);
@@ -55,10 +59,14 @@ public class WebLinkService {
         return webLink;
     }
 
-    public void deleteWebLinkById(Integer id) {
+    public void deleteWebLinkById(Integer id) throws RuntimeException{
         Optional<WebLink> webLinkOpt = webLinkRepository.findById(id);
         if (webLinkOpt.isPresent()) {
-            webLinkRepository.deleteById(id);
+            SessionFactory sessionFactory = entityManagerService.getSessionFactory();
+            Session session = sessionFactory.openSession();
+            String query = "Delete from web_link where id_web_link ="+id;
+            session.doWork(connection -> connection.prepareStatement(query).execute());
+            session.close();
         } else {
             throw new RuntimeException("Brak linka o tym id");
         }
