@@ -27,7 +27,7 @@
         <input type="submit" value="Szukaj" class="btn btn-primary mt-1">
     </form>
 
-    <h2 th:case="null">No record found !!</h2>
+    <h2 th:case="null">Brak danych</h2>
     <div th:case="*">
         <div class="row" th:each="jobOffer : ${jobOffers}">
             <div class="col-9 mt-2">
@@ -38,7 +38,9 @@
                 <b>Kategoria: </b>
                 <th th:text="${jobOffer.category}"></th></br>
                 <b>Miesięczne wynagrodzenie: </b>
-                <th th:text="${jobOffer.monthlyPay}"></th> <th th:text="${jobOffer.categorySalary}"></th></br>
+                <th th:text="${jobOffer.monthlyPay}"></th> <th th:text="${jobOffer.categorySalary}"></th>
+                <a th:href="@{/user/calculator/{salary}(salary=${jobOffer.monthlyPay})}"
+                   class="btn btn-outline-success"> Zobacz wyliczoną kwotę netto</a></br>
                 <b>Nazwa firmy: </b>
                 <th th:text="${jobOffer.companyName}"></th></br>
             </div>

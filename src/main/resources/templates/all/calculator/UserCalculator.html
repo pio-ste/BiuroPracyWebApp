@@ -19,7 +19,7 @@
         </div>
         <div class="col-md-12">
             <a>Wpisz miesięczne wynagrodznie:</a>
-            <input id="input" type="number" max="85000"/>
+            <input id="input" th:value="*{salary}" type="number" max="85000"/>
             <button type="button" onclick="uPraceFromBrutto(); uZlecenieFromBrutto(); uDzieloFromBrutto()"
                     class="btn btn-primary ml-2" data-toggle="modal" data-target="#brutto">
                 <i>Wylicz kwotę netto</i>

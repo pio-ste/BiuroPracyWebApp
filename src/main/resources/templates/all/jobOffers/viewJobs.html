@@ -35,7 +35,9 @@
                                     <b>Kategoria: </b>
                                     <th th:text="${jobOffer.category}"></th></br>
                                     <b>Miesięczne wynagrodzenie: </b>
-                                    <th th:text="${jobOffer.monthlyPay}"></th> <th th:text="${jobOffer.categorySalary}"></th></br>
+                                    <th th:text="${jobOffer.monthlyPay}"></th> <th th:text="${jobOffer.categorySalary}"></th>
+                                    <a th:href="@{/user/calculator/{salary}(salary=${jobOffer.monthlyPay})}"
+                                       class="btn btn-outline-success"> Zobacz wyliczoną kwotę netto</a></br>
                                     <b>Nazwa firmy: </b>
                                     <th th:text="${jobOffer.companyName}"></th></br>
                                 </div>

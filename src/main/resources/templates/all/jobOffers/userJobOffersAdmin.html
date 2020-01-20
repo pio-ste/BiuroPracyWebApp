@@ -34,7 +34,9 @@
             <dt class="col-sm-3 mt-3">Wymiar pracy: </dt>
             <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobOffer.workingTime}" /></dt>
             <dt class="col-sm-3 mt-3">Miesięczne wynagrodzenie: </dt>
-            <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobOffer.monthlyPay}" /></dt>
+            <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobOffer.monthlyPay}" />
+                <th th:text="${jobOffer.categorySalary}" /> <a th:href="@{/admin/calculator/{salary}(salary=${jobOffer.monthlyPay})}"
+                                                               class="btn btn-outline-success"> Zobacz wyliczoną kwotę netto</a></dt>
             <dt class="col-sm-3 mt-3">Poziom stanowiska: </dt>
             <dt class="col-sm-9 mt-3 font-weight-normal"><th th:text="${jobOffer.positionLevel}" /></dt>
             <dt class="col-sm-3 mt-3">Email ogłoszeniodawcy: </dt>
