@@ -114,24 +114,15 @@ public class UserProfileController {
     }
 
     @PostMapping(path = "/user/addUserInfoPost")
-    public ModelAndView addUserInfoPost(@Valid UserInformation userInformation, BindingResult bindingResult, ModelMap modelMap) {
-        ModelAndView modelAndView = new ModelAndView();
-        if (bindingResult.hasErrors()) {
-            modelAndView.addObject("successMessage", "Popraw błędy w formularzu");
-            modelMap.addAttribute("bindingResult", bindingResult);
-        } else {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            userInformationService.createUserInfo(userInformation, userService.findUserByEmail(authentication.getName()));
-            modelAndView.addObject("successMessage", "Informacje zostały pomyślnie dodane.");
-        }
-        modelAndView.addObject("userInformation", new UserInformation());
-        modelAndView.setViewName("/user/addUserInfo");
-        return modelAndView;
+    public String addUserInfoPost(@Valid UserInformation userInformation) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        userInformationService.createUserInfo(userInformation, userService.findUserByEmail(authentication.getName()));
+        return "redirect:/user/myProfile";
     }
 
     @GetMapping(path = "/user/editUserInfo/{id}")
-    public String editUserInfo(Model model, @PathVariable("id") Optional<Integer> id){
-        UserInformation userInformation = userInformationService.getUserInfoById(id.get());
+    public String editUserInfo(Model model, @PathVariable("id") Integer id){
+        UserInformation userInformation = userInformationService.getUserInfoById(id);
         model.addAttribute("userInformation", userInformation);
         return "/user/editUserInfo";
     }
@@ -365,16 +356,16 @@ public class UserProfileController {
     }
 
     @GetMapping(path = {"/employer/viewSelectedProfile", "/employer/viewSelectedProfile/{id}"})
-    public String viewSelectedProfile(Model model,@PathVariable("id") Optional<Integer> id){
+    public String viewSelectedProfile(Model model,@PathVariable("id") Integer id){
         model.addAttribute("jobProposition", new JobProposition());
-        List<UserInformationDTO> UserInfoDTOList = userInformationRepository.getUserAndUserInfoByUserId(id.get());
-        List<Course> CourseList = courseService.findCourseByUserId(id.get());
-        List<Education> EducationList = educationService.findEducationByUserId(id.get());
-        List<JobExperience> JobExpList = jobExperienceService.findJobExperienceByUserId(id.get());
-        List<Language> LangList = languageService.findLanguageByUserId(id.get());
-        List<Organization> OrganizationList = organizationService.findOrganizationByUserId(id.get());
-        List<Skill> SkillList = skillService.findSkillByUserId(id.get());
-        List<WebLink> WebLinkList = webLinkService.findWebLinkByUserId(id.get());
+        List<UserInformationDTO> UserInfoDTOList = userInformationRepository.getUserAndUserInfoByUserId(id);
+        List<Course> CourseList = courseService.findCourseByUserId(id);
+        List<Education> EducationList = educationService.findEducationByUserId(id);
+        List<JobExperience> JobExpList = jobExperienceService.findJobExperienceByUserId(id);
+        List<Language> LangList = languageService.findLanguageByUserId(id);
+        List<Organization> OrganizationList = organizationService.findOrganizationByUserId(id);
+        List<Skill> SkillList = skillService.findSkillByUserId(id);
+        List<WebLink> WebLinkList = webLinkService.findWebLinkByUserId(id);
         model.addAttribute("userInfoDTOs", UserInfoDTOList);
         model.addAttribute("courses", CourseList);
         model.addAttribute("educations", EducationList );

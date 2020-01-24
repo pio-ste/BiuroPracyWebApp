@@ -50,7 +50,7 @@ public class LoginController {
             modelAndView.addObject("successMessage", "Popraw błędy w formularzu");
             modelMap.addAttribute("bindingResult", bindingResult);
         } else if (userService.isUserAlreadyPresent(user)) {
-            modelAndView.addObject("succesMessage", "Uzytkownik o podanych danych już istnieje.");
+            modelAndView.addObject("successMessage", "Uzytkownik o podanych danych już istnieje.");
         } else {
             userService.saveUser(user);
             modelAndView.addObject("successMessage", "Konto zostało utworzone pomyślnie.");
