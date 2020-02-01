@@ -18,7 +18,9 @@ import java.util.List;
 public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
     @Override
-    protected void handle(HttpServletRequest httpServletRequest , HttpServletResponse httpServletResponse, Authentication authentication) throws IOException {
+    protected void handle(HttpServletRequest httpServletRequest,
+                          HttpServletResponse httpServletResponse,
+                          Authentication authentication) throws IOException {
 
         String targetUrl = determineTargetUrl(authentication);
 

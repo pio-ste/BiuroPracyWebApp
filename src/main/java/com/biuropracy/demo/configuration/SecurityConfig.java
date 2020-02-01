@@ -1,7 +1,6 @@
 package com.biuropracy.demo.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,30 +20,33 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    private CustomLoginSuccessHandler sucessHandler;
+    private CustomLoginSuccessHandler customLoginSuccessHandler;
 
     @Autowired
     private DataSource dataSource;
 
-    private final String userQuery = "select email,password, '1' from user where email=? and status='ZWERYFIKOWANY'";
+    private final String userQuery = "select email,password, '1' from user " +
+            "where email=? and status='ZWERYFIKOWANY'";
 
-    private final String roleQuery = "select u.email, r.role from user u inner join user_role ur on(u.id_user=ur.id_user) inner join role r on(ur.id_role=r.id_role) where u.email=?";
+    private final String roleQuery = "select u.email, r.role from user u inner join user_role ur" +
+            " on(u.id_user=ur.id_user) inner join role r on(ur.id_role=r.id_role) where u.email=?";
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication().usersByUsernameQuery(userQuery).authoritiesByUsernameQuery(roleQuery)
-                .dataSource(dataSource).passwordEncoder(bCryptPasswordEncoder);
+        auth.jdbcAuthentication()
+                .usersByUsernameQuery(userQuery)
+                .authoritiesByUsernameQuery(roleQuery)
+                .dataSource(dataSource)
+                .passwordEncoder(bCryptPasswordEncoder);
     }
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-
         httpSecurity.authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/all/**").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/register").permitAll()
-                .antMatchers("/registerEmployer").permitAll()
                 .antMatchers("/user/**").hasAuthority("USER")
                 .antMatchers("/employer/**").hasAuthority("EMPLOYER")
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
@@ -53,7 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable().formLogin()
                 .loginPage("/login")
                 .failureUrl("/login?error=true")
-                .successHandler(sucessHandler)
+                .successHandler(customLoginSuccessHandler)
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .and()
