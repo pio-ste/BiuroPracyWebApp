@@ -27,15 +27,6 @@ public class JobExperienceService {
         return jobExperienceRepository.findJobExperienceByUserIdUser(id);
     }
 
-    public JobExperience getJobExperienceById(Integer id) {
-        Optional<JobExperience> jobExperienceOpt = jobExperienceRepository.findById(id);
-        if (jobExperienceOpt.isPresent()) {
-            return jobExperienceOpt.get();
-        } else {
-            throw new RuntimeException("Id jobExperience nie znalezione");
-        }
-    }
-
     public JobExperience updateJobExperience(JobExperience jobExperience) {
         Optional<JobExperience> jobExperienceOpt = jobExperienceRepository.findById(jobExperience.getIdJobExperience());
         if (jobExperienceOpt.isPresent()) {

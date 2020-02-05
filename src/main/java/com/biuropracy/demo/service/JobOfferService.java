@@ -24,10 +24,6 @@ public class JobOfferService {
     @Autowired
     private EntityManagerService entityManagerService;
 
-    public List<JobOffer> getAllJobOffers(){
-        return jobOfferRepository.findAll();
-    }
-
     public JobOffer findByEmployerId(Integer id){
         return jobOfferRepository.findByEmployerIdEmployer(id);
     }

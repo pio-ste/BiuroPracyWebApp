@@ -27,15 +27,6 @@ public class CourseService {
         return courseRepository.findByUserIdUser(id);
     }
 
-    public Course getCourseById(Integer id) {
-        Optional<Course> courseOpt = courseRepository.findById(id);
-        if (courseOpt.isPresent()) {
-            return courseOpt.get();
-        } else {
-            throw new RuntimeException("ID kursu nie znalezione.");
-        }
-    }
-
     public Course updateCourse(Course course) {
         Optional<Course> courseOpt = courseRepository.findById(course.getIdCourse());
         if (courseOpt.isPresent()) {

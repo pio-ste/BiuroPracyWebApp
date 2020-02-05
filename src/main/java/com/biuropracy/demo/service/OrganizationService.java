@@ -28,16 +28,6 @@ public class OrganizationService {
         return organizationRepository.findOrganizationByUserIdUser(id);
     }
 
-    public Organization getOrganizationById(Integer id) {
-        Optional<Organization> organizationOpt = organizationRepository.findById(id);
-
-        if (organizationOpt.isPresent()) {
-            return organizationOpt.get();
-        } else {
-            throw new RuntimeException("Id organization nie znalezione");
-        }
-    }
-
     public Organization updateOrganization(Organization organization) {
         Optional<Organization> organizationOpt = organizationRepository.findById(organization.getIdOrganization());
         if (organizationOpt.isPresent()) {

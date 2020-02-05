@@ -1,9 +1,5 @@
 package com.biuropracy.demo.DTO;
 
-
-
-
-
 public class JobOfferDTO {
     private Integer idEmployer;
     private Integer idJobOffer;
@@ -45,27 +41,6 @@ public class JobOfferDTO {
         this.workingTime = workingTime;
         this.monthlyPay = monthlyPay;
         this.positionLevel = positionLevel;
-    }
-
-    @Override
-    public String toString() {
-        return "JobOfferDTO{" +
-                "idEmployer=" + idEmployer +
-                ", idJobOffer=" + idJobOffer +
-                ", idProfileProposition=" + idProfileProposition +
-                ", title='" + title + '\'' +
-                ", location='" + location + '\'' +
-                ", description='" + description + '\'' +
-                ", contact='" + contact + '\'' +
-                ", category='" + category + '\'' +
-                ", categorySalary='" + categorySalary + '\'' +
-                ", companyName='" + companyName + '\'' +
-                ", contractType='" + contractType + '\'' +
-                ", workingTime='" + workingTime + '\'' +
-                ", monthlyPay=" + monthlyPay +
-                ", positionLevel='" + positionLevel + '\'' +
-                ", email='" + email + '\'' +
-                '}';
     }
 
     public Integer getIdEmployer() {

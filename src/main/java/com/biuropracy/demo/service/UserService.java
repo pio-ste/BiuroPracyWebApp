@@ -34,8 +34,6 @@ public class UserService {
     @Autowired
     private EntityManagerService entityManagerService;
 
-
-
     @Transactional
     public void saveProfileImage(Integer id, MultipartFile file) {
         try {

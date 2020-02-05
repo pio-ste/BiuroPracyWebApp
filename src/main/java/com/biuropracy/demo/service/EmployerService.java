@@ -64,16 +64,6 @@ public class EmployerService {
         }
     }
 
-
-    public Employer getEmployerById(Integer id) {
-        Optional<Employer> employerOpt = employerRepository.findById(id);
-        if ((employerOpt.isPresent())){
-            return employerOpt.get();
-        } else {
-            throw new RuntimeException("ID employer nie znalezione.");
-        }
-    }
-
     public Employer updateEmployer(Employer employer) {
         Optional<Employer> employerOpt = employerRepository.findById(employer.getIdEmployer());
         if (employerOpt.isPresent()){

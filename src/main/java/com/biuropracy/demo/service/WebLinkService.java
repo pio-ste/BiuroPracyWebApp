@@ -27,16 +27,6 @@ public class WebLinkService {
         return webLinkRepository.findWebLinkByUserIdUser(id);
     }
 
-    public WebLink getWebLinkById(Integer id) {
-        Optional<WebLink> webLinkOpt = webLinkRepository.findById(id);
-
-        if (webLinkOpt.isPresent()) {
-            return webLinkOpt.get();
-        } else {
-            throw new RuntimeException("Id linku nie znalezione");
-        }
-    }
-
     public WebLink updateWebLink(WebLink webLink) {
         Optional<WebLink> webLinkOpt = webLinkRepository.findById(webLink.getIdWebLink());
 

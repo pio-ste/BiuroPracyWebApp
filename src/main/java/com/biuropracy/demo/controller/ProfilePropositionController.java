@@ -4,7 +4,6 @@ import com.biuropracy.demo.DTO.ProfilePropositionDTO;
 import com.biuropracy.demo.model.JobOffer;
 import com.biuropracy.demo.model.ProfileProposition;
 import com.biuropracy.demo.model.User;
-import com.biuropracy.demo.repository.JobOfferRepository;
 import com.biuropracy.demo.repository.ProfilePropositionRepository;
 import com.biuropracy.demo.service.JobOfferService;
 import com.biuropracy.demo.service.ProfilePropositionService;

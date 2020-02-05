@@ -16,7 +16,7 @@
 <div th:switch="${employers}" class="container">
     <form action="/admin/employersList" class="form-inline my-3" >
         <input type="text" class="form-control mr-2" name="companyName" placeholder="Nazwa firmy"/>
-        <input type="submit" value="Szukaj" class="btn btn-primary">
+        <input type="submit" value="Szukaj" class="btn btn-primary my-1">
     </form>
 
     <h2 th:case="null">Brak wyników</h2>

@@ -44,9 +44,6 @@ public class JobOfferController {
     @Autowired
     private JobOfferRepository jobOfferRepository;
 
-    @Autowired
-    private EmployerRepository employerRepository;
-
     // dla wszystkich
     @GetMapping("/all/jobOffers")
     public String getAllJobOffers(Model model, String title, String location, String category, String contractType, String workingTime, String positionLevel, Integer monthlyPay, String categorySalary) {

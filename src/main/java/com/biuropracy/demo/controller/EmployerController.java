@@ -50,9 +50,6 @@ public class EmployerController {
     @Autowired
     EmployerRepository employerRepository;
 
-    @Autowired
-    private EntityManagerService entityManagerService;
-
     @GetMapping(path = "/all/employersList")
     public String employersListAll(Model model, String companyName){
         List<EmployerUserDTO> employerUserDTOList = employerRepository.getEmployerFiltered(companyName);

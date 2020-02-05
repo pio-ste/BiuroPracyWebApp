@@ -1,10 +1,5 @@
 package com.biuropracy.demo.DTO;
 
-import com.biuropracy.demo.model.JobOffer;
-import com.biuropracy.demo.model.User;
-
-import java.util.Arrays;
-
 public class ProfilePropositionDTO {
 
     private Integer idProfileProposition;

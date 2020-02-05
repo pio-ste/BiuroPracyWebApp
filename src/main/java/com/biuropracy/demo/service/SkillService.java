@@ -27,15 +27,6 @@ public class SkillService {
         return skillRepository.findSkillByUserIdUser(id);
     }
 
-    public Skill getSkillById(Integer id) {
-        Optional<Skill> skillOpt = skillRepository.findById(id);
-        if (skillOpt.isPresent()) {
-            return skillOpt.get();
-        } else {
-            throw new RuntimeException("Id skill nie znalezione");
-        }
-    }
-
     public Skill updateSkill(Skill skill) {
         Optional<Skill> skillOpt = skillRepository.findById(skill.getIdSkill());
         if (skillOpt.isPresent()) {

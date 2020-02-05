@@ -27,15 +27,6 @@ public class EducationService {
         return educationRepository.findEducationByUserIdUser(id);
     }
 
-    public Education getEducationById(Integer id) {
-        Optional<Education> educationOpt = educationRepository.findById(id);
-        if (educationOpt.isPresent()) {
-            return educationOpt.get();
-        } else {
-            throw new RuntimeException("Id education nie znalezione");
-        }
-    }
-
     public Education updateEducation(Education education) {
         Optional<Education> educationOpt = educationRepository.findById(education.getIdEducation());
         if (educationOpt.isPresent()) {

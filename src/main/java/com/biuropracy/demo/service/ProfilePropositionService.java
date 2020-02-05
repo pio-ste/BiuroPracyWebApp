@@ -23,15 +23,6 @@ public class ProfilePropositionService {
         return profilePropositionRepository.findByUserIdUser(id);
     }
 
-    public ProfileProposition getProfilePropById(Integer id) {
-        Optional<ProfileProposition> profilePropOpt = profilePropositionRepository.findById(id);
-        if (profilePropOpt.isPresent()){
-            return profilePropOpt.get();
-        } else {
-            throw new RuntimeException("Id ProfileProposition nie znalezione");
-        }
-    }
-
     public ProfileProposition updateProfileProp(ProfileProposition profileProposition) {
         Optional<ProfileProposition> profilePropOpt = profilePropositionRepository.findById(profileProposition.getIdProfileProposition());
         if (profilePropOpt.isPresent()) {

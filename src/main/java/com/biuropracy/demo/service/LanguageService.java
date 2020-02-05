@@ -27,16 +27,6 @@ public class LanguageService {
         return languageRepository.findLanguageByUserIdUser(id);
     }
 
-    public Language getLanguageById(Integer id) {
-        Optional<Language> languageOpt = languageRepository.findById(id);
-
-        if (languageOpt.isPresent()) {
-            return languageOpt.get();
-        } else {
-            throw new RuntimeException("Id language nie znalezione");
-        }
-    }
-
     public Language updateLanguage(Language language) {
         Optional<Language> languageOpt = languageRepository.findById(language.getIdLanguage());
         if (languageOpt.isPresent()) {

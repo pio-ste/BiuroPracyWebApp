@@ -14,20 +14,22 @@
 <div th:replace="fragments/homeHeader.html :: header"></div>
             <div th:switch="${jobOffers}" class="container pt-4">
                 <form action="/all/jobOffers" class="form-inline mb-3" >
-                    <input type="text" class="form-control mr-2" name="title" placeholder="Tytuł / Słowa kluczowe"/>
-                    <input type="text" class="form-control mr-2" name="location" placeholder="Lokalizacja"/>
-                    <div th:replace="fragments/select-option/search/search-category.html :: select_option_category"></div>
-                    <div th:replace="fragments/select-option/search/search-contractType.html :: select_option_contractType"></div>
-                    <div th:replace="fragments/select-option/search/search-workingTime.html :: select_option_workingTime"></div>
-                    <div th:replace="fragments/select-option/search/search-positionLevel.html :: select_option_positionLevel"></div>
-                    <input type="number" class="form-control mt-1 mr-2" name="monthlyPay" placeholder="Wynagrodzenie od"/>
-                    <div th:replace="fragments/select-option/search/search-categorySalary.html :: select_option_categorySalary"></div>
-                    <input type="submit" value="Szukaj" class="btn btn-primary mt-2">
+                    <div class="row">
+                        <input type="text" class="col-md-3 form-control my-2 ml-1 w-100 p-3" name="title" placeholder="Tytuł / Słowa kluczowe"/>
+                        <input type="text" class="col-md-3 form-control my-2 ml-1 w-100" name="location" placeholder="Lokalizacja"/>
+                        <input type="number" class="col-md-3 form-control my-2 ml-1 w-100" name="monthlyPay" placeholder="Wynagrodzenie od"/>
+                        <div class="col-md-4 my-2 mx-1 w-100" th:replace="fragments/select-option/search/search-categorySalary.html :: select_option_categorySalary"></div>
+                        <div  th:replace="fragments/select-option/search/search-category.html :: select_option_category"></div>
+                        <div  th:replace="fragments/select-option/search/search-contractType.html :: select_option_contractType"></div>
+                        <div  th:replace="fragments/select-option/search/search-workingTime.html :: select_option_workingTime"></div>
+                        <div  th:replace="fragments/select-option/search/search-positionLevel.html :: select_option_positionLevel"></div>
+                        <input type="submit" value="Szukaj" class="btn btn-primary mb-2 ml-1">
+                    </div>
                 </form>
                     <h2 th:case="null">Brak wyników</h2>
                         <div th:case="*">
                             <div class="row" th:each="jobOffer : ${jobOffers}">
-                                <div class="col-9 mt-2">
+                                <div class="col-8 mt-2">
                                     <b >Tytuł: </b>
                                     <th th:text="${jobOffer.title}"></th> </br>
                                     <b>Lokalizacja: </b>
@@ -36,14 +38,14 @@
                                     <th th:text="${jobOffer.category}"></th></br>
                                     <b>Miesięczne wynagrodzenie: </b>
                                     <th th:text="${jobOffer.monthlyPay}"></th> <th th:text="${jobOffer.categorySalary}"></th>
-                                    <a th:href="@{/user/calculator/{salary}(salary=${jobOffer.monthlyPay})}"
+                                    <a th:href="@{/all/calculator/{salary}(salary=${jobOffer.monthlyPay})}"
                                        class="btn btn-outline-success"> Zobacz wyliczoną kwotę netto</a></br>
                                     <b>Nazwa firmy: </b>
                                     <th th:text="${jobOffer.companyName}"></th></br>
                                 </div>
-                                <div class="col-3">
+                                <div class="col-4">
                                     <a th:href="@{/all/jobOffers/viewSelectedJobOffer/{idJobOffer}(idJobOffer=${jobOffer.idJobOffer})}"
-                                       class="btn btn-outline-success my-5"> Przejdź do ogłoszenia <i class="fas fa-angle-double-right"></i></a>
+                                       class="btn btn-outline-success my-5 mx-1"> Przejdź do ogłoszenia <i class="fas fa-angle-double-right"></i></a>
                                 </div>
                             </div>
                     </div>
