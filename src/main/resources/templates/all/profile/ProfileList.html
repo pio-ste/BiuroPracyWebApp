@@ -62,7 +62,7 @@
                    class="btn btn-outline-success my-2 mx-2">Zobacz profil</a>
             </div>
             <div class="col-4 mb-3">
-                <img th:src="@{'/all/' + ${user.idUser} + '/displayImage'}" onerror="if (this.src != '/static/img/profile.jpg') this.src = '/static/img/profile.jpg';" width="200" height="200" class="mt-3">
+                <img th:src="@{'/all/' + ${user.idUser} + '/displayImage'}" onerror="if (this.src != '/static/img/profile.jpg') this.src = '/static/img/profile.jpg';" width="200" height="200" class="mt-3 img-thumbnail">
             </div>
         </div>
     </div>
