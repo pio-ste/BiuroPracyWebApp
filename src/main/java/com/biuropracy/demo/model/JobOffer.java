@@ -1,8 +1,6 @@
 package com.biuropracy.demo.model;
 
-import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
