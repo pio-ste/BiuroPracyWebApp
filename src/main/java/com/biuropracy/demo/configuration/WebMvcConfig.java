@@ -11,15 +11,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 public class WebMvcConfig implements WebMvcConfigurer {
 
-
+    //ziarno metody haszującej hasło w BCrypt
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return bCryptPasswordEncoder;
     }
-
-
-
+    //konfiguracja ścieżek do katalogów
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry

@@ -38,7 +38,7 @@ public class JobPropositionController {
 
     @Autowired
     private JobPropositionRepository jobPropositionRepository;
-
+    //tworzenie nowej propozycji pracy
     @PostMapping(path = {"/employer/userProfile/createJobProposition", "/employer/userProfile/createJobProposition/{id}"})
     public String createJobProposition(ModelAndView modelAndView, JobProposition jobProposition, @PathVariable("id") Integer id){
         User toUserId = userService.findUser(id);
@@ -50,7 +50,7 @@ public class JobPropositionController {
         modelAndView.addObject("jobProposition", new JobProposition());
         return "redirect:/employer/viewSelectedProfile/"+id;
     }
-
+    //wyświetlenie otrzymanych ofert pracy
     @GetMapping(path = "/user/getAllJobPropUser")
     public String getAllJPropByToUser(Model model, String decision){
         model.addAttribute("jobProposition", new JobProposition()); //do edycji w modalu
@@ -62,8 +62,7 @@ public class JobPropositionController {
         model.addAttribute("jobPropositions", JobPropDto);
         return "/all/jobProposition/allJobPropUser";
     }
-
-
+    //wyświetlenie wysłanych ofert pracy
     @GetMapping(path = "/employer/getAllJobPropEmployer")
     public String getAllJPropByFromUser(Model model, String decision){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -75,13 +74,13 @@ public class JobPropositionController {
         model.addAttribute("jobPropositions", JobPropDto);
         return "/all/jobProposition/allJobPropEmployer";
     }
-
+    //zmiana decyzji oferty pracy
     @PostMapping(path = "/user/JobProp/changeDecision")
     public String changeDecision(JobProposition jobProposition){
         jobPropositionService.updateJobProposition(jobProposition);
         return "redirect:/user/getAllJobPropUser";
     }
-
+    //usuwanie propozycji pracy
     @GetMapping(path = "/employer/jobPropositionDelete")
     public String jobPropositionDelete(@RequestParam("id") Integer id){
         jobPropositionService.deleteJobProposition(id);
@@ -89,7 +88,7 @@ public class JobPropositionController {
     }
 
     //admin
-
+    //wyświetlenie propozycji pracy otrzymanych
     @GetMapping(path = "/admin/getAllUserReceivedJProp/{id}")
     public String getAllUserReceivedJProp(Model model, @PathVariable("id") Integer id, String decision){
         Userid = id;
@@ -99,13 +98,13 @@ public class JobPropositionController {
         model.addAttribute("jobPropositions", JobPropDto);
         return "/all/jobProposition/userReceivedJobPropAdmin";
     }
-
+    //edytowanie propozycji pracy przez admina
     @PostMapping(path = "/admin/getAllUserReceivedJProp/update")
     public String updateReceivedUserJobProp(JobProposition jobProposition){
         jobPropositionService.updateJobPropositionAdmin(jobProposition);
         return "redirect:/admin/getAllUserReceivedJProp/"+Userid;
     }
-
+    //usuwanie propozycji pracy przez admina
     @GetMapping(path = "/admin/receivedJobPropDelete")
     public String userReceivedJobPropDelete(@RequestParam("id") Integer id){
         jobPropositionService.deleteJobProposition(id);

@@ -10,12 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class HomeController {
-
+    //strona główna
     @GetMapping(path = "/")
     public String hello() {
         return "index";
     }
-
+    //wyświetlanie kalkulatora wynagrodzeń dla użytkowników
     @GetMapping(path = "/all/calculator/{salary}")
     public String calculator(Model model, @PathVariable("salary") Integer salary) {
         model.addAttribute("salary", salary);

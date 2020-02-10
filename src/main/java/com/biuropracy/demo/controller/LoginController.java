@@ -21,14 +21,14 @@ public class LoginController {
 
     @Autowired
     EmployerService employerService;
-
+    //wyswietlenie fomularza logowania
     @GetMapping(value = "/login")
     public ModelAndView login() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("login.html");
         return modelAndView;
     }
-
+    //wyswietlenie formularza logowania
     @GetMapping(value = "/register")
     public ModelAndView register() {
         ModelAndView modelAndView = new ModelAndView();
@@ -37,7 +37,7 @@ public class LoginController {
         modelAndView.setViewName("register.html");
         return modelAndView;
     }
-
+    //rejestracja użytkownika
     @PostMapping(value = "/register")
     public ModelAndView registerUser(@Valid User user, BindingResult bindingResult, ModelMap modelMap) {
         ModelAndView modelAndView = new ModelAndView();
@@ -54,21 +54,21 @@ public class LoginController {
         modelAndView.setViewName("register.html");
         return modelAndView;
     }
-
+    //strona główna dla użytkownika
     @GetMapping(value = "/user/userHome")
     public ModelAndView homeUser() {
         ModelAndView modelAndView =new ModelAndView();
         modelAndView.setViewName("/user/userHome.html");
         return modelAndView;
     }
-
+    //wyświetlenie strony głównej dla pracodawcy
     @GetMapping(value = "/employer/employerHome")
     public ModelAndView homeEmployee() {
         ModelAndView modelAndView =new ModelAndView();
         modelAndView.setViewName("/employer/employerHome.html");
         return modelAndView;
     }
-
+    //wyświetlenie strony głównej dla admina
     @GetMapping(value = "/admin/adminHome")
     public ModelAndView homeAdmin() {
         ModelAndView modelAndView =new ModelAndView();

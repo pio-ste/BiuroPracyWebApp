@@ -49,27 +49,27 @@ public class EmployerController {
 
     @Autowired
     EmployerRepository employerRepository;
-
+    //wyświtlanie listy pracodawców dla wszystkich
     @GetMapping(path = "/all/employersList")
     public String employersListAll(Model model, String companyName){
         List<EmployerUserDTO> employerUserDTOList = employerRepository.getEmployerFiltered(companyName);
         model.addAttribute("employers", employerUserDTOList);
         return "/employer/employersListAll";
     }
-
+    //wyświetlanie profilu pracodawcy dla wszystkich
     @GetMapping(path = "/all/selectedEmployerProfile/{id}")
     public String selectedEmployerProfileAll(Model model, @PathVariable("id") Integer id) {
         List<EmployerUserDTO> employerUserDTOList = employerRepository.getEmployerUserByIdEmpl(id);
         model.addAttribute("employers", employerUserDTOList);
         return "/employer/selectedEmployerAll";
     }
-
+    //dodawanie zdjęcia firmy przez pracodawcę
     @PostMapping(path = "/employer/uploadCompanyImage/{id}")
     public String uploadCompanyImage(@PathVariable("id") Integer id, @RequestParam("imageFileEmployer")MultipartFile file){
         employerService.saveCompanyImgImage(id,file);
         return "redirect:/employer/myProfileEmployer";
     }
-
+    //wyświetlanie zdjęcia firmy
     @GetMapping(path = "/all/displayCompanyImg/{id}")
     public void displayCompanyImg(@PathVariable("id") Integer id, HttpServletResponse response) throws IOException {
         Employer employer = employerService.findEmployer(id);
@@ -86,7 +86,7 @@ public class EmployerController {
             System.out.println("Brak zdjęcia");
         }
     }
-
+    //wyświtlanie własnego profilu pracodawcy
     @GetMapping(path = "/employer/myProfileEmployer")
     public String myProfileEmployer(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -103,34 +103,34 @@ public class EmployerController {
         model.addAttribute("userImg", userImg);
         return "/employer/myProfileEmployer";
     }
-
+    //dodawanie zdjęcia dla przedstawiciela firmy
     @PostMapping(path = "/employer/{id}/uploadImage")
     public String uploadImage(@PathVariable("id") Integer id, @RequestParam("imagefile") MultipartFile file) {
         userService.saveProfileImage(id,file);
         return "redirect:/employer/myProfileEmployer";
     }
-
+    //wyśewietlanie wybranego profilu pracodawcy przez użytkownika
     @GetMapping(path = "/user/selectedEmployerProfile/{id}")
     public String selectedEmployerProfile(Model model, @PathVariable("id") Integer id) {
         List<EmployerUserDTO> employerUserDTOList = employerRepository.getEmployerUserByIdEmpl(id);
         model.addAttribute("employers", employerUserDTOList);
         return "/employer/selectedEmployer";
     }
-
+    //wyświetlanie listy pracodawców dla użytkownika
     @GetMapping(path = "/user/employersList")
     public String employersList(Model model, String companyName){
         List<EmployerUserDTO> employerUserDTOList = employerRepository.getEmployerFiltered(companyName);
         model.addAttribute("employers", employerUserDTOList);
         return "/employer/employerListLoginUser";
     }
-
+    //wyświetlanie formularza do edytowania informacji o pracodawcy
     @GetMapping(path = "/employer/editEmployerInfo/{id}")
     public String editEmployerInfo(@PathVariable("id") Integer id, Model model){
         Employer employer = employerService.findEmployer(id);
         model.addAttribute("employer", employer);
         return "/employer/editEmployerInfo";
     }
-
+    //edytowanie informacji o pracodawcy
     @PostMapping(path = "/employer/updateEmployerInfoPost")
     public ModelAndView updateEmployerInfo(@Valid Employer employer, BindingResult bindingResult, ModelMap modelMap){
         ModelAndView modelAndView = new ModelAndView();
@@ -146,14 +146,14 @@ public class EmployerController {
     }
 
     //admin
-
+    //lista pracodawców dla admina
     @GetMapping(path = "/admin/employersList")
     public String employersListAllAdmin(Model model, String companyName){
         List<EmployerUserDTO> employerUserDTOList = employerRepository.getEmployerFiltered(companyName);
         model.addAttribute("employers", employerUserDTOList);
         return "/employer/employerListAdmin";
     }
-
+    //wyświetlanie wybranego profilu przez admina
     @GetMapping(path = "/admin/selectedEmployerProfile/{id}")
     public String selectedEmployerProfileAdmin(Model model, @PathVariable("id") Integer id) {
         idCurrentEmp = id;
@@ -163,20 +163,20 @@ public class EmployerController {
         model.addAttribute("employers", employerUserDTOList);
         return "/employer/selectedEmployerAdmin";
     }
-
+    //dodawanie zdjęcia dla pracodawcy przez admina
     @PostMapping(path = "/admin/uploadCompanyImage/{id}")
     public String uploadImageAdmin(@PathVariable("id") Integer id, @RequestParam("imageFileEmployer") MultipartFile file) {
         employerService.saveCompanyImgImage(id,file);
         return "redirect:/admin/selectedEmployerProfile/"+idCurrentEmp;
     }
-
+    //wyświetlanie formularza do edycji pracodawcy przez admina
     @GetMapping(path = "/admin/editEmployerInfo/{id}")
     public String editEmployerInfoAdmin(@PathVariable("id") Integer id, Model model){
         Employer employer = employerService.findEmployer(id);
         model.addAttribute("employer", employer);
         return "/employer/editEmployerInfo";
     }
-
+    //edytowanie informacji o pracodawcy przez admina
     @PostMapping(path = "/admin/updateEmployerInfoPost")
     public ModelAndView updateEmployerInfoAdmin(@Valid Employer employer, BindingResult bindingResult, ModelMap modelMap){
         ModelAndView modelAndView = new ModelAndView();
@@ -190,7 +190,7 @@ public class EmployerController {
         modelAndView.setViewName("/employer/editEmployerInfoAdmin");
         return modelAndView;
     }
-
+    //wyswietlanie formularza rejestracji pracodawcy
     @GetMapping(value = "/admin/registerEmployer")
     public ModelAndView registerEmployer() {
         ModelAndView modelAndView = new ModelAndView();
@@ -201,7 +201,7 @@ public class EmployerController {
         modelAndView.setViewName("/employer/registerEmployer.html");
         return modelAndView;
     }
-
+    //dodawanie pracodawcy przez admina
     @PostMapping(value = "/admin/registerEmployer")
     public ModelAndView registerEmployer(@Valid User user, @Valid Employer employer, BindingResult bindingResult, ModelMap modelMap) {
         ModelAndView modelAndView = new ModelAndView();
@@ -220,7 +220,7 @@ public class EmployerController {
         modelAndView.setViewName("/employer/registerEmployer.html");
         return modelAndView;
     }
-
+    //usuwanie pracodawcy z bazy
     @GetMapping(path = "/admin/deleteEmployer/{id}")
     public String deleteEmployer(@PathVariable("id") Integer id){
         Employer employer = employerService.findEmployerByUser_id(id);
