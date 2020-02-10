@@ -23,6 +23,11 @@ public class ProfilePropositionService {
         return profilePropositionRepository.findByUserIdUser(id);
     }
 
+    /**
+     * aktualizowanie decyzji zgłoszenia o pracę
+     * @param profileProposition
+     * @return
+     */
     public ProfileProposition updateProfileProp(ProfileProposition profileProposition) {
         Optional<ProfileProposition> profilePropOpt = profilePropositionRepository.findById(profileProposition.getIdProfileProposition());
         if (profilePropOpt.isPresent()) {
@@ -37,6 +42,11 @@ public class ProfilePropositionService {
         }
     }
 
+    /**
+     * aktualizowanie zgłoszenia o pracę
+     * @param profileProposition
+     * @return
+     */
     public ProfileProposition updateProfilePropAdmin(ProfileProposition profileProposition) {
         Optional<ProfileProposition> profilePropOpt = profilePropositionRepository.findById(profileProposition.getIdProfileProposition());
         if (profilePropOpt.isPresent()) {
@@ -53,6 +63,13 @@ public class ProfilePropositionService {
         }
     }
 
+    /**
+     * tworzenie złoszenia o pracę
+     * @param profileProposition
+     * @param user
+     * @param jobOffer
+     * @return
+     */
     public ProfileProposition createProfileProp(ProfileProposition profileProposition, User user, JobOffer jobOffer){
         profileProposition.setUser(user);
         profileProposition.setDecision("Nierozpatrzona");
@@ -61,8 +78,11 @@ public class ProfilePropositionService {
         return profileProposition;
     }
 
-
-
+    /**
+     * uswanie zgłoszenia o pracę
+     * @param id
+     * @throws RuntimeException
+     */
     public void deleteProfileProp(Integer id) throws RuntimeException{
         Optional<ProfileProposition> profilePropOpt = profilePropositionRepository.findById(id);
         if (profilePropOpt.isPresent()) {

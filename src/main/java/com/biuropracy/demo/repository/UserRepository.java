@@ -14,7 +14,13 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-
+    /**
+     * wyświetlanie listy profili zawodowych
+     * @param workCity
+     * @param positionSought
+     * @param email
+     * @return
+     */
     @Query("select new com.biuropracy.demo.DTO.UserInformationDTO(u.idUser,  u.name, u.lastName, u.email, ui.dateBirth, ui.homeCity, ui.workCity, ui.currentPosition, ui.positionSought)"
             +"from User u, UserInformation ui where u.idUser = ui.user.idUser "
             +"and ui.toFind = 'visible' and u.status = 'ZWERYFIKOWANY' and (ui.workCity = :workCity or :workCity is null or :workCity = '')"
@@ -22,6 +28,13 @@ public interface UserRepository extends JpaRepository<User, Integer> {
             +"and (u.email = :email or :email is null or :email = '')")
     List<UserInformationDTO> getVisibleUsersFiltered(@Param("workCity") String workCity, @Param("positionSought") String positionSought, @Param("email") String email);
 
+    /**
+     * wyświetlanie listy profili zawodowych dla admina
+     * @param workCity
+     * @param positionSought
+     * @param email
+     * @return
+     */
     @Query("select new com.biuropracy.demo.DTO.UserInformationDTO(u.idUser, u.email, u.name, u.lastName, ui.dateBirth, ui.homeCity, ui.workCity, ui.currentPosition, ui.positionSought)"
             +"from User u, UserInformation ui where u.idUser = ui.user.idUser "
             +"and (ui.workCity = :workCity or :workCity is null or :workCity = '')"

@@ -27,6 +27,11 @@ public class WebLinkService {
         return webLinkRepository.findWebLinkByUserIdUser(id);
     }
 
+    /**
+     * aktualizowanie linku do strony
+     * @param webLink
+     * @return
+     */
     public WebLink updateWebLink(WebLink webLink) {
         Optional<WebLink> webLinkOpt = webLinkRepository.findById(webLink.getIdWebLink());
 
@@ -43,12 +48,23 @@ public class WebLinkService {
         }
     }
 
+    /**
+     * zapisywanie linku do strony
+     * @param webLink
+     * @param user
+     * @return
+     */
     public WebLink createWebLink(WebLink webLink, User user) {
         webLink.setUser(user);
         webLink = webLinkRepository.save(webLink);
         return webLink;
     }
 
+    /**
+     * usuwanie linku do strony z bazy
+     * @param id
+     * @throws RuntimeException
+     */
     public void deleteWebLinkById(Integer id) throws RuntimeException{
         Optional<WebLink> webLinkOpt = webLinkRepository.findById(id);
         if (webLinkOpt.isPresent()) {

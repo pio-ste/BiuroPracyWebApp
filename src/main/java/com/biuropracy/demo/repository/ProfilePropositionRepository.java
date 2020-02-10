@@ -13,12 +13,23 @@ import java.util.List;
 
 @Repository
 public interface ProfilePropositionRepository extends JpaRepository<ProfileProposition, Integer> {
-
+    /**
+     * wyświetlanie zgłoszeń o pracę dla danego ogłoszenia o pracę
+     * @param idJobOffer
+     * @param decision
+     * @return
+     */
     @Query("Select new com.biuropracy.demo.DTO.ProfilePropositionDTO(p.idProfileProposition, u.idUser, j.idJobOffer, j.title, j.location, u.name, u.lastName, p.contactType, p.substantiation ,p.decision) from ProfileProposition p, User u, JobOffer j "
             +"where u.idUser = p.user.idUser and p.jobOffer.idJobOffer = :idJobOffer and j.idJobOffer = p.jobOffer.idJobOffer"
             + " and (p.decision = :decision or :decision is null or :decision = '')")
     List<ProfilePropositionDTO> getProfilePropByJobOfferId(@Param("idJobOffer") Integer idJobOffer, @Param("decision") String decision);
 
+    /**
+     * wyświtlanie zgłoszeń o pracę dla danego użytkownika
+     * @param idUser
+     * @param decision
+     * @return
+     */
     @Query("Select new com.biuropracy.demo.DTO.ProfilePropositionDTO(p.idProfileProposition, j.idJobOffer, e.idEmployer, e.companyName, j.monthlyPay, j.categorySalary, j.title, j.location, p.contactType, p.substantiation, p.decision) from ProfileProposition p, User u, JobOffer j, Employer e "
             +"where u.idUser = p.user.idUser and p.user.idUser = :idUser and e.idEmployer = j.employer.idEmployer "
             +"and j.idJobOffer = p.jobOffer.idJobOffer "

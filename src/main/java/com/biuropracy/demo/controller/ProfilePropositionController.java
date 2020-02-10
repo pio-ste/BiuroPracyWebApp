@@ -39,7 +39,14 @@ public class ProfilePropositionController {
 
     @Autowired
     private ProfilePropositionRepository profilePropositionRepository;
-    //aplikowanie na wybraną ofertę pracy
+
+    /**
+     * aplikowanie na wybraną ofertę pracy
+     * @param modelAndView
+     * @param profileProposition
+     * @param id
+     * @return
+     */
     @PostMapping(path = "/user/jobOffer/createProfileProp/{id}")
     public String createProfileProp(ModelAndView modelAndView, ProfileProposition profileProposition, @PathVariable("id") Optional<Integer> id){
         JobOffer jobOfferId = jobOfferService.getJobOfferById(id.get());
@@ -48,7 +55,14 @@ public class ProfilePropositionController {
         modelAndView.addObject("profileProposition", new ProfileProposition());
         return "redirect:/user/jobOffers/viewSelectedJobOffer/{id}";
     }
-    //wyswietlenie otrzymanych zgłoszeń o pracę przez użytkowników
+
+    /**
+     * wyswietlenie otrzymanych zgłoszeń o pracę przez użytkowników
+     * @param model
+     * @param id
+     * @param decision
+     * @return
+     */
     @GetMapping(path = "/employer/viewProfilePropByJobOffer/{id}")
     public String viewProfilePropByJobOfferId(Model model, @PathVariable("id") Integer id, String decision){
         model.addAttribute("profileProposition", new ProfileProposition());
@@ -58,13 +72,24 @@ public class ProfilePropositionController {
         model.addAttribute("profilePropositions", profilePropList);
         return "/all/profileProposition/profilePropListByJobOfferId";
     }
-    //zmiana decyzji otrzymanego zgłoszenia o pracę przez pracodawcę
+
+    /**
+     * zmiana decyzji otrzymanego zgłoszenia o pracę przez pracodawcę
+     * @param profileProposition
+     * @return
+     */
     @PostMapping(path = "/employer/ProfileProp/changeDecision")
     public String profilePropChangeDec(ProfileProposition profileProposition){
         profilePropositionService.updateProfileProp(profileProposition);
         return "redirect:/employer/viewProfilePropByJobOffer/"+idJobOffer;
     }
-    //wyświetlenie wysłanych zgłoszeń o pracę
+
+    /**
+     * wyświetlenie wysłanych zgłoszeń o pracę
+     * @param model
+     * @param decision
+     * @return
+     */
     @GetMapping(path = "/user/myAllProfileProp")
     public String myAllProfileProp(Model model, String decision){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -75,13 +100,25 @@ public class ProfilePropositionController {
         model.addAttribute("profilePropositions", profilePropList);
         return "/all/profileProposition/profilePropUser";
     }
-    //usunięcie propozycji o pracę
+
+    /**
+     * usunięcie propozycji o pracę
+     * @param id
+     * @return
+     */
     @GetMapping(path = "/user/deleteMyProfileProposition")
     public String deleteMyProfileProposition(@RequestParam("id") Integer id){
         profilePropositionService.deleteProfileProp(id);
         return "redirect:/user/myAllProfileProp";
     }
-    //wyświetlenie wysłanych zgłoszeń o pracę
+
+    /**
+     * wyświetlenie wysłanych zgłoszeń o pracę
+     * @param model
+     * @param id
+     * @param decision
+     * @return
+     */
     @GetMapping(path = "/admin/viewProfilePropByJobOffer/{id}")
     public String viewProfilePropByJobOfferIdAdmin(Model model, @PathVariable("id") Integer id, String decision){
         model.addAttribute("profileProposition", new ProfileProposition());
@@ -91,17 +128,26 @@ public class ProfilePropositionController {
         model.addAttribute("profilePropositions", profilePropList);
         return "/all/profileProposition/profilePropAdmin";
     }
-    //edytowanie wysłanego zgłoszenia o pracę
+
+    /**
+     * edytowanie wysłanego zgłoszenia o pracę
+     * @param profileProposition
+     * @return
+     */
     @PostMapping(path = "/admin/ProfileProp/editJobProp")
     public String editJobProp(ProfileProposition profileProposition){
         profilePropositionService.updateProfilePropAdmin(profileProposition);
         return "redirect:/admin/viewProfilePropByJobOffer/"+idJobOffer;
     }
-    //usunięcie propozycji o pracę
+
+    /**
+     * usunięcie propozycji o pracę
+     * @param id
+     * @return
+     */
     @GetMapping(path = "/admin/deleteProfileProposition")
     public String deleteProfileProposition(@RequestParam("id") Integer id){
         profilePropositionService.deleteProfileProp(id);
         return "redirect:/admin/viewProfilePropByJobOffer/"+idJobOffer;
     }
-
 }

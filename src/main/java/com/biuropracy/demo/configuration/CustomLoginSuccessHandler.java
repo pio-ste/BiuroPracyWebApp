@@ -13,7 +13,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-//przekierowywanie użytkowników do odpowiednich adresów URL na podstawie roli
+
+/**
+ * przekierowywanie użytkowników do odpowiednich adresów URL na podstawie roli
+ */
 @Configuration
 public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 

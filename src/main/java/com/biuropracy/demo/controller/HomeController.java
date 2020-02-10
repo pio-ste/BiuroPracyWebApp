@@ -10,18 +10,26 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class HomeController {
-    //strona główna
+    /**
+     * strona główna
+     * @return
+     */
     @GetMapping(path = "/")
     public String hello() {
         return "index";
     }
-    //wyświetlanie kalkulatora wynagrodzeń dla użytkowników
+
+    /**
+     * wyświetlanie kalkulatora wynagrodzeń dla użytkowników
+     * @param model
+     * @param salary
+     * @return
+     */
     @GetMapping(path = "/all/calculator/{salary}")
     public String calculator(Model model, @PathVariable("salary") Integer salary) {
         model.addAttribute("salary", salary);
         return "/all/calculator/calculatorForm";
     }
-
     @GetMapping(path = "/user/calculator/{salary}")
     public String userCalculator(Model model, @PathVariable("salary") Integer salary) {
         model.addAttribute("salary", salary);

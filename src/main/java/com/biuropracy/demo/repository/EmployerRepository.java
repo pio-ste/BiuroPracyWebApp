@@ -18,11 +18,20 @@ public interface EmployerRepository extends JpaRepository<Employer, Integer> {
 
     Employer findEmployerByUser_IdUser(Integer id);
 
-
+    /**
+     * zapytanie wyświetlające informacje w profilu pracodawcy
+     * @param idEmployer
+     * @return
+     */
     @Query("select new com.biuropracy.demo.DTO.EmployerUserDTO(u.idUser, u.name, u.lastName, u.email, e.idEmployer, e.companyName, e.phoneNumber, e.companyEmail, e.webLink, e.address, e.description, u.userPhone) from User u, Employer e "
             + "where u.idUser = e.user and e.idEmployer = :idEmployer")
     List<EmployerUserDTO> getEmployerUserByIdEmpl(@Param("idEmployer") Integer idEmployer);
 
+    /**
+     * wyszukiwanie pracodawcy po nazwie firmy
+     * @param companyName
+     * @return
+     */
     @Query("select new com.biuropracy.demo.DTO.EmployerUserDTO(e.idEmployer, e.companyName, e.webLink, e.address) from Employer e "
             + "where e.companyName like lower(concat('%', :companyName,'%') ) or :companyName is null or :companyName = '' ")
     List<EmployerUserDTO> getEmployerFiltered(@Param("companyName") String companyName);

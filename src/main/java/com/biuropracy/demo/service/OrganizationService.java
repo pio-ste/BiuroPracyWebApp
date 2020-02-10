@@ -28,6 +28,11 @@ public class OrganizationService {
         return organizationRepository.findOrganizationByUserIdUser(id);
     }
 
+    /**
+     * aktualizowanie organizacji w bazie
+     * @param organization
+     * @return
+     */
     public Organization updateOrganization(Organization organization) {
         Optional<Organization> organizationOpt = organizationRepository.findById(organization.getIdOrganization());
         if (organizationOpt.isPresent()) {
@@ -50,12 +55,23 @@ public class OrganizationService {
         }
     }
 
+    /**
+     * zapisywanie organizacji w bazie
+     * @param organization
+     * @param user
+     * @return
+     */
     public Organization createOrganization(Organization organization, User user) {
         organization.setUser(user);
         organization = organizationRepository.save(organization);
         return organization;
     }
 
+    /**
+     * usuwanie organizacji z bazy
+     * @param id
+     * @throws RuntimeException
+     */
     public void deleteOrganizationById(Integer id) throws RuntimeException{
         Optional<Organization> organizationOpt = organizationRepository.findById(id);
         if (organizationOpt.isPresent()) {

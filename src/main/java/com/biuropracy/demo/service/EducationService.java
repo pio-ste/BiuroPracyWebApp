@@ -27,6 +27,11 @@ public class EducationService {
         return educationRepository.findEducationByUserIdUser(id);
     }
 
+    /**
+     * aktualizowanie edukacji
+     * @param education
+     * @return
+     */
     public Education updateEducation(Education education) {
         Optional<Education> educationOpt = educationRepository.findById(education.getIdEducation());
         if (educationOpt.isPresent()) {
@@ -49,12 +54,23 @@ public class EducationService {
         }
     }
 
+    /**
+     * zapisywanie edukacji do bazy
+     * @param education
+     * @param user
+     * @return
+     */
     public Education createEducation(Education education, User user) {
         education.setUser(user);
         education = educationRepository.save(education);
         return education;
     }
 
+    /**
+     * usuwanie edukacji z bazy
+     * @param id
+     * @throws RuntimeException
+     */
     public void deleteEducation(Integer id) throws RuntimeException{
         Optional<Education> educationOpt = educationRepository.findById(id);
         if (educationOpt.isPresent()) {

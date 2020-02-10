@@ -27,6 +27,11 @@ public class JobExperienceService {
         return jobExperienceRepository.findJobExperienceByUserIdUser(id);
     }
 
+    /**
+     * aktualizowanie doświadczenia zawodowego
+     * @param jobExperience
+     * @return
+     */
     public JobExperience updateJobExperience(JobExperience jobExperience) {
         Optional<JobExperience> jobExperienceOpt = jobExperienceRepository.findById(jobExperience.getIdJobExperience());
         if (jobExperienceOpt.isPresent()) {
@@ -49,12 +54,23 @@ public class JobExperienceService {
         }
     }
 
+    /**
+     * zapisywanie doświadczenia zawodowego w bazie
+     * @param jobExperience
+     * @param user
+     * @return
+     */
     public JobExperience createJobExperience(JobExperience jobExperience, User user) {
         jobExperience.setUser(user);
         jobExperience = jobExperienceRepository.save(jobExperience);
         return jobExperience;
     }
 
+    /**
+     * usuwanie doświadczenia zawodowego z bazy
+     * @param id
+     * @throws RuntimeException
+     */
     public void deleteJobExperienceById(Integer id) throws RuntimeException{
         Optional<JobExperience> jobExperienceOpt = jobExperienceRepository.findById(id);
         if (jobExperienceOpt.isPresent()) {

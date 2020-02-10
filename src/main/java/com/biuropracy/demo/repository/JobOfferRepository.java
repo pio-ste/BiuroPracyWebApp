@@ -16,6 +16,18 @@ public interface JobOfferRepository extends JpaRepository<JobOffer, Integer> {
 
     JobOffer findByEmployerIdEmployer(Integer id);
 
+    /**
+     * wyświetlanie pofiltrowanych ofert pracy
+     * @param title
+     * @param category
+     * @param location
+     * @param contractType
+     * @param workingTime
+     * @param positionLevel
+     * @param monthlyPay
+     * @param categorySalary
+     * @return
+     */
     @Query("Select new com.biuropracy.demo.DTO.JobOfferDTO(j.idJobOffer, j.title, j.location, j.category, j.categorySalary, e.companyName, j.monthlyPay) from JobOffer j, Employer e "
             + "where e.idEmployer = j.employer "
             + "and (j.title like lower(concat('%', :title,'%') ) or :title is null or :title = '')"
@@ -31,14 +43,36 @@ public interface JobOfferRepository extends JpaRepository<JobOffer, Integer> {
                                           @Param("workingTime") String workingTime, @Param("positionLevel") String positionLevel, @Param("monthlyPay") Integer monthlyPay,
                                           @Param("categorySalary") String categorySalary);
 
+    /**
+     * wyświetlanie wybranej oferty pracy po id
+     * @param idJobOffer
+     * @return
+     */
     @Query("Select new com.biuropracy.demo.DTO.JobOfferDTO(e.idEmployer, j.idJobOffer, j.title, j.location, j.description, j.contact, j.category, j.categorySalary, e.companyName, j.contractType, j.workingTime, j.monthlyPay,  j.positionLevel) from JobOffer j, Employer e "
             + "where e.idEmployer = j.employer and j.idJobOffer = :idJobOffer")
     List<JobOfferDTO> getSelectedJobOffer(@Param("idJobOffer") Integer idJobOffer);
 
+    /**
+     * wyświetlanie oferty pracy po id pracodawcy
+     * @param idEmployer
+     * @return
+     */
     @Query("Select new com.biuropracy.demo.DTO.JobOfferDTO(e.idEmployer, j.idJobOffer, j.title, j.location, j.description, j.contact, j.category, j.categorySalary, e.companyName, j.contractType, j.workingTime, j.monthlyPay,  j.positionLevel) from JobOffer j, Employer e "
             + "where e.idEmployer = j.employer and j.employer.idEmployer = :idEmployer")
     List<JobOfferDTO> getSelectedJobOfferByEmployerId(@Param("idEmployer") Integer idEmployer);
 
+    /**
+     * wyświtlanie pofiltrowanych ofert pracy dla admina
+     * @param title
+     * @param category
+     * @param location
+     * @param contractType
+     * @param workingTime
+     * @param positionLevel
+     * @param monthlyPay
+     * @param categorySalary
+     * @return
+     */
     @Query("Select new com.biuropracy.demo.DTO.JobOfferDTO(e.idEmployer, j.idJobOffer, j.title, j.location, j.description, j.contact, j.category, j.categorySalary, e.companyName, j.contractType, j.workingTime, j.monthlyPay,  j.positionLevel) from JobOffer j, Employer e "
             + "where e.idEmployer = j.employer "
             + "and (j.title like lower(concat('%', :title,'%') ) or :title is null or :title = '')"

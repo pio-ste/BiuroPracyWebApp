@@ -27,6 +27,11 @@ public class UserInformationService {
         return userInformationRepository.findUserInformationByUserIdUser(id);
     }
 
+    /**
+     * szukanie informacji o uytkowniku po id
+     * @param id
+     * @return
+     */
     public UserInformation getUserInfoById(Integer id){
         Optional<UserInformation> userInfoOpt = userInformationRepository.findById(id);
         if (userInfoOpt.isPresent()){
@@ -36,6 +41,11 @@ public class UserInformationService {
         }
     }
 
+    /**
+     * aktualizowanie informacji o użytkowniku
+     * @param userInformation
+     * @return
+     */
     public UserInformation updateUserInfo(UserInformation userInformation){
         Optional<UserInformation> userDetailsOpt = userInformationRepository.findById(userInformation.getIdUserInformation());
         if (userDetailsOpt.isPresent()){
@@ -56,12 +66,23 @@ public class UserInformationService {
         }
     }
 
+    /**
+     * zapisywanie informacji o użytkowniku
+     * @param userInformation
+     * @param user
+     * @return
+     */
     public UserInformation createUserInfo(UserInformation userInformation, User user){
         userInformation.setUser(user);
         userInformation = userInformationRepository.save(userInformation);
         return userInformation;
     }
 
+    /**
+     * usuwanie informacji o użytkowniku
+     * @param id
+     * @throws RuntimeException
+     */
     public void deleteUserInfoById(Integer id) throws RuntimeException{
         Optional<UserInformation> userInfoOpt = userInformationRepository.findById(id);
         if (userInfoOpt.isPresent()){

@@ -11,6 +11,10 @@ public class EntityManagerService {
 
     private SessionFactory sessionFactory;
 
+    /**
+     * konfiguracja entityManagera
+     * @param entityManagerFactory
+     */
     @Autowired
     public EntityManagerService(EntityManagerFactory entityManagerFactory) {
         if (entityManagerFactory.unwrap(SessionFactory.class) == null) {

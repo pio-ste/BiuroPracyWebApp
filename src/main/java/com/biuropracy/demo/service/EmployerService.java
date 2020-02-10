@@ -38,6 +38,11 @@ public class EmployerService {
         return employerRepository.findEmployerByUser_IdUser(id);
     }
 
+    /**
+     * szukanie pracodawcy po id
+     * @param id
+     * @return
+     */
     public Employer findEmployer(Integer id) {
         Optional<Employer> employerOpt = employerRepository.findById(id);
         if (employerOpt.isPresent()){
@@ -47,6 +52,11 @@ public class EmployerService {
         }
     }
 
+    /**
+     * zapisywanie zdjęcia pracodawcy do bazy
+     * @param id
+     * @param file
+     */
     @Transactional
     public void saveCompanyImgImage(Integer id, MultipartFile file) {
         try {
@@ -64,6 +74,11 @@ public class EmployerService {
         }
     }
 
+    /**
+     * aktualizowanie pracodawcy w bazie
+     * @param employer
+     * @return
+     */
     public Employer updateEmployer(Employer employer) {
         Optional<Employer> employerOpt = employerRepository.findById(employer.getIdEmployer());
         if (employerOpt.isPresent()){
@@ -83,12 +98,23 @@ public class EmployerService {
         }
     }
 
+    /**
+     * zapisywanie pracodawcy do bazy
+     * @param employer
+     * @param user
+     * @return
+     */
     public Employer createEmployer(Employer employer, User user) {
         employer.setUser(user);
         employer = employerRepository.save(employer);
         return employer;
     }
 
+    /**
+     * usuwanie pracodawcy z bazy
+     * @param id
+     * @throws RuntimeException
+     */
     public void deleteEmployerById(Integer id) throws RuntimeException{
         Optional<Employer> employerOpt = employerRepository.findById(id);
         if (employerOpt.isPresent()){

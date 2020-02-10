@@ -44,21 +44,45 @@ public class JobOfferController {
     @Autowired
     private JobOfferRepository jobOfferRepository;
 
-    //wyświetlanie listy ofert pracy dla wszystkich
+    /**
+     * wyświetlanie listy ofert pracy dla wszystkich
+     * @param model
+     * @param title
+     * @param location
+     * @param category
+     * @param contractType
+     * @param workingTime
+     * @param positionLevel
+     * @param monthlyPay
+     * @param categorySalary
+     * @return
+     */
     @GetMapping("/all/jobOffers")
     public String getAllJobOffers(Model model, String title, String location, String category, String contractType, String workingTime, String positionLevel, Integer monthlyPay, String categorySalary) {
         List<JobOfferDTO> JobList = jobOfferRepository.getJobOfferFiltered(title, category, location, contractType, workingTime, positionLevel, monthlyPay,categorySalary);
         model.addAttribute("jobOffers", JobList);
         return "/all/jobOffers/viewJobs";
     }
-    //wyświetlanie wybranej oferty pracy
+
+    /**
+     * wyświetlanie wybranej oferty pracy
+     * @param model
+     * @param id
+     * @return
+     */
     @GetMapping(path = {"/all/jobOffers/viewSelectedJobOffer", "/all/jobOffers/viewSelectedJobOffer/{id}"})
     public String viewSelected(Model model,@PathVariable("id") Integer id) {
         List<JobOfferDTO> JobOfferList = jobOfferRepository.getSelectedJobOffer(id);
         model.addAttribute("jobOffers", JobOfferList);
         return "/all/jobOffers/selectedJobOffer";
     }
-    //wyświetlanie listy ofert pracy dodanych przez wybranego pracodawcę
+
+    /**
+     * wyświetlanie listy ofert pracy dodanych przez wybranego pracodawcę
+     * @param model
+     * @param id
+     * @return
+     */
     @GetMapping(path = "/all/getEmployerJobOffers/{id}")
     public String getEmployerJobOffersAll(Model model, @PathVariable("id") Integer id){
         List<JobOfferDTO> jobOfferDTOList = jobOfferRepository.getSelectedJobOfferByEmployerId(id);
@@ -67,13 +91,25 @@ public class JobOfferController {
     }
 
     //dla użytkownika
-    //wyświetlenie formularza aby dodać nową ofertę pracy przez pracodawcę
+
+    /**
+     * wyświetlenie formularza aby dodać nową ofertę pracy przez pracodawcę
+     * @param model
+     * @return
+     */
     @GetMapping(path = "/employer/jobOffers/createNew")
     public String addNewJobOffer(Model model){
         model.addAttribute("jobOffer", new JobOffer());
         return "/all/jobOffers/add-jobOffer";
     }
-    //dodanie nowej oferty pracy przez pracodawcę
+
+    /**
+     * dodanie nowej oferty pracy przez pracodawcę
+     * @param jobOffer
+     * @param bindingResult
+     * @param modelMap
+     * @return
+     */
     @PostMapping(path = "/employer/jobOffers/createJobOfferPost")
     public ModelAndView createJobOffer(@Valid JobOffer jobOffer, BindingResult bindingResult, ModelMap modelMap){
         ModelAndView modelAndView = new ModelAndView();
@@ -92,14 +128,33 @@ public class JobOfferController {
         modelAndView.setViewName("/all/jobOffers/add-jobOffer");
         return modelAndView;
     }
-    //wyświetlenie listy ofert pracy dla użytkownika
+
+    /**
+     * wyświetlenie listy ofert pracy dla użytkownika
+     * @param model
+     * @param title
+     * @param location
+     * @param category
+     * @param contractType
+     * @param workingTime
+     * @param positionLevel
+     * @param monthlyPay
+     * @param categorySalary
+     * @return
+     */
     @GetMapping(path = "/user/jobOffersFiltered")
     public String getAllJobOffersLogged(Model model, String title,  String location, String category, String contractType, String workingTime, String positionLevel, Integer monthlyPay, String categorySalary) {
         List<JobOfferDTO> JobList = jobOfferRepository.getJobOfferFiltered(title, category, location, contractType, workingTime, positionLevel,monthlyPay,categorySalary);
         model.addAttribute("jobOffers", JobList);
         return "/all/jobOffers/viewJobsLoginUser";
     }
-    //wyświetlenie wybranej oferty pracy przez użytkownika
+
+    /**
+     * wyświetlenie wybranej oferty pracy przez użytkownika
+     * @param model
+     * @param id
+     * @return
+     */
     @GetMapping(path = {"/user/jobOffers/viewSelectedJobOffer", "/user/jobOffers/viewSelectedJobOffer/{id}"})
     public String viewSelectedJobOfferUser(Model model,@PathVariable("id") Integer id) {
         model.addAttribute("profileProposition", new ProfileProposition());
@@ -107,7 +162,13 @@ public class JobOfferController {
         model.addAttribute("jobOffers", JobOfferList);
         return "/all/jobOffers/selectedJobOfferLogin";
     }
-    //wyswietlenie ofert pracy dodanych przez pracodawcę
+
+    /**
+     * wyswietlenie ofert pracy dodanych przez pracodawcę
+     * @param model
+     * @param id
+     * @return
+     */
     @GetMapping(path = "/user/getEmployerJobOffers/{id}")
     public String getEmployerJobOffers(Model model, @PathVariable("id") Integer id){
         model.addAttribute("profileProposition", new ProfileProposition());
@@ -115,7 +176,13 @@ public class JobOfferController {
         model.addAttribute("jobOffers", jobOfferDTOList);
         return "/all/jobOffers/selectedJobOfferLogin";
     }
-    //wyswietlenie ofert pracy dodanych przez pracodawcę
+
+    /**
+     * wyswietlenie ofert pracy dodanych przez pracodawcę
+     * @param model
+     * @param id
+     * @return
+     */
     @GetMapping(path = "/employer/getEmployerJobOffer/{id}")
     public String getUserJobOffer(Model model, @PathVariable("id") Integer id){
         model.addAttribute("jobOffer", new JobOffer());
@@ -124,20 +191,38 @@ public class JobOfferController {
         model.addAttribute("jobOffers", jobOfferDTOList);
         return "/all/jobOffers/viewUserJobOffers";
     }
-    //wyswietlenie formularza do edycji oferty pracy
+
+    /**
+     * wyswietlenie formularza do edycji oferty pracy
+     * @param model
+     * @param id
+     * @return
+     */
     @GetMapping(path ="/employer/jobOffers/editOffer/{id}")
     public String editJobOffer(Model model, @PathVariable("id") Integer id) {
         JobOffer jobOffer = jobOfferService.getJobOfferById(id);
         model.addAttribute("jobOffer", jobOffer);
         return "/all/jobOffers/edit-jobOffer";
     }
-    //usuwanie oferty pracy
+
+    /**
+     * usuwanie oferty pracy
+     * @param id
+     * @return
+     */
     @GetMapping(path = "/employer/jobOffers/delete/{id}")
     public String deleteJobOfferById(@PathVariable("id") Integer id) {
         jobOfferService.deleteJobOfferById(id);
         return "redirect:/employer/getEmployerJobOffer/"+idEmployer;
     }
-    //edytowanie oferty pracy
+
+    /**
+     * edytowanie oferty pracy
+     * @param jobOffer
+     * @param bindingResult
+     * @param modelMap
+     * @return
+     */
     @PostMapping(path = "/employer/jobOffers/updateJobOfferPost")
     public ModelAndView updateJobOffer(@Valid JobOffer jobOffer, BindingResult bindingResult, ModelMap modelMap){
         ModelAndView modelAndView = new ModelAndView();
@@ -153,21 +238,47 @@ public class JobOfferController {
     }
 
     // admin
-    //wyświetlenie listy ofert pracy dla admina
+
+    /**
+     * wyświetlenie listy ofert pracy dla admina
+     * @param model
+     * @param title
+     * @param location
+     * @param category
+     * @param contractType
+     * @param workingTime
+     * @param positionLevel
+     * @param monthlyPay
+     * @param categorySalary
+     * @return
+     */
     @GetMapping("/admin/jobOffers")
     public String getAllJobOffersAdmin(Model model, String title, String location, String category, String contractType, String workingTime, String positionLevel, Integer monthlyPay, String categorySalary) {
         List<JobOfferDTO> JobList = jobOfferRepository.getJobOfferFilteredAdmin(title, category, location, contractType, workingTime, positionLevel, monthlyPay,categorySalary);
         model.addAttribute("jobOffers", JobList);
         return "/all/jobOffers/allJobOffersAdmin";
     }
-    //wyświetlenie wybranej oferty pracy przez admina
+
+    /**
+     * wyświetlenie wybranej oferty pracy przez admina
+     * @param model
+     * @param id
+     * @return
+     */
     @GetMapping(path = {"/admin/jobOffers/editOffer", "/admin/jobOffers/editOffer/{id}"})
     public String editJobOfferAdmin(Model model, @PathVariable("id") Integer id) {
         JobOffer jobOffer = jobOfferService.getJobOfferById(id);
         model.addAttribute("jobOffer", jobOffer);
         return "/all/jobOffers/editJobOfferAdmin";
     }
-    //edytowanie oferty pracy przez admina
+
+    /**
+     * edytowanie oferty pracy przez admina
+     * @param jobOffer
+     * @param bindingResult
+     * @param modelMap
+     * @return
+     */
     @PostMapping(path = "/admin/jobOffers/updateJobOfferPost")
     public ModelAndView updateJobOfferAdmin(@Valid JobOffer jobOffer, BindingResult bindingResult, ModelMap modelMap){
         ModelAndView modelAndView = new ModelAndView();
@@ -181,13 +292,24 @@ public class JobOfferController {
         modelAndView.setViewName("/all/jobOffers/editJobOfferAdmin");
         return modelAndView;
     }
-    //usunięcie oferty pracy przez admina
+
+    /**
+     * usunięcie oferty pracy przez admina
+     * @param id
+     * @return
+     */
     @GetMapping(path = "/admin/jobOffers/delete/{id}")
     public String deleteJobOfferByIdAdmin(@PathVariable("id") Integer id) {
         jobOfferService.deleteJobOfferById(id);
         return "redirect:/admin/jobOffers";
     }
-    //wyświetlenie ofert pracy dodanych przez pracodawcę
+
+    /**
+     * wyświetlenie ofert pracy dodanych przez pracodawcę
+     * @param model
+     * @param id
+     * @return
+     */
     @GetMapping(path = "/admin/getEmployerJobOffers/{id}")
     public String getEmployerJobOffersAllAdmin(Model model, @PathVariable("id") Integer id){
         Userid = id;
@@ -195,7 +317,12 @@ public class JobOfferController {
         model.addAttribute("jobOffers", jobOfferDTOList);
         return "/all/jobOffers/allJobOffersAdmin";
     }
-    //wyświetlenie oferty pracy dodanej przez pracodawcę
+
+    /**
+     * wyświetlenie oferty pracy dodanej przez pracodawcę
+     * @param id
+     * @return
+     */
     @GetMapping(path = "/admin/userJobOffers/delete/{id}")
     public String deleteUserJobOfferByIdAdmin(@PathVariable("id") Integer id) {
         jobOfferService.deleteJobOfferById(id);

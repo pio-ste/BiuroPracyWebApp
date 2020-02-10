@@ -28,6 +28,13 @@ public class JobPropositionService {
         return jobPropositionRepository.findByEmployerIdEmployer(id);
     }
 
+    /**
+     * zapisywanie propozycji pracy
+     * @param jobProposition
+     * @param user
+     * @param employer
+     * @return
+     */
     public JobProposition createJobProposition(JobProposition jobProposition, User user, Employer employer){
         jobProposition.setUser(user);
         jobProposition.setEmployer(employer);
@@ -36,6 +43,11 @@ public class JobPropositionService {
         return jobProposition;
     }
 
+    /**
+     * zmiana decyzji propozycji pracy
+     * @param jobProposition
+     * @return
+     */
     public JobProposition updateJobProposition(JobProposition jobProposition) {
         Optional<JobProposition> jobPropOpt = jobPropositionRepository.findById(jobProposition.getIdJobProposition());
         if(jobPropOpt.isPresent()){
@@ -51,6 +63,11 @@ public class JobPropositionService {
         }
     }
 
+    /**
+     * aktualizowanie propozycji pracy w bazie przez admina
+     * @param jobProposition
+     * @return
+     */
     public JobProposition updateJobPropositionAdmin(JobProposition jobProposition) {
         Optional<JobProposition> jobPropOpt = jobPropositionRepository.findById(jobProposition.getIdJobProposition());
         if(jobPropOpt.isPresent()){
@@ -70,6 +87,11 @@ public class JobPropositionService {
         }
     }
 
+    /**
+     * usuwanie propozycji pracy z bazy
+     * @param id
+     * @throws RuntimeException
+     */
     public void deleteJobProposition(Integer id) throws RuntimeException{
         Optional<JobProposition> jobPropOpt = jobPropositionRepository.findById(id);
         if(jobPropOpt.isPresent()){

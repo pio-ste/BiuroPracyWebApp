@@ -24,13 +24,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private DataSource dataSource;
-    //zapytanie szukające użytkownika w bazie
+    /**
+     * zapytanie szukające użytkownika w bazie
+     */
     private final String userQuery = "select email,password, '1' from user " +
             "where email=? and status='ZWERYFIKOWANY'";
-    //szukanie roli przypisanej użytkownikowi
+    /**
+     * szukanie roli przypisanej użytkownikowi
+     */
     private final String roleQuery = "select u.email, r.role from user u inner join user_role ur" +
             " on(u.id_user=ur.id_user) inner join role r on(ur.id_role=r.id_role) where u.email=?";
-    //wywołanie zapytań do weryfikacji
+
+    /**
+     * wywołanie zapytań do weryfikacji
+     * @param auth
+     * @throws Exception
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication()
@@ -39,7 +48,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .dataSource(dataSource)
                 .passwordEncoder(bCryptPasswordEncoder);
     }
-    //przypisywanie uprawnień użytkownikom
+
+    /**
+     * przypisywanie uprawnień użytkownikom
+     * @param httpSecurity
+     * @throws Exception
+     */
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()

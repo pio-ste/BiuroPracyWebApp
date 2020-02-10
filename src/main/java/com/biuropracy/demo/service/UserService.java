@@ -34,6 +34,11 @@ public class UserService {
     @Autowired
     private EntityManagerService entityManagerService;
 
+    /**
+     * zapisywanie zdjęcia profilowego użytkownika
+     * @param id
+     * @param file
+     */
     @Transactional
     public void saveProfileImage(Integer id, MultipartFile file) {
         try {
@@ -50,6 +55,10 @@ public class UserService {
         }
     }
 
+    /**
+     * zapisywanie pracodawcy
+     * @param user
+     */
     public void saveEmployer(User user){
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setStatus("ZWERYFIKOWANY");
@@ -58,6 +67,10 @@ public class UserService {
         userRepository.save(user);
     }
 
+    /**
+     * zapisywanie użytkownika
+     * @param user
+     */
     public void saveUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setStatus("ZWERYFIKOWANY");
@@ -66,7 +79,11 @@ public class UserService {
         userRepository.save(user);
     }
 
-
+    /**
+     * aktualizowanie użytkownika
+     * @param user
+     * @return
+     */
     public User updateUser(User user){
         Optional<User> userOpt = userRepository.findById(user.getIdUser());
         if (userOpt.isPresent()) {
@@ -85,16 +102,24 @@ public class UserService {
         }
     }
 
-
     public boolean isUserAlreadyPresent(User user) {
         return false;
     }
 
-
+    /**
+     * szukanie użytkownika po adresie email
+     * @param email
+     * @return
+     */
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
+    /**
+     * szukanie użytkownika po id
+     * @param id
+     * @return
+     */
     public User findUser(Integer id) {
         Optional<User> userOpt = userRepository.findById(id);
         if (userOpt.isPresent()){
@@ -104,6 +129,11 @@ public class UserService {
         }
     }
 
+    /**
+     * usuwanie użytkownika z bazy
+     * @param id
+     * @throws RuntimeException
+     */
     public void deleteUserById(Integer id) throws RuntimeException{
         Optional<User> userInfoOpt = userRepository.findById(id);
         if (userInfoOpt.isPresent()){
@@ -119,6 +149,11 @@ public class UserService {
         }
     }
 
+    /**
+     * lista szukanie użytkownika po id
+     * @param idUser
+     * @return
+     */
     public List<User> findUserById(Integer idUser) {
         return userRepository.findUserByIdUser(idUser);
     }

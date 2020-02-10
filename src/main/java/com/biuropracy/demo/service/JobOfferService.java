@@ -28,6 +28,11 @@ public class JobOfferService {
         return jobOfferRepository.findByEmployerIdEmployer(id);
     }
 
+    /**
+     * szukanie oferty pracy po id
+     * @param id
+     * @return
+     */
     public JobOffer getJobOfferById(Integer id) {
         Optional<JobOffer> offer = jobOfferRepository.findById(id);
 
@@ -38,6 +43,11 @@ public class JobOfferService {
         }
     }
 
+    /**
+     * aktualizowanie oferty pracy
+     * @param jobOffer
+     * @return
+     */
     public JobOffer updateJobffer(JobOffer jobOffer){
             Optional<JobOffer> offer = jobOfferRepository.findById(jobOffer.getIdJobOffer());
             if (offer.isPresent()) {
@@ -62,12 +72,23 @@ public class JobOfferService {
             }
     }
 
+    /**
+     * zapisywanie oferty pracy w bazie
+     * @param jobOffer
+     * @param employer
+     * @return
+     */
     public JobOffer createJobOffer(JobOffer jobOffer, Employer employer) {
         jobOffer.setEmployer(employer);
         jobOffer = jobOfferRepository.save(jobOffer);
         return jobOffer;
     }
 
+    /**
+     * usuwanie oferty pracy z bazy
+     * @param id
+     * @throws RuntimeException
+     */
     public void deleteJobOfferById(Integer id) throws RuntimeException{
         Optional<JobOffer> offer = jobOfferRepository.findById(id);
         if (offer.isPresent()) {

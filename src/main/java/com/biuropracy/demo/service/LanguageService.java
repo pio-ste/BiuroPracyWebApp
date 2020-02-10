@@ -27,6 +27,11 @@ public class LanguageService {
         return languageRepository.findLanguageByUserIdUser(id);
     }
 
+    /**
+     * aktualizowanie języka obcego w bazie
+     * @param language
+     * @return
+     */
     public Language updateLanguage(Language language) {
         Optional<Language> languageOpt = languageRepository.findById(language.getIdLanguage());
         if (languageOpt.isPresent()) {
@@ -42,12 +47,23 @@ public class LanguageService {
         }
     }
 
+    /**
+     * zapisywanie języka obcego w bazie
+     * @param language
+     * @param user
+     * @return
+     */
     public Language createLanguage(Language language, User user) {
         language.setUser(user);
         language = languageRepository.save(language);
         return language;
     }
 
+    /**
+     * uswanie języka obcego w bazie
+     * @param id
+     * @throws RuntimeException
+     */
     public void deleteLanguageById(Integer id) throws RuntimeException{
         Optional<Language> languageOpt = languageRepository.findById(id);
         if (languageOpt.isPresent()) {

@@ -27,6 +27,11 @@ public class CourseService {
         return courseRepository.findByUserIdUser(id);
     }
 
+    /**
+     * aktualizowanie kursu
+     * @param course
+     * @return
+     */
     public Course updateCourse(Course course) {
         Optional<Course> courseOpt = courseRepository.findById(course.getIdCourse());
         if (courseOpt.isPresent()) {
@@ -45,12 +50,23 @@ public class CourseService {
         }
     }
 
+    /**
+     * zapisywanie kursu do bazy
+     * @param course
+     * @param user
+     * @return
+     */
     public Course createCourse(Course course, User user) {
         course.setUser(user);
         course = courseRepository.save(course);
         return course;
     }
 
+    /**
+     * usuwanie kursu za bazy
+     * @param id
+     * @throws RuntimeException
+     */
     public void deleteCourseById(Integer id) throws RuntimeException{
         Optional<Course> courseOpt = courseRepository.findById(id);
         if (courseOpt.isPresent()) {

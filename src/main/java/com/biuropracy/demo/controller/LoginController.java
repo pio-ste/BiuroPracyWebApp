@@ -21,14 +21,22 @@ public class LoginController {
 
     @Autowired
     EmployerService employerService;
-    //wyswietlenie fomularza logowania
+
+    /**
+     * wyswietlenie fomularza logowania
+     * @return
+     */
     @GetMapping(value = "/login")
     public ModelAndView login() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("login.html");
         return modelAndView;
     }
-    //wyswietlenie formularza logowania
+
+    /**
+     * wyswietlenie formularza logowania
+     * @return
+     */
     @GetMapping(value = "/register")
     public ModelAndView register() {
         ModelAndView modelAndView = new ModelAndView();
@@ -37,7 +45,14 @@ public class LoginController {
         modelAndView.setViewName("register.html");
         return modelAndView;
     }
-    //rejestracja użytkownika
+
+    /**
+     * rejestracja użytkownika
+     * @param user
+     * @param bindingResult
+     * @param modelMap
+     * @return
+     */
     @PostMapping(value = "/register")
     public ModelAndView registerUser(@Valid User user, BindingResult bindingResult, ModelMap modelMap) {
         ModelAndView modelAndView = new ModelAndView();
@@ -54,26 +69,37 @@ public class LoginController {
         modelAndView.setViewName("register.html");
         return modelAndView;
     }
-    //strona główna dla użytkownika
+
+    /**
+     * strona główna dla użytkownika
+     * @return
+     */
     @GetMapping(value = "/user/userHome")
     public ModelAndView homeUser() {
         ModelAndView modelAndView =new ModelAndView();
         modelAndView.setViewName("/user/userHome.html");
         return modelAndView;
     }
-    //wyświetlenie strony głównej dla pracodawcy
+
+    /**
+     * wyświetlenie strony głównej dla pracodawcy
+     * @return
+     */
     @GetMapping(value = "/employer/employerHome")
     public ModelAndView homeEmployee() {
         ModelAndView modelAndView =new ModelAndView();
         modelAndView.setViewName("/employer/employerHome.html");
         return modelAndView;
     }
-    //wyświetlenie strony głównej dla admina
+
+    /**
+     * wyświetlenie strony głównej dla admina
+     * @return
+     */
     @GetMapping(value = "/admin/adminHome")
     public ModelAndView homeAdmin() {
         ModelAndView modelAndView =new ModelAndView();
         modelAndView.setViewName("/admin/adminHome.html");
         return modelAndView;
     }
-
 }

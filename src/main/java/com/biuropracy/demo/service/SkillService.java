@@ -27,6 +27,11 @@ public class SkillService {
         return skillRepository.findSkillByUserIdUser(id);
     }
 
+    /**
+     * aktualizowanie doświadczenia zawodowego
+     * @param skill
+     * @return
+     */
     public Skill updateSkill(Skill skill) {
         Optional<Skill> skillOpt = skillRepository.findById(skill.getIdSkill());
         if (skillOpt.isPresent()) {
@@ -40,12 +45,23 @@ public class SkillService {
         }
     }
 
+    /**
+     * zapisywanie umiejętności do bazy
+     * @param skill
+     * @param user
+     * @return
+     */
     public Skill createSkill(Skill skill, User user) {
         skill.setUser(user);
         skill = skillRepository.save(skill);
         return skill;
     }
 
+    /**
+     * usuwanie umiejętności z bazy
+     * @param id
+     * @throws RuntimeException
+     */
     public void deleteSkillById(Integer id) throws RuntimeException{
         Optional<Skill> skillOpt = skillRepository.findById(id);
         if (skillOpt.isPresent()) {
